@@ -2,15 +2,21 @@ package it.unibo.jurassiko.model.territory.impl;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import it.unibo.jurassiko.model.territory.api.Territory;
 
 public class TerritoryImpl implements Territory {
 
     private String name;
     private String continent;
+    @JsonProperty("neighbours")
     private Set<String> neighbourNames;
 
+    @JsonIgnore
     private Set<Territory> neighbours;
+    @JsonIgnore
     private int dinoAmount = 0;
 
     private TerritoryImpl() {
