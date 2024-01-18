@@ -12,9 +12,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.jurassiko.model.objective.api.Objective;
+import it.unibo.jurassiko.model.objective.api.ObjectiveFactory;
 import it.unibo.jurassiko.model.objective.impl.ConquerContinentsObjective;
 import it.unibo.jurassiko.model.objective.impl.ConquerTerritoriesObjective;
 import it.unibo.jurassiko.model.objective.impl.DestroyArmyObjective;
+import it.unibo.jurassiko.model.objective.impl.ObjectiveFactoryImpl;
 
 // TODO: edit and adapt the tests to the JSON files once completed
 public class TestObjective {
@@ -24,13 +26,13 @@ public class TestObjective {
     private static final int NUM_CONQCONTINENTS = 2;
     private static final int NUM_DESTROYARMY = 3;
 
-    // private ObjectiveFactory objectiveFactory;
+    private ObjectiveFactory objectiveFactory;
     private Set<Objective> objectives;
 
     @BeforeEach
     public void setUp() {
-        // this.objectiveFactory = new ObjectiveFactoryImpl();
-        // this.objectives = this.objectiveFactory.createObjectives();
+        this.objectiveFactory = new ObjectiveFactoryImpl();
+        this.objectives = this.objectiveFactory.createObjectives();
     }
 
     @Test
