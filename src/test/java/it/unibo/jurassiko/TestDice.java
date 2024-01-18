@@ -3,7 +3,9 @@ package it.unibo.jurassiko;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -15,24 +17,30 @@ public class TestDice {
     private DiceImpl dice;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         this.dice = new DiceImpl();
     }
 
     @Test
-    public void testSetUp(){
+    public void testSetUp() {
         assertNotEquals(null, dice);
     }
 
     @Test
-    public void testRoll(){
-        Set<Integer> diceValues = new HashSet<>();
-        for (int i = 1; i <=6; i++){
+    public void testRoll() {
+        final Set<Integer> diceValues = new HashSet<>();
+        final List<Integer> counter = new ArrayList<>();
+        for (int i = 1; i <= 6; i++) {
             diceValues.add(i);
+            counter.add(0);
         }
-        for (int i = 0; i < 100; i++){
-            assertTrue(diceValues.contains(dice.roll()));
+
+        for (int i = 0; i < 100; i++) {
+            final int temp = dice.roll();
+            assertTrue(diceValues.contains(temp));
+            counter.set(temp - 1, counter.get(temp - 1) + 1);
         }
+        System.out.println(counter);
     }
-    
+
 }
