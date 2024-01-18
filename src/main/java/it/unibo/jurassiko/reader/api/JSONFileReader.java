@@ -1,7 +1,9 @@
 package it.unibo.jurassiko.reader.api;
 
-public interface JSONFileReader {
+import java.util.Set;
 
-    void parseJsonFile();
+public interface JSONFileReader<T> {
+
+    Set<T> readFileData(String filePath);
 
 }
