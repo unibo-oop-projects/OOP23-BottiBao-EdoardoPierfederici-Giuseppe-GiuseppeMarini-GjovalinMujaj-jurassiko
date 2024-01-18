@@ -11,10 +11,11 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.jurassiko.model.dice.api.Dice;
 import it.unibo.jurassiko.model.dice.impl.DiceImpl;
 
 public class TestDice {
-    private DiceImpl dice;
+    private Dice dice;
 
     @BeforeEach
     public void setUp() {
