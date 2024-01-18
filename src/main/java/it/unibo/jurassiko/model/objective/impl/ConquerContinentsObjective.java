@@ -2,9 +2,12 @@ package it.unibo.jurassiko.model.objective.impl;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ConquerContinentsObjective extends AbstractObjective {
 
     private final String type = "conquerContinents";
+    @JsonProperty("value")
     private Set<String> continents;
 
     public String getType() {

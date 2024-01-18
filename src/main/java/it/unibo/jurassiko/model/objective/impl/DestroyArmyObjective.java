@@ -1,8 +1,11 @@
 package it.unibo.jurassiko.model.objective.impl;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class DestroyArmyObjective extends AbstractObjective {
 
     private final String type = "destroyArmy";
+    @JsonProperty("value")
     private String armyColor;
 
     public String getType() {

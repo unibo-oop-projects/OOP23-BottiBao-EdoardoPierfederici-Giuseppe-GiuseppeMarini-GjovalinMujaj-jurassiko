@@ -1,9 +1,12 @@
 package it.unibo.jurassiko.model.objective.impl;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ConquerTerritoriesObjective extends AbstractObjective {
 
     private final String type = "conquerTerritories";
 
+    @JsonProperty("value")
     private int numTerritories;
     private int minDinos;
 
