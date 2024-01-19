@@ -11,19 +11,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.jurassiko.model.territory.api.Territory;
+import it.unibo.jurassiko.model.territory.api.TerritoryFactory;
+import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 
 public class TestTerritory {
 
     private static final int NUM_TOTAL_TERRITORIES = 0;
     // num territories per continent
 
-    // private TerritoryFactory territoryFactory;
+    private TerritoryFactory territoryFactory;
     private Set<Territory> territories;
 
     @BeforeEach
     public void setUp() {
-        // this.territoryFactory = new TerritoryFactoryImpl();
-        // this.territories = this.territoryFactory.createTerritories();
+        this.territoryFactory = new TerritoryFactoryImpl();
+        this.territories = this.territoryFactory.createTerritories();
     }
 
     @Test
