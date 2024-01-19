@@ -1,6 +1,7 @@
 package it.unibo.jurassiko.model.territory.impl;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -46,6 +47,14 @@ public class TerritoryImpl implements Territory {
     @Override
     public Set<Territory> getNeighbours() {
         return neighbours;
+    }
+
+    @Override
+    public boolean isNeighbour(String territoryName) {
+        return this.neighbours.stream()
+                .map(t -> t.getName())
+                .collect(Collectors.toSet())
+                .contains(territoryName);
     }
 
     @Override

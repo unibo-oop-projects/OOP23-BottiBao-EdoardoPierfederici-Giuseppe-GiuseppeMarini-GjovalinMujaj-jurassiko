@@ -21,6 +21,8 @@ public interface Territory {
 
     Set<Territory> getNeighbours();
 
+    boolean isNeighbour(String territoryName);
+
     void changeDinoAmount(int delta);
 
     int getDinoAmount();
