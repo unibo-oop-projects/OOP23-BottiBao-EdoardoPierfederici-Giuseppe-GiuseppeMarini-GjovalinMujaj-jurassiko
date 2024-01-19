@@ -22,4 +22,5 @@ public class DestroyArmyObjective extends AbstractObjective {
                 ". Se l'armata non è in gioco, "
                 + super.getDefaultObjectiveDescription().toLowerCase();
     }
+
 }

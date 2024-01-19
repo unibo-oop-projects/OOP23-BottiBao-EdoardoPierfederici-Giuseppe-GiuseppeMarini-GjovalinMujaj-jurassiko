@@ -24,4 +24,5 @@ public abstract class AbstractObjective implements Objective {
     protected String getDefaultObjectiveDescription() {
         return DEFAULT_OBJECTIVE_DESCRIPTION;
     }
+
 }

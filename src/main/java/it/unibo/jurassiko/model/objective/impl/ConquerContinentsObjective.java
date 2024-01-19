@@ -24,4 +24,5 @@ public class ConquerContinentsObjective extends AbstractObjective {
         result = result.concat(String.join(", ", this.continents)).concat(".");
         this.description = result;
     }
+
 }
