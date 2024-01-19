@@ -7,6 +7,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,6 +18,7 @@ import it.unibo.jurassiko.reader.api.JSONFileReader;
 
 public class TerritoryReader implements JSONFileReader<Territory> {
 
+    final Logger logger = LoggerFactory.getLogger(TerritoryReader.class);
     private final ObjectMapper mapper;
 
     public TerritoryReader() {
@@ -32,7 +36,7 @@ public class TerritoryReader implements JSONFileReader<Territory> {
                     });
             defineNeighbours(territories);
         } catch (final IOException e) {
-            System.out.println("Failed to read the file\n");
+            this.logger.error("Failed to read territories file", e);
         }
 
         return territories;

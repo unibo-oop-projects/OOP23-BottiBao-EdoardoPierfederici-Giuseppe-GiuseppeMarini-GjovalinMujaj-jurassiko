@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,6 +17,7 @@ import it.unibo.jurassiko.reader.api.JSONFileReader;
 
 public class ObjectiveReader implements JSONFileReader<Objective> {
 
+    final Logger logger = LoggerFactory.getLogger(ObjectiveReader.class);
     private final ObjectMapper mapper;
 
     public ObjectiveReader() {
@@ -30,7 +34,7 @@ public class ObjectiveReader implements JSONFileReader<Objective> {
                     });
             writeDescriptions(objectives);
         } catch (final IOException e) {
-            System.out.println("Impossibile leggere il file\n"); // TODO: logger?
+            this.logger.error("Failed to read objectives file", e);
         }
 
         return objectives;
