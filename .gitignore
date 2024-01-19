@@ -8,7 +8,13 @@ bin/
 # Ignore Idea customizations
 .idea
 
+# Ignore VSCode directory
+.vscode
+
 # Ignore Eclipse settings
 .project
 .settings/
 .classpath
+
+# Ignore log files
+*.log
