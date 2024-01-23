@@ -40,7 +40,7 @@ public class TerritoryImpl implements Territory {
     }
 
     @Override
-    public void setNeighbours(Set<Territory> neighbours) {
+    public void setNeighbours(final Set<Territory> neighbours) {
         this.neighbours = neighbours;
     }
 
@@ -50,7 +50,7 @@ public class TerritoryImpl implements Territory {
     }
 
     @Override
-    public boolean isNeighbour(String territoryName) {
+    public boolean isNeighbour(final String territoryName) {
         return this.neighbours.stream()
                 .map(t -> t.getName())
                 .collect(Collectors.toSet())
@@ -58,7 +58,7 @@ public class TerritoryImpl implements Territory {
     }
 
     @Override
-    public void changeDinoAmount(int delta) {
+    public void changeDinoAmount(final int delta) {
         this.dinoAmount += delta;
     }
 
