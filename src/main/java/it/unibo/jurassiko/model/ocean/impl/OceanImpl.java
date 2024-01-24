@@ -2,6 +2,7 @@ package it.unibo.jurassiko.model.ocean.impl;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import it.unibo.jurassiko.model.ocean.api.Ocean;
@@ -15,7 +16,9 @@ public class OceanImpl implements Ocean {
     @JsonProperty("territories")
     private Set<String> adjTerritoryNames;
 
+    @JsonIgnore
     private Set<Ocean> neighbours;
+    @JsonIgnore
     private Set<Territory> adjTerritories;
 
     private OceanImpl() {
@@ -38,12 +41,12 @@ public class OceanImpl implements Ocean {
     }
 
     @Override
-    public void setNeighbours(Set<Ocean> neighbours) {
+    public void setNeighbours(final Set<Ocean> neighbours) {
         this.neighbours = neighbours;
     }
 
     @Override
-    public void setAdjTerritories(Set<Territory> adjTerritories) {
+    public void setAdjTerritories(final Set<Territory> adjTerritories) {
         this.adjTerritories = adjTerritories;
     }
 
@@ -58,13 +61,13 @@ public class OceanImpl implements Ocean {
     }
 
     @Override
-    public boolean isNeighbour(String oceanName) {
+    public boolean isNeighbour(final String oceanName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isNeighbour'");
     }
 
     @Override
-    public boolean isAdjTerritory(String territoryName) {
+    public boolean isAdjTerritory(final String territoryName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'isAdjTerritory'");
     }
