@@ -1,0 +1,24 @@
+[
+    {
+        "name": "Oceano Pacifico",
+        "neighbours": [
+            "Oceano Tetide"
+        ],
+        "territories": []
+    },
+    {
+        "name": "Oceano Tetide",
+        "neighbours": [
+            "Oceano Pacifico",
+            "Oceano Atlantico"
+        ],
+        "territories": []
+    },
+    {
+        "name": "Oceano Atlantico",
+        "neighbours": [
+            "Oceano Tetide"
+        ],
+        "territories": []
+    }
+]
