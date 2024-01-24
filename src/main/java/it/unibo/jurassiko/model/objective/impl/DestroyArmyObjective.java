@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DestroyArmyObjective extends AbstractObjective {
 
-    private final String type = "destroyArmy";
+    private static final String type = "destroyArmy";
     @JsonProperty("value")
     private String armyColor;
 

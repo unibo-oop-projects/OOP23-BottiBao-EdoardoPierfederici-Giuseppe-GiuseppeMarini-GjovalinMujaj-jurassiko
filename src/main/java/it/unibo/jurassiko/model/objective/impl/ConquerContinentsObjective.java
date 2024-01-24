@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ConquerContinentsObjective extends AbstractObjective {
 
-    private final String type = "conquerContinents";
+    private static final String type = "conquerContinents";
     @JsonProperty("value")
     private Set<String> continents;
 
