@@ -27,7 +27,7 @@ public class TestTerritory {
     private Set<Territory> territories;
 
     @BeforeEach
-    public void setUp() {
+    public void initFactory() {
         this.territoryFactory = new TerritoryFactoryImpl();
         this.territories = this.territoryFactory.createTerritories();
     }

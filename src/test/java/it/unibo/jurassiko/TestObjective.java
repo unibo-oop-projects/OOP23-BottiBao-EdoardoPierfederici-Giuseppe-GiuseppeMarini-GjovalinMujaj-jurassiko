@@ -30,7 +30,7 @@ public class TestObjective {
     private Set<Objective> objectives;
 
     @BeforeEach
-    public void setUp() {
+    public void initFactory() {
         this.objectiveFactory = new ObjectiveFactoryImpl();
         this.objectives = this.objectiveFactory.createObjectives();
     }
