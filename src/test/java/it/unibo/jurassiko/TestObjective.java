@@ -39,6 +39,7 @@ public class TestObjective {
     public void testObjectiveReader() {
         assertNotNull(objectives);
         assertFalse(objectives.isEmpty());
+
         assertEquals(NUM_TOTAL_OBJECTIVES, objectives.size());
         assertEquals(NUM_CONQCONTINENTS,
                 objectives.stream().filter(ConquerContinentsObjective.class::isInstance).count());
@@ -67,7 +68,6 @@ public class TestObjective {
                 .findAny()
                 .get()
                 .getDescription();
-
         assertTrue(actualDescription.equals(description1) || actualDescription.equals(description2));
     }
 
