@@ -29,10 +29,9 @@ public class OceanReader implements JSONFileReader<Ocean> {
 
     @Override
     public Set<Ocean> readFileData(String path) {
-        final InputStream in = Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(path));
         Set<Ocean> oceans = new HashSet<>();
 
-        try {
+        try (final InputStream in = Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(path))) {
             oceans = mapper.readValue(in,
                     new TypeReference<Set<Ocean>>() {
                     });
