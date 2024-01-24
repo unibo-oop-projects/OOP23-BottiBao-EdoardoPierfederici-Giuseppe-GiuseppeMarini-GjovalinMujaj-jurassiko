@@ -59,7 +59,7 @@ public class TestTerritory {
 
         assertTrue(territories.stream().anyMatch(t -> t.getName().equals(name)));
 
-        Territory sampleTerritory = territories.stream().filter(t -> t.getName().equals(name)).findAny().get();
+        final Territory sampleTerritory = territories.stream().filter(t -> t.getName().equals(name)).findAny().get();
         assertEquals(continent, sampleTerritory.getContinent());
         assertEquals(neighbours, sampleTerritory.getNeighbourNames());
 
