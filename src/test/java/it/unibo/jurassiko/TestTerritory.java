@@ -62,6 +62,8 @@ public class TestTerritory {
         Territory sampleTerritory = territories.stream().filter(t -> t.getName().equals(name)).findAny().get();
         assertEquals(continent, sampleTerritory.getContinent());
         assertEquals(neighbours, sampleTerritory.getNeighbourNames());
+
+        // TODO: add more samples?
     }
 
     // TODO: add missing tests
