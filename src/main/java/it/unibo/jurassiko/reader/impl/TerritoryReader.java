@@ -27,10 +27,9 @@ public class TerritoryReader implements JSONFileReader<Territory> {
 
     @Override
     public Set<Territory> readFileData(String path) {
-        final InputStream in = Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(path));
         Set<Territory> territories = new HashSet<>();
 
-        try {
+        try (final InputStream in = Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(path))) {
             territories = mapper.readValue(in,
                     new TypeReference<Set<Territory>>() {
                     });
