@@ -1,5 +1,6 @@
 package it.unibo.jurassiko.model.ocean.impl;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -32,32 +33,32 @@ public class OceanImpl implements Ocean {
 
     @Override
     public Set<String> getNeighbourNames() {
-        return neighbourNames;
+        return Set.copyOf(neighbourNames);
     }
 
     @Override
     public Set<String> getAdjTerritoryNames() {
-        return adjTerritoryNames;
+        return Set.copyOf(adjTerritoryNames);
     }
 
     @Override
     public void setNeighbours(final Set<Ocean> neighbours) {
-        this.neighbours = neighbours;
+        this.neighbours = new HashSet<>(neighbours);
     }
 
     @Override
     public void setAdjTerritories(final Set<Territory> adjTerritories) {
-        this.adjTerritories = adjTerritories;
+        this.adjTerritories = new HashSet<>(adjTerritories);
     }
 
     @Override
     public Set<Ocean> getNeighbours() {
-        return neighbours;
+        return Set.copyOf(neighbours);
     }
 
     @Override
     public Set<Territory> getAdjTerritories() {
-        return adjTerritories;
+        return Set.copyOf(adjTerritories);
     }
 
     @Override

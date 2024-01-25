@@ -15,7 +15,7 @@ public class ConquerContinentsObjective extends AbstractObjective {
     }
 
     public Set<String> getContinents() {
-        return continents;
+        return Set.copyOf(continents);
     }
 
     @Override

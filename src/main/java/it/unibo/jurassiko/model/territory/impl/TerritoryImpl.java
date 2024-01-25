@@ -1,5 +1,6 @@
 package it.unibo.jurassiko.model.territory.impl;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,17 +37,17 @@ public class TerritoryImpl implements Territory {
 
     @Override
     public Set<String> getNeighbourNames() {
-        return neighbourNames;
+        return Set.copyOf(neighbourNames);
     }
 
     @Override
     public void setNeighbours(final Set<Territory> neighbours) {
-        this.neighbours = neighbours;
+        this.neighbours = new HashSet<>(neighbours);
     }
 
     @Override
     public Set<Territory> getNeighbours() {
-        return neighbours;
+        return Set.copyOf(neighbours);
     }
 
     @Override
