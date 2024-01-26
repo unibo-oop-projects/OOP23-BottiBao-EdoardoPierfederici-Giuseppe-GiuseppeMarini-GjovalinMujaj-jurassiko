@@ -4,7 +4,7 @@ import it.unibo.jurassiko.model.objective.api.Objective;
 
 public abstract class AbstractObjective implements Objective {
 
-    private final static String DEFAULT_OBJECTIVE_DESCRIPTION = "Conquista 12 territori e 2 oceani.";
+    private final static String DEFAULT_OBJECTIVE_DESCRIPTION = "Conquista 12 territori.";
 
     protected String description = "";
     private boolean achieved = false;
