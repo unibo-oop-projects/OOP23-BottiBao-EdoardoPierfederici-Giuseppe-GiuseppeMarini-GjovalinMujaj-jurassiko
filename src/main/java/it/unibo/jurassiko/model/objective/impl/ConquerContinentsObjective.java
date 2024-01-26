@@ -9,6 +9,8 @@ public class ConquerContinentsObjective extends AbstractObjective {
     private static final String type = "conquerContinents";
     @JsonProperty("value")
     private Set<String> continents;
+    @JsonProperty("selectable")
+    private boolean selectableContinent;
 
     public String getType() {
         return type;
@@ -20,8 +22,13 @@ public class ConquerContinentsObjective extends AbstractObjective {
 
     @Override
     public void writeDescription() {
-        String result = "Conquista i seguenti continenti: ";
-        result = result.concat(String.join(", ", this.continents)).concat(".");
+        // TODO: semplificare con uno StringBuilder
+        String result = "Conquista la totalità dei seguenti continenti: ";
+        result = result.concat(String.join(", ", this.continents));
+        if (this.selectableContinent) {
+            result = result.concat("e un continente a scelta");
+        }
+        result = result.concat(".");
         this.description = result;
     }
 
