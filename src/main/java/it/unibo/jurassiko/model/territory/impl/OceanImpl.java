@@ -9,16 +9,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
 
-public class OceanImpl implements Ocean {
+public class OceanImpl extends AbstractBoardArea<Ocean> implements Ocean {
 
-    private String name;
-    @JsonProperty("neighbours")
-    private Set<String> neighbourNames;
     @JsonProperty("territories")
     private Set<String> adjTerritoryNames;
 
-    @JsonIgnore
-    private Set<Ocean> neighbours;
     @JsonIgnore
     private Set<Territory> adjTerritories;
 
@@ -27,33 +22,13 @@ public class OceanImpl implements Ocean {
     }
 
     @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public Set<String> getNeighbourNames() {
-        return Set.copyOf(neighbourNames);
-    }
-
-    @Override
     public Set<String> getAdjTerritoryNames() {
         return Set.copyOf(adjTerritoryNames);
     }
 
     @Override
-    public void setNeighbours(final Set<Ocean> neighbours) {
-        this.neighbours = new HashSet<>(neighbours);
-    }
-
-    @Override
     public void setAdjTerritories(final Set<Territory> adjTerritories) {
         this.adjTerritories = new HashSet<>(adjTerritories);
-    }
-
-    @Override
-    public Set<Ocean> getNeighbours() {
-        return Set.copyOf(neighbours);
     }
 
     @Override
