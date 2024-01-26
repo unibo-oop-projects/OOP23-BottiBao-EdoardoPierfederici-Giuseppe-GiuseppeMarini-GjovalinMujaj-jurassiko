@@ -1,4 +1,4 @@
-package it.unibo.jurassiko.model.ocean.api;
+package it.unibo.jurassiko.model.territory.api;
 
 import java.util.Set;
 

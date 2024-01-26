@@ -9,9 +9,9 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.jurassiko.model.ocean.api.Ocean;
-import it.unibo.jurassiko.model.ocean.api.OceanFactory;
-import it.unibo.jurassiko.model.ocean.impl.OceanFactoryImpl;
+import it.unibo.jurassiko.model.territory.api.Ocean;
+import it.unibo.jurassiko.model.territory.api.OceanFactory;
+import it.unibo.jurassiko.model.territory.impl.OceanFactoryImpl;
 
 public class TestOcean {
 

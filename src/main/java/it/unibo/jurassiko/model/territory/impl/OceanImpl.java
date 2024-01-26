@@ -1,4 +1,4 @@
-package it.unibo.jurassiko.model.ocean.impl;
+package it.unibo.jurassiko.model.territory.impl;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,7 +6,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import it.unibo.jurassiko.model.ocean.api.Ocean;
+import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
 
 public class OceanImpl implements Ocean {

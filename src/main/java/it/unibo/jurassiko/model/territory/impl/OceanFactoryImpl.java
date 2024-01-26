@@ -1,10 +1,10 @@
-package it.unibo.jurassiko.model.ocean.impl;
+package it.unibo.jurassiko.model.territory.impl;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import it.unibo.jurassiko.model.ocean.api.Ocean;
-import it.unibo.jurassiko.model.ocean.api.OceanFactory;
+import it.unibo.jurassiko.model.territory.api.Ocean;
+import it.unibo.jurassiko.model.territory.api.OceanFactory;
 import it.unibo.jurassiko.reader.api.JSONFileReader;
 import it.unibo.jurassiko.reader.impl.OceanReader;
 

@@ -2,7 +2,6 @@ package it.unibo.jurassiko.model.territory.api;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import it.unibo.jurassiko.model.BoardArea;
 import it.unibo.jurassiko.model.territory.impl.TerritoryImpl;
 
 @JsonDeserialize(as = TerritoryImpl.class)
