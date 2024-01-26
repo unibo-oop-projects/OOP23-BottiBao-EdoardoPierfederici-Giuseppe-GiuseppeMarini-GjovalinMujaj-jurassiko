@@ -21,9 +21,9 @@ import it.unibo.jurassiko.model.objective.impl.ObjectiveFactoryImpl;
 // TODO: edit and adapt the tests to the JSON files once completed
 public class TestObjective {
 
-    private static final int NUM_TOTAL_OBJECTIVES = 7;
+    private static final int NUM_TOTAL_OBJECTIVES = 8;
     private static final int NUM_CONQTERRITORIES = 2;
-    private static final int NUM_CONQCONTINENTS = 2;
+    private static final int NUM_CONQCONTINENTS = 3;
     private static final int NUM_DESTROYARMY = 3;
 
     private ObjectiveFactory objectiveFactory;
@@ -51,9 +51,9 @@ public class TestObjective {
 
     @Test
     public void testConquerContinents() {
-        final Set<String> continents = Set.of("Europa", "Nord America");
-        final String description1 = "Conquista i seguenti continenti: Europa, Nord America.";
-        final String description2 = "Conquista i seguenti continenti: Nord America, Europa.";
+        final Set<String> continents = Set.of("Gondwana Occidentale", "Nord America");
+        final String description1 = "Conquista la totalità dei seguenti continenti: Gondwana Occidentale, Nord America.";
+        final String description2 = "Conquista la totalità dei seguenti continenti: Nord America, Gondwana Occidentale.";
 
         final var conquerContinentsObjectives = objectives.stream()
                 .filter(ConquerContinentsObjective.class::isInstance)
