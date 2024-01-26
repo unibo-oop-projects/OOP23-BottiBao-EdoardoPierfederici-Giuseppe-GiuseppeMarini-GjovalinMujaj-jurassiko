@@ -1,47 +1,22 @@
 package it.unibo.jurassiko.reader.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
-import it.unibo.jurassiko.reader.api.JSONFileReader;
 
 // TODO: complete defineAdjTerritories if needed
-public class OceanReader implements JSONFileReader<Ocean> {
-
-    final Logger logger = LoggerFactory.getLogger(OceanReader.class);
-    private final ObjectMapper mapper;
+public class OceanReader extends AbstractJSONFileReader<Ocean> {
 
     public OceanReader() {
-        this.mapper = new ObjectMapper();
+        super(Ocean.class);
     }
 
     @Override
-    public Set<Ocean> readFileData(String path) {
-        Set<Ocean> oceans = new HashSet<>();
-
-        try (final InputStream in = Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(path))) {
-            oceans = mapper.readValue(in,
-                    new TypeReference<Set<Ocean>>() {
-                    });
-            defineNeighbours(oceans);
-            // defineAdjTerritories(oceans);
-        } catch (final IOException e) {
-            this.logger.error("Failed to read territories file", e);
-        }
-
-        return oceans;
+    protected void buildAttributes(Set<Ocean> oceans) {
+        defineNeighbours(oceans);
+        // defineAdjTerritories(oceans);
     }
 
     private void defineNeighbours(Set<Ocean> oceans) {

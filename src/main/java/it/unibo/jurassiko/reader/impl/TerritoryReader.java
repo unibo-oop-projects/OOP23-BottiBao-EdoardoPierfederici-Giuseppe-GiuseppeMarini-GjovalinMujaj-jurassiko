@@ -1,44 +1,19 @@
 package it.unibo.jurassiko.reader.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import it.unibo.jurassiko.model.territory.api.Territory;
-import it.unibo.jurassiko.reader.api.JSONFileReader;
 
-public class TerritoryReader implements JSONFileReader<Territory> {
-
-    final Logger logger = LoggerFactory.getLogger(TerritoryReader.class);
-    private final ObjectMapper mapper;
+public class TerritoryReader extends AbstractJSONFileReader<Territory> {
 
     public TerritoryReader() {
-        this.mapper = new ObjectMapper();
+        super(Territory.class);
     }
 
     @Override
-    public Set<Territory> readFileData(String path) {
-        Set<Territory> territories = new HashSet<>();
-
-        try (final InputStream in = Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(path))) {
-            territories = mapper.readValue(in,
-                    new TypeReference<Set<Territory>>() {
-                    });
-            defineNeighbours(territories);
-        } catch (final IOException e) {
-            this.logger.error("Failed to read territories file", e);
-        }
-
-        return territories;
+    protected void buildAttributes(Set<Territory> data) {
+        defineNeighbours(data);
     }
 
     private void defineNeighbours(Set<Territory> territories) {
