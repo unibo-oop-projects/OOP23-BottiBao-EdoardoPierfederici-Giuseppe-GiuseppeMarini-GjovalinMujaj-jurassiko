@@ -1,7 +1,6 @@
 package it.unibo.jurassiko.model.territory.impl;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import it.unibo.jurassiko.model.territory.api.Territory;
 
