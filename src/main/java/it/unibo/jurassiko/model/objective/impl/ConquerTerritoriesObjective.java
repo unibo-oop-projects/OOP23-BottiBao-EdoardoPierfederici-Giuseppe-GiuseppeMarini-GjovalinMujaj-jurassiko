@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ConquerTerritoriesObjective extends AbstractObjective {
 
-    private static final String type = "conquerTerritories";
+    private static final String TYPE = "conquerTerritories";
 
     @JsonProperty("value")
     private int numTerritories;
     private int minDinos;
 
     public String getType() {
-        return type;
+        return TYPE;
     }
 
     public int getNumTerritories() {

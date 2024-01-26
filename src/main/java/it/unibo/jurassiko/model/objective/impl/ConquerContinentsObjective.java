@@ -6,14 +6,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ConquerContinentsObjective extends AbstractObjective {
 
-    private static final String type = "conquerContinents";
+    private static final String TYPE = "conquerContinents";
     @JsonProperty("value")
     private Set<String> continents;
     @JsonProperty("selectable")
     private boolean selectableContinent;
 
     public String getType() {
-        return type;
+        return TYPE;
     }
 
     public Set<String> getContinents() {

@@ -6,12 +6,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DestroyArmyObjective extends AbstractObjective {
 
-    private static final String type = "destroyArmy";
+    private static final String TYPE = "destroyArmy";
     @JsonProperty("value")
     private String armyColor;
 
     public String getType() {
-        return type;
+        return TYPE;
     }
 
     public String getArmyColor() {
@@ -20,8 +20,9 @@ public class DestroyArmyObjective extends AbstractObjective {
 
     @Override
     public void writeDescription() {
-        this.description = "Distruggi l'armata di colore " + this.armyColor.toLowerCase(Locale.ROOT) +
-                ". Se l'armata non è in gioco, "
+        this.description = "Distruggi l'armata di colore "
+                + this.armyColor.toLowerCase(Locale.ROOT)
+                + ". Se l'armata non è in gioco, "
                 + super.getDefaultObjectiveDescription().toLowerCase(Locale.ROOT);
     }
 
