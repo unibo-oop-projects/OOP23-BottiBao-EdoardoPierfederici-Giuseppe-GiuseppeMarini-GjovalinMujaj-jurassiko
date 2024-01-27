@@ -35,7 +35,7 @@ public class ConquerContinentsObjective extends AbstractObjective {
      * {@inheritDoc}
      */
     @Override
-    protected void writeDescription() {
+    public void writeDescription() {
         // TODO: semplificare con uno StringBuilder
         String result = "Conquista la totalità dei seguenti continenti: ";
         result = result.concat(String.join(", ", this.continents));

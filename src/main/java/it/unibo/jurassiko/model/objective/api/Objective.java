@@ -32,6 +32,12 @@ public interface Objective {
     boolean isAchieved();
 
     /**
+     * Processes the description of the objective using data parsed from the
+     * configuration file.
+     */
+    void writeDescription();
+
+    /**
      * @return the description of the objective
      */
     String getDescription();

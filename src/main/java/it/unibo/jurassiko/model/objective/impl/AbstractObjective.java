@@ -38,10 +38,9 @@ public abstract class AbstractObjective implements Objective {
     }
 
     /**
-     * Processes the description of the objective using data parsed from the
-     * configuration file.
+     * {@inheritDoc}
      */
-    protected abstract void writeDescription();
+    public abstract void writeDescription();
 
     /**
      * @return the description of the default objective
