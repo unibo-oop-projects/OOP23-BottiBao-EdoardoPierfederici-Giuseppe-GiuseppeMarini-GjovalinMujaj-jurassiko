@@ -4,21 +4,33 @@ import java.util.Locale;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Implementation of objectives based on destroying an enemy army.
+ */
 public class DestroyArmyObjective extends AbstractObjective {
 
     private static final String TYPE = "destroyArmy";
     @JsonProperty("value")
     private String armyColor;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getType() {
         return TYPE;
     }
 
+    /**
+     * @return the color of the army to destroy
+     */
     public String getArmyColor() {
         return armyColor;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void writeDescription() {
         this.description = "Distruggi l'armata di colore "

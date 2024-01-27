@@ -10,20 +10,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class ConquerContinentsObjective extends AbstractObjective {
 
     private static final String TYPE = "conquerContinents";
+
     @JsonProperty("value")
     private Set<String> continents;
     @JsonProperty("selectable")
     private boolean selectableContinent;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getType() {
         return TYPE;
     }
 
+    /**
+     * @return a copy of the continents to conquer
+     */
     public Set<String> getContinents() {
         return Set.copyOf(continents);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void writeDescription() {
         // TODO: semplificare con uno StringBuilder

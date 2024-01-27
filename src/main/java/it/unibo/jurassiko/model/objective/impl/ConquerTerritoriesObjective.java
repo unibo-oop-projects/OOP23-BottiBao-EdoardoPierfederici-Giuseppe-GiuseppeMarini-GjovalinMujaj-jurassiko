@@ -2,6 +2,9 @@ package it.unibo.jurassiko.model.objective.impl;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Implementation of objectives based on conquest of a number of territories.
+ */
 public class ConquerTerritoriesObjective extends AbstractObjective {
 
     private static final String TYPE = "conquerTerritories";
@@ -10,19 +13,32 @@ public class ConquerTerritoriesObjective extends AbstractObjective {
     private int numTerritories;
     private int minDinos;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getType() {
         return TYPE;
     }
 
+    /**
+     * @return the amount of territories to conquer
+     */
     public int getNumTerritories() {
         return numTerritories;
     }
 
+    /**
+     * @return the amount of dinos each territory must have (0 if there is no such
+     *         restriction)
+     */
     public int getMinDinos() {
         return minDinos;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void writeDescription() {
         String result = "Conquista " + this.numTerritories + " territori";
