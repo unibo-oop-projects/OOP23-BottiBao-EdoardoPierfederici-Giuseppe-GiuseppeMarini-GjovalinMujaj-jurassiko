@@ -10,7 +10,7 @@ public abstract class AbstractObjective implements Objective {
     private static final String DEFAULT_OBJECTIVE_DESCRIPTION = "Conquista 12 territori.";
 
     private String description = "";
-    private boolean achieved = false;
+    private final boolean achieved = false;
 
     /**
      * {@inheritDoc}
@@ -33,7 +33,7 @@ public abstract class AbstractObjective implements Objective {
      * 
      * @param description the objective description
      */
-    protected void setDescription(String description) {
+    protected void setDescription(final String description) {
         this.description = description;
     }
 

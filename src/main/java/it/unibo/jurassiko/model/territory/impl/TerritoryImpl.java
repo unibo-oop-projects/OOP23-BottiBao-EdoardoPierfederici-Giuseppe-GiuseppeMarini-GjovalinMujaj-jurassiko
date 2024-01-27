@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.unibo.jurassiko.model.territory.api.Territory;
 
 /**
- * Implementation of the game territory
+ * Implementation of the game territory.
  */
 public final class TerritoryImpl extends AbstractBoardArea<Territory> implements Territory {
 

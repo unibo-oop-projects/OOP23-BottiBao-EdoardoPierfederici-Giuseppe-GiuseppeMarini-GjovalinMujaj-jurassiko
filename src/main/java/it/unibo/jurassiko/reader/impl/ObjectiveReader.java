@@ -9,6 +9,9 @@ import it.unibo.jurassiko.model.objective.api.Objective;
  */
 public class ObjectiveReader extends AbstractJSONFileReader<Objective> {
 
+    /**
+     * Creates an ObjectiveReader.
+     */
     public ObjectiveReader() {
         super(Objective.class);
     }

@@ -13,6 +13,9 @@ import it.unibo.jurassiko.model.territory.api.Territory;
  */
 public class OceanReader extends AbstractJSONFileReader<Ocean> {
 
+    /**
+     * Creates an OceanReader.
+     */
     public OceanReader() {
         super(Ocean.class);
     }
