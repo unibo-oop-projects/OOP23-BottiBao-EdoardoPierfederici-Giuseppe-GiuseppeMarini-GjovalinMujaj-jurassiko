@@ -1,4 +1,4 @@
-package it.unibo.jurassiko;
+package it.unibo.jurassiko.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
