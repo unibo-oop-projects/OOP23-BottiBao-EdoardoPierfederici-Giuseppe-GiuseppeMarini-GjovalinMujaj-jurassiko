@@ -14,6 +14,9 @@ import org.junit.jupiter.api.Test;
 import it.unibo.jurassiko.model.dice.api.Dice;
 import it.unibo.jurassiko.model.dice.impl.DiceImpl;
 
+/**
+ * Test for the Dice Class
+ */
 public class TestDice {
 
     private Dice dice;
