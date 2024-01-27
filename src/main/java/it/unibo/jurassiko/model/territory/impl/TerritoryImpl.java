@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import it.unibo.jurassiko.model.territory.api.Territory;
 
+/**
+ * Implementation of the game territory
+ */
 public class TerritoryImpl extends AbstractBoardArea<Territory> implements Territory {
 
     private String continent;
@@ -15,16 +18,25 @@ public class TerritoryImpl extends AbstractBoardArea<Territory> implements Terri
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getContinent() {
         return continent;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void changeDinoAmount(final int delta) {
         this.dinoAmount += delta;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getDinoAmount() {
         return dinoAmount;

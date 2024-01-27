@@ -8,6 +8,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import it.unibo.jurassiko.model.territory.api.BoardArea;
 
+/**
+ * Abstract class implementing common functionality for both Territory and
+ * Ocean.
+ * 
+ * @param <T> The type of the specific area (Territory or Ocean)
+ */
 public abstract class AbstractBoardArea<T extends BoardArea<T>> implements BoardArea<T> {
 
     private String name;
@@ -21,26 +27,41 @@ public abstract class AbstractBoardArea<T extends BoardArea<T>> implements Board
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<String> getNeighbourNames() {
         return Set.copyOf(neighbourNames);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setNeighbours(Set<T> neighbours) {
         this.neighbours = new HashSet<>(neighbours);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<T> getNeighbours() {
         return Set.copyOf(neighbours);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isNeighbour(String name) {
         return neighbours.stream()
