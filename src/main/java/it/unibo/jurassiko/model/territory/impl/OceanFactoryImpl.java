@@ -8,10 +8,16 @@ import it.unibo.jurassiko.model.territory.api.OceanFactory;
 import it.unibo.jurassiko.reader.api.JSONFileReader;
 import it.unibo.jurassiko.reader.impl.OceanReader;
 
+/**
+ * Implementation of the factory for the game oceans.
+ */
 public class OceanFactoryImpl implements OceanFactory {
 
     private static final String PATH = "oceans.json";
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<Ocean> createOceans() {
         final JSONFileReader<Ocean> oceanReader = new OceanReader();

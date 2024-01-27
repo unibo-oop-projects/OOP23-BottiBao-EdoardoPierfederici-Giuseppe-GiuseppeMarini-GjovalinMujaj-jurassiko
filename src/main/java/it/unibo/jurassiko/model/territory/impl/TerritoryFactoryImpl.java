@@ -8,10 +8,16 @@ import it.unibo.jurassiko.model.territory.api.TerritoryFactory;
 import it.unibo.jurassiko.reader.api.JSONFileReader;
 import it.unibo.jurassiko.reader.impl.TerritoryReader;
 
+/**
+ * Implementation of the factory for the game territories.
+ */
 public class TerritoryFactoryImpl implements TerritoryFactory {
 
     private static final String PATH = "territories.json";
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<Territory> createTerritories() {
         final JSONFileReader<Territory> territoryReader = new TerritoryReader();
