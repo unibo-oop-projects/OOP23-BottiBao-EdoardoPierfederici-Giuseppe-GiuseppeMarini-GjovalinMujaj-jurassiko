@@ -23,6 +23,9 @@ public abstract class AbstractBoardArea<T extends BoardArea<T>> implements Board
     @JsonIgnore
     private Set<T> neighbours;
 
+    /**
+     * 
+     */
     protected AbstractBoardArea() {
 
     }

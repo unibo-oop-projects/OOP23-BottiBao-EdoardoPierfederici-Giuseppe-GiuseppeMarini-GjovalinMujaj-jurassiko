@@ -14,17 +14,31 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.unibo.jurassiko.reader.api.JSONFileReader;
 
+/**
+ * Abstract class providing a common implementation to read data from a JSON
+ * file with different types of objects and producing and Set of elements.
+ * 
+ * @param <T> The type of object to be read
+ */
 public abstract class AbstractJSONFileReader<T> implements JSONFileReader<T> {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ObjectMapper mapper;
     private final Class<T> targetClass;
 
+    /**
+     * Creates a JSONFileReader for the given class type.
+     * 
+     * @param targetClass The class of the objects to read used by Jackson parser
+     */
     public AbstractJSONFileReader(final Class<T> targetClass) {
         this.mapper = new ObjectMapper();
         this.targetClass = targetClass;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<T> readFileData(final String filePath) {
         Set<T> data = new HashSet<>();
@@ -41,6 +55,12 @@ public abstract class AbstractJSONFileReader<T> implements JSONFileReader<T> {
         return Set.copyOf(data);
     }
 
+    /**
+     * Adds the additional attributes to the data to complete the configurations of
+     * the objects.
+     * 
+     * @param data the Set containing the elements read by the parser
+     */
     protected abstract void buildAttributes(Set<T> data);
 
 }

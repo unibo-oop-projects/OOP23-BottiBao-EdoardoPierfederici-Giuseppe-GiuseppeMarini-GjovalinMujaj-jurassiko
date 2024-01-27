@@ -5,17 +5,28 @@ import java.util.stream.Collectors;
 
 import it.unibo.jurassiko.model.territory.api.Territory;
 
+/**
+ * Implementation of JSONFileReader for territories.
+ */
 public class TerritoryReader extends AbstractJSONFileReader<Territory> {
 
     public TerritoryReader() {
         super(Territory.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void buildAttributes(final Set<Territory> data) {
         defineNeighbours(data);
     }
 
+    /**
+     * Processes and sets the bordering territories.
+     * 
+     * @param territories the set containing the territories read by the parser
+     */
     private void defineNeighbours(final Set<Territory> territories) {
         territories.forEach(t -> {
             final Set<Territory> neighbours = t.getNeighbourNames().stream()
@@ -25,6 +36,13 @@ public class TerritoryReader extends AbstractJSONFileReader<Territory> {
         });
     }
 
+    /**
+     * Returns the territory instance with the specified name.
+     * 
+     * @param territoryName the name of the territory
+     * @param territories   the set containing the territories read by the parser
+     * @return the territory istance
+     */
     private Territory getTerritoryByName(final String territoryName, final Set<Territory> territories) {
         for (final var territory : territories) {
             if (territory.getName().equals(territoryName)) {
