@@ -8,6 +8,9 @@ import it.unibo.jurassiko.model.objective.impl.ConquerContinentsObjective;
 import it.unibo.jurassiko.model.objective.impl.ConquerTerritoriesObjective;
 import it.unibo.jurassiko.model.objective.impl.DestroyArmyObjective;
 
+/**
+ * Interface for game objectives.
+ */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
         @Type(value = ConquerTerritoriesObjective.class, name = "conquerTerritories"),
@@ -17,11 +20,15 @@ import it.unibo.jurassiko.model.objective.impl.DestroyArmyObjective;
 public interface Objective {
 
     /**
-     * @return true if the objective has been accomplished successfully, false
-     *         otherwise
+     * Checks if the objective has been completed successfully.
+     * 
+     * @return true if the objective has been achieved, false otherwise
      */
     boolean isAchieved();
 
+    /**
+     * Sets the description of the objective.
+     */
     void writeDescription();
 
     /**
