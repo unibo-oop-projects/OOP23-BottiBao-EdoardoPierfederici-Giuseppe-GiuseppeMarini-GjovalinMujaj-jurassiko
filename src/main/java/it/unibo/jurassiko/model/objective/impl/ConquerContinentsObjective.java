@@ -36,14 +36,8 @@ public class ConquerContinentsObjective extends AbstractObjective {
      */
     @Override
     public void writeDescription() {
-        // TODO: semplificare con uno StringBuilder
-        String result = "Conquista la totalità dei seguenti continenti: ";
-        result = result.concat(String.join(", ", this.continents));
-        if (this.selectableContinent) {
-            result = result.concat("e un continente a scelta");
-        }
-        result = result.concat(".");
-
+        String result = "Conquista la totalità dei seguenti continenti: " + String.join(", ", this.continents);
+        result = result.concat(selectableContinent ? " e un continente a scelta." : ".");
         setDescription(result);
     }
 
