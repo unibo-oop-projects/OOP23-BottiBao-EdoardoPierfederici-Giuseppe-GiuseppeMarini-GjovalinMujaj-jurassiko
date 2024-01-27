@@ -13,7 +13,7 @@ import it.unibo.jurassiko.model.territory.impl.OceanImpl;
 public interface Ocean extends BoardArea<Ocean> {
 
     /**
-     * Returns the names of the adjacent territories
+     * Returns the names of the adjacent territories.
      * 
      * @return a copy of the set with the names of the adjacent territories
      */

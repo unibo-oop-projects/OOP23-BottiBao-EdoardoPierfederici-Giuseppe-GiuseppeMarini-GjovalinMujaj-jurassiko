@@ -4,6 +4,6 @@ import java.util.Set;
 
 public interface OceanFactory {
 
-    public Set<Ocean> createOceans();
+    Set<Ocean> createOceans();
 
 }

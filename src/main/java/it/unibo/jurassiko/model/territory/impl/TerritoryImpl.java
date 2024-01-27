@@ -7,7 +7,7 @@ import it.unibo.jurassiko.model.territory.api.Territory;
 /**
  * Implementation of the game territory
  */
-public class TerritoryImpl extends AbstractBoardArea<Territory> implements Territory {
+public final class TerritoryImpl extends AbstractBoardArea<Territory> implements Territory {
 
     private String continent;
 

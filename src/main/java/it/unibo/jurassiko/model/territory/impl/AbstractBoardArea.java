@@ -47,7 +47,7 @@ public abstract class AbstractBoardArea<T extends BoardArea<T>> implements Board
      * {@inheritDoc}
      */
     @Override
-    public void setNeighbours(Set<T> neighbours) {
+    public void setNeighbours(final Set<T> neighbours) {
         this.neighbours = new HashSet<>(neighbours);
     }
 
@@ -63,7 +63,7 @@ public abstract class AbstractBoardArea<T extends BoardArea<T>> implements Board
      * {@inheritDoc}
      */
     @Override
-    public boolean isNeighbour(String name) {
+    public boolean isNeighbour(final String name) {
         return neighbours.stream()
                 .map(BoardArea::getName)
                 .anyMatch(name::equals);

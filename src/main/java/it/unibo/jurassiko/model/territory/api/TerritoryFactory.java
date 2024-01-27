@@ -4,6 +4,6 @@ import java.util.Set;
 
 public interface TerritoryFactory {
 
-    public Set<Territory> createTerritories();
+    Set<Territory> createTerritories();
 
 }

@@ -20,18 +20,18 @@ public abstract class AbstractJSONFileReader<T> implements JSONFileReader<T> {
     private final ObjectMapper mapper;
     private final Class<T> targetClass;
 
-    public AbstractJSONFileReader(Class<T> targetClass) {
+    public AbstractJSONFileReader(final Class<T> targetClass) {
         this.mapper = new ObjectMapper();
         this.targetClass = targetClass;
     }
 
     @Override
-    public Set<T> readFileData(String filePath) {
+    public Set<T> readFileData(final String filePath) {
         Set<T> data = new HashSet<>();
         // Represent the generic type contained by the Set to deserialize
-        JavaType type = mapper.getTypeFactory().constructCollectionType(Set.class, targetClass);
+        final JavaType type = mapper.getTypeFactory().constructCollectionType(Set.class, targetClass);
 
-        try (final InputStream in = Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(filePath))) {
+        try (InputStream in = Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(filePath))) {
             data = mapper.readValue(in, type);
             buildAttributes(data);
         } catch (final IOException e) {

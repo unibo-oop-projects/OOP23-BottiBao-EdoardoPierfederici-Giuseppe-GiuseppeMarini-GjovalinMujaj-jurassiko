@@ -14,14 +14,14 @@ public class OceanReader extends AbstractJSONFileReader<Ocean> {
     }
 
     @Override
-    protected void buildAttributes(Set<Ocean> oceans) {
+    protected void buildAttributes(final Set<Ocean> oceans) {
         defineNeighbours(oceans);
         // defineAdjTerritories(oceans);
     }
 
-    private void defineNeighbours(Set<Ocean> oceans) {
+    private void defineNeighbours(final Set<Ocean> oceans) {
         oceans.forEach(o -> {
-            Set<Ocean> neighbours = o.getNeighbourNames().stream()
+            final Set<Ocean> neighbours = o.getNeighbourNames().stream()
                     .map(on -> getOceanByName(on, oceans))
                     .collect(Collectors.toSet());
             o.setNeighbours(neighbours);
@@ -39,7 +39,7 @@ public class OceanReader extends AbstractJSONFileReader<Ocean> {
      * }
      */
 
-    private Ocean getOceanByName(final String oceanName, Set<Ocean> oceans) {
+    private Ocean getOceanByName(final String oceanName, final Set<Ocean> oceans) {
         for (final var ocean : oceans) {
             if (ocean.getName().equals(oceanName)) {
                 return ocean;
@@ -48,7 +48,7 @@ public class OceanReader extends AbstractJSONFileReader<Ocean> {
         throw new IllegalArgumentException("Ocean \"" + oceanName + "\" not found");
     }
 
-    private Territory getTerritoryByName(final String territoryName, Set<Territory> territories) {
+    private Territory getTerritoryByName(final String territoryName, final Set<Territory> territories) {
         for (final var territory : territories) {
             if (territory.getName().equals(territoryName)) {
                 return territory;

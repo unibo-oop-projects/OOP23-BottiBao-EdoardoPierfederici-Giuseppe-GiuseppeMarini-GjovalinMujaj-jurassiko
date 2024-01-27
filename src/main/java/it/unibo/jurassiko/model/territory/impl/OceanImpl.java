@@ -12,7 +12,7 @@ import it.unibo.jurassiko.model.territory.api.Territory;
 /**
  * Implementation of the game Ocean.
  */
-public class OceanImpl extends AbstractBoardArea<Ocean> implements Ocean {
+public final class OceanImpl extends AbstractBoardArea<Ocean> implements Ocean {
 
     @JsonProperty("territories")
     private Set<String> adjTerritoryNames;

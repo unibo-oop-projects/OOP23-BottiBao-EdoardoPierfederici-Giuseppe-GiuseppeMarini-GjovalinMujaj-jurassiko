@@ -12,20 +12,20 @@ public class TerritoryReader extends AbstractJSONFileReader<Territory> {
     }
 
     @Override
-    protected void buildAttributes(Set<Territory> data) {
+    protected void buildAttributes(final Set<Territory> data) {
         defineNeighbours(data);
     }
 
-    private void defineNeighbours(Set<Territory> territories) {
+    private void defineNeighbours(final Set<Territory> territories) {
         territories.forEach(t -> {
-            Set<Territory> neighbours = t.getNeighbourNames().stream()
+            final Set<Territory> neighbours = t.getNeighbourNames().stream()
                     .map(tn -> getTerritoryByName(tn, territories))
                     .collect(Collectors.toSet());
             t.setNeighbours(neighbours);
         });
     }
 
-    private Territory getTerritoryByName(final String territoryName, Set<Territory> territories) {
+    private Territory getTerritoryByName(final String territoryName, final Set<Territory> territories) {
         for (final var territory : territories) {
             if (territory.getName().equals(territoryName)) {
                 return territory;

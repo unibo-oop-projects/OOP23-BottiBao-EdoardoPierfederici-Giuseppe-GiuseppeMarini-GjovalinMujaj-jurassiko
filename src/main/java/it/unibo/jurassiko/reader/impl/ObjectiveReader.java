@@ -11,12 +11,12 @@ public class ObjectiveReader extends AbstractJSONFileReader<Objective> {
     }
 
     @Override
-    protected void buildAttributes(Set<Objective> objectives) {
+    protected void buildAttributes(final Set<Objective> objectives) {
         writeDescriptions(objectives);
     }
 
-    private void writeDescriptions(Set<Objective> objectives) {
-        for (var objective : objectives) {
+    private void writeDescriptions(final Set<Objective> objectives) {
+        for (final var objective : objectives) {
             objective.writeDescription();
         }
     }
