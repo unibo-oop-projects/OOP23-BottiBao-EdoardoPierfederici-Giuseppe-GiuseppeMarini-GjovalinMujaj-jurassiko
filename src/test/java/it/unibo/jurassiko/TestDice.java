@@ -15,22 +15,30 @@ import it.unibo.jurassiko.model.dice.api.Dice;
 import it.unibo.jurassiko.model.dice.impl.DiceImpl;
 
 /**
- * Test for the Dice Class
+ * Test for the Dice Class.
  */
-public class TestDice {
+public final class TestDice {
 
     private Dice dice;
     private Set<Integer> possibleValues;
 
+    /**
+     * before each test.
+     */
     @BeforeEach
     public void setUp() {
         this.dice = new DiceImpl();
         possibleValues = new HashSet<>();
+        // CHECKSTYLE: MagicNumber OFF
+        // disable for test purpose
         for (int i = 1; i <= 6; i++) {
             possibleValues.add(i);
         }
     }
 
+    /**
+     * test if the setUp is successful.
+     */
     @Test
     public void testSetUp() {
         assertNotEquals(null, dice);
@@ -39,6 +47,9 @@ public class TestDice {
         }
     }
 
+    /**
+     * test roll method.
+     */
     @Test
     public void testRoll() {
         for (int i = 0; i < 10; i++) {
@@ -46,6 +57,9 @@ public class TestDice {
         }
     }
 
+    /**
+     * test multiple roll method.
+     */
     @Test
     public void testMultiple() {
         List<Integer> tempList;
@@ -54,6 +68,7 @@ public class TestDice {
 
         assertEquals(10, tempList.size());
 
+        // CHECKSTYLE: MagicNumber ON
         for (final int i : tempList) {
             assertTrue(possibleValues.contains(i));
         }
