@@ -32,11 +32,13 @@ public class DestroyArmyObjective extends AbstractObjective {
      * {@inheritDoc}
      */
     @Override
-    public void writeDescription() {
-        this.description = "Distruggi l'armata di colore "
+    protected void writeDescription() {
+        String description = "Distruggi l'armata di colore "
                 + this.armyColor.toLowerCase(Locale.ROOT)
                 + ". Se l'armata non è in gioco, "
                 + super.getDefaultObjectiveDescription().toLowerCase(Locale.ROOT);
+
+        setDescription(description);
     }
 
 }

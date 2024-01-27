@@ -9,7 +9,7 @@ public abstract class AbstractObjective implements Objective {
 
     private static final String DEFAULT_OBJECTIVE_DESCRIPTION = "Conquista 12 territori.";
 
-    protected String description = "";
+    private String description = "";
     private boolean achieved = false;
 
     /**
@@ -29,9 +29,19 @@ public abstract class AbstractObjective implements Objective {
     }
 
     /**
-     * {@inheritDoc}
+     * Sets the description of the objective.
+     * 
+     * @param description the objective description
      */
-    public abstract void writeDescription();
+    protected void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Processes the description of the objective using data parsed from the
+     * configuration file.
+     */
+    protected abstract void writeDescription();
 
     /**
      * @return the description of the default objective

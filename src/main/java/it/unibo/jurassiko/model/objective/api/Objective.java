@@ -32,11 +32,6 @@ public interface Objective {
     boolean isAchieved();
 
     /**
-     * Sets the description of the objective.
-     */
-    void writeDescription();
-
-    /**
      * @return the description of the objective
      */
     String getDescription();

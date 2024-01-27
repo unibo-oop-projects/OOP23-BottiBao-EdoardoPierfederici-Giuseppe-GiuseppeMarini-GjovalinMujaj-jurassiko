@@ -40,14 +40,14 @@ public class ConquerTerritoriesObjective extends AbstractObjective {
      * {@inheritDoc}
      */
     @Override
-    public void writeDescription() {
+    protected void writeDescription() {
         String result = "Conquista " + this.numTerritories + " territori";
         if (this.minDinos > 1) {
             result = result.concat(" con almeno " + this.minDinos + " ciascuno");
         }
         result = result.concat(".");
 
-        this.description = result;
+        setDescription(result);
     }
 
 }
