@@ -4,6 +4,9 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Implementation of objectives based on conquest of continents.
+ */
 public class ConquerContinentsObjective extends AbstractObjective {
 
     private static final String TYPE = "conquerContinents";
@@ -12,6 +15,7 @@ public class ConquerContinentsObjective extends AbstractObjective {
     @JsonProperty("selectable")
     private boolean selectableContinent;
 
+    @Override
     public String getType() {
         return TYPE;
     }

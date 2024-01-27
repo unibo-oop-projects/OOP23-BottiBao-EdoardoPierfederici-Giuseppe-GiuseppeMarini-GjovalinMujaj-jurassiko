@@ -10,6 +10,7 @@ public class DestroyArmyObjective extends AbstractObjective {
     @JsonProperty("value")
     private String armyColor;
 
+    @Override
     public String getType() {
         return TYPE;
     }

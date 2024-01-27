@@ -10,6 +10,7 @@ public class ConquerTerritoriesObjective extends AbstractObjective {
     private int numTerritories;
     private int minDinos;
 
+    @Override
     public String getType() {
         return TYPE;
     }

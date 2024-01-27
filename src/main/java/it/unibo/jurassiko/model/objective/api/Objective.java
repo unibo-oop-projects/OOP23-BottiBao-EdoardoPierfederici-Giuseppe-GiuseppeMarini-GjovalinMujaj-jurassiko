@@ -20,6 +20,11 @@ import it.unibo.jurassiko.model.objective.impl.DestroyArmyObjective;
 public interface Objective {
 
     /**
+     * @return the default string for the objective type
+     */
+    String getType();
+
+    /**
      * Checks if the objective has been completed successfully.
      * 
      * @return true if the objective has been achieved, false otherwise
