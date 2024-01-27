@@ -12,10 +12,9 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.OceanFactory;
-import it.unibo.jurassiko.model.territory.api.Territory;
 import it.unibo.jurassiko.model.territory.impl.OceanFactoryImpl;
 
-public class TestOcean {
+class TestOcean {
 
     private static final int NUM_OCEANS = 3;
 

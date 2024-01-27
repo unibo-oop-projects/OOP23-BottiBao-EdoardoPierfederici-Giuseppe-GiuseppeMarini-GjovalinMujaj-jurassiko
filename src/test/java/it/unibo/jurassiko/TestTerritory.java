@@ -14,7 +14,7 @@ import it.unibo.jurassiko.model.territory.api.Territory;
 import it.unibo.jurassiko.model.territory.api.TerritoryFactory;
 import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 
-public class TestTerritory {
+class TestTerritory {
 
     private static final int NUM_TOTAL_TERRITORIES = 21;
     private static final int NUM_CONTINENTS = 4;

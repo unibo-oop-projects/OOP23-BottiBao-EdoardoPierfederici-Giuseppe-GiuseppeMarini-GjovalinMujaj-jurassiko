@@ -19,7 +19,7 @@ import it.unibo.jurassiko.model.objective.impl.DestroyArmyObjective;
 import it.unibo.jurassiko.model.objective.impl.ObjectiveFactoryImpl;
 
 // TODO: edit and adapt the tests to the JSON files once completed
-public class TestObjective {
+class TestObjective {
 
     private static final int NUM_TOTAL_OBJECTIVES = 8;
     private static final int NUM_CONQTERRITORIES = 2;
