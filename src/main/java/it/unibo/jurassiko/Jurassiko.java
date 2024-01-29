@@ -1,13 +1,29 @@
 package it.unibo.jurassiko;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Main class of the application.
+ */
 public final class Jurassiko {
 
+    private static Logger logger = LoggerFactory.getLogger(Jurassiko.class);
+
+    /**
+     *
+     */
     private Jurassiko() {
 
     }
 
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
+    /**
+     * Main method to launch the application.
+     * 
+     * @param args params
+     */
+    public static void main(final String[] args) {
+        logger.info("Application started.");
     }
 
 }
