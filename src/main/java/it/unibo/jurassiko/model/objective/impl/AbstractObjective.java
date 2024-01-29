@@ -40,6 +40,7 @@ public abstract class AbstractObjective implements Objective {
     /**
      * {@inheritDoc}
      */
+    @Override
     public abstract void writeDescription();
 
     /**

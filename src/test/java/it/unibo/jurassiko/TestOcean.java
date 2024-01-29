@@ -11,24 +11,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.jurassiko.model.territory.api.Ocean;
-import it.unibo.jurassiko.model.territory.api.OceanFactory;
 import it.unibo.jurassiko.model.territory.impl.OceanFactoryImpl;
 
 class TestOcean {
 
     private static final int NUM_OCEANS = 3;
 
-    private OceanFactory oceanFactory;
     private Set<Ocean> oceans;
 
     @BeforeEach
-    public void initFactory() {
-        this.oceanFactory = new OceanFactoryImpl();
-        this.oceans = this.oceanFactory.createOceans();
+    void initFactory() {
+        this.oceans = new OceanFactoryImpl().createOceans();
     }
 
     @Test
-    public void testOceanReader() {
+    void testOceanReader() {
         assertNotNull(oceans);
         assertFalse(oceans.isEmpty());
 
@@ -36,7 +33,7 @@ class TestOcean {
     }
 
     @Test
-    public void testOceanAttributes() {
+    void testOceanAttributes() {
         final String name = "Oceano Tetide";
         final var neighbours = Set.of("Oceano Pacifico", "Oceano Atlantico");
         // TODO: fix adjTerritories if changes are made to the JSON file

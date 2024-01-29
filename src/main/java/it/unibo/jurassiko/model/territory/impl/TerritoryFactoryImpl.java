@@ -20,7 +20,7 @@ public class TerritoryFactoryImpl implements TerritoryFactory {
     @Override
     public Set<Territory> createTerritories() {
         final JSONFileReader<Territory> territoryReader = new TerritoryReader();
-        Set<Territory> territories = territoryReader.readFileData(PATH);
+        final Set<Territory> territories = territoryReader.readFileData(PATH);
         return Set.copyOf(territories);
     }
 

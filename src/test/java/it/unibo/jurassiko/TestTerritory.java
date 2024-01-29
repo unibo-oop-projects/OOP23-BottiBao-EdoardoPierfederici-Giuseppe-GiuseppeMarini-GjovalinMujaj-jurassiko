@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.jurassiko.model.territory.api.Territory;
-import it.unibo.jurassiko.model.territory.api.TerritoryFactory;
 import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 
 class TestTerritory {
@@ -24,17 +23,15 @@ class TestTerritory {
     private static final int NUM_TERRITORIES_GONDWANAORIENTALE = 4;
     private static final int NUM_TERRITORIES_EURASIA = 7;
 
-    private TerritoryFactory territoryFactory;
     private Set<Territory> territories;
 
     @BeforeEach
-    public void initFactory() {
-        this.territoryFactory = new TerritoryFactoryImpl();
-        this.territories = this.territoryFactory.createTerritories();
+    void initFactory() {
+        this.territories = new TerritoryFactoryImpl().createTerritories();
     }
 
     @Test
-    public void testTerritoryReader() {
+    void testTerritoryReader() {
         assertNotNull(territories);
         assertFalse(territories.isEmpty());
 
@@ -43,17 +40,17 @@ class TestTerritory {
         assertEquals(NUM_CONTINENTS,
                 territories.stream().map(Territory::getContinent).distinct().count());
         assertEquals(NUM_TERRITORIES_NORDAMERICA,
-                territories.stream().filter(t -> t.getContinent().equals("Nord America")).count());
+                territories.stream().filter(t -> "Nord America".equals(t.getContinent())).count());
         assertEquals(NUM_TERRITORIES_GONDWANAOCCIDENTALE,
-                territories.stream().filter(t -> t.getContinent().equals("Gondwana Occidentale")).count());
+                territories.stream().filter(t -> "Gondwana Occidentale".equals(t.getContinent())).count());
         assertEquals(NUM_TERRITORIES_GONDWANAORIENTALE,
-                territories.stream().filter(t -> t.getContinent().equals("Gondwana Orientale")).count());
+                territories.stream().filter(t -> "Gondwana Orientale".equals(t.getContinent())).count());
         assertEquals(NUM_TERRITORIES_EURASIA,
-                territories.stream().filter(t -> t.getContinent().equals("Eurasia")).count());
+                territories.stream().filter(t -> "Eurasia".equals(t.getContinent())).count());
     }
 
     @Test
-    public void testTerritoryAttributes() {
+    void testTerritoryAttributes() {
         final String name = "Nord Africa";
         final String continent = "Gondwana Occidentale";
         final var neighbourNames = Set.of("Arabia", "Amazzonia", "Congo", "Sud America");

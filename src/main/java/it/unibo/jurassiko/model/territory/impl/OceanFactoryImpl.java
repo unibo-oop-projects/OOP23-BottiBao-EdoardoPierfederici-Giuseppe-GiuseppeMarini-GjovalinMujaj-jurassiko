@@ -20,7 +20,7 @@ public class OceanFactoryImpl implements OceanFactory {
     @Override
     public Set<Ocean> createOceans() {
         final JSONFileReader<Ocean> oceanReader = new OceanReader();
-        Set<Ocean> oceans = oceanReader.readFileData(PATH);
+        final Set<Ocean> oceans = oceanReader.readFileData(PATH);
         return Set.copyOf(oceans);
     }
 

@@ -1,6 +1,7 @@
 package it.unibo.jurassiko.model.territory.impl;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import it.unibo.jurassiko.model.territory.api.Territory;
 
@@ -9,10 +10,11 @@ import it.unibo.jurassiko.model.territory.api.Territory;
  */
 public final class TerritoryImpl extends AbstractBoardArea<Territory> implements Territory {
 
+    @JsonProperty("continent")
     private String continent;
 
     @JsonIgnore
-    private int dinoAmount = 0;
+    private int dinoAmount;
 
     private TerritoryImpl() {
 

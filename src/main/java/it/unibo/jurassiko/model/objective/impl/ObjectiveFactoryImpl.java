@@ -21,7 +21,7 @@ public class ObjectiveFactoryImpl implements ObjectiveFactory {
     @Override
     public Set<Objective> createObjectives() {
         final JSONFileReader<Objective> objectiveReader = new ObjectiveReader();
-        Set<Objective> objectives = objectiveReader.readFileData(PATH);
+        final Set<Objective> objectives = objectiveReader.readFileData(PATH);
         return new HashSet<>(objectives);
     }
 

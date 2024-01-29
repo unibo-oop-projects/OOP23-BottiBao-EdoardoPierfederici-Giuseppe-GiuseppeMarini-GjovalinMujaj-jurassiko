@@ -33,11 +33,11 @@ public class OceanReader extends AbstractJSONFileReader<Ocean> {
      * 
      * @param oceans the set containing the oceans read by the parser
      */
-    private void defineAdjTerritories(Set<Ocean> oceans) {
-        var allTerritories = new TerritoryFactoryImpl().createTerritories();
+    private void defineAdjTerritories(final Set<Ocean> oceans) {
+        final var allTerritories = new TerritoryFactoryImpl().createTerritories();
 
         oceans.forEach(o -> {
-            Set<Territory> adjTerritories = o.getAdjTerritoryNames().stream()
+            final Set<Territory> adjTerritories = o.getAdjTerritoryNames().stream()
                     .map(tn -> getBoardAreaByName(tn, allTerritories))
                     .collect(Collectors.toSet());
             o.setAdjTerritories(adjTerritories);

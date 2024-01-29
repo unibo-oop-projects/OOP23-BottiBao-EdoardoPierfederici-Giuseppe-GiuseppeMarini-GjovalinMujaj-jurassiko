@@ -12,13 +12,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.jurassiko.model.objective.api.Objective;
-import it.unibo.jurassiko.model.objective.api.ObjectiveFactory;
 import it.unibo.jurassiko.model.objective.impl.ConquerContinentsObjective;
 import it.unibo.jurassiko.model.objective.impl.ConquerTerritoriesObjective;
 import it.unibo.jurassiko.model.objective.impl.DestroyArmyObjective;
 import it.unibo.jurassiko.model.objective.impl.ObjectiveFactoryImpl;
 
-// TODO: edit and adapt the tests to the JSON files once completed
+// TODO: Some tests are not implemented yet
 class TestObjective {
 
     private static final int NUM_TOTAL_OBJECTIVES = 8;
@@ -26,17 +25,15 @@ class TestObjective {
     private static final int NUM_CONQCONTINENTS = 3;
     private static final int NUM_DESTROYARMY = 3;
 
-    private ObjectiveFactory objectiveFactory;
     private Set<Objective> objectives;
 
     @BeforeEach
-    public void initFactory() {
-        this.objectiveFactory = new ObjectiveFactoryImpl();
-        this.objectives = this.objectiveFactory.createObjectives();
+    void initFactory() {
+        this.objectives = new ObjectiveFactoryImpl().createObjectives();
     }
 
     @Test
-    public void testObjectiveReader() {
+    void testObjectiveReader() {
         assertNotNull(objectives);
         assertFalse(objectives.isEmpty());
 
@@ -50,7 +47,7 @@ class TestObjective {
     }
 
     @Test
-    public void testConquerContinents() {
+    void testConquerContinents() {
         final Set<String> continents = Set.of("Gondwana Occidentale", "Nord America");
         final String description1 = "Conquista la totalità dei seguenti continenti: Gondwana Occidentale, Nord America.";
         final String description2 = "Conquista la totalità dei seguenti continenti: Nord America, Gondwana Occidentale.";
@@ -72,12 +69,12 @@ class TestObjective {
     }
 
     @Test
-    public void testConquerTerritories() {
+    void testConquerTerritories() {
 
     }
 
     @Test
-    public void testDestroyArmy() {
+    void testDestroyArmy() {
         final Set<String> armyColors = Set.of("ROSSO", "GIALLO", "BLU");
 
         final var destroyArmyObjectives = objectives.stream()
@@ -85,14 +82,13 @@ class TestObjective {
                 .map(DestroyArmyObjective.class::cast)
                 .collect(Collectors.toSet());
 
-        assertTrue(destroyArmyObjectives.stream()
+        assertEquals(armyColors, destroyArmyObjectives.stream()
                 .map(DestroyArmyObjective::getArmyColor)
-                .collect(Collectors.toSet())
-                .equals(armyColors));
+                .collect(Collectors.toSet()));
     }
 
     @Test
-    public void testAchieved() {
+    void testAchieved() {
 
     }
 
