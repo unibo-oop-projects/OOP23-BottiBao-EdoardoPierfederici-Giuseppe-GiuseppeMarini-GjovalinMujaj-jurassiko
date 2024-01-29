@@ -5,10 +5,7 @@ import java.util.stream.Collectors;
 
 import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
-import it.unibo.jurassiko.model.territory.api.TerritoryFactory;
 import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
-
-// TODO: complete defineAdjTerritories if needed
 
 /**
  * Implementation of JSONFileReader for oceans.
@@ -31,13 +28,17 @@ public class OceanReader extends AbstractJSONFileReader<Ocean> {
         defineAdjTerritories(oceans);
     }
 
+    /**
+     * Processes and sets the adjacent territories.
+     * 
+     * @param oceans the set containing the oceans read by the parser
+     */
     private void defineAdjTerritories(Set<Ocean> oceans) {
-        TerritoryFactory territoryFactory = new TerritoryFactoryImpl();
-        var territories = territoryFactory.createTerritories();
+        var allTerritories = new TerritoryFactoryImpl().createTerritories();
 
         oceans.forEach(o -> {
             Set<Territory> adjTerritories = o.getAdjTerritoryNames().stream()
-                    .map(tn -> getBoardAreaByName(tn, territories))
+                    .map(tn -> getBoardAreaByName(tn, allTerritories))
                     .collect(Collectors.toSet());
             o.setAdjTerritories(adjTerritories);
         });
