@@ -1,6 +1,7 @@
 package it.unibo.jurassiko.model.territory.impl;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,7 +23,7 @@ public final class OceanImpl extends AbstractBoardArea<Ocean> implements Ocean {
     private Set<Territory> adjTerritories;
 
     private OceanImpl() {
-
+        this.adjTerritories = new HashSet<>();
     }
 
     /**
@@ -38,6 +39,7 @@ public final class OceanImpl extends AbstractBoardArea<Ocean> implements Ocean {
      */
     @Override
     public void setAdjTerritories(final Set<Territory> adjTerritories) {
+        Objects.requireNonNull(adjTerritories);
         this.adjTerritories = new HashSet<>(adjTerritories);
     }
 
@@ -54,6 +56,7 @@ public final class OceanImpl extends AbstractBoardArea<Ocean> implements Ocean {
      */
     @Override
     public boolean isAdjTerritory(final String territoryName) {
+        Objects.requireNonNull(adjTerritories);
         return adjTerritories.stream()
                 .map(BoardArea::getName)
                 .anyMatch(territoryName::equals);

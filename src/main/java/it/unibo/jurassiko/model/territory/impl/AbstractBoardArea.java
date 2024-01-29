@@ -1,6 +1,7 @@
 package it.unibo.jurassiko.model.territory.impl;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,6 +17,7 @@ import it.unibo.jurassiko.model.territory.api.BoardArea;
  */
 public abstract class AbstractBoardArea<T extends BoardArea<T>> implements BoardArea<T> {
 
+    @JsonProperty("name")
     private String name;
     @JsonProperty("neighbours")
     private Set<String> neighbourNames;
@@ -24,10 +26,10 @@ public abstract class AbstractBoardArea<T extends BoardArea<T>> implements Board
     private Set<T> neighbours;
 
     /**
-     * 
+     * Blank constructor used by Jackson JSON parser.
      */
     protected AbstractBoardArea() {
-
+        this.neighbours = new HashSet<>();
     }
 
     /**
@@ -51,6 +53,7 @@ public abstract class AbstractBoardArea<T extends BoardArea<T>> implements Board
      */
     @Override
     public void setNeighbours(final Set<T> neighbours) {
+        Objects.requireNonNull(neighbours);
         this.neighbours = new HashSet<>(neighbours);
     }
 
@@ -67,6 +70,7 @@ public abstract class AbstractBoardArea<T extends BoardArea<T>> implements Board
      */
     @Override
     public boolean isNeighbour(final String name) {
+        Objects.requireNonNull(neighbours);
         return neighbours.stream()
                 .map(BoardArea::getName)
                 .anyMatch(name::equals);
