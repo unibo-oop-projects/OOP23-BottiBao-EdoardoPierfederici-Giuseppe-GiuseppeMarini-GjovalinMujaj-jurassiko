@@ -1,6 +1,5 @@
 package it.unibo.jurassiko.model.territory.impl;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import it.unibo.jurassiko.model.territory.api.Territory;
@@ -22,7 +21,7 @@ public class TerritoryFactoryImpl implements TerritoryFactory {
     public Set<Territory> createTerritories() {
         final JSONFileReader<Territory> territoryReader = new TerritoryReader();
         Set<Territory> territories = territoryReader.readFileData(PATH);
-        return new HashSet<>(territories);
+        return Set.copyOf(territories);
     }
 
 }

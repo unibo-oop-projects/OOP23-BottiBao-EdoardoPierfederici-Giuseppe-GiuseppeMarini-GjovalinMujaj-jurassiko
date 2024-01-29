@@ -1,6 +1,5 @@
 package it.unibo.jurassiko.model.territory.impl;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import it.unibo.jurassiko.model.territory.api.Ocean;
@@ -22,7 +21,7 @@ public class OceanFactoryImpl implements OceanFactory {
     public Set<Ocean> createOceans() {
         final JSONFileReader<Ocean> oceanReader = new OceanReader();
         Set<Ocean> oceans = oceanReader.readFileData(PATH);
-        return new HashSet<>(oceans);
+        return Set.copyOf(oceans);
     }
 
 }
