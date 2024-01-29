@@ -6,6 +6,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import it.unibo.jurassiko.model.territory.api.BoardArea;
 import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
 
@@ -52,18 +53,10 @@ public final class OceanImpl extends AbstractBoardArea<Ocean> implements Ocean {
      * {@inheritDoc}
      */
     @Override
-    public boolean isNeighbour(final String oceanName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isNeighbour'");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public boolean isAdjTerritory(final String territoryName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isAdjTerritory'");
+        return adjTerritories.stream()
+                .map(BoardArea::getName)
+                .anyMatch(territoryName::equals);
     }
 
 }
