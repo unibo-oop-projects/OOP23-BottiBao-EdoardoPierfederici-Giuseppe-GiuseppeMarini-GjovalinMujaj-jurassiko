@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,15 +56,17 @@ class TestTerritory {
     public void testTerritoryAttributes() {
         final String name = "Nord Africa";
         final String continent = "Gondwana Occidentale";
-        final var neighbours = Set.of("Arabia", "Amazzonia", "Congo", "Sud America");
+        final var neighbourNames = Set.of("Arabia", "Amazzonia", "Congo", "Sud America");
+        final var neighbours = territories.stream()
+                .filter(t -> neighbourNames.contains(t.getName()))
+                .collect(Collectors.toSet());
 
         assertTrue(territories.stream().anyMatch(t -> t.getName().equals(name)));
 
         final Territory sampleTerritory = territories.stream().filter(t -> t.getName().equals(name)).findAny().get();
         assertEquals(continent, sampleTerritory.getContinent());
-        assertEquals(neighbours, sampleTerritory.getNeighbourNames());
-
-        // TODO: add more samples?
+        assertEquals(neighbourNames, sampleTerritory.getNeighbourNames());
+        assertEquals(neighbours, sampleTerritory.getNeighbours());
     }
 
     // TODO: add missing tests
