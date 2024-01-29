@@ -31,6 +31,8 @@ public interface Objective {
      */
     boolean isAchieved();
 
+    // void setAchieved();
+
     /**
      * Processes the description of the objective using data parsed from the
      * configuration file.

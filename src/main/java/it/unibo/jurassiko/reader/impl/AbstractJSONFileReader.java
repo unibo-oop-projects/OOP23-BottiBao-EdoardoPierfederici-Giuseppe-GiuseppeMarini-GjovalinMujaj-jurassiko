@@ -65,9 +65,13 @@ public abstract class AbstractJSONFileReader<T> implements JSONFileReader<T> {
      */
     protected abstract void buildAttributes(Set<T> data);
 
+    // TODO: these following methods can be deleted if only neighbour names (and not
+    // instances) are needed
+
     /**
      * Processes and sets the bordering areas.
      * 
+     * @param <A>   The type of area (Territory or Ocean) to process
      * @param areas the set containing the territories or the oceans read by the
      *              parser
      */
@@ -81,8 +85,9 @@ public abstract class AbstractJSONFileReader<T> implements JSONFileReader<T> {
     }
 
     /**
-     * Returns the board area (territory or ocean) instance with the specified name.
+     * Returns the board area instance with the specified name.
      * 
+     * @param <A>        The type of area (Territory or Ocean) to process
      * @param name       the name of the board area
      * @param boardAreas the set containing the territories or the oceans read by
      *                   the parser
