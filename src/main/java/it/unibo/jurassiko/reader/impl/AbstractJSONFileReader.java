@@ -2,7 +2,6 @@ package it.unibo.jurassiko.reader.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -39,7 +38,7 @@ public abstract class AbstractJSONFileReader<T> implements JSONFileReader<T> {
      */
     @Override
     public Set<T> readFileData(final String filePath) {
-        Set<T> data = new HashSet<>();
+        Set<T> data;
         // Generic type contained by the Set to deserialize
         final JavaType type = mapper.getTypeFactory().constructCollectionType(Set.class, targetClass);
 
@@ -47,7 +46,7 @@ public abstract class AbstractJSONFileReader<T> implements JSONFileReader<T> {
             data = mapper.readValue(in, type);
             buildAttributes(data);
         } catch (final IOException e) {
-            throw new IllegalStateException("Failed to read " + filePath + " file");
+            throw new IllegalStateException("Failed to read " + filePath + " file", e);
         }
 
         return Set.copyOf(data);
