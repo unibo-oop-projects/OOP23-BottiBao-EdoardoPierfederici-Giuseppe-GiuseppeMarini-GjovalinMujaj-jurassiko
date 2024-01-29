@@ -7,9 +7,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,7 +21,6 @@ import it.unibo.jurassiko.reader.api.JSONFileReader;
  */
 public abstract class AbstractJSONFileReader<T> implements JSONFileReader<T> {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ObjectMapper mapper;
     private final Class<T> targetClass;
 
@@ -51,7 +47,7 @@ public abstract class AbstractJSONFileReader<T> implements JSONFileReader<T> {
             data = mapper.readValue(in, type);
             buildAttributes(data);
         } catch (final IOException e) {
-            this.logger.error("Failed to read " + filePath + " file");
+            throw new IllegalStateException("Failed to read " + filePath + " file");
         }
 
         return Set.copyOf(data);
