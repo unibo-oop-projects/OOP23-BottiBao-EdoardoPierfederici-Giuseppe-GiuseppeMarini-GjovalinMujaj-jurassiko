@@ -1,10 +1,14 @@
 package it.unibo.jurassiko.view;
 
 import it.unibo.jurassiko.controller.api.StartController;
-import it.unibo.jurassiko.controller.impl.StartContollerImpl;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Toolkit;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  * Graphical representation of the start Menu.
@@ -15,7 +19,12 @@ public final class StartMenu {
     private final JFrame frame = new JFrame();
     // private final StartController controller;
 
-    public StartMenu(StartController controller) {
+    /**
+     * Creating the panel for the Menu.
+     * 
+     * @param controller the controller used to control the menu panel
+     */
+    public StartMenu(final StartController controller) {
         // TODO: do the starting controller
         // this.controller = controller;
         final JPanel canvas = new JPanel();
@@ -42,6 +51,7 @@ public final class StartMenu {
             }
         });
 
+        // TODO: DA MODIFICARE
         frame.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2,
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
         frame.setLocationByPlatform(true);
@@ -49,8 +59,10 @@ public final class StartMenu {
         frame.setContentPane(canvas);
         frame.setVisible(true);
     }
-
-    public static void main(String[] args) {
-        new StartMenu(new StartContollerImpl());
-    }
+    /*
+     * For Testing Purpose
+     * public static void main(String[] args) {
+     * new StartMenu(new StartContollerImpl());
+     * }
+     */
 }
