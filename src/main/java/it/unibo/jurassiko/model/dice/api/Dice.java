@@ -8,14 +8,14 @@ import java.util.List;
 public interface Dice {
 
     /**
-     * Roll the dice
+     * Roll the dice.
      * 
      * @return a random number between 1 to 6
      */
     int roll();
 
     /**
-     * Rolls the dice for 'amount' of times
+     * Rolls the dice for 'amount' of times.
      * 
      * @param amount is the amount of rolls
      * @return a list of integers
