@@ -2,6 +2,9 @@ package it.unibo.jurassiko.controller.impl;
 
 import it.unibo.jurassiko.controller.api.StartController;
 
+/**
+ * Implementation of {@link StartController} interface.
+ */
 public class StartContollerImpl implements StartController {
 
     @Override
@@ -21,5 +24,5 @@ public class StartContollerImpl implements StartController {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'quitView'");
     }
-    
+
 }
