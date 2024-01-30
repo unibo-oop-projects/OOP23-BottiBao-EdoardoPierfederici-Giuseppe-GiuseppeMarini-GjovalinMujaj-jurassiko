@@ -1,18 +1,56 @@
 package it.unibo.jurassiko.view;
 
 import it.unibo.jurassiko.controller.api.StartController;
+import it.unibo.jurassiko.controller.impl.StartContollerImpl;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Graphical representation of the start Menu.
  */
 public final class StartMenu {
-
+    private static final String START = "Start";
+    private static final String QUIT = "Quit";
     private final JFrame frame = new JFrame();
-    private final StartController controller;
+    // private final StartController controller;
 
     public StartMenu(StartController controller) {
-        this.controller = controller;
+        // TODO: do the starting controller
+        // this.controller = controller;
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
+        final JButton start = new JButton(START);
+        final JButton quit = new JButton(QUIT);
+        final JPanel eastPanel = new JPanel();
+        eastPanel.add(start);
+        eastPanel.add(quit);
+        canvas.add(eastPanel, BorderLayout.EAST);
+
+        // TODO: start game button
+        // start.addActionListener(e -> startgame);
+
+        quit.addActionListener(e -> {
+            final String[] options = { "Yes", "No" };
+            final var result = JOptionPane.showOptionDialog(frame, "Do you want to QUIT the game?",
+                    QUIT,
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, options, options);
+            if (result == 0) {
+                frame.dispose();
+            }
+        });
+
+        frame.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2,
+                (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
+        frame.setLocationByPlatform(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(canvas);
+        frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new StartMenu(new StartContollerImpl());
     }
 }
