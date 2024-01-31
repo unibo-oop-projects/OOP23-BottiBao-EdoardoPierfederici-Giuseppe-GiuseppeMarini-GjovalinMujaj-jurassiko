@@ -14,6 +14,7 @@ public interface Player {
      * Enum for the colors
      */
     enum Color {
+        // TODO: Add some other colors
         RED("Red", 255, 0, 0),
         GREEN("Green", 0, 255, 0),
         BLUE("Blue", 0, 0, 255);
@@ -164,6 +165,14 @@ public interface Player {
      * @return the player Water Dino amount to add each turn
      */
     int getWaterDino();
+
+    /**
+     * Get a copy of the player.
+     * 
+     * @return the copy of the player
+     * @throws CloneNotSupportedException 
+     */
+    Player getPlayer() throws CloneNotSupportedException;
 
     // TODO:
     // Set<Continent> getOwnedContinents();
