@@ -83,13 +83,6 @@ public interface Player {
     Color getPlayerColor();
 
     /**
-     * Set the player objective.
-     * 
-     * @param objective player objective
-     */
-    void setPlayerObjective(Objective objective);
-
-    /**
      * Get the player Objective.
      * 
      * @return player objective
