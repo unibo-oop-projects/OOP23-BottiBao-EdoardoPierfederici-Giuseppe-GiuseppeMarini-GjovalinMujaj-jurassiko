@@ -29,9 +29,9 @@ public class TestPlayer {
     private final Set<Objective> objective = new ObjectiveFactoryImpl().createObjectives();
 
     @BeforeEach
-    void setup(){
+    void setup() {
         player = new PlayerImpl(Player.Color.RED, objective.stream().findFirst().get(),
-        new HashSet<>(), new HashSet<>(), 0, 0);
+                new HashSet<>(), new HashSet<>(), 0, 0);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class TestPlayer {
     }
 
     @Test
-    void testGetObjective(){
+    void testGetObjective() {
         final var temp = player.getObjective();
         assertNotEquals(temp, objective.stream().findFirst().get());
         assertNotEquals(temp, player.getObjective());
