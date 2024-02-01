@@ -13,7 +13,7 @@ import it.unibo.jurassiko.model.territory.api.Territory;
 /**
  * Implementation of the interface {@link Player}.
  */
-public class PlayerImpl implements Player {
+public class PlayerImpl implements Player, Cloneable {
 
     private final Color color;
     private final Objective objective;
@@ -166,7 +166,7 @@ public class PlayerImpl implements Player {
         try {
             return (Player) this.clone();
         } catch (CloneNotSupportedException e) {
-            logger.info("Cannot create a copy");
+            logger.error("Cannot create a copy");
         }
         throw new IllegalStateException("Can't create a copy of the player");
     }
