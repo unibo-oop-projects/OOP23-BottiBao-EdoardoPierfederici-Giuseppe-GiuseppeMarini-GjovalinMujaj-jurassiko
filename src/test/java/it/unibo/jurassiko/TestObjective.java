@@ -94,7 +94,7 @@ class TestObjective {
 
     @Test
     void testClone() {
-        var contObjective = objectives.stream()
+        final var contObjective = objectives.stream()
                 .filter(ConquerContinentsObjective.class::isInstance)
                 .findAny()
                 .map(ConquerContinentsObjective.class::cast)
@@ -106,7 +106,7 @@ class TestObjective {
         assertEquals(contObjective.getDescription(), contObjectiveClone.getDescription());
         assertEquals(contObjective.isAchieved(), contObjectiveClone.isAchieved());
 
-        var terrObjective = objectives.stream()
+        final var terrObjective = objectives.stream()
                 .filter(ConquerTerritoriesObjective.class::isInstance)
                 .findAny()
                 .map(ConquerTerritoriesObjective.class::cast)
@@ -119,7 +119,7 @@ class TestObjective {
         assertEquals(terrObjective.getDescription(), terrObjectiveClone.getDescription());
         assertEquals(terrObjective.isAchieved(), terrObjectiveClone.isAchieved());
 
-        var armyObjective = objectives.stream()
+        final var armyObjective = objectives.stream()
                 .filter(DestroyArmyObjective.class::isInstance)
                 .findAny()
                 .map(DestroyArmyObjective.class::cast)
