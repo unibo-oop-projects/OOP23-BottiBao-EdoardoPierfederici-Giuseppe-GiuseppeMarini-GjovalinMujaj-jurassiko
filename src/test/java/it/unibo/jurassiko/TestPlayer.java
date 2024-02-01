@@ -1,6 +1,7 @@
 package it.unibo.jurassiko;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -49,6 +50,16 @@ public class TestPlayer {
                 assertEquals(player.getOwnedTerritories(), Set.of());
             }
         }
+    }
 
+    @Test
+    void testGetPlayer() throws CloneNotSupportedException {
+        player = new PlayerImpl(Player.Color.RED, null, null, null, 0, 0);
+        assertEquals(player.getColor(), Player.Color.RED);
+        final Player temp = player.getPlayer();
+        assertEquals(temp.getColor(), Player.Color.RED);
+        assertNotEquals(temp, player);
+        temp.setBonusGroundDino(1);
+        assertEquals(player.getBonusGroundDino(), 0);
     }
 }
