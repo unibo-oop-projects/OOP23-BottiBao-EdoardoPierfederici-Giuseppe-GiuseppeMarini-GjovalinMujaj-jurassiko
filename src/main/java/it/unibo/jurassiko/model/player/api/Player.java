@@ -7,16 +7,25 @@ import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
 
 /**
- * Interface who provide method for the Player
+ * Interface for the Player.
  */
 public interface Player {
     /**
-     * Enum for the colors
+     * Enum for the colors.
      */
     enum Color {
         // TODO: Add some other colors
+        /**
+         * Color red.
+         */
         RED("Red", 255, 0, 0),
+        /**
+         * Color Green.
+         */
         GREEN("Green", 0, 255, 0),
+        /**
+         * Color Blue.
+         */
         BLUE("Blue", 0, 0, 255);
 
         private final String color;
@@ -25,18 +34,18 @@ public interface Player {
         private final int blue;
 
         /**
-         * Constructor for the Colors
+         * Constructor for the Colors.
          * 
          * @param color       color name
-         * @param RedAmount   red color amount
-         * @param GreenAmount green color amount
-         * @param BlueAmount  blue color amount
+         * @param redAmount   red color amount
+         * @param greenAmount green color amount
+         * @param blueAmount  blue color amount
          */
-        private Color(final String color, final int RedAmount, final int GreenAmount, final int BlueAmount) {
+         Color(final String color, final int redAmount, final int greenAmount, final int blueAmount) {
             this.color = color;
-            this.red = RedAmount;
-            this.green = GreenAmount;
-            this.blue = BlueAmount;
+            this.red = redAmount;
+            this.green = greenAmount;
+            this.blue = blueAmount;
         }
 
         /**
@@ -132,7 +141,7 @@ public interface Player {
     void removePlayerOcean(Ocean ocean);
 
     /**
-     * Get a Set of {@code Ocean} owned by the player
+     * Get a Set of {@code Ocean} owned by the player.
      * 
      * @return set of player's oceans
      */
@@ -170,7 +179,7 @@ public interface Player {
      * Get a copy of the player.
      * 
      * @return the copy of the player
-     * @throws CloneNotSupportedException 
+     * @throws CloneNotSupportedException
      */
     Player getPlayer() throws CloneNotSupportedException;
 
