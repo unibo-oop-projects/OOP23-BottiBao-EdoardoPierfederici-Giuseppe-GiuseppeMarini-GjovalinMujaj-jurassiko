@@ -1,6 +1,5 @@
 package it.unibo.jurassiko.model.player.impl;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import it.unibo.jurassiko.model.objective.api.Objective;
