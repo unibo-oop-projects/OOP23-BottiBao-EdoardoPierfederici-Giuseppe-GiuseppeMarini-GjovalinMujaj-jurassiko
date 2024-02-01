@@ -6,9 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.jurassiko.model.objective.impl.ConquerContinentsObjective;
+import it.unibo.jurassiko.model.objective.api.Objective;
+import it.unibo.jurassiko.model.objective.impl.ObjectiveFactoryImpl;
 import it.unibo.jurassiko.model.player.api.Player;
 import it.unibo.jurassiko.model.player.impl.PlayerImpl;
 import it.unibo.jurassiko.model.territory.api.Ocean;
@@ -24,11 +26,16 @@ public class TestPlayer {
     private Player player;
     private final Set<Territory> territory = new TerritoryFactoryImpl().createTerritories();
     private final Set<Ocean> ocean = new OceanFactoryImpl().createOceans();
+    private final Set<Objective> objective = new ObjectiveFactoryImpl().createObjectives();
+
+    @BeforeEach
+    void setup(){
+        player = new PlayerImpl(Player.Color.RED, objective.stream().findFirst().get(),
+        new HashSet<>(), new HashSet<>(), 0, 0);
+    }
 
     @Test
     void testTerritoriesAndOceans() {
-        player = new PlayerImpl(Player.Color.BLUE, new ConquerContinentsObjective(),
-                new HashSet<>(), new HashSet<>(), 0, 0);
 
         final var iterator = territory.iterator();
         while (iterator.hasNext()) {
@@ -57,12 +64,18 @@ public class TestPlayer {
 
     @Test
     void testGetPlayer() throws CloneNotSupportedException {
-        player = new PlayerImpl(Player.Color.RED, null, null, null, 0, 0);
         assertEquals(player.getColor(), Player.Color.RED);
         final Player temp = player.getPlayer();
         assertEquals(temp.getColor(), Player.Color.RED);
         assertNotEquals(temp, player);
         temp.setBonusGroundDino(1);
         assertEquals(player.getBonusGroundDino(), 0);
+    }
+
+    @Test
+    void testGetObjective(){
+        final var temp = player.getObjective();
+        assertNotEquals(temp, objective.stream().findFirst().get());
+        assertNotEquals(temp, player.getObjective());
     }
 }
