@@ -40,6 +40,9 @@ public class PlayerImpl implements Player, Cloneable {
             final int bonusGroundDino,
             final int bonusWaterDino) {
         this.color = color;
+        if (objective.equals(null) || territories.equals(null) || oceans.equals(null)) {
+            throw new IllegalArgumentException();
+        }
         this.objective = objective.getClone();
         this.territories = new HashSet<>(territories);
         this.oceans = new HashSet<>(oceans);
