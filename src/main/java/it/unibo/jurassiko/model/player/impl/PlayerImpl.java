@@ -50,7 +50,7 @@ public class PlayerImpl implements Player {
      * {@inheritDoc}
      */
     @Override
-    public Color getPlayerColor() {
+    public Color getColor() {
         return color;
     }
 

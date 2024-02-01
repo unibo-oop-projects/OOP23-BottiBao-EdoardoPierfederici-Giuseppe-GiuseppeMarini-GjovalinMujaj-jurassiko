@@ -90,7 +90,7 @@ public interface Player {
      * 
      * @return player color
      */
-    Color getPlayerColor();
+    Color getColor();
 
     /**
      * Get the player Objective.
