@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class ConquerTerritoriesObjective extends AbstractObjective {
 
+    private static final long serialVersionUID = 4319485590237283359L;
     private static final String TYPE = "conquerTerritories";
 
     @JsonProperty("value")
