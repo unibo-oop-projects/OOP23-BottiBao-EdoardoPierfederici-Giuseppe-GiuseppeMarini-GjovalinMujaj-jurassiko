@@ -44,4 +44,11 @@ public interface Objective {
      */
     String getDescription();
 
+    /**
+     * Creates a copy of the objective using object serialization.
+     * 
+     * @return a clone of the objective
+     */
+    Objective getClone();
+
 }

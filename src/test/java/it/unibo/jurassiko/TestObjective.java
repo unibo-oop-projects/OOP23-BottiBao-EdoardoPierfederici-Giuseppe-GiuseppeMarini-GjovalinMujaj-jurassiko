@@ -92,4 +92,44 @@ class TestObjective {
 
     }
 
+    @Test
+    void testClone() {
+        final var contObjective = objectives.stream()
+                .filter(ConquerContinentsObjective.class::isInstance)
+                .findAny()
+                .map(ConquerContinentsObjective.class::cast)
+                .get();
+
+        final var contObjectiveClone = (ConquerContinentsObjective) contObjective.getClone();
+        assertEquals(contObjective.getType(), contObjectiveClone.getType());
+        assertEquals(contObjective.getContinents(), contObjectiveClone.getContinents());
+        assertEquals(contObjective.getDescription(), contObjectiveClone.getDescription());
+        assertEquals(contObjective.isAchieved(), contObjectiveClone.isAchieved());
+
+        final var terrObjective = objectives.stream()
+                .filter(ConquerTerritoriesObjective.class::isInstance)
+                .findAny()
+                .map(ConquerTerritoriesObjective.class::cast)
+                .get();
+
+        final var terrObjectiveClone = (ConquerTerritoriesObjective) terrObjective.getClone();
+        assertEquals(terrObjective.getType(), terrObjectiveClone.getType());
+        assertEquals(terrObjective.getNumTerritories(), terrObjectiveClone.getNumTerritories());
+        assertEquals(terrObjective.getMinDinos(), terrObjectiveClone.getMinDinos());
+        assertEquals(terrObjective.getDescription(), terrObjectiveClone.getDescription());
+        assertEquals(terrObjective.isAchieved(), terrObjectiveClone.isAchieved());
+
+        final var armyObjective = objectives.stream()
+                .filter(DestroyArmyObjective.class::isInstance)
+                .findAny()
+                .map(DestroyArmyObjective.class::cast)
+                .get();
+
+        final var armyObjectiveClone = (DestroyArmyObjective) armyObjective.getClone();
+        assertEquals(armyObjective.getType(), armyObjectiveClone.getType());
+        assertEquals(armyObjective.getArmyColor(), armyObjectiveClone.getArmyColor());
+        assertEquals(armyObjective.getDescription(), armyObjectiveClone.getDescription());
+        assertEquals(armyObjective.isAchieved(), armyObjectiveClone.isAchieved());
+    }
+
 }
