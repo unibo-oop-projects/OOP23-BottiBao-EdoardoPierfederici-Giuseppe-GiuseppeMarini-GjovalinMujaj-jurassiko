@@ -11,6 +11,7 @@ import it.unibo.jurassiko.model.objective.api.Objective;
  */
 public abstract class AbstractObjective implements Objective, Serializable {
 
+    private static final long serialVersionUID = -1279945186700168473L;
     private static final String DEFAULT_OBJECTIVE_DESCRIPTION = "Conquista 12 territori.";
 
     private String description = "";

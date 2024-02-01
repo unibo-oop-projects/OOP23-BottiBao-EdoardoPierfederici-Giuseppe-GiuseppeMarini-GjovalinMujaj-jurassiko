@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class DestroyArmyObjective extends AbstractObjective {
 
+    private static final long serialVersionUID = -598498354779098964L;
     private static final String TYPE = "destroyArmy";
     @JsonProperty("value")
     private String armyColor;
