@@ -2,6 +2,9 @@ package it.unibo.jurassiko.model.player.impl;
 
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import it.unibo.jurassiko.model.objective.api.Objective;
 import it.unibo.jurassiko.model.player.api.Player;
 import it.unibo.jurassiko.model.territory.api.Ocean;
@@ -159,11 +162,11 @@ public class PlayerImpl implements Player {
      */
     @Override
     public Player getPlayer() {
+        final Logger logger = LoggerFactory.getLogger(PlayerImpl.class);
         try {
             return (Player) this.clone();
         } catch (CloneNotSupportedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.info("Cannot create a copy");
         }
         throw new IllegalStateException("Can't create a copy of the player");
     }
