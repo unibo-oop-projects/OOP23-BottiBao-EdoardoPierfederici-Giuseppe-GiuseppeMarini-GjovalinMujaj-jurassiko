@@ -16,7 +16,9 @@ import it.unibo.jurassiko.model.territory.api.Territory;
 import it.unibo.jurassiko.model.territory.impl.OceanFactoryImpl;
 import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 
-public class TestPlayer {
+/**
+ * Test class to test Player
+ * */public class TestPlayer {
 
     private Player player;
     private final Set<Territory> territory = new TerritoryFactoryImpl().createTerritories();

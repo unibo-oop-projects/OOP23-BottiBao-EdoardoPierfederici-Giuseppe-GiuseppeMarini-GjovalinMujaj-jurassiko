@@ -40,7 +40,7 @@ public class PlayerImpl implements Player, Cloneable {
             final int bonusGroundDino,
             final int bonusWaterDino) {
         this.color = color;
-        this.objective = objective; // TODO: get a copy of the objective so its unmodificable externally
+        this.objective = objective.getClone();
         this.territories = new HashSet<>(territories);
         this.oceans = new HashSet<>(oceans);
         this.bonusGroundDino = bonusGroundDino;
@@ -60,7 +60,7 @@ public class PlayerImpl implements Player, Cloneable {
      */
     @Override
     public Objective getObjective() {
-        return objective;
+        return objective.getClone();
     }
 
     /**
@@ -89,9 +89,6 @@ public class PlayerImpl implements Player, Cloneable {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     /**
      * {@inheritDoc}
      */
