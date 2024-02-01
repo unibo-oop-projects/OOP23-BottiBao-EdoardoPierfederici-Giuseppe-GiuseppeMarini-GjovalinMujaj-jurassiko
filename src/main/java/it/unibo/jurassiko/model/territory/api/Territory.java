@@ -29,7 +29,7 @@ public interface Territory extends BoardArea<Territory> {
 
     /**
      * 
-     * @return
+     * @return get the dino amount in the territory
      */
     int getDinoAmount();
 
