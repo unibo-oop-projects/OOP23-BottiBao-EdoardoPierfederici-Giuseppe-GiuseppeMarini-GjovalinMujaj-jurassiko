@@ -14,19 +14,19 @@ public class BattleImpl implements Battle {
     }
 
     @Override
-    public List<Integer> rollAttack(int nTroopsAttack) {
+    public List<Integer> rollAttack(final int nTroopsAttack) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'rollAttack'");
     }
 
     @Override
-    public List<Integer> rollDefense(int nTroopsDefense) {
+    public List<Integer> rollDefense(final int nTroopsDefense) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'rollDefense'");
     }
 
     @Override
-    public boolean checkTroops(int nTroops) {
+    public boolean checkTroops(final int nTroops) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'checkTroops'");
     }

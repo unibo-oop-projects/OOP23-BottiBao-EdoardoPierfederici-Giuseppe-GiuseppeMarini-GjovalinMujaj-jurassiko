@@ -46,7 +46,7 @@ public class TestBattle {
     @Test
     public void testRollDefense() {
         this.results = this.battle.rollDefense(3);
-        for (Integer element : this.results) {
+        for (final Integer element : this.results) {
             assertTrue(element < 7 || element > 0);
         }
     }
@@ -54,7 +54,7 @@ public class TestBattle {
     @Test
     public void testRollAttacco() {
         this.results = this.battle.rollAttack(3);
-        for (Integer element : this.results) {
+        for (final Integer element : this.results) {
             assertTrue(element < 7 || element > 0);
         }
     }
