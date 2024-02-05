@@ -3,18 +3,15 @@ package it.unibo.jurassiko.model.battle.api;
 import java.util.List;
 
 import it.unibo.jurassiko.common.Pair;
-import it.unibo.jurassiko.model.territory.impl.*;
 
 public interface Battle {
-    
-    Pair<Integer, Integer> attack(int ntruppeattacco, TerritoryImpl paesepartenzattacco, TerritoryImpl paeseattaccato);
 
-    List<Integer> tiroattacco(int ntruppeattacco);
+    Pair<Integer, Integer> attack();
 
-    List<Integer> tirodifesa(int ntruppedifesa);
+    List<Integer> rollAttack(int nTroopsAttack);
 
-    boolean checktruppe(int ntruppe);
+    List<Integer> rollDefense(int nTroopsDefense);
 
-    boolean checkterritori(TerritoryImpl paesepartenzattacco, TerritoryImpl paeseattaccato);
-    
+    boolean checkTroops(int nTroops);
+
 }

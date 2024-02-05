@@ -4,40 +4,31 @@ import java.util.List;
 
 import it.unibo.jurassiko.common.Pair;
 import it.unibo.jurassiko.model.battle.api.Battle;
-import it.unibo.jurassiko.model.dice.impl.*;
-import it.unibo.jurassiko.model.player.impl.*;
-import it.unibo.jurassiko.model.territory.impl.*;
 
 public class BattleImpl implements Battle {
 
     @Override
-    public Pair<Integer,Integer> attack(int ntruppeattacco, TerritoryImpl paesepartenzattacco, TerritoryImpl paeseattaccato) {
+    public Pair<Integer, Integer> attack() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'attack'");
     }
 
     @Override
-    public List<Integer> tiroattacco(int ntruppeattacco) {
+    public List<Integer> rollAttack(int nTroopsAttack) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'tiroattacco'");
+        throw new UnsupportedOperationException("Unimplemented method 'rollAttack'");
     }
 
     @Override
-    public List<Integer> tirodifesa(int ntruppedifesa) {
+    public List<Integer> rollDefense(int nTroopsDefense) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'tirodifesa'");
+        throw new UnsupportedOperationException("Unimplemented method 'rollDefense'");
     }
 
     @Override
-    public boolean checktruppe(int ntruppe) {
+    public boolean checkTroops(int nTroops) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'checktruppe'");
+        throw new UnsupportedOperationException("Unimplemented method 'checkTroops'");
     }
 
-    @Override
-    public boolean checkterritori(TerritoryImpl paesepartenzattacco, TerritoryImpl paeseattaccato) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'checkterritori'");
-    }
-    
 }
