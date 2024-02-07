@@ -7,7 +7,7 @@ import it.unibo.jurassiko.model.objective.api.Objective;
 /**
  * Implementation of JSONFileReader for objectives.
  */
-public class ObjectiveReader extends AbstractJSONFileReader<Objective> {
+public class ObjectiveReader extends AbstractBoardDataReader<Objective> {
 
     /**
      * Creates an ObjectiveReader.

@@ -10,7 +10,7 @@ import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 /**
  * Implementation of JSONFileReader for oceans.
  */
-public class OceanReader extends AbstractJSONFileReader<Ocean> {
+public class OceanReader extends AbstractBoardDataReader<Ocean> {
 
     /**
      * Creates an OceanReader.
