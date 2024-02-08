@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 
@@ -23,28 +24,24 @@ public class MapPanel extends JPanel {
     private static final double WIDTH_RATIO = 0.8;
     private static final String URL_IMAGE = "images/mappa.png";
 
-    private final ImageIcon map;
-    private final JLayeredPane layPane;
-    private final JLabel mapLabel;
-    private transient BufferedImage imageMap;
-
     /**
      * Set the map in the relevant label and add it to the LayeredPane.
      */
     public MapPanel() {
+        BufferedImage imageMap;
         try {
             imageMap = ImageIO.read(ClassLoader.getSystemResource(URL_IMAGE));
-        } catch (final Exception e) {
+        } catch (final IOException e) {
             throw new IllegalStateException("Failed to read the map file", e);
         }
         final int width = (int) (WIDTH_RATIO * ViewImpl.getScreenSize().getWidth());
         final int height = (int) (HEIGHT_RATIO * ViewImpl.getScreenSize().getHeight());
-        this.map = ViewImpl.scaleImage(imageMap, width, height);
-        this.mapLabel = new JLabel(map);
+        final ImageIcon map = ViewImpl.scaleImage(imageMap, width, height);
+        final JLabel mapLabel = new JLabel(map);
         mapLabel.setBounds(0, 0, width, height);
-        this.layPane = new JLayeredPane();
-        this.layPane.add(mapLabel, JLayeredPane.DEFAULT_LAYER);
-        this.layPane.setPreferredSize(new Dimension(width, height));
+        final JLayeredPane layPane = new JLayeredPane();
+        layPane.add(mapLabel, JLayeredPane.DEFAULT_LAYER);
+        layPane.setPreferredSize(new Dimension(width, height));
         this.setLayout(new BorderLayout());
         this.add(layPane);
     }

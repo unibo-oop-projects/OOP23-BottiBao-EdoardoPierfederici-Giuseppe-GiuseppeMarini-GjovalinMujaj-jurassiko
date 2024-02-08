@@ -9,6 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -29,28 +30,22 @@ public class TopBarPanel extends JPanel {
     private static final int DISTANCE_BUTTON_L_R = 48;
     private static final String URL_IMAGE = "images/topbar.png";
 
-    private Insets insets;
-    private transient BufferedImage imageBar;
-    private final ImageIcon imageTopBar;
     private final JLabel topLabel;
-    private Font fontButton;
-    private JButton objective;
-    private JButton attack;
-    private JButton endTurn;
-
+    
     /**
      * Set the top-bar in the relevant label load the buttons in it,
      * and add all to the relevant panel.
      */
     public TopBarPanel() {
+        BufferedImage imageBar;
         try {
             imageBar = ImageIO.read(ClassLoader.getSystemResource(URL_IMAGE));
-        } catch (final Exception e) {
+        } catch (final IOException e) {
             throw new IllegalStateException("Failed to read the top bar file", e);
         }
         final int width = (int) (WIDTH_RATIO * ViewImpl.getScreenSize().getWidth());
         final int height = (int) (HEIGHT_RATIO * ViewImpl.getScreenSize().getHeight());
-        this.imageTopBar = ViewImpl.scaleImage(imageBar, width, height);
+        final ImageIcon imageTopBar = ViewImpl.scaleImage(imageBar, width, height);
         this.topLabel = new JLabel(imageTopBar);
         this.topLabel.setLayout(new GridBagLayout());
         this.loadButton();
@@ -64,14 +59,14 @@ public class TopBarPanel extends JPanel {
      * Load the button in the relevant label.
      */
     private void loadButton() {
-        this.objective = new JButton("Obiettivo");
-        this.attack = new JButton("Attacco");
-        this.endTurn = new JButton("Fine turno");
-        fontButton = new Font("Serif", Font.BOLD, FONT_SIZE);
+        final JButton objective = new JButton("Obiettivo");
+        final JButton attack = new JButton("Attacco");
+        final JButton endTurn = new JButton("Fine turno");
+        final Font fontButton = new Font("Serif", Font.BOLD, FONT_SIZE);
         objective.setFont(fontButton);
         attack.setFont(fontButton);
         endTurn.setFont(fontButton);
-        insets = new Insets(8, DISTANCE_BUTTON_L_R, 8, DISTANCE_BUTTON_L_R);
+        final Insets insets = new Insets(8, DISTANCE_BUTTON_L_R, 8, DISTANCE_BUTTON_L_R);
         this.topLabel.add(objective,
             new GridBagConstraints(0, 0, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.CENTER, insets, 0, 0));
         this.topLabel.add(attack, 
