@@ -13,7 +13,7 @@ public interface Player {
     /**
      * Enum for the colors.
      */
-    enum Color {
+    enum GameColor {
         // TODO: Mod the color if necessary, otherwise rm TODO
     /**
      * Color red.
@@ -59,15 +59,14 @@ public interface Player {
     public String getHexCode() {
         return this.hexString;
     }
-
-    }
+  }
 
     /**
      * Get the player color.
      * 
      * @return player color
      */
-    Color getColor();
+    GameColor getColor();
 
     /**
      * Get the player Objective.

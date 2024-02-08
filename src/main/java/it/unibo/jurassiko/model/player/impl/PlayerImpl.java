@@ -17,7 +17,7 @@ import it.unibo.jurassiko.model.territory.api.Territory;
  */
 public class PlayerImpl implements Player, Cloneable {
 
-    private final Color color;
+    private final GameColor color;
     private final Objective objective;
     private final Set<Territory> territories;
     private final Set<Ocean> oceans;
@@ -34,7 +34,7 @@ public class PlayerImpl implements Player, Cloneable {
      * @param bonusGroundDino player's bonus ground dino
      * @param bonusWaterDino  player's bonus water dino
      */
-    public PlayerImpl(final Color color,
+    public PlayerImpl(final GameColor color,
             final Objective objective,
             final Set<Territory> territories,
             final Set<Ocean> oceans,
@@ -53,7 +53,7 @@ public class PlayerImpl implements Player, Cloneable {
      * {@inheritDoc}
      */
     @Override
-    public Color getColor() {
+    public GameColor getColor() {
         return color;
     }
 

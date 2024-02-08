@@ -18,7 +18,7 @@ import it.unibo.jurassiko.reader.api.JSONFileReader;
  * 
  * @param <T> The type of object to be read
  */
-public abstract class AbstractJSONFileReader<T> implements JSONFileReader<T> {
+public abstract class AbstractBoardDataReader<T> implements JSONFileReader<Set<T>> {
 
     private final ObjectMapper mapper;
     private final Class<T> targetClass;
@@ -28,7 +28,7 @@ public abstract class AbstractJSONFileReader<T> implements JSONFileReader<T> {
      * 
      * @param targetClass The class of the objects to read used by Jackson parser
      */
-    public AbstractJSONFileReader(final Class<T> targetClass) {
+    public AbstractBoardDataReader(final Class<T> targetClass) {
         this.mapper = new ObjectMapper();
         this.targetClass = targetClass;
     }
