@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.jurassiko.common.Pair;
-import it.unibo.jurassiko.model.player.api.Player.Color;
+import it.unibo.jurassiko.model.player.api.Player.GameColor;
 import it.unibo.jurassiko.reader.impl.OceanSpritePositionReader;
 import it.unibo.jurassiko.reader.impl.TerritorySpritePositionReader;
 
@@ -34,7 +34,7 @@ class TestSpritePositionReaders {
     private static final double OCEAN_GREEN_Y = 35.0;
 
     private Map<String, Pair<Double, Double>> territoryPositions;
-    private Map<String, Map<Color, Pair<Double, Double>>> oceanPositions;
+    private Map<String, Map<GameColor, Pair<Double, Double>>> oceanPositions;
     // TODO: use territories/oceans actual sets to check files?
 
     @BeforeEach
@@ -72,9 +72,9 @@ class TestSpritePositionReaders {
         final var redCoordinates = new Pair<>(OCEAN_RED_X, OCEAN_RED_Y);
         final var blueCoordinates = new Pair<>(OCEAN_BLUE_X, OCEAN_BLUE_Y);
         final var greenCoordinates = new Pair<>(OCEAN_GREEN_X, OCEAN_GREEN_Y);
-        assertEquals(redCoordinates, oceanPositions.get(SAMPLE_OCEAN).get(Color.RED));
-        assertEquals(blueCoordinates, oceanPositions.get(SAMPLE_OCEAN).get(Color.BLUE));
-        assertEquals(greenCoordinates, oceanPositions.get(SAMPLE_OCEAN).get(Color.GREEN));
+        assertEquals(redCoordinates, oceanPositions.get(SAMPLE_OCEAN).get(GameColor.RED));
+        assertEquals(blueCoordinates, oceanPositions.get(SAMPLE_OCEAN).get(GameColor.BLUE));
+        assertEquals(greenCoordinates, oceanPositions.get(SAMPLE_OCEAN).get(GameColor.GREEN));
     }
 
     /**

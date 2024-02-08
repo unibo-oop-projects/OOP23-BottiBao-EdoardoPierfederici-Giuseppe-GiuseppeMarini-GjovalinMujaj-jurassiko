@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.unibo.jurassiko.common.Pair;
-import it.unibo.jurassiko.model.player.api.Player.Color;
+import it.unibo.jurassiko.model.player.api.Player.GameColor;
 import it.unibo.jurassiko.reader.api.JSONFileReader;
 
 /**
@@ -18,7 +18,7 @@ import it.unibo.jurassiko.reader.api.JSONFileReader;
  * coordinates of the sprites for the oceans, calculated as a
  * percentage of the board panel dimension.
  */
-public class OceanSpritePositionReader implements JSONFileReader<Map<String, Map<Color, Pair<Double, Double>>>> {
+public class OceanSpritePositionReader implements JSONFileReader<Map<String, Map<GameColor, Pair<Double, Double>>>> {
 
     private final ObjectMapper mapper;
 
@@ -33,8 +33,8 @@ public class OceanSpritePositionReader implements JSONFileReader<Map<String, Map
      * {@inheritDoc}
      */
     @Override
-    public Map<String, Map<Color, Pair<Double, Double>>> readFileData(final String filePath) {
-        final Map<String, Map<Color, Pair<Double, Double>>> data = new HashMap<>();
+    public Map<String, Map<GameColor, Pair<Double, Double>>> readFileData(final String filePath) {
+        final Map<String, Map<GameColor, Pair<Double, Double>>> data = new HashMap<>();
 
         try (InputStream in = Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(filePath))) {
             final JsonNode jsonNode = this.mapper.readTree(in);
@@ -51,10 +51,10 @@ public class OceanSpritePositionReader implements JSONFileReader<Map<String, Map
                 final var bluePosition = new Pair<>(blueX, blueY);
                 final var greenPosition = new Pair<>(greenX, greenY);
 
-                final Map<Color, Pair<Double, Double>> colorPositions = new HashMap<>();
-                colorPositions.put(Color.RED, redPosition);
-                colorPositions.put(Color.BLUE, bluePosition);
-                colorPositions.put(Color.GREEN, greenPosition);
+                final Map<GameColor, Pair<Double, Double>> colorPositions = new HashMap<>();
+                colorPositions.put(GameColor.RED, redPosition);
+                colorPositions.put(GameColor.BLUE, bluePosition);
+                colorPositions.put(GameColor.GREEN, greenPosition);
 
                 data.put(oceanName, colorPositions);
             });

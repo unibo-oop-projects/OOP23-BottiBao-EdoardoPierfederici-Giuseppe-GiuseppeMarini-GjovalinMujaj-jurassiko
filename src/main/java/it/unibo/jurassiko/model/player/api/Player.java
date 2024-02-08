@@ -13,7 +13,7 @@ public interface Player {
     /**
      * Enum for the colors.
      */
-    enum Color {
+    enum GameColor {
         // TODO: Add some other colors
         /**
          * Color red.
@@ -41,7 +41,7 @@ public interface Player {
          * @param greenAmount green color amount
          * @param blueAmount  blue color amount
          */
-         Color(final String color, final int redAmount, final int greenAmount, final int blueAmount) {
+        GameColor(final String color, final int redAmount, final int greenAmount, final int blueAmount) {
             this.color = color;
             this.red = redAmount;
             this.green = greenAmount;
@@ -90,7 +90,7 @@ public interface Player {
      * 
      * @return player color
      */
-    Color getColor();
+    GameColor getColor();
 
     /**
      * Get the player Objective.
