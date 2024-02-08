@@ -14,76 +14,52 @@ public interface Player {
      * Enum for the colors.
      */
     enum GameColor {
-        // TODO: Add some other colors
-        /**
-         * Color red.
-         */
-        RED("Red", 255, 0, 0),
-        /**
-         * Color Green.
-         */
-        GREEN("Green", 0, 255, 0),
-        /**
-         * Color Blue.
-         */
-        BLUE("Blue", 0, 0, 255);
+        // TODO: Mod the color if necessary, otherwise rm TODO
+    /**
+     * Color red.
+     */
+    RED("Red", "#ff0000"),
+    /**
+     * Color Green.
+     */
+    GREEN("Green", "#00ff00"),
+    /**
+     * Color Blue.
+     */
+    BLUE("Blue", "#0000ff");
 
-        private final String color;
-        private final int red;
-        private final int green;
-        private final int blue;
+    private final String color;
+    private final String hexString;
 
-        /**
-         * Constructor for the Colors.
-         * 
-         * @param color       color name
-         * @param redAmount   red color amount
-         * @param greenAmount green color amount
-         * @param blueAmount  blue color amount
-         */
-        GameColor(final String color, final int redAmount, final int greenAmount, final int blueAmount) {
-            this.color = color;
-            this.red = redAmount;
-            this.green = greenAmount;
-            this.blue = blueAmount;
-        }
-
-        /**
-         * Get the color name.
-         * 
-         * @return color name
-         */
-        public String getColor() {
-            return color;
-        }
-
-        /**
-         * Get the blue amount.
-         * 
-         * @return blue amount
-         */
-        public int getBlue() {
-            return blue;
-        }
-
-        /**
-         * Get the green amount.
-         * 
-         * @return green amount
-         */
-        public int getGreen() {
-            return green;
-        }
-
-        /**
-         * Get the red amount.
-         * 
-         * @return red amount
-         */
-        public int getRed() {
-            return red;
-        }
+    /**
+     * Constructor for the Colors.
+     * 
+     * @param color   color name
+     * @param hexCode HexCode of the color
+     */
+    Color(final String color, final String hexCode) {
+        this.color = color;
+        this.hexString = hexCode;
     }
+
+    /**
+     * Get the color name.
+     * 
+     * @return color name
+     */
+    public String getColor() {
+        return color;
+    }
+
+    /**
+     * Get the HexCode.
+     * 
+     * @return HexCode
+     */
+    public String getHexCode() {
+        return this.hexString;
+    }
+  }
 
     /**
      * Get the player color.

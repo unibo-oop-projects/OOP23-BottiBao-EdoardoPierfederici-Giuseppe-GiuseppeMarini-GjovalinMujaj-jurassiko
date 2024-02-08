@@ -1,6 +1,7 @@
 package it.unibo.jurassiko.model.player.impl;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -40,12 +41,10 @@ public class PlayerImpl implements Player, Cloneable {
             final int bonusGroundDino,
             final int bonusWaterDino) {
         this.color = color;
-        if (objective.equals(null) || territories.equals(null) || oceans.equals(null)) {
-            throw new IllegalArgumentException();
-        }
+        Objects.requireNonNull(objective);
         this.objective = objective.getClone();
-        this.territories = new HashSet<>(territories);
-        this.oceans = new HashSet<>(oceans);
+        this.territories = new HashSet<>(Objects.requireNonNull(territories));
+        this.oceans = new HashSet<>(Objects.requireNonNull(oceans));
         this.bonusGroundDino = bonusGroundDino;
         this.bonusWaterDino = bonusWaterDino;
     }
