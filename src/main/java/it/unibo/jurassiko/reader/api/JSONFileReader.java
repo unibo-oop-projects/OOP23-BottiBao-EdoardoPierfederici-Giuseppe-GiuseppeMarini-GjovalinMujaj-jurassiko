@@ -12,6 +12,7 @@ public interface JSONFileReader<T> {
      * 
      * @param filePath path of the file to read
      * @return the deserialized objects
+     * @throws IllegalStateException if the file is not parsed correctly
      */
     T readFileData(String filePath);
 
