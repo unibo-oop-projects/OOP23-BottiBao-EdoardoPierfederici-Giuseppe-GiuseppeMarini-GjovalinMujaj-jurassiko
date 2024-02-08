@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -22,6 +21,8 @@ import javax.swing.JPanel;
  */
 public class TopBarPanel extends JPanel {
 
+    private static final long serialVersionUID = 1379037036670658465L;
+
     private static final double HEIGHT_RATIO = 0.1;
     private static final double WIDTH_RATIO = 0.8;
     private static final int FONT_SIZE = 24;
@@ -29,7 +30,6 @@ public class TopBarPanel extends JPanel {
     private static final String URL_IMAGE = "images/topbar.png";
 
     private Insets insets;
-    private final Dimension screenSize;
     private transient BufferedImage imageBar;
     private final ImageIcon imageTopBar;
     private final JLabel topLabel;
@@ -43,14 +43,13 @@ public class TopBarPanel extends JPanel {
      * and add all to the relevant panel.
      */
     public TopBarPanel() {
-        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         try {
             imageBar = ImageIO.read(ClassLoader.getSystemResource(URL_IMAGE));
         } catch (final Exception e) {
             throw new IllegalStateException("Failed to read the top bar file", e);
         }
-        final int width = (int) (WIDTH_RATIO * screenSize.getWidth());
-        final int height = (int) (HEIGHT_RATIO * screenSize.getHeight());
+        final int width = (int) (WIDTH_RATIO * ViewImpl.getScreenSize().getWidth());
+        final int height = (int) (HEIGHT_RATIO * ViewImpl.getScreenSize().getHeight());
         this.imageTopBar = ViewImpl.scaleImage(imageBar, width, height);
         this.topLabel = new JLabel(imageTopBar);
         this.topLabel.setLayout(new GridBagLayout());

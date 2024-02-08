@@ -1,7 +1,9 @@
 package it.unibo.jurassiko.view.gamescreen.impl;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -15,6 +17,8 @@ import it.unibo.jurassiko.view.panel.MapPanel;
  * Implementation of the View for the GUI.
  */
 public class ViewImpl extends JFrame implements View {
+
+    private static final long serialVersionUID = 4546011807046339073L;
 
     private final MapPanel panel = new MapPanel();
     private final TopBarPanel buttons = new TopBarPanel();
@@ -41,7 +45,7 @@ public class ViewImpl extends JFrame implements View {
      * @param height height of the new image
      * @return return the scaled image
      */
-    public static final ImageIcon scaleImage(final BufferedImage image, final int width, final int height) {
+    public static ImageIcon scaleImage(final BufferedImage image, final int width, final int height) {
         final ImageIcon icon = new ImageIcon(image);
         final Image temp = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(temp);
@@ -55,5 +59,14 @@ public class ViewImpl extends JFrame implements View {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+
+    /**
+     * Returns screen size.
+     * 
+     * @return dimension of the screen
+     */
+    public static Dimension getScreenSize(){
+        return Toolkit.getDefaultToolkit().getScreenSize();
     }
 }
