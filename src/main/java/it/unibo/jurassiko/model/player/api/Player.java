@@ -15,51 +15,51 @@ public interface Player {
      */
     enum GameColor {
         // TODO: Mod the color if necessary, otherwise rm TODO
-    /**
-     * Color red.
-     */
-    RED("Red", "#ff0000"),
-    /**
-     * Color Green.
-     */
-    GREEN("Green", "#00ff00"),
-    /**
-     * Color Blue.
-     */
-    BLUE("Blue", "#0000ff");
+        /**
+         * Color red.
+         */
+        RED("Red", "#ff0000"),
+        /**
+         * Color Green.
+         */
+        GREEN("Green", "#00ff00"),
+        /**
+         * Color Blue.
+         */
+        BLUE("Blue", "#0000ff");
 
-    private final String color;
-    private final String hexString;
+        private final String color;
+        private final String hexString;
 
-    /**
-     * Constructor for the Colors.
-     * 
-     * @param color   color name
-     * @param hexCode HexCode of the color
-     */
-    Color(final String color, final String hexCode) {
-        this.color = color;
-        this.hexString = hexCode;
+        /**
+         * Constructor for the Colors.
+         * 
+         * @param color   color name
+         * @param hexCode HexCode of the color
+         */
+        GameColor(final String color, final String hexCode) {
+            this.color = color;
+            this.hexString = hexCode;
+        }
+
+        /**
+         * Get the color name.
+         * 
+         * @return color name
+         */
+        public String getColor() {
+            return color;
+        }
+
+        /**
+         * Get the HexCode.
+         * 
+         * @return HexCode
+         */
+        public String getHexCode() {
+            return this.hexString;
+        }
     }
-
-    /**
-     * Get the color name.
-     * 
-     * @return color name
-     */
-    public String getColor() {
-        return color;
-    }
-
-    /**
-     * Get the HexCode.
-     * 
-     * @return HexCode
-     */
-    public String getHexCode() {
-        return this.hexString;
-    }
-  }
 
     /**
      * Get the player color.
