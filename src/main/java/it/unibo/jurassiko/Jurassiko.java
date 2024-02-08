@@ -13,10 +13,9 @@ public final class Jurassiko {
     private static Logger logger = LoggerFactory.getLogger(Jurassiko.class);
 
     /**
-     * Private constructor to protect the main class
+     * Private constructor to protect the main class.
      */
-    private Jurassiko() {
-      
+    private Jurassiko() {      
     }
         
     /**

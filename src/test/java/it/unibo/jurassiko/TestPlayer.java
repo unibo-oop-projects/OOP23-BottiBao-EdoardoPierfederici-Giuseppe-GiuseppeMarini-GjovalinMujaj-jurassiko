@@ -19,7 +19,7 @@ import it.unibo.jurassiko.model.territory.impl.OceanFactoryImpl;
 import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 
 /**
- * Test class to test Player
+ * Test class to test Player.
  */
 public class TestPlayer {
 
