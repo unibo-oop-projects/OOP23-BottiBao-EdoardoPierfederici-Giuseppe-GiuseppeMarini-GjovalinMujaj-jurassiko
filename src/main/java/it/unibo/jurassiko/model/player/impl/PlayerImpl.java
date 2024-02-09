@@ -146,10 +146,13 @@ public class PlayerImpl implements Player, Cloneable {
 
     private int isSubSetTerritory(final Pair<Set<Territory>, Integer> set) {
         int result = 0;
-        final var temp = territories.stream().map(t -> t.getName().toLowerCase()).collect(Collectors.toSet());
-        return temp.containsAll(set.x().stream()
+        final Set<String> temp = territories.stream().map(t -> t.getName().toLowerCase()).collect(Collectors.toSet());
+        if (temp.containsAll(set.x().stream()
                 .map(t -> t.getName().toLowerCase())
-                .collect(Collectors.toSet())) ? result = result + set.y() : result;
+                .collect(Collectors.toSet()))) {
+            result = result + set.y();
+        }
+        return result;
     }
 
     private Set<Territory> getContinent(final String name) {
