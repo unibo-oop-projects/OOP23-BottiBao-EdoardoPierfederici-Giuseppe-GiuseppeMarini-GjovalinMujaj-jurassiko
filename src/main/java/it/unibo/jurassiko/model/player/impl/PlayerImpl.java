@@ -24,12 +24,11 @@ public class PlayerImpl implements Player, Cloneable {
     private final Objective objective;
     private final Set<Territory> territories;
     private final Set<Ocean> oceans;
-    private final Set<String> continents;
     private final Set<Territory> totalTerritories = new TerritoryFactoryImpl().createTerritories();
-    private final static Pair<String, Integer> NORD_AMERICA = new Pair<>("Nord America", 3);
-    private final static Pair<String, Integer> GONDWANA_OCCIDENTALE = new Pair<>("Gondwana Occidentale", 5);
-    private final static Pair<String, Integer> GONDWANA_ORIENTALE = new Pair<>("Gondwana Orientale", 3);
-    private final static Pair<String, Integer> EUROASIA = new Pair<>("Eurasia", 6);
+    private static final Pair<String, Integer> NORD_AMERICA = new Pair<>("Nord America", 3);
+    private static final Pair<String, Integer> GONDWANA_OCCIDENTALE = new Pair<>("Gondwana Occidentale", 5);
+    private static final Pair<String, Integer> GONDWANA_ORIENTALE = new Pair<>("Gondwana Orientale", 3);
+    private static final Pair<String, Integer> EUROASIA = new Pair<>("Eurasia", 6);
 
     /**
      * Constructor for the player.
