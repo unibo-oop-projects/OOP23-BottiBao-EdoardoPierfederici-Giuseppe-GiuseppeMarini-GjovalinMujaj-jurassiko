@@ -143,18 +143,28 @@ public class PlayerImpl implements Player, Cloneable {
         return (territories.size() / 2) + result;
     }
 
-    private int isSubSetTerritory(final Pair<Set<Territory>, Integer> set) {
+    /**
+     * Used to check if the player has all the territory of a certain continent.
+     * 
+     * @param pair Pair of a Set or Territory and integer
+     * @return the value of the bonus ground dino based on the continent you have
+     */
+    private int isSubSetTerritory(final Pair<Set<Territory>, Integer> pair) {
         int result = 0;
         final Set<String> temp = territories.stream().map(t -> t.getName().toLowerCase(Locale.ROOT))
                 .collect(Collectors.toSet());
-        if (temp.containsAll(set.x().stream()
+        if (temp.containsAll(pair.x().stream()
                 .map(t -> t.getName().toLowerCase(Locale.ROOT))
                 .collect(Collectors.toSet()))) {
-            result = result + set.y();
+            result = result + pair.y();
         }
         return result;
     }
 
+    /**
+     * @param name name of the continent
+     * @return Set of the territory with the same continent name
+     */
     private Set<Territory> getContinent(final String name) {
         return totalTerritories.stream()
                 .filter(e -> e.getContinent().toLowerCase(Locale.ROOT).equals(name.toLowerCase(Locale.ROOT)))

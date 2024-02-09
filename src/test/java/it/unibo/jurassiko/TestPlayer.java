@@ -92,6 +92,10 @@ public class TestPlayer {
         // CHECKSTYLE: MagicNumber ON
     }
 
+    /**
+     * @param name name of the Territory
+     * @return the territory based of the name
+     */
     private Territory getTerritory(final String name) {
         final var result = territory.stream()
                 .filter(e -> e.getName().toLowerCase(Locale.ROOT).equals(name.toLowerCase()))
