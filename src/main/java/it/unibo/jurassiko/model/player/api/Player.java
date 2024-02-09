@@ -14,7 +14,6 @@ public interface Player {
      * Enum for the colors.
      */
     enum GameColor {
-        // TODO: Mod the color if necessary, otherwise rm TODO
         /**
          * Color red.
          */

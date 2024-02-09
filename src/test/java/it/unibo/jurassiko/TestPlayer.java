@@ -85,14 +85,15 @@ public class TestPlayer {
         player.addPlayerTerritory(getTerritory("Messico"));
         assertEquals(1, player.getBonusGroundDino());
         player.addPlayerTerritory(getTerritory("Appalachia"));
+        // CHECKSTYLE : OFF TestPurpose
         assertEquals(5, player.getBonusGroundDino());
-        
+        // CHECKSTYLE : ON
     }
 
     private Territory getTerritory(final String name) {
         final var result = territory.stream()
-        .filter(e -> e.getName().toLowerCase().equals(name.toLowerCase()))
-        .findFirst();
+                .filter(e -> e.getName().toLowerCase().equals(name.toLowerCase()))
+                .findFirst();
         return result.get();
     }
 }

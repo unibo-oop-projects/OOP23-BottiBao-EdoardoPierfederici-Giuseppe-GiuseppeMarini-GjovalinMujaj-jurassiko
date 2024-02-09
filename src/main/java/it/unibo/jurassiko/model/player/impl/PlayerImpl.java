@@ -149,7 +149,7 @@ public class PlayerImpl implements Player, Cloneable {
         final var temp = territories.stream().map(t -> t.getName().toLowerCase()).collect(Collectors.toSet());
         return temp.containsAll(set.x().stream()
                 .map(t -> t.getName().toLowerCase())
-                .collect(Collectors.toSet())) ? result += set.y() : result;
+                .collect(Collectors.toSet())) ? result = result + set.y() : result;
     }
 
     private Set<Territory> getContinent(final String name) {

@@ -31,7 +31,6 @@ public class TopBarPanel extends JPanel {
     private static final String URL_IMAGE = "images/topbar.png";
 
     private final JLabel topLabel;
-    
     /**
      * Set the top-bar in the relevant label load the buttons in it,
      * and add all to the relevant panel.
