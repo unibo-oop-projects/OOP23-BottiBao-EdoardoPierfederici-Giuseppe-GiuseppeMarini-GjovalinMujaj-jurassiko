@@ -55,8 +55,8 @@ public class ViewImpl extends JFrame implements View {
      * {@inheritDoc}
      */
     @Override
-    public void display() {
-        this.pack();
+    public final void display() {
+        super.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }

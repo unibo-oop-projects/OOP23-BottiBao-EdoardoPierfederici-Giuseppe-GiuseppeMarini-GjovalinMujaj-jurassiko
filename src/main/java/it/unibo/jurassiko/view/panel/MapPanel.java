@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
@@ -22,17 +22,13 @@ import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
  */
 public class MapPanel extends JPanel {
 
+    private static final long serialVersionUID = -6881386592874173612L;
     private static final String OCEAN_PATH = "spritepositions/oceanpositions.json";
     private static final String TERRITORY_PATH = "spritepositions/territorypositions.json";
     private static final double HEIGHT_RATIO = 0.8;
     private static final double WIDTH_RATIO = 0.8;
     private static final String URL_IMAGE = "images/mappa.png";
 
-    private final ImageIcon map;
-    private final Dimension screenSize;
-    private final JLayeredPane layPane;
-    private final JLabel mapLabel;
-    private transient BufferedImage imageMap;
     private final Map<String, DinoDisplay> territoryViews;
     private final Map<String, Map<GameColor, DinoDisplay>> oceanViews;
 
@@ -42,33 +38,34 @@ public class MapPanel extends JPanel {
     public MapPanel() {
         this.territoryViews = new HashMap<>();
         this.oceanViews = new HashMap<>();
-        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
+        BufferedImage mapImage;
         try {
-            imageMap = ImageIO.read(ClassLoader.getSystemResource(URL_IMAGE));
-        } catch (final Exception e) {
+            mapImage = ImageIO.read(ClassLoader.getSystemResource(URL_IMAGE));
+        } catch (final IOException e) {
             throw new IllegalStateException("Failed to read the map file", e);
         }
-        final int width = (int) (WIDTH_RATIO * screenSize.getWidth());
-        final int height = (int) (HEIGHT_RATIO * screenSize.getHeight());
 
-        this.map = ViewImpl.scaleImage(imageMap, width, height);
-        this.mapLabel = new JLabel(map);
+        final int width = (int) (WIDTH_RATIO * ViewImpl.getScreenSize().getWidth());
+        final int height = (int) (HEIGHT_RATIO * ViewImpl.getScreenSize().getHeight());
+        final ImageIcon map = ViewImpl.scaleImage(mapImage, width, height);
+        final JLabel mapLabel = new JLabel(map);
         mapLabel.setBounds(0, 0, width, height);
-        this.layPane = new JLayeredPane();
-        this.layPane.add(mapLabel, JLayeredPane.DEFAULT_LAYER);
+
+        final JLayeredPane layPane = new JLayeredPane();
+        layPane.add(mapLabel, JLayeredPane.DEFAULT_LAYER);
 
         final SpriteLoader spriteLoader = new SpriteLoader();
         createTerritoryDisplays(spriteLoader, width, height);
         this.territoryViews.entrySet().stream()
-                .forEach(t -> this.layPane.add(t.getValue(), JLayeredPane.PALETTE_LAYER));
+                .forEach(t -> layPane.add(t.getValue(), JLayeredPane.PALETTE_LAYER));
 
         createOceanDisplays(spriteLoader, width, height);
         this.oceanViews.entrySet().stream()
                 .forEach(t -> t.getValue().entrySet()
-                        .forEach(u -> this.layPane.add(u.getValue(), JLayeredPane.PALETTE_LAYER)));
+                        .forEach(u -> layPane.add(u.getValue(), JLayeredPane.PALETTE_LAYER)));
 
-        this.layPane.setPreferredSize(new Dimension(width, height));
+        layPane.setPreferredSize(new Dimension(width, height));
         this.setLayout(new BorderLayout());
         this.add(layPane);
     }
