@@ -14,7 +14,6 @@ public interface Player {
      * Enum for the colors.
      */
     enum GameColor {
-        // TODO: Mod the color if necessary, otherwise rm TODO
         /**
          * Color red.
          */
@@ -124,20 +123,6 @@ public interface Player {
     Set<Ocean> getOwnedOceans();
 
     /**
-     * Set the groundDino amount to add in each turn.
-     * 
-     * @param amount quantity of GroundDino to add each turn
-     */
-    void setBonusGroundDino(int amount);
-
-    /**
-     * Set the waterDino amount to add in each turn.
-     * 
-     * @param amount quantity of WaterDino to add each turn
-     */
-    void setBonusWaterDino(int amount);
-
-    /**
      * Get the groundDino amount to add in each turn.
      * 
      * @return the player Ground Dino amount to add each turn
@@ -149,7 +134,7 @@ public interface Player {
      * 
      * @return the player Water Dino amount to add each turn
      */
-    int getWaterDino();
+    int getBonusWaterDino();
 
     /**
      * Get a copy of the player.
@@ -158,8 +143,5 @@ public interface Player {
      * @throws CloneNotSupportedException
      */
     Player getPlayer() throws CloneNotSupportedException;
-
-    // TODO:
-    // Set<Continent> getOwnedContinents();
 
 }

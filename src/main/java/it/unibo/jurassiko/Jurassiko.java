@@ -15,9 +15,9 @@ public final class Jurassiko {
     /**
      * Private constructor to protect the main class.
      */
-    private Jurassiko() {      
+    private Jurassiko() {
     }
-        
+
     /**
      * Main method to launch the application.
      * 

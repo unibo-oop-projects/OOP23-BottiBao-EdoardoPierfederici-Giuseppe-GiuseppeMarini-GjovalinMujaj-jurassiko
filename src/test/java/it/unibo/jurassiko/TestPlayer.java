@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +32,7 @@ public class TestPlayer {
     @BeforeEach
     void setup() {
         player = new PlayerImpl(Player.GameColor.RED, objective.stream().findFirst().get(),
-                new HashSet<>(), new HashSet<>(), 0, 0);
+                new HashSet<>(), new HashSet<>());
     }
 
     @Test
@@ -68,8 +69,6 @@ public class TestPlayer {
         final Player temp = player.getPlayer();
         assertEquals(temp.getColor(), Player.GameColor.RED);
         assertNotEquals(temp, player);
-        temp.setBonusGroundDino(1);
-        assertEquals(player.getBonusGroundDino(), 0);
     }
 
     @Test
@@ -77,5 +76,30 @@ public class TestPlayer {
         final var temp = player.getObjective();
         assertNotEquals(temp, objective.stream().findFirst().get());
         assertNotEquals(temp, player.getObjective());
+    }
+
+    @Test
+    void testGetBonus() {
+        player.addPlayerTerritory(getTerritory("Groenlandia"));
+        player.addPlayerTerritory(getTerritory("Canada"));
+        assertEquals(1, player.getBonusGroundDino());
+        player.addPlayerTerritory(getTerritory("Messico"));
+        assertEquals(1, player.getBonusGroundDino());
+        player.addPlayerTerritory(getTerritory("Appalachia"));
+        // CHECKSTYLE: MagicNumber OFF
+        // Test purpuse
+        assertEquals(5, player.getBonusGroundDino());
+        // CHECKSTYLE: MagicNumber ON
+    }
+
+    /**
+     * @param name name of the Territory
+     * @return the territory based of the name
+     */
+    private Territory getTerritory(final String name) {
+        final var result = territory.stream()
+                .filter(e -> e.getName().toLowerCase(Locale.ROOT).equals(name.toLowerCase()))
+                .findFirst();
+        return result.get();
     }
 }
