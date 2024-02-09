@@ -145,11 +145,4 @@ public interface Player {
      */
     Player getPlayer() throws CloneNotSupportedException;
 
-    /**
-     * Get a copy of the continent owned by the player.
-     * 
-     * @return a copy of a Set of the owned continent
-     */
-    Set<String> getOwnedContinents();
-
 }
