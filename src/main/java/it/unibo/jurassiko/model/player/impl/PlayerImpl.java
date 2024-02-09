@@ -3,14 +3,19 @@ package it.unibo.jurassiko.model.player.impl;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.databind.introspect.AnnotationCollector.NoAnnotations;
+
+import it.unibo.jurassiko.common.Pair;
 import it.unibo.jurassiko.model.objective.api.Objective;
 import it.unibo.jurassiko.model.player.api.Player;
 import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
+import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 
 /**
  * Implementation of the interface {@link Player}.
@@ -21,32 +26,31 @@ public class PlayerImpl implements Player, Cloneable {
     private final Objective objective;
     private final Set<Territory> territories;
     private final Set<Ocean> oceans;
-    private int bonusGroundDino;
-    private int bonusWaterDino;
+    private final Set<String> continents;
+    private final Set<Territory> totalTerritories = new TerritoryFactoryImpl().createTerritories();
+    private final static Pair<String, Integer> NORD_AMERICA = new Pair<>("Nord America", 3);
+    private final static Pair<String, Integer> GONDWANA_OCCIDENTALE = new Pair<>("Gondwana Occidentale", 5);
+    private final static Pair<String, Integer> GONDWANA_ORIENTALE = new Pair<>("Gondwana Orientale", 3);
+    private final static Pair<String, Integer> EUROASIA = new Pair<>("EuroAsia", 6);
 
     /**
      * Constructor for the player.
      * 
-     * @param color           player's color
-     * @param objective       player's objective
-     * @param territories     player's owned territories
-     * @param oceans          player's owned oceans
-     * @param bonusGroundDino player's bonus ground dino
-     * @param bonusWaterDino  player's bonus water dino
+     * @param color       player's color
+     * @param objective   player's objective
+     * @param territories player's owned territories
+     * @param oceans      player's owned oceans
      */
     public PlayerImpl(final GameColor color,
             final Objective objective,
             final Set<Territory> territories,
-            final Set<Ocean> oceans,
-            final int bonusGroundDino,
-            final int bonusWaterDino) {
+            final Set<Ocean> oceans) {
         this.color = color;
         Objects.requireNonNull(objective);
         this.objective = objective.getClone();
         this.territories = new HashSet<>(Objects.requireNonNull(territories));
         this.oceans = new HashSet<>(Objects.requireNonNull(oceans));
-        this.bonusGroundDino = bonusGroundDino;
-        this.bonusWaterDino = bonusWaterDino;
+        this.continents = new HashSet<>();
     }
 
     /**
@@ -129,32 +133,32 @@ public class PlayerImpl implements Player, Cloneable {
      * {@inheritDoc}
      */
     @Override
-    public void setBonusGroundDino(final int amount) {
-        this.bonusGroundDino = amount;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setBonusWaterDino(final int amount) {
-        this.bonusWaterDino = amount;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public int getBonusGroundDino() {
-        return bonusGroundDino;
+        int result = 0;
+        result += isSubSetTerritory(new Pair<Set<Territory>,Integer>(getContinent(NORD_AMERICA.x()), NORD_AMERICA.y()));
+        return (territories.size() / 2) + result;
+    }
+
+    private int isSubSetTerritory(final Pair<Set<Territory>, Integer> set){
+        int result = 0;
+        if (territories.containsAll(set.x())){
+            System.out.println("si");
+        }
+        return territories.containsAll(set.x()) ? result += set.y() : result; // Containall cosa fa??
+    }
+
+    private Set<Territory> getContinent(final String name){
+        return totalTerritories.stream()
+        .filter(e->e.getContinent().toLowerCase().equals(name.toLowerCase()))
+        .collect(Collectors.toSet());
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int getWaterDino() {
-        return bonusWaterDino;
+    public int getBonusWaterDino() {
+        return 1;
     }
 
     /**
@@ -169,6 +173,24 @@ public class PlayerImpl implements Player, Cloneable {
             logger.error("Cannot create a copy");
         }
         throw new IllegalStateException("Can't create a copy of the player");
+    }
+
+    @Override
+    public Set<String> getOwnedContinents() {
+        for (var x : territories){
+            System.out.println(x.getName());
+        }
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        for (var x : getContinent(NORD_AMERICA.x())){
+            System.out.println(x.getName());
+        }
+        if (territories.containsAll(getContinent(NORD_AMERICA.x()))){
+
+        }
+        return null;
     }
 
 }
