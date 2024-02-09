@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -85,14 +86,15 @@ public class TestPlayer {
         player.addPlayerTerritory(getTerritory("Messico"));
         assertEquals(1, player.getBonusGroundDino());
         player.addPlayerTerritory(getTerritory("Appalachia"));
-        // CHECKSTYLE : OFF TestPurpose
+        // CHECKSTYLE: MagicNumber OFF
+        // Test purpuse
         assertEquals(5, player.getBonusGroundDino());
-        // CHECKSTYLE : ON
+        // CHECKSTYLE: MagicNumber ON
     }
 
     private Territory getTerritory(final String name) {
         final var result = territory.stream()
-                .filter(e -> e.getName().toLowerCase().equals(name.toLowerCase()))
+                .filter(e -> e.getName().toLowerCase(Locale.ROOT).equals(name.toLowerCase()))
                 .findFirst();
         return result.get();
     }

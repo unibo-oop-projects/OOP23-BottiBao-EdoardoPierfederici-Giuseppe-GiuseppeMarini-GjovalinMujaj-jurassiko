@@ -1,6 +1,7 @@
 package it.unibo.jurassiko.model.player.impl;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -47,7 +48,6 @@ public class PlayerImpl implements Player, Cloneable {
         this.objective = objective.getClone();
         this.territories = new HashSet<>(Objects.requireNonNull(territories));
         this.oceans = new HashSet<>(Objects.requireNonNull(oceans));
-        this.continents = new HashSet<>();
     }
 
     /**
@@ -145,9 +145,10 @@ public class PlayerImpl implements Player, Cloneable {
 
     private int isSubSetTerritory(final Pair<Set<Territory>, Integer> set) {
         int result = 0;
-        final Set<String> temp = territories.stream().map(t -> t.getName().toLowerCase()).collect(Collectors.toSet());
+        final Set<String> temp = territories.stream().map(t -> t.getName().toLowerCase(Locale.ROOT))
+                .collect(Collectors.toSet());
         if (temp.containsAll(set.x().stream()
-                .map(t -> t.getName().toLowerCase())
+                .map(t -> t.getName().toLowerCase(Locale.ROOT))
                 .collect(Collectors.toSet()))) {
             result = result + set.y();
         }
@@ -156,7 +157,7 @@ public class PlayerImpl implements Player, Cloneable {
 
     private Set<Territory> getContinent(final String name) {
         return totalTerritories.stream()
-                .filter(e -> e.getContinent().toLowerCase().equals(name.toLowerCase()))
+                .filter(e -> e.getContinent().toLowerCase(Locale.ROOT).equals(name.toLowerCase(Locale.ROOT)))
                 .collect(Collectors.toSet());
     }
 
