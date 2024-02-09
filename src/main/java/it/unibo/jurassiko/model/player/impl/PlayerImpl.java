@@ -132,15 +132,15 @@ public class PlayerImpl implements Player, Cloneable {
     @Override
     public int getBonusGroundDino() {
         int result = 0;
-        result += isSubSetTerritory(
+        result += bonusContinent(
                 new Pair<Set<Territory>, Integer>(getContinent(NORD_AMERICA.x()), NORD_AMERICA.y()));
-        result += isSubSetTerritory(
+        result += bonusContinent(
                 new Pair<Set<Territory>, Integer>(getContinent(GONDWANA_OCCIDENTALE.x()), GONDWANA_OCCIDENTALE.y()));
-        result += isSubSetTerritory(
+        result += bonusContinent(
                 new Pair<Set<Territory>, Integer>(getContinent(GONDWANA_ORIENTALE.x()), GONDWANA_ORIENTALE.y()));
-        result += isSubSetTerritory(
+        result += bonusContinent(
                 new Pair<Set<Territory>, Integer>(getContinent(EUROASIA.x()), EUROASIA.y()));
-        return (territories.size() / 2) + result;
+        return territories.size() / 2 + result;
     }
 
     /**
@@ -149,7 +149,7 @@ public class PlayerImpl implements Player, Cloneable {
      * @param pair Pair of a Set or Territory and integer
      * @return the value of the bonus ground dino based on the continent you have
      */
-    private int isSubSetTerritory(final Pair<Set<Territory>, Integer> pair) {
+    private int bonusContinent(final Pair<Set<Territory>, Integer> pair) {
         int result = 0;
         final Set<String> temp = territories.stream().map(t -> t.getName().toLowerCase(Locale.ROOT))
                 .collect(Collectors.toSet());
