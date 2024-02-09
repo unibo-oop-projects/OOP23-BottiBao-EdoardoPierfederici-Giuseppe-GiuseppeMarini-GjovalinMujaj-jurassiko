@@ -85,7 +85,7 @@ public class TestPlayer {
         player.addPlayerTerritory(getTerritory("Messico"));
         assertEquals(1, player.getBonusGroundDino());
         player.addPlayerTerritory(getTerritory("Appalachia"));
-        System.out.println(player.getBonusGroundDino());
+        assertEquals(5, player.getBonusGroundDino());
         
     }
 
