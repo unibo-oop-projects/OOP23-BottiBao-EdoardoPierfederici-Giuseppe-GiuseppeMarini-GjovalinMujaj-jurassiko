@@ -1,0 +1,107 @@
+[
+    {
+        "territory": "Groenlandia",
+        "x": 38.0,
+        "y": 5.0
+    },
+    {
+        "territory": "Canada",
+        "x": 29.0,
+        "y": 2.8
+    },
+    {
+        "territory": "Messico",
+        "x": 16.5,
+        "y": 19.2
+    },
+    {
+        "territory": "Appalachia",
+        "x": 9.0,
+        "y": 26.0
+    },
+    {
+        "territory": "Arabia",
+        "x": 51.0,
+        "y": 58.5
+    },
+    {
+        "territory": "Nord Africa",
+        "x": 33.5,
+        "y": 63.0
+    },
+    {
+        "territory": "Congo",
+        "x": 34.5,
+        "y": 76.0
+    },
+    {
+        "territory": "Sud Africa",
+        "x": 49.5,
+        "y": 90.0
+    },
+    {
+        "territory": "Amazzonia",
+        "x": 24.0,
+        "y": 57.0
+    },
+    {
+        "territory": "Sud America",
+        "x": 27.0,
+        "y": 80.0
+    },
+    {
+        "territory": "Australia",
+        "x": 82.0,
+        "y": 65.5
+    },
+    {
+        "territory": "India",
+        "x": 67.5,
+        "y": 77.0
+    },
+    {
+        "territory": "Madagascar",
+        "x": 64.0,
+        "y": 89.0
+    },
+    {
+        "territory": "Antartica",
+        "x": 89.5,
+        "y": 87.0
+    },
+    {
+        "territory": "Baltica",
+        "x": 62.0,
+        "y": 2.0
+    },
+    {
+        "territory": "Europa",
+        "x": 55.0,
+        "y": 22.0
+    },
+    {
+        "territory": "Siberia",
+        "x": 75.5,
+        "y": 18.5
+    },
+    {
+        "territory": "Asia Centrale",
+        "x": 69.7,
+        "y": 27.0
+    },
+    {
+        "territory": "Cina",
+        "x": 73.0,
+        "y": 35.0
+    },
+    {
+        "territory": "Tibet",
+        "x": 70.0,
+        "y": 45.0
+    },
+    {
+        "territory": "Indonesia",
+        "x": 94.0,
+        "y": 59.0
+    }
+]

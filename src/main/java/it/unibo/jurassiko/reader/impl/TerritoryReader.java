@@ -7,7 +7,7 @@ import it.unibo.jurassiko.model.territory.api.Territory;
 /**
  * Implementation of JSONFileReader for territories.
  */
-public class TerritoryReader extends AbstractJSONFileReader<Territory> {
+public class TerritoryReader extends AbstractBoardDataReader<Territory> {
 
     /**
      * Creates a TerritoryReader.
