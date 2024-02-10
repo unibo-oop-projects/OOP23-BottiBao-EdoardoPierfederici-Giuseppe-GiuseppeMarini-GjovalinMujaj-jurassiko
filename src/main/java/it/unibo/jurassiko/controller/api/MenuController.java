@@ -3,12 +3,7 @@ package it.unibo.jurassiko.controller.api;
 /**
  * Interface for the Starting Menu.
  */
-public interface StartController {
-
-    /**
-     * Start the Main Menu view.
-     */
-    void startView();
+public interface MenuController {
 
     /**
      * Start the game.
@@ -18,5 +13,5 @@ public interface StartController {
     /**
      * Close the Main Menu View.
      */
-    void quitView();
+    void quitGame();
 }

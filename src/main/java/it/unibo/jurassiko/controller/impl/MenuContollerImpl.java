@@ -1,19 +1,15 @@
 package it.unibo.jurassiko.controller.impl;
 
-import it.unibo.jurassiko.controller.api.StartController;
+import it.unibo.jurassiko.controller.api.MenuController;
 
 /**
  * Implementation of {@link StartController} interface.
  */
-public class StartContollerImpl implements StartController {
-    /** {@InheritDoc} */
-    @Override
-    public void startView() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'startView'");
-    }
+public class MenuContollerImpl implements MenuController {
 
-    /** {@InheritDoc} */
+    /**
+     * {@InheritDoc}
+     */
     @Override
     public void startGame() {
         // TODO Auto-generated method stub
@@ -22,7 +18,7 @@ public class StartContollerImpl implements StartController {
 
     /** {@InheritDoc} */
     @Override
-    public void quitView() {
+    public void quitGame() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'quitView'");
     }
