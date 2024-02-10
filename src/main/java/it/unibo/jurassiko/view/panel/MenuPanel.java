@@ -58,7 +58,7 @@ public class MenuPanel extends JPanel {
         } catch (final IOException e) {
             throw new IllegalStateException("Failed to read the menu Background image");
         }
-        bgImage = new ImageIcon(fixImageSize(new ImageIcon(image), dimension.getWidth(), dimension.getHeight()));
+        bgImage = new ImageIcon(fixImageSize(image, dimension.getWidth(), dimension.getHeight()));
         bgLabel = new JLabel(bgImage);
         bgLabel.setBounds(0, 0, bgImage.getIconWidth(), bgImage.getIconHeight());
         bgLabel.setOpaque(false);
@@ -117,8 +117,9 @@ public class MenuPanel extends JPanel {
         gbc.gridy++;
     }
 
-    private Image fixImageSize(final ImageIcon image, final double width, final double height) {
-        return image.getImage().getScaledInstance(Double.valueOf(width * WIDTH_PERC).intValue(),
+    private Image fixImageSize(final BufferedImage image, final double width, final double height) {
+        final var temp = new ImageIcon(image);
+        return temp.getImage().getScaledInstance(Double.valueOf(width * WIDTH_PERC).intValue(),
                 Double.valueOf(height * HEIGHT_PERC).intValue(), Image.SCALE_SMOOTH);
     }
 }
