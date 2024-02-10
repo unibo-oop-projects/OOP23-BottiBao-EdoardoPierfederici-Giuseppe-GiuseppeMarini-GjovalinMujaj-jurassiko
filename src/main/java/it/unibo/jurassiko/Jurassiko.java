@@ -3,6 +3,8 @@ package it.unibo.jurassiko;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import it.unibo.jurassiko.controller.impl.MenuContollerImpl;
+import it.unibo.jurassiko.view.gamescreen.impl.StartMenu;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 
 /**
@@ -25,6 +27,7 @@ public final class Jurassiko {
      */
     public static void main(final String[] args) {
         logger.info("Application started.");
-        new ViewImpl();
+        new StartMenu();
+        
     }
 }
