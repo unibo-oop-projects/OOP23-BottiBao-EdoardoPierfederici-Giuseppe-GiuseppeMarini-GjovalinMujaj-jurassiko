@@ -25,6 +25,6 @@ public final class Jurassiko {
      */
     public static void main(final String[] args) {
         logger.info("Application started.");
-        new StartMenu().display();;
+        new StartMenu().display();
     }
 }
