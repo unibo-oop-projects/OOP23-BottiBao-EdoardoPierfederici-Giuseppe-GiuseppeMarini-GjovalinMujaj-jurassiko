@@ -20,7 +20,6 @@ public class StartMenu extends JFrame implements View {
         this.setTitle(TITLE);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(new MenuPanel(new MenuContollerImpl(), this));
-        display();
     }
 
     /**
