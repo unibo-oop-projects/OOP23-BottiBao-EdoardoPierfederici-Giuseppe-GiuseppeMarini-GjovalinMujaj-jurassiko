@@ -1,9 +1,10 @@
 package it.unibo.jurassiko.controller.impl;
 
 import it.unibo.jurassiko.controller.api.MenuController;
+import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 
 /**
- * Implementation of {@link StartController} interface.
+ * Implementation of {@link MenuController} interface.
  */
 public class MenuContollerImpl implements MenuController {
 
@@ -12,15 +13,6 @@ public class MenuContollerImpl implements MenuController {
      */
     @Override
     public void startGame() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'startGame'");
+        new ViewImpl();
     }
-
-    /** {@InheritDoc} */
-    @Override
-    public void quitGame() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'quitView'");
-    }
-
 }

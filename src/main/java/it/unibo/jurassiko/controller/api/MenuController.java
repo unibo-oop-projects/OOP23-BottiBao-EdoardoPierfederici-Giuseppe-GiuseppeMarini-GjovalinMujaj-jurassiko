@@ -9,9 +9,4 @@ public interface MenuController {
      * Start the game.
      */
     void startGame();
-
-    /**
-     * Close the Main Menu View.
-     */
-    void quitGame();
 }
