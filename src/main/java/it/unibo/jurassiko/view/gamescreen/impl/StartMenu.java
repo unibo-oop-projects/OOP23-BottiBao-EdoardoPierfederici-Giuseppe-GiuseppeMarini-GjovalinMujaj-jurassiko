@@ -11,6 +11,7 @@ import javax.swing.JFrame;
  */
 public class StartMenu extends JFrame implements View {
 
+    private static final long serialVersionUID = 1L;
     private static final String TITLE = "Jurassiko";
 
     /**

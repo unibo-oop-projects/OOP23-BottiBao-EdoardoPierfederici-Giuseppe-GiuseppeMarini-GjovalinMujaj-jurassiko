@@ -26,6 +26,8 @@ import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
  */
 public class MenuPanel extends JPanel {
 
+    private static final long serialVersionUID = 1L;
+
     private static final String START = "Start";
     private static final String QUIT = "Quit";
     private static final double WIDTH_PERC = 0.5;
