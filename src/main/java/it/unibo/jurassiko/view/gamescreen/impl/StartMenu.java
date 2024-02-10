@@ -1,4 +1,4 @@
-package it.unibo.jurassiko.view;
+package it.unibo.jurassiko.view.gamescreen.impl;
 
 import it.unibo.jurassiko.controller.api.StartController;
 
@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 /**
  * Graphical representation of the start Menu.
  */
-public final class StartMenu {
+public class StartMenu {
     private static final String START = "Start";
     private static final String QUIT = "Quit";
     private final JFrame frame = new JFrame();
@@ -59,10 +59,4 @@ public final class StartMenu {
         frame.setContentPane(canvas);
         frame.setVisible(true);
     }
-    /*
-     * For Testing Purpose
-     * public static void main(String[] args) {
-     * new StartMenu(new StartContollerImpl());
-     * }
-     */
 }
