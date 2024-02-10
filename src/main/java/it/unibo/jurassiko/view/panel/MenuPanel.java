@@ -42,15 +42,11 @@ public class MenuPanel extends JPanel {
     private final Dimension dimension;
 
     /**
-     * @param controller
-     * @param frame
+     * @param controller controller for the Menu
+     * @param frame      frame for the Menu
      */
     public MenuPanel(final MenuContollerImpl controller, final StartMenu frame) {
-        final JLayeredPane layeredPane = new JLayeredPane();
-        final JPanel buttonPanel = new JPanel();
-        final JLabel bgLabel;
         final BufferedImage image;
-        final ImageIcon bgImage;
         this.dimension = ViewImpl.getScreenSize();
         this.setPreferredSize(new Dimension(Double.valueOf(dimension.getWidth() * WIDTH_PERC).intValue(),
                 Double.valueOf(dimension.getHeight() * HEIGHT_PERC).intValue()));
@@ -58,15 +54,16 @@ public class MenuPanel extends JPanel {
         try {
             image = ImageIO.read(ClassLoader.getSystemResource(URL_IMAGE));
         } catch (final IOException e) {
-            throw new IllegalStateException("Failed to read the menu Background image");
+            throw new IllegalStateException("Failed to read the menu Background image", e);
         }
-        bgImage = new ImageIcon(fixImageSize(image, dimension.getWidth(), dimension.getHeight()));
-        bgLabel = new JLabel(bgImage);
+        final ImageIcon bgImage = new ImageIcon(fixImageSize(image, dimension.getWidth(), dimension.getHeight()));
+        final JLabel bgLabel = new JLabel(bgImage);
         bgLabel.setBounds(0, 0, bgImage.getIconWidth(), bgImage.getIconHeight());
         bgLabel.setOpaque(false);
 
         final JButton start = createButton(START, getButtonDimension());
         final JButton quit = createButton(QUIT, getButtonDimension());
+        final JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridBagLayout());
         final GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -95,6 +92,7 @@ public class MenuPanel extends JPanel {
         buttonPanel.setBounds(0, 0, bgImage.getIconWidth(), bgImage.getIconHeight());
         buttonPanel.setOpaque(false);
 
+        final JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.add(bgLabel, Integer.valueOf(0));
         layeredPane.setPreferredSize(new Dimension(bgImage.getIconWidth(), bgImage.getIconHeight()));
         layeredPane.add(buttonPanel, Integer.valueOf(1));
