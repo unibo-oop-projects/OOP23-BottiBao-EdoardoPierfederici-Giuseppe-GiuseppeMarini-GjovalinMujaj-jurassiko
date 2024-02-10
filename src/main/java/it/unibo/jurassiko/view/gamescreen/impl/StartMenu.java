@@ -1,10 +1,15 @@
 package it.unibo.jurassiko.view.gamescreen.impl;
 
-import it.unibo.jurassiko.controller.api.StartController;
+import it.unibo.jurassiko.controller.api.MenuController;
+import it.unibo.jurassiko.controller.impl.MenuContollerImpl;
+import it.unibo.jurassiko.view.gamescreen.api.View;
+import it.unibo.jurassiko.view.panel.MenuPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -13,50 +18,26 @@ import javax.swing.JPanel;
 /**
  * Graphical representation of the start Menu.
  */
-public class StartMenu {
-    private static final String START = "Start";
-    private static final String QUIT = "Quit";
-    private final JFrame frame = new JFrame();
-    // private final StartController controller;
+public class StartMenu extends JFrame implements View {
+
+    private static final String TITLE = "Jurassiko";
 
     /**
-     * Creating the panel for the Menu.
-     * 
-     * @param controller the controller used to control the menu panel
+     * Creating the frame for the Menu.
      */
-    public StartMenu(final StartController controller) {
-        // TODO: do the starting controller
-        // this.controller = controller;
-        final JPanel canvas = new JPanel();
-        canvas.setLayout(new BorderLayout());
-        final JButton start = new JButton(START);
-        final JButton quit = new JButton(QUIT);
-        final JPanel eastPanel = new JPanel();
-        eastPanel.add(start);
-        eastPanel.add(quit);
-        canvas.add(eastPanel, BorderLayout.EAST);
+    public StartMenu() {
+        this.setTitle(TITLE);
+        
+        this.setSize((int) ViewImpl.getScreenSize().getWidth() / 2, (int) ViewImpl.getScreenSize().getHeight() / 2);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setContentPane(new MenuPanel(new MenuContollerImpl(), this));
+        display();
+    }
 
-        // TODO: start game button
-        // start.addActionListener(e -> startgame);
-
-        quit.addActionListener(e -> {
-            final String[] options = { "Yes", "No" };
-            final var result = JOptionPane.showOptionDialog(frame, "Do you want to QUIT the game?",
-                    QUIT,
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null, options, options);
-            if (result == 0) {
-                frame.dispose();
-            }
-        });
-
-        // TODO: DA MODIFICARE
-        frame.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2,
-                (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
-        frame.setLocationByPlatform(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(canvas);
-        frame.setVisible(true);
+    @Override
+    public void display() {
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 }
