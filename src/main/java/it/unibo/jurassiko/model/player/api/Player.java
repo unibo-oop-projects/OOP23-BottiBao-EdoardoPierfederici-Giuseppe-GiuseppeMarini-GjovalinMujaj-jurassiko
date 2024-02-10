@@ -13,39 +13,33 @@ public interface Player {
     /**
      * Enum for the colors.
      */
-    enum Color {
-        // TODO: Add some other colors
+    enum GameColor {
+        // TODO: Mod the color if necessary, otherwise rm TODO
         /**
          * Color red.
          */
-        RED("Red", 255, 0, 0),
+        RED("Red", "#ff0000"),
         /**
          * Color Green.
          */
-        GREEN("Green", 0, 255, 0),
+        GREEN("Green", "#00ff00"),
         /**
          * Color Blue.
          */
-        BLUE("Blue", 0, 0, 255);
+        BLUE("Blue", "#0000ff");
 
         private final String color;
-        private final int red;
-        private final int green;
-        private final int blue;
+        private final String hexString;
 
         /**
          * Constructor for the Colors.
          * 
-         * @param color       color name
-         * @param redAmount   red color amount
-         * @param greenAmount green color amount
-         * @param blueAmount  blue color amount
+         * @param color   color name
+         * @param hexCode HexCode of the color
          */
-         Color(final String color, final int redAmount, final int greenAmount, final int blueAmount) {
+        GameColor(final String color, final String hexCode) {
             this.color = color;
-            this.red = redAmount;
-            this.green = greenAmount;
-            this.blue = blueAmount;
+            this.hexString = hexCode;
         }
 
         /**
@@ -58,30 +52,12 @@ public interface Player {
         }
 
         /**
-         * Get the blue amount.
+         * Get the HexCode.
          * 
-         * @return blue amount
+         * @return HexCode
          */
-        public int getBlue() {
-            return blue;
-        }
-
-        /**
-         * Get the green amount.
-         * 
-         * @return green amount
-         */
-        public int getGreen() {
-            return green;
-        }
-
-        /**
-         * Get the red amount.
-         * 
-         * @return red amount
-         */
-        public int getRed() {
-            return red;
+        public String getHexCode() {
+            return this.hexString;
         }
     }
 
@@ -90,7 +66,7 @@ public interface Player {
      * 
      * @return player color
      */
-    Color getColor();
+    GameColor getColor();
 
     /**
      * Get the player Objective.

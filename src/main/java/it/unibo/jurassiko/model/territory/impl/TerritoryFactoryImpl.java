@@ -4,7 +4,6 @@ import java.util.Set;
 
 import it.unibo.jurassiko.model.territory.api.Territory;
 import it.unibo.jurassiko.model.territory.api.TerritoryFactory;
-import it.unibo.jurassiko.reader.api.JSONFileReader;
 import it.unibo.jurassiko.reader.impl.TerritoryReader;
 
 /**
@@ -19,7 +18,7 @@ public class TerritoryFactoryImpl implements TerritoryFactory {
      */
     @Override
     public Set<Territory> createTerritories() {
-        final JSONFileReader<Territory> territoryReader = new TerritoryReader();
+        final var territoryReader = new TerritoryReader();
         final Set<Territory> territories = territoryReader.readFileData(PATH);
         return Set.copyOf(territories);
     }

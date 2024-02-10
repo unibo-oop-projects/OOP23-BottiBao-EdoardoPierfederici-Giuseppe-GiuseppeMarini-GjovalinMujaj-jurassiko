@@ -1,6 +1,7 @@
 package it.unibo.jurassiko.model.player.impl;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -16,7 +17,7 @@ import it.unibo.jurassiko.model.territory.api.Territory;
  */
 public class PlayerImpl implements Player, Cloneable {
 
-    private final Color color;
+    private final GameColor color;
     private final Objective objective;
     private final Set<Territory> territories;
     private final Set<Ocean> oceans;
@@ -33,19 +34,17 @@ public class PlayerImpl implements Player, Cloneable {
      * @param bonusGroundDino player's bonus ground dino
      * @param bonusWaterDino  player's bonus water dino
      */
-    public PlayerImpl(final Color color,
+    public PlayerImpl(final GameColor color,
             final Objective objective,
             final Set<Territory> territories,
             final Set<Ocean> oceans,
             final int bonusGroundDino,
             final int bonusWaterDino) {
         this.color = color;
-        if (objective.equals(null) || territories.equals(null) || oceans.equals(null)) {
-            throw new IllegalArgumentException();
-        }
+        Objects.requireNonNull(objective);
         this.objective = objective.getClone();
-        this.territories = new HashSet<>(territories);
-        this.oceans = new HashSet<>(oceans);
+        this.territories = new HashSet<>(Objects.requireNonNull(territories));
+        this.oceans = new HashSet<>(Objects.requireNonNull(oceans));
         this.bonusGroundDino = bonusGroundDino;
         this.bonusWaterDino = bonusWaterDino;
     }
@@ -54,7 +53,7 @@ public class PlayerImpl implements Player, Cloneable {
      * {@inheritDoc}
      */
     @Override
-    public Color getColor() {
+    public GameColor getColor() {
         return color;
     }
 

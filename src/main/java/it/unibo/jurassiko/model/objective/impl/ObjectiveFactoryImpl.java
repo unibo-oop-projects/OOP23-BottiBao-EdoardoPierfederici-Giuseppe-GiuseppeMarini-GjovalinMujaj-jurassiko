@@ -5,7 +5,6 @@ import java.util.Set;
 
 import it.unibo.jurassiko.model.objective.api.Objective;
 import it.unibo.jurassiko.model.objective.api.ObjectiveFactory;
-import it.unibo.jurassiko.reader.api.JSONFileReader;
 import it.unibo.jurassiko.reader.impl.ObjectiveReader;
 
 /**
@@ -20,7 +19,7 @@ public class ObjectiveFactoryImpl implements ObjectiveFactory {
      */
     @Override
     public Set<Objective> createObjectives() {
-        final JSONFileReader<Objective> objectiveReader = new ObjectiveReader();
+        final var objectiveReader = new ObjectiveReader();
         final Set<Objective> objectives = objectiveReader.readFileData(PATH);
         return new HashSet<>(objectives);
     }

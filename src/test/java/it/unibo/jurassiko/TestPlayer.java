@@ -19,7 +19,7 @@ import it.unibo.jurassiko.model.territory.impl.OceanFactoryImpl;
 import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 
 /**
- * Test class to test Player
+ * Test class to test Player.
  */
 public class TestPlayer {
 
@@ -30,7 +30,7 @@ public class TestPlayer {
 
     @BeforeEach
     void setup() {
-        player = new PlayerImpl(Player.Color.RED, objective.stream().findFirst().get(),
+        player = new PlayerImpl(Player.GameColor.RED, objective.stream().findFirst().get(),
                 new HashSet<>(), new HashSet<>(), 0, 0);
     }
 
@@ -64,9 +64,9 @@ public class TestPlayer {
 
     @Test
     void testGetPlayer() throws CloneNotSupportedException {
-        assertEquals(player.getColor(), Player.Color.RED);
+        assertEquals(player.getColor(), Player.GameColor.RED);
         final Player temp = player.getPlayer();
-        assertEquals(temp.getColor(), Player.Color.RED);
+        assertEquals(temp.getColor(), Player.GameColor.RED);
         assertNotEquals(temp, player);
         temp.setBonusGroundDino(1);
         assertEquals(player.getBonusGroundDino(), 0);
