@@ -9,7 +9,7 @@ import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 public class MenuContollerImpl implements MenuController {
 
     /**
-     * {@InheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public void startGame() {

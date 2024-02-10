@@ -1,23 +1,15 @@
 package it.unibo.jurassiko.view.panel;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,13 +17,15 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import it.unibo.jurassiko.controller.api.MenuController;
 import it.unibo.jurassiko.controller.impl.MenuContollerImpl;
 import it.unibo.jurassiko.view.gamescreen.impl.StartMenu;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 
+/**
+ * JPanel used for the StartMenu frame.
+ */
 public class MenuPanel extends JPanel {
 
     private static final String START = "Start";
@@ -124,7 +118,7 @@ public class MenuPanel extends JPanel {
                 Double.valueOf(dimension.getHeight() * BUTTON_HEIGHT_PERC).intValue());
     }
 
-    private void addButton(final JPanel panel, final JButton jb, GridBagConstraints gbc) {
+    private void addButton(final JPanel panel, final JButton jb, final GridBagConstraints gbc) {
         panel.add(jb, gbc);
         gbc.gridy++;
     }

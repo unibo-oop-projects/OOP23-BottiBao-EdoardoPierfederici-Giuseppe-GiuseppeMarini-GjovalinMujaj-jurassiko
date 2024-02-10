@@ -17,12 +17,15 @@ public class StartMenu extends JFrame implements View {
      * Creating the frame for the Menu.
      */
     public StartMenu() {
-        this.setTitle(TITLE);   
+        this.setTitle(TITLE);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(new MenuPanel(new MenuContollerImpl(), this));
         display();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void display() {
         this.pack();
