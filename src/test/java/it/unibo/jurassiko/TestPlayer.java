@@ -22,7 +22,7 @@ import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 /**
  * Test class to test Player.
  */
-public class TestPlayer {
+class TestPlayer {
 
     private Player player;
     private final Set<Territory> territory = new TerritoryFactoryImpl().createTerritories();
@@ -30,7 +30,7 @@ public class TestPlayer {
     private final Set<Objective> objective = new ObjectiveFactoryImpl().createObjectives();
 
     @BeforeEach
-    void setup() {
+    void initPlayer() {
         player = new PlayerImpl(Player.GameColor.RED, objective.stream().findFirst().get(),
                 new HashSet<>(), new HashSet<>());
     }
