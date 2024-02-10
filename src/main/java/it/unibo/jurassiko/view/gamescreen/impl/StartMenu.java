@@ -17,9 +17,7 @@ public class StartMenu extends JFrame implements View {
      * Creating the frame for the Menu.
      */
     public StartMenu() {
-        this.setTitle(TITLE);
-
-        this.setSize((int) ViewImpl.getScreenSize().getWidth() / 2, (int) ViewImpl.getScreenSize().getHeight() / 2);
+        this.setTitle(TITLE);   
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(new MenuPanel(new MenuContollerImpl(), this));
         display();
@@ -27,6 +25,7 @@ public class StartMenu extends JFrame implements View {
 
     @Override
     public void display() {
+        this.pack();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
