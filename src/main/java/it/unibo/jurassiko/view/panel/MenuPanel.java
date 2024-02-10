@@ -12,13 +12,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import it.unibo.jurassiko.controller.api.MenuController;
 import it.unibo.jurassiko.controller.impl.MenuContollerImpl;
 import it.unibo.jurassiko.view.gamescreen.impl.StartMenu;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
