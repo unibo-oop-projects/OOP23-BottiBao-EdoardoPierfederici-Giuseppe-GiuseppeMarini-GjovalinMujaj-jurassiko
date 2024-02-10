@@ -39,8 +39,6 @@ public class MenuPanel extends JPanel {
     private static final String SLASH = File.separator;
     private static final String URL_IMAGE = "images" + SLASH + "MenuImage.png";
 
-    private final JFrame frame;
-    private final MenuController controller;
     private final Dimension dimension;
 
     /**
@@ -53,8 +51,6 @@ public class MenuPanel extends JPanel {
         final JLabel bgLabel;
         final BufferedImage image;
         final ImageIcon bgImage;
-        this.frame = frame;
-        this.controller = controller;
         this.dimension = ViewImpl.getScreenSize();
         this.setPreferredSize(new Dimension(Double.valueOf(dimension.getWidth() * WIDTH_PERC).intValue(),
                 Double.valueOf(dimension.getHeight() * HEIGHT_PERC).intValue()));
@@ -78,8 +74,8 @@ public class MenuPanel extends JPanel {
         gbc.insets = new Insets(10, 10, 10, 10);
 
         start.addActionListener(e -> {
-            this.frame.dispose();
-            this.controller.startGame();
+            frame.dispose();
+            controller.startGame();
         });
 
         quit.addActionListener(e -> {
@@ -90,7 +86,7 @@ public class MenuPanel extends JPanel {
                     JOptionPane.WARNING_MESSAGE,
                     null, options, options);
             if (result == 0) {
-                this.frame.dispose();
+                frame.dispose();
             }
         });
         addButton(buttonPanel, start, gbc);
