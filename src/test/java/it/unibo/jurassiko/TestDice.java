@@ -1,4 +1,4 @@
-package it.unibo.jurassiko.model;
+package it.unibo.jurassiko;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -26,7 +26,7 @@ public final class TestDice {
      * before each test.
      */
     @BeforeEach
-    public void setUp() {
+    public void initDice() {
         this.dice = new DiceImpl();
         possibleValues = new HashSet<>();
         // CHECKSTYLE: MagicNumber OFF
