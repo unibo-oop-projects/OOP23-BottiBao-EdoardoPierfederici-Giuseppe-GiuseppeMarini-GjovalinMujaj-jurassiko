@@ -40,8 +40,8 @@ public class ViewImpl extends JFrame implements View {
      * 
      * Scale the image that we want to set.
      * 
-     * @param image the image that we want to set
-     * @param width width of the new image
+     * @param image  the image that we want to set
+     * @param width  width of the new image
      * @param height height of the new image
      * @return return the scaled image
      */
@@ -55,8 +55,8 @@ public class ViewImpl extends JFrame implements View {
      * {@inheritDoc}
      */
     @Override
-    public void display() {
-        this.pack();
+    public final void display() {
+        super.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -66,7 +66,7 @@ public class ViewImpl extends JFrame implements View {
      * 
      * @return dimension of the screen
      */
-    public static Dimension getScreenSize(){
+    public static Dimension getScreenSize() {
         return Toolkit.getDefaultToolkit().getScreenSize();
     }
 }
