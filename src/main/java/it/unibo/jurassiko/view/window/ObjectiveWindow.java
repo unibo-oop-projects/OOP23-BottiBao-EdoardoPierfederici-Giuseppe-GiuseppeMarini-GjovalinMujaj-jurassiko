@@ -52,8 +52,7 @@ public class ObjectiveWindow extends JPanel {
 
         final JLabel objectiveLabel = new JLabel(objectiveCard);
         setObjectiveLabel(objectiveLabel, windowWidth, windowHeight);
-
-        this.description = ""; // TODO: take as argument?
+        this.description = ""; // TODO: take it as an argument?
         // Make text go to new line when needed
         this.textLabel = new JLabel("<html>" + this.description + "</html>");
         setTextLabel(this.textLabel, textX, textY, textWidth, textHeight);

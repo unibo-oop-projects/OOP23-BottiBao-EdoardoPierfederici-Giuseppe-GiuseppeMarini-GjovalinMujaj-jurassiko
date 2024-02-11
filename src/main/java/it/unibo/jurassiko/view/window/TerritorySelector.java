@@ -47,7 +47,6 @@ public class TerritorySelector extends JFrame {
 
         final Set<String> territoryNames = allTerritories.stream().map(Territory::getName).collect(Collectors.toSet());
         final Set<String> oceanNames = allOceans.stream().map(Ocean::getName).collect(Collectors.toSet());
-
         territoryNames.stream().forEach(t -> this.territoryButtons.put(t, new JButton(t)));
         oceanNames.stream().forEach(t -> this.oceanButtons.put(t, new JButton(t)));
 
