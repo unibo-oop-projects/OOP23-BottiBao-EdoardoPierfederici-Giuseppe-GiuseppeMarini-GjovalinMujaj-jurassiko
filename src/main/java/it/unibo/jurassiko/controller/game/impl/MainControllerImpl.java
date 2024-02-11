@@ -23,17 +23,15 @@ public class MainControllerImpl implements MainController {
     private final Set<Territory> allTerritories;
     private final Set<Ocean> oceans;
     private final Set<Objective> objectives;
-    private final Map<Territory, Pair<GameColor,Integer>> mapTerritories;
-    private final Map<Ocean, Map<GameColor,Integer>> mapOcean;
+    private Map<Territory, Pair<GameColor,Integer>> mapTerritories;
+    private Map<Ocean, Map<GameColor,Integer>> mapOcean;
 
-    Player greenPlayer, bluePlayer, redPlayer;
+    private Player greenPlayer, bluePlayer, redPlayer;
 
     MainControllerImpl() {
         this.allTerritories = new TerritoryFactoryImpl().createTerritories();
         this.oceans = new OceanFactoryImpl().createOceans();
         this.objectives = new ObjectiveFactoryImpl().createObjectives();
-        this.mapTerritories = new HashMap<>();
-        this.mapOcean = new HashMap<>();
         createPlayers();
         fullTerritories();
         fullOcean();
@@ -109,14 +107,16 @@ public class MainControllerImpl implements MainController {
     }
 
     private void fullOcean() {
+        mapOcean = new HashMap<>();
         oceans.stream().forEach(ocean -> {
-            final Map<GameColor, Integer> mapColor = new HashMap<>();
-            mapColor.put(getColorOcean(ocean), START_AMOUNT_DINO);
-            mapOcean.put(ocean, mapColor);
+            final Map<GameColor, Integer> tempMap = new HashMap<>();
+            tempMap.put(getColorOcean(ocean), START_AMOUNT_DINO);
+            mapOcean.put(ocean, tempMap);
         });
     }
 
     private void fullTerritories(){
+        mapTerritories = new HashMap<>();
         allTerritories.stream().forEach(terr -> 
             mapTerritories.put(terr, new Pair<>(getColorTerritory(terr), START_AMOUNT_DINO)));
     }
