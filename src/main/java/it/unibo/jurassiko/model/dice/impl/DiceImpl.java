@@ -30,6 +30,7 @@ public class DiceImpl implements Dice {
     public List<Integer> rollMultiple(final int amount) {
         return IntStream.range(0, amount)
                 .mapToObj(e -> roll())
+                .sorted((o1, o2) -> o2 - o1)
                 .collect(Collectors.toList());
 
     }
