@@ -66,6 +66,8 @@ public class TerritorySelector extends JFrame {
         this.setVisible(true); // TODO: use GUI button
     }
 
+    // TODO: enable/disable buttons according to game phase and current player
+
     /**
      * Adds the created panels with all buttons to the main panel.
      * 
