@@ -17,7 +17,7 @@ import it.unibo.jurassiko.model.dice.impl.DiceImpl;
 /**
  * Test for the Dice Class.
  */
-public final class TestDice {
+class TestDice {
 
     private Dice dice;
     private Set<Integer> possibleValues;

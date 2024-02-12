@@ -15,7 +15,7 @@ import it.unibo.jurassiko.model.objective.impl.ObjectiveFactoryImpl;
 import it.unibo.jurassiko.model.player.api.Player;
 import it.unibo.jurassiko.model.player.impl.PlayerImpl;
 
-public class TestPlayerTurn {
+class TestPlayerTurn {
 
     private PlayerTurn turn;
 
