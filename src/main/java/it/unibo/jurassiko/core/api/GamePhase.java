@@ -17,4 +17,9 @@ public interface GamePhase {
      * Go to the next Phase.
      */
     void goNext();
+
+    /**
+     * Change into specific Phase.
+     */
+    void changePhase(Phase phase);
 }

@@ -19,5 +19,10 @@ public class GamePhaseImpl implements GamePhase{
     public void goNext() {
         index = Phase.values()[(index.ordinal() + 1) % Phase.values().length];
     }
+
+    @Override
+    public void changePhase(Phase phase) {
+        index = phase;
+    }
     
 }

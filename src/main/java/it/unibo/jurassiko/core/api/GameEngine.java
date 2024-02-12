@@ -30,6 +30,11 @@ public interface GameEngine {
     void movimentPhase();
 
     /**
+     * End the Turn of the Player.
+     */
+    void endTurn();
+
+    /**
      * Is game Over?.
      * 
      * @return true if the game is over, false otherwise
