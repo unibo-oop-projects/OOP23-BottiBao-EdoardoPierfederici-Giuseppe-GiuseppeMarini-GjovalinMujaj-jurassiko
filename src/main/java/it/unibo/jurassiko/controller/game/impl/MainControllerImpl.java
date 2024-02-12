@@ -28,13 +28,22 @@ public class MainControllerImpl implements MainController {
 
     private Player greenPlayer, bluePlayer, redPlayer;
 
-    MainControllerImpl() {
+    public MainControllerImpl() {
         this.allTerritories = new TerritoryFactoryImpl().createTerritories();
         this.oceans = new OceanFactoryImpl().createOceans();
         this.objectives = new ObjectiveFactoryImpl().createObjectives();
         createPlayers();
         fullTerritories();
         fullOcean();
+    }
+
+    public Set<Territory> getTerritories(GameColor color){
+        var setTerr = mapTerritories.entrySet()
+            .stream()
+            .filter(s -> s.getValue().x().equals(color))
+            .map(s -> s.getKey())
+            .collect(Collectors.toSet());
+        return setTerr;
     }
 
     public Map<Territory, Pair<GameColor,Integer>> getTerritoriesMap() {
