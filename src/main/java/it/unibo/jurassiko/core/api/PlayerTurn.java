@@ -4,6 +4,9 @@ import java.util.List;
 
 import it.unibo.jurassiko.model.player.api.Player;
 
+/**
+ * Manage the turn of the Player.
+ */
 public interface PlayerTurn {
     /**
      * get current Player Color in the turn.
@@ -13,7 +16,7 @@ public interface PlayerTurn {
     Player.GameColor getCurrentPlayerTurn();
 
     /**
-     * get all the Players-
+     * get all the Players.
      * 
      * @return Set of all the Players
      */

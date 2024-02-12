@@ -10,15 +10,15 @@ import it.unibo.jurassiko.core.impl.GamePhaseImpl;
 
 class TestGamePhase {
 
-    GamePhase gPhase;
+    private GamePhase gPhase;
 
     @BeforeEach
-    void initPhase(){
+    void initPhase() {
         gPhase = new GamePhaseImpl();
     }
-    
+
     @Test
-    void testPhases(){
+    void testPhases() {
         assertEquals(gPhase.getPhase(), GamePhase.Phase.PLACEMENT);
         gPhase.goNext();
         assertEquals(gPhase.getPhase(), GamePhase.Phase.ATTACK);

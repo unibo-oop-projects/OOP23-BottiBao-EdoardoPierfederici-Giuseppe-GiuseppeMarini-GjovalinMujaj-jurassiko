@@ -1,11 +1,13 @@
 package it.unibo.jurassiko.core.api;
 
 import it.unibo.jurassiko.model.player.api.Player;
-
+/**
+ * TODO: help?
+ */
 public interface GameEngine {
 
     /**
-     * Initialize the game, assign the territories to the Players
+     * Initialize the game, assign the territories to the Players.
      */
     void initGame();
 

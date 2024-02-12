@@ -98,7 +98,7 @@ class TestPlayer {
      */
     private Territory getTerritory(final String name) {
         final var result = territory.stream()
-                .filter(e -> e.getName().toLowerCase(Locale.ROOT).equals(name.toLowerCase()))
+                .filter(e -> e.getName().toLowerCase(Locale.ROOT).equals(name.toLowerCase(Locale.ROOT)))
                 .findFirst();
         return result.get();
     }
