@@ -1,5 +1,7 @@
 package it.unibo.jurassiko.core.api;
 
+import it.unibo.jurassiko.model.player.api.Player;
+
 public interface GameEngine {
 
     /**
@@ -26,5 +28,19 @@ public interface GameEngine {
      * Start Moviment phase.
      */
     void movimentPhase();
+
+    /**
+     * Is game Over?.
+     * 
+     * @return true if the game is over, false otherwise
+     */
+    boolean isOver();
+
+    /**
+     * Get the winner of the game.
+     * 
+     * @return the winner of the game.
+     */
+    Player getWinner();
 
 }
