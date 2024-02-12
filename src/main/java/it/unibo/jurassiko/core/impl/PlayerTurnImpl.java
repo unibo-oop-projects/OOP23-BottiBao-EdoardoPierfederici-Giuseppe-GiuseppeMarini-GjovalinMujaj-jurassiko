@@ -1,6 +1,8 @@
 package it.unibo.jurassiko.core.impl;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import it.unibo.jurassiko.core.api.PlayerTurn;
 import it.unibo.jurassiko.model.player.api.Player;
@@ -12,8 +14,8 @@ public class PlayerTurnImpl implements PlayerTurn {
     private int index;
 
     public PlayerTurnImpl(final List<Player> players) {
-        this.players = players;
-        this.players.sort((o1, o2) -> o2.getColor().getColor().compareTo(o2.getColor().getColor()));
+        this.players = players.stream().sorted((o1, o2) -> o2.getColor().getColor().compareTo(o1.getColor().getColor()))
+                .collect(Collectors.toList());
         index = 0;
     }
 
@@ -30,7 +32,7 @@ public class PlayerTurnImpl implements PlayerTurn {
     @Override
     public void goNext() {
         index++;
-        if (index > players.size()) {
+        if (index >= players.size()) {
             index = 0;
         }
     }
