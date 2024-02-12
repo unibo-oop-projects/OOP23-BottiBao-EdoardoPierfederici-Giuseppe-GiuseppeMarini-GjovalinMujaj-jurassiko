@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.unibo.jurassiko.controller.game.api.MainController;
+import it.unibo.jurassiko.controller.game.impl.MainControllerImpl;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 import it.unibo.jurassiko.reader.impl.OceanSpritePositionReader;
 import it.unibo.jurassiko.reader.impl.TerritorySpritePositionReader;
@@ -39,8 +40,8 @@ public class MapPanel extends JPanel {
      * Set the map in the relevant label and add it to the LayeredPane.
      */
     public MapPanel() {
-        //TODO:
-        main = null;
+        //TODO: main controller impl?
+        this.main = new MainControllerImpl();
         this.territoryViews = new HashMap<>();
         this.oceanViews = new HashMap<>();
 
@@ -76,7 +77,7 @@ public class MapPanel extends JPanel {
     }
 
     public void updateBoard(){
-        final var map = main.getTerritoriesMap();
+        final var map = this.main.getTerritoriesMap();
         map.entrySet().stream().forEach(t -> {
             final String territoryName = t.getKey().getName();
             final DinoDisplay display = this.territoryViews.get(territoryName);
