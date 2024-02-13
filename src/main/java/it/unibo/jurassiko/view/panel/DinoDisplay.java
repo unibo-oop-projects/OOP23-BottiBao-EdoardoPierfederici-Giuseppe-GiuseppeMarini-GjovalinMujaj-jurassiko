@@ -24,7 +24,7 @@ public class DinoDisplay extends JPanel {
     private static final double NTROOPS_YRATIO = 0.64;
     private static final double NTROOPS_WIDTH_RATIO = 0.26;
     private static final double NTROOPS_HEIGHT_RATIO = 0.34;
-    private static final int FONT_SIZE = 19;
+    private static final int FONT_SIZE = 11;
 
     private final JLabel dinoSprite;
     private final JLabel nTroops;
@@ -93,6 +93,6 @@ public class DinoDisplay extends JPanel {
                 (int) (NTROOPS_WIDTH_RATIO * width),
                 (int) (NTROOPS_HEIGHT_RATIO * height));
         this.nTroops.setOpaque(true);
-        setNumber(1);
+        setNumber(10);
     }
 }
