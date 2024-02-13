@@ -17,5 +17,7 @@ public interface MainController {
     public Map<Territory, Pair<GameColor,Integer>> getTerritoriesMap();
 
     public List<Player> getPlayers() throws CloneNotSupportedException;
+
+    public void openTerritorySelector();
     
 }

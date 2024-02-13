@@ -30,7 +30,7 @@ public class MainControllerImpl implements MainController {
     private Map<Ocean, GameColor> mapOcean;
 
     private final GameEngine game;
-    private final TerritorySelector terrSelect;
+    private TerritorySelector terrSelect;
 
     private Player redPlayer, greenPlayer, bluePlayer;
 
@@ -47,6 +47,10 @@ public class MainControllerImpl implements MainController {
         
     }
 
+    public void openTerritorySelector(){
+        this.terrSelect.display();
+    }
+
     private void manageSelection(String territory) {
         var color = this.game.getPlayerTurn().getCurrentPlayerTurn().getColor();
         switch (this.game.getGamePhase().getPhase()) {
@@ -55,12 +59,12 @@ public class MainControllerImpl implements MainController {
                 int d = mapTerritories.get(terr).y();
                 mapTerritories.put(terr, new Pair<GameColor, Integer>(color, d + 1));
                 break;
-            //case BATTLE:
+            case ATTACK:
                 
-            //    break;
-            //case MOVEMENT:
+                break;
+            case MOVEMENT:
                 
-            //    break;
+                break;
             default:
                 break;
         }
