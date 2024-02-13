@@ -35,11 +35,15 @@ public class GameEngineImpl implements GameEngine {
     private final Random ran;
     private Map<Territory, Pair<GameColor, Integer>> territories;
 
-    public GameEngineImpl() throws CloneNotSupportedException {
+    public GameEngineImpl(){
         this.gamePhase = new GamePhaseImpl();
         this.ran = new Random();
         this.controller = new MainControllerImpl();
-        this.playerTurn = new PlayerTurnImpl(this.controller.getPlayers());
+        try {
+            this.playerTurn = new PlayerTurnImpl(this.controller.getPlayers());
+        } catch (CloneNotSupportedException e) {
+            throw new IllegalStateException("Failed to create a new istance of the player", e);
+        }
     }
 
     @Override
