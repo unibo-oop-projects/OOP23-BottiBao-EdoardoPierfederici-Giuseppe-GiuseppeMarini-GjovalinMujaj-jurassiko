@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import it.unibo.jurassiko.controller.game.api.MainController;
 import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
 import it.unibo.jurassiko.model.territory.impl.OceanFactoryImpl;
@@ -37,10 +38,13 @@ public class TerritorySelector extends JFrame implements View{
     private final Map<String, JButton> territoryButtons;
     private final Map<String, JButton> oceanButtons;
 
+    private final MainController mainContr;
+
     /**
      * Creates a TerritorySelector window.
      */
-    public TerritorySelector() {
+    public TerritorySelector(MainController mainContr) {
+        this.mainContr = mainContr;
         this.territoryButtons = new HashMap<>();
         this.oceanButtons = new HashMap<>();
         final Set<Territory> allTerritories = new TerritoryFactoryImpl().createTerritories();

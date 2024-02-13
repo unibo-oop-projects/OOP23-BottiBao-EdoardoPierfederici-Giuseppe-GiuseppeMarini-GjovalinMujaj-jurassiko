@@ -42,7 +42,7 @@ public class MainControllerImpl implements MainController {
         fullTerritories();
         fullOcean();
         this.game = new GameEngineImpl(this);
-        this.terrSelect = new TerritorySelector();
+        this.terrSelect = new TerritorySelector(this);
         
     }
 
