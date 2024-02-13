@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import it.unibo.jurassiko.common.Pair;
 import it.unibo.jurassiko.controller.game.api.MainController;
+import it.unibo.jurassiko.core.api.GameEngine;
+import it.unibo.jurassiko.core.impl.GameEngineImpl;
 import it.unibo.jurassiko.model.objective.api.Objective;
 import it.unibo.jurassiko.model.objective.impl.ObjectiveFactoryImpl;
 import it.unibo.jurassiko.model.player.api.Player;
@@ -29,7 +31,7 @@ public class MainControllerImpl implements MainController {
 
     private final MapPanel panel = new MapPanel();
 
-    private final GameEngine game = new GameEngine();
+    private final GameEngine game = new GameEngineImpl();
 
     private Player redPlayer, greenPlayer, bluePlayer;
 
@@ -72,7 +74,8 @@ public class MainControllerImpl implements MainController {
         return setTerr;
     }
 
-    public List<Player> getPlayers(){
+    @Override
+    public List<Player> getPlayers() throws CloneNotSupportedException {
         List<Player> players = new ArrayList<>();
         players.add(redPlayer.getPlayer());
         players.add(greenPlayer.getPlayer());

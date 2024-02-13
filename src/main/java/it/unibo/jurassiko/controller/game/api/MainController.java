@@ -1,9 +1,11 @@
 package it.unibo.jurassiko.controller.game.api;
 
 import it.unibo.jurassiko.common.Pair;
+import it.unibo.jurassiko.model.player.api.Player;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 import it.unibo.jurassiko.model.territory.api.Territory;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MainController {
@@ -14,5 +16,6 @@ public interface MainController {
      */
     public Map<Territory, Pair<GameColor,Integer>> getTerritoriesMap();
 
+    public List<Player> getPlayers() throws CloneNotSupportedException;
     
 }
