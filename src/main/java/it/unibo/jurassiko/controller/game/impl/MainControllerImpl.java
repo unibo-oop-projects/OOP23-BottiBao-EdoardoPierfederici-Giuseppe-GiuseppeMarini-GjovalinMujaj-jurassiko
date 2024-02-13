@@ -31,7 +31,7 @@ public class MainControllerImpl implements MainController {
 
     private final GameEngine game = new GameEngine();
 
-    private Player greenPlayer, bluePlayer, redPlayer;
+    private Player redPlayer, greenPlayer, bluePlayer;
 
     public MainControllerImpl() {
         this.allTerritories = new TerritoryFactoryImpl().createTerritories();
@@ -72,6 +72,14 @@ public class MainControllerImpl implements MainController {
         return setTerr;
     }
 
+    public List<Player> getPlayers(){
+        List<Player> players = new ArrayList<>();
+        players.add(redPlayer.getPlayer());
+        players.add(greenPlayer.getPlayer());
+        players.add(bluePlayer.getPlayer());
+        return players;
+    }
+
     public Map<Territory, Pair<GameColor,Integer>> getTerritoriesMap() {
         return Map.copyOf(mapTerritories);
     }
@@ -80,14 +88,14 @@ public class MainControllerImpl implements MainController {
      * Returns the color of the territory that we passed as input
      */
     private GameColor getColorTerritory(final Territory terr) {
+        if(redPlayer.getOwnedTerritories().contains(terr)){
+            return redPlayer.getColor();
+        }
         if(greenPlayer.getOwnedTerritories().contains(terr)){
             return greenPlayer.getColor();
         }
         if(bluePlayer.getOwnedTerritories().contains(terr)){
             return bluePlayer.getColor();
-        }
-        if(redPlayer.getOwnedTerritories().contains(terr)){
-            return redPlayer.getColor();
         }
         throw new IllegalArgumentException("Territory not valid");
     }
@@ -112,15 +120,15 @@ public class MainControllerImpl implements MainController {
     private void createPlayers() {
         final Set<Territory> copyTerritories = new HashSet<>(this.allTerritories);
         final Set<Objective> copyObjectives = new HashSet<>(this.objectives);
-        this.greenPlayer = new PlayerImpl(GameColor.GREEN,
+        this.redPlayer = new PlayerImpl(GameColor.RED,
+            shuffleObjective(copyObjectives),
+            shuffleTerritories(copyTerritories, MAX_TERRITORIES),
+            Set.of());
+        this.greenPlayer = new PlayerImpl(GameColor.GREEN, 
             shuffleObjective(copyObjectives),
             shuffleTerritories(copyTerritories, MAX_TERRITORIES),
             Set.of());
         this.bluePlayer = new PlayerImpl(GameColor.BLUE, 
-            shuffleObjective(copyObjectives),
-            shuffleTerritories(copyTerritories, MAX_TERRITORIES),
-            Set.of());
-        this.redPlayer = new PlayerImpl(GameColor.RED, 
             shuffleObjective(copyObjectives),
             shuffleTerritories(copyTerritories, MAX_TERRITORIES),
             Set.of());
