@@ -46,4 +46,8 @@ public interface GameEngine {
      */
     Player getWinner();
 
+    GamePhase getGamePhase();
+
+    PlayerTurn getPlayerTurn();
+
 }

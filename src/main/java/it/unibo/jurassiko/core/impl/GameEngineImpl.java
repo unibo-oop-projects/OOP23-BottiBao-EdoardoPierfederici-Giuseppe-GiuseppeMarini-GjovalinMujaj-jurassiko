@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import it.unibo.jurassiko.common.Pair;
+import it.unibo.jurassiko.controller.game.api.MainController;
+import it.unibo.jurassiko.controller.game.impl.MainControllerImpl;
 import it.unibo.jurassiko.core.api.GameEngine;
 import it.unibo.jurassiko.core.api.GamePhase;
 import it.unibo.jurassiko.core.api.PlayerTurn;
@@ -29,53 +31,15 @@ public class GameEngineImpl implements GameEngine {
 
     private final GamePhase gamePhase;
     private final PlayerTurn playerTurn;
+    private MainController controller;
     private final Random ran;
     private Map<Territory, Pair<GameColor, Integer>> territories;
 
-    public GameEngineImpl() {
+    public GameEngineImpl() throws CloneNotSupportedException {
         this.gamePhase = new GamePhaseImpl();
         this.ran = new Random();
-        this.playerTurn = new PlayerTurnImpl(initPlayer());
-    }
-
-    private List<Player> initPlayer() {
-        final var objectives = new ArrayList<>(new ObjectiveFactoryImpl().createObjectives());
-        Collections.shuffle(objectives);
-        final var territoryIte = shuffleTerritories(new TerritoryFactoryImpl().createTerritories());
-        final List<Player> result = new ArrayList<>();
-        result.add(createPlayer(Player.GameColor.BLUE,
-                objectives.get(ran.nextInt(objectives.size())),
-                territoryIte.next()));
-        result.add(createPlayer(Player.GameColor.GREEN,
-                objectives.get(ran.nextInt(objectives.size())),
-                territoryIte.next()));
-        result.add(createPlayer(Player.GameColor.RED,
-                objectives.get(ran.nextInt(objectives.size())),
-                territoryIte.next()));
-
-        return result;
-    }
-
-    private Player createPlayer(final Player.GameColor color, final Objective obj, final List<Territory> t) {
-        return new PlayerImpl(Player.GameColor.BLUE,
-                obj.getClone(),
-                new HashSet<>(t),
-                new HashSet<>());
-    }
-
-    private Iterator<List<Territory>> shuffleTerritories(Set<Territory> t) {
-        final var territories = new ArrayList<>(new TerritoryFactoryImpl().createTerritories());
-        Collections.shuffle(territories);
-        final List<List<Territory>> terrList = new ArrayList<>();
-        final List<Territory> temp = new ArrayList<>();
-        for (final var x : territories) {
-            temp.add(x);
-            if (temp.size() == territories.size() / MAX_PLAYERS) {
-                terrList.add(new ArrayList<>(temp));
-                temp.clear();
-            }
-        }
-        return terrList.iterator();
+        this.controller = new MainControllerImpl();
+        this.playerTurn = new PlayerTurnImpl(this.controller.getPlayers());
     }
 
     @Override
@@ -118,6 +82,16 @@ public class GameEngineImpl implements GameEngine {
     public Player getWinner() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getWinner'");
+    }
+
+    @Override
+    public GamePhase getGamePhase() {
+        return new GamePhaseImpl(gamePhase);
+    }
+
+    @Override
+    public PlayerTurn getPlayerTurn() {
+        return new PlayerTurnImpl(playerTurn);
     }
 
 }
