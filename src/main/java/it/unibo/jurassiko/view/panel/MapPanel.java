@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.unibo.jurassiko.controller.game.api.MainController;
-import it.unibo.jurassiko.controller.game.impl.MainControllerImpl;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 import it.unibo.jurassiko.reader.impl.OceanSpritePositionReader;
 import it.unibo.jurassiko.reader.impl.TerritorySpritePositionReader;
@@ -39,9 +38,8 @@ public class MapPanel extends JPanel {
     /**
      * Set the map in the relevant label and add it to the LayeredPane.
      */
-    public MapPanel() {
-        //TODO: main controller impl?
-        this.main = new MainControllerImpl();
+    public MapPanel(MainController main) {
+        this.main = main;
         this.territoryViews = new HashMap<>();
         this.oceanViews = new HashMap<>();
 

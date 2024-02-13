@@ -35,10 +35,10 @@ public class GameEngineImpl implements GameEngine {
     private final Random ran;
     private Map<Territory, Pair<GameColor, Integer>> territories;
 
-    public GameEngineImpl(){
+    public GameEngineImpl(MainController controller){
         this.gamePhase = new GamePhaseImpl();
         this.ran = new Random();
-        this.controller = new MainControllerImpl();
+        this.controller = controller;
         try {
             this.playerTurn = new PlayerTurnImpl(this.controller.getPlayers());
         } catch (CloneNotSupportedException e) {

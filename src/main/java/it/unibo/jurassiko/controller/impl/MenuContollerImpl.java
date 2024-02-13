@@ -1,6 +1,7 @@
 package it.unibo.jurassiko.controller.impl;
 
 import it.unibo.jurassiko.controller.api.MenuController;
+import it.unibo.jurassiko.controller.game.impl.MainControllerImpl;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 
 /**
@@ -13,6 +14,6 @@ public class MenuContollerImpl implements MenuController {
      */
     @Override
     public void startGame() {
-        new ViewImpl();
+        new ViewImpl(new MainControllerImpl());
     }
 }
