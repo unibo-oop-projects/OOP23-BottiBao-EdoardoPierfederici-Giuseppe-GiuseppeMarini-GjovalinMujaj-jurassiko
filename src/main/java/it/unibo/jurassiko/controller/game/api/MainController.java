@@ -14,10 +14,12 @@ public interface MainController {
      * 
      * @return map of the territories with the color and the amount of dino
      */
-    public Map<Territory, Pair<GameColor,Integer>> getTerritoriesMap();
+    Map<Territory, Pair<GameColor,Integer>> getTerritoriesMap();
 
-    public List<Player> getPlayers() throws CloneNotSupportedException;
+    List<Player> getPlayers() throws CloneNotSupportedException;
 
-    public void openTerritorySelector();
+    void openTerritorySelector();
+
+    void openView();
     
 }

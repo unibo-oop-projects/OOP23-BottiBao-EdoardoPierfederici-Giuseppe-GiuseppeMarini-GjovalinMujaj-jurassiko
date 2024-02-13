@@ -16,6 +16,7 @@ import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
 import it.unibo.jurassiko.model.territory.impl.OceanFactoryImpl;
 import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
+import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 import it.unibo.jurassiko.view.window.TerritorySelector;
 
 public class MainControllerImpl implements MainController {
@@ -31,10 +32,12 @@ public class MainControllerImpl implements MainController {
 
     private final GameEngine game;
     private final TerritorySelector terrSelect;
+    private final ViewImpl mainFrame;
 
     private Player redPlayer, greenPlayer, bluePlayer;
 
     public MainControllerImpl() {
+        mainFrame = new ViewImpl(this);
         this.allTerritories = new TerritoryFactoryImpl().createTerritories();
         this.oceans = new OceanFactoryImpl().createOceans();
         this.objectives = new ObjectiveFactoryImpl().createObjectives();
@@ -50,13 +53,23 @@ public class MainControllerImpl implements MainController {
         this.terrSelect.display();
     }
 
+    public void openView(){
+        mainFrame.display();
+        updateBoard();
+    }
+
+    public void updateBoard(){
+        mainFrame.updatePanel();
+    }
+
     private void manageSelection(final String territory) {
-        final var color = this.game.getPlayerTurn().getCurrentPlayerTurn().getColor();
+        final var colorCurrentPlayer = this.game.getPlayerTurn().getCurrentPlayerTurn().getColor();
         switch (this.game.getGamePhase().getPhase()) {
             case PLACEMENT:
                 final Territory terr = this.mapTerritories.keySet().stream().filter(t -> t.getName().equals(territory)).findAny().get();
                 final int d = mapTerritories.get(terr).y();
-                mapTerritories.put(terr, new Pair<GameColor, Integer>(color, d + 1));
+                mapTerritories.put(terr, new Pair<GameColor, Integer>(colorCurrentPlayer, d + 1));
+                updateBoard();
                 break;
             case ATTACK:
                 
