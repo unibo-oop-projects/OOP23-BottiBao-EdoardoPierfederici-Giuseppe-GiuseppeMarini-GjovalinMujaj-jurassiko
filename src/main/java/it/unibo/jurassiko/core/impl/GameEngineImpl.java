@@ -25,10 +25,6 @@ import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 
 public class GameEngineImpl implements GameEngine {
 
-    public static void main(String[] args) {
-        new GameEngineImpl();
-    }
-
     private static final int MAX_PLAYERS = 3;
 
     private final GamePhase gamePhase;
