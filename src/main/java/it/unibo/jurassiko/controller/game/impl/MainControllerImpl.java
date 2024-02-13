@@ -16,7 +16,7 @@ import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
 import it.unibo.jurassiko.model.territory.impl.OceanFactoryImpl;
 import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
-import it.unibo.jurassiko.view.panel.MapPanel;
+import it.unibo.jurassiko.view.window.TerritorySelector;
 
 public class MainControllerImpl implements MainController {
 
@@ -29,9 +29,8 @@ public class MainControllerImpl implements MainController {
     private Map<Territory, Pair<GameColor,Integer>> mapTerritories;
     private Map<Ocean, GameColor> mapOcean;
 
-    private final MapPanel panel = new MapPanel();
-
-    private final GameEngine game = new GameEngineImpl();
+    private final GameEngine game;
+    private final TerritorySelector terrSelect;
 
     private Player redPlayer, greenPlayer, bluePlayer;
 
@@ -42,23 +41,26 @@ public class MainControllerImpl implements MainController {
         createPlayers();
         fullTerritories();
         fullOcean();
+        this.game = new GameEngineImpl(this);
+        this.terrSelect = new TerritorySelector();
+        
+        
     }
 
     private void manageSelection(String territory) {
-        var color = this.game.getCurrentPlayer();
-        switch (this.game.getCurrentPhase()) {
+        var color = this.game.getPlayerTurn().getCurrentPlayerTurn().getColor();
+        switch (this.game.getGamePhase().getPhase()) {
             case PLACEMENT:
                 Territory terr = this.mapTerritories.keySet().stream().filter(t -> t.getName().equals(territory)).findAny().get();
-                int d = mapTerritories.get(territory).y();
-                mapTerritories.put(terr, new Pair<GameColor, Integer>(GameColor.BLUE, d + 1));
-                panel.updateBoard();
+                int d = mapTerritories.get(terr).y();
+                mapTerritories.put(terr, new Pair<GameColor, Integer>(color, d + 1));
                 break;
-            case BATTLE:
+            //case BATTLE:
                 
-                break;
-            case MOVEMENT:
+            //    break;
+            //case MOVEMENT:
                 
-                break;
+            //    break;
             default:
                 break;
         }
