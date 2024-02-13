@@ -31,13 +31,12 @@ public class ViewImpl extends JFrame implements View {
      */
     public ViewImpl(MainController mainContr) {
         this.mainContr = mainContr;
-        this.panel = new MapPanel(mainContr);
+        this.panel = new MapPanel(this.mainContr);
         this.setTitle(TITLE);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.add(panel, BorderLayout.CENTER);
         this.add(buttons, BorderLayout.NORTH);
-        this.display();
     }
 
     /**
@@ -72,5 +71,9 @@ public class ViewImpl extends JFrame implements View {
      */
     public static Dimension getScreenSize() {
         return Toolkit.getDefaultToolkit().getScreenSize();
+    }
+
+    public void updatePanel(){
+        this.panel.updateBoard();
     }
 }

@@ -9,11 +9,14 @@ import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
  */
 public class MenuContollerImpl implements MenuController {
 
+    private final ViewImpl mainFrame = new ViewImpl(new MainControllerImpl());
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void startGame() {
-        new ViewImpl(new MainControllerImpl());
+        mainFrame.display();
+        mainFrame.updatePanel();
     }
 }
