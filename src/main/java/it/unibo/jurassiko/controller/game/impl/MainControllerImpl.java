@@ -30,7 +30,7 @@ public class MainControllerImpl implements MainController {
     private Map<Ocean, GameColor> mapOcean;
 
     private final GameEngine game;
-    private TerritorySelector terrSelect;
+    private final TerritorySelector terrSelect;
 
     private Player redPlayer, greenPlayer, bluePlayer;
 
@@ -44,19 +44,18 @@ public class MainControllerImpl implements MainController {
         this.game = new GameEngineImpl(this);
         this.terrSelect = new TerritorySelector();
         
-        
     }
 
     public void openTerritorySelector(){
         this.terrSelect.display();
     }
 
-    private void manageSelection(String territory) {
-        var color = this.game.getPlayerTurn().getCurrentPlayerTurn().getColor();
+    private void manageSelection(final String territory) {
+        final var color = this.game.getPlayerTurn().getCurrentPlayerTurn().getColor();
         switch (this.game.getGamePhase().getPhase()) {
             case PLACEMENT:
-                Territory terr = this.mapTerritories.keySet().stream().filter(t -> t.getName().equals(territory)).findAny().get();
-                int d = mapTerritories.get(terr).y();
+                final Territory terr = this.mapTerritories.keySet().stream().filter(t -> t.getName().equals(territory)).findAny().get();
+                final int d = mapTerritories.get(terr).y();
                 mapTerritories.put(terr, new Pair<GameColor, Integer>(color, d + 1));
                 break;
             case ATTACK:
@@ -71,8 +70,8 @@ public class MainControllerImpl implements MainController {
     }
 
 
-    public Set<Territory> getTerritories(GameColor color) {
-        var setTerr = mapTerritories.entrySet()
+    public Set<Territory> getTerritories(final GameColor color) {
+        final var setTerr = mapTerritories.entrySet()
             .stream()
             .filter(s -> s.getValue().x().equals(color))
             .map(s -> s.getKey())
@@ -82,7 +81,7 @@ public class MainControllerImpl implements MainController {
 
     @Override
     public List<Player> getPlayers() throws CloneNotSupportedException {
-        List<Player> players = new ArrayList<>();
+        final List<Player> players = new ArrayList<>();
         players.add(redPlayer.getPlayer());
         players.add(greenPlayer.getPlayer());
         players.add(bluePlayer.getPlayer());
