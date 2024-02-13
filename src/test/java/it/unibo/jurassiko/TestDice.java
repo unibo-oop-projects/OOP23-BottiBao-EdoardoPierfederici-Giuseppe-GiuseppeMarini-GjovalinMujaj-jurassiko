@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.jurassiko.model.dice.api.Dice;
 import it.unibo.jurassiko.model.dice.impl.DiceImpl;
+import it.unibo.jurassiko.model.player.api.Player;
 
 /**
  * Test for the Dice Class.
@@ -72,7 +73,6 @@ class TestDice {
         for (final int i : tempList) {
             assertTrue(possibleValues.contains(i));
         }
-
     }
 
 }
