@@ -16,13 +16,14 @@ import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
 import it.unibo.jurassiko.model.territory.impl.OceanFactoryImpl;
 import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
+import it.unibo.jurassiko.view.gamescreen.api.View;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 
 /**
  * Class that implements the window containing the buttons to select a territory
  * or an ocean.
  */
-public class TerritorySelector extends JFrame {
+public class TerritorySelector extends JFrame implements View{
 
     private static final long serialVersionUID = -4064915483089661582L;
     private static final double WIDTH_RATIO = 0.475;
@@ -61,8 +62,7 @@ public class TerritorySelector extends JFrame {
         this.setPreferredSize(new Dimension(width, height));
         this.setLocation(x, y);
         this.setResizable(false);
-        super.pack();
-        this.setVisible(true); // TODO: use GUI button
+         // TODO: use GUI button
     }
 
     // TODO: enable/disable buttons according to game phase and current player
@@ -137,4 +137,13 @@ public class TerritorySelector extends JFrame {
                 .toList();
     }
 
+    @Override
+    public void display() {
+        super.pack();
+        this.setVisible(true);
+    }
+
+    public void closeView() {
+        this.setVisible(false);
+    }
 }
