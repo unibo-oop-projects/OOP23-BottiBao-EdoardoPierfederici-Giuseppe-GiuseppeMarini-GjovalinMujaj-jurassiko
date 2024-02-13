@@ -1,11 +1,6 @@
 package it.unibo.jurassiko;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,14 +8,15 @@ import org.junit.jupiter.api.Test;
 import it.unibo.jurassiko.common.Pair;
 import it.unibo.jurassiko.model.battle.api.Battle;
 import it.unibo.jurassiko.model.battle.impl.BattleImpl;
+import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 
 /**
  * Test for the Dice Class.
  */
 public class TestBattle {
 
+    private static final int MAXNUMBER_DICE = 3;
     private Battle battle;
-    private List<Integer> results;
     private Pair<Integer, Integer> dinoDeaths;
 
     /**
@@ -28,40 +24,20 @@ public class TestBattle {
      */
     @BeforeEach
     public void setUp() {
-        this.battle = new BattleImpl();
-        this.results = new ArrayList<>();
-        // CHECKSTYLE: MagicNumber OFF
-        // disable for test purpose
-    }
-
-    @Test
-    public void testCheckTroops() {
-        assertFalse(this.battle.checkTroops(0));
-        assertFalse(this.battle.checkTroops(4));
-        for (int i = 1; i < 4; i++) {
-            assertTrue(this.battle.checkTroops(i));
-        }
-    }
-
-    @Test
-    public void testRollDefense() {
-        this.results = this.battle.rollDefense(3);
-        for (final Integer element : this.results) {
-            assertTrue(element < 7 || element > 0);
-        }
-    }
-
-    @Test
-    public void testRollAttacco() {
-        this.results = this.battle.rollAttack(3);
-        for (final Integer element : this.results) {
-            assertTrue(element < 7 || element > 0);
-        }
+        var territories = new TerritoryFactoryImpl().createTerritories();
+        var territorio1 = territories.stream().filter(t -> t.getName().equals("Messico")).findAny().get();
+        var territorio2 = territories.stream().filter(t -> t.getName().equals("Canada")).findAny().get();
+        this.battle = new BattleImpl(territorio1, territorio2);
     }
 
     @Test
     public void testBattle() {
-        assertEquals(dinoDeaths, this.battle.attack());
+        for (int i = 1; i < MAXNUMBER_DICE; i++) {
+            for (int j = 1; j < MAXNUMBER_DICE; j++) {
+                this.dinoDeaths = this.battle.attack(i, j);
+                assertTrue(this.dinoDeaths.x() >= 0 && this.dinoDeaths.x() < i + 1 && this.dinoDeaths.y() >= 0
+                        && this.dinoDeaths.y() < j + 1);
+            }
+        }
     }
-
 }
