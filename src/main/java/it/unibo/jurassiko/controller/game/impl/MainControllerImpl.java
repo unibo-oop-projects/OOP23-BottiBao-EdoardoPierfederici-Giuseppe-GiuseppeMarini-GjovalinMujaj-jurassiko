@@ -14,6 +14,7 @@ import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
 import it.unibo.jurassiko.model.territory.impl.OceanFactoryImpl;
 import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
+import it.unibo.jurassiko.view.panel.MapPanel;
 
 public class MainControllerImpl implements MainController {
 
@@ -26,6 +27,10 @@ public class MainControllerImpl implements MainController {
     private Map<Territory, Pair<GameColor,Integer>> mapTerritories;
     private Map<Ocean, GameColor> mapOcean;
 
+    private final MapPanel panel = new MapPanel();
+
+    private final GameEngine game = new GameEngine();
+
     private Player greenPlayer, bluePlayer, redPlayer;
 
     public MainControllerImpl() {
@@ -37,7 +42,28 @@ public class MainControllerImpl implements MainController {
         fullOcean();
     }
 
-    public Set<Territory> getTerritories(GameColor color){
+    private void manageSelection(String territory) {
+        var color = this.game.getCurrentPlayer();
+        switch (this.game.getCurrentPhase()) {
+            case PLACEMENT:
+                Territory terr = this.mapTerritories.keySet().stream().filter(t -> t.getName().equals(territory)).findAny().get();
+                int d = mapTerritories.get(territory).y();
+                mapTerritories.put(terr, new Pair<GameColor, Integer>(GameColor.BLUE, d + 1));
+                panel.updateBoard();
+                break;
+            case BATTLE:
+                
+                break;
+            case MOVEMENT:
+                
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    public Set<Territory> getTerritories(GameColor color) {
         var setTerr = mapTerritories.entrySet()
             .stream()
             .filter(s -> s.getValue().x().equals(color))
