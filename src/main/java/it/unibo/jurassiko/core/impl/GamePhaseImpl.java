@@ -17,6 +17,15 @@ public class GamePhaseImpl implements GamePhase {
     }
 
     /**
+     * Contructor used to clone a new istance
+     * 
+     * @param gp gamePhase
+     */
+    public GamePhaseImpl(final GamePhase gp) {
+        this.index = gp.getPhase();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

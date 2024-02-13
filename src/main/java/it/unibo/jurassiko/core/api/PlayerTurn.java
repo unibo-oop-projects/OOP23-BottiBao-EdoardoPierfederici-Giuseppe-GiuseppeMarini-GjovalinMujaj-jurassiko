@@ -9,11 +9,11 @@ import it.unibo.jurassiko.model.player.api.Player;
  */
 public interface PlayerTurn {
     /**
-     * get current Player Color in the turn.
+     * get current Player of the turn.
      * 
      * @return Player Color
      */
-    Player.GameColor getCurrentPlayerTurn();
+    Player getCurrentPlayerTurn();
 
     /**
      * get all the Players.

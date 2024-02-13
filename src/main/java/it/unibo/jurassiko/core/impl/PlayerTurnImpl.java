@@ -26,12 +26,17 @@ public class PlayerTurnImpl implements PlayerTurn {
         index = 0;
     }
 
+    public PlayerTurnImpl(final PlayerTurn pt) {
+        this.players = pt.getPlayers();
+        this.index = this.players.indexOf(pt.getCurrentPlayerTurn());
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public GameColor getCurrentPlayerTurn() {
-        return players.get(index).getColor();
+    public Player getCurrentPlayerTurn() {
+        return players.get(index);
     }
 
     /**
