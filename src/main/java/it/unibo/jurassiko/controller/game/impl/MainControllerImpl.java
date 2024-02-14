@@ -213,7 +213,7 @@ public class MainControllerImpl implements MainController {
      * @return a set of 7 territories
      */
     private Set<Territory> shuffleTerritories(final Set<Territory> territories, final int maxTerritories) {
-        List<Territory> territoryList = new ArrayList<>(territories);
+        final List<Territory> territoryList = new ArrayList<>(territories);
         Collections.shuffle(territoryList);
         final Set<Territory> temp = territoryList.stream()
                 .limit(maxTerritories)
@@ -230,7 +230,7 @@ public class MainControllerImpl implements MainController {
      * @return a single objective for the corresponding player
      */
     private Objective shuffleObjective(final Set<Objective> objectives) {
-        List<Objective> objectiveList = new ArrayList<>(objectives);
+        final List<Objective> objectiveList = new ArrayList<>(objectives);
         Collections.shuffle(objectiveList);
         final Objective temp = objectiveList.get(0);
         objectives.remove(temp);
