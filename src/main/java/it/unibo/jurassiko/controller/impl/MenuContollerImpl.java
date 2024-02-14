@@ -17,6 +17,6 @@ public class MenuContollerImpl implements MenuController {
     @Override
     public void startGame() {
         mainContr.openView();
-        mainContr.openTerritorySelector();
+        mainContr.startGameLoop();
     }
 }
