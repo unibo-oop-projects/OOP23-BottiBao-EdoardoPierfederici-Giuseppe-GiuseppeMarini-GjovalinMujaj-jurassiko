@@ -22,7 +22,7 @@ public class ViewImpl extends JFrame implements View {
     private static final long serialVersionUID = 4546011807046339073L;
 
     private final MapPanel panel;
-    private final TopBarPanel buttons = new TopBarPanel();
+    private final TopBarPanel buttons;
     private final MainController mainContr;
     private static final String TITLE = "Jurassiko";
 
@@ -32,6 +32,7 @@ public class ViewImpl extends JFrame implements View {
     public ViewImpl(MainController mainContr) {
         this.mainContr = mainContr;
         this.panel = new MapPanel(this.mainContr);
+        this.buttons = new TopBarPanel(this.mainContr);
         this.setTitle(TITLE);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -75,5 +76,6 @@ public class ViewImpl extends JFrame implements View {
 
     public void updatePanel(){
         this.panel.updateBoard();
+        this.buttons.updateTopBar();
     }
 }
