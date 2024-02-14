@@ -70,9 +70,9 @@ public class TopBarPanel extends JPanel {
      */
     private void loadLabel() {
         final JButton objective = new JButton("Obiettivo");
-        objective.addActionListener(e -> {
-            this.objectiveCard.showObjectiveCard();
-        });
+        objective.addActionListener(e -> this.objectiveCard.showObjectiveCard());
+        final JButton place = new JButton("Piazza");
+        place.addActionListener(e -> this.controller.startGameLoop());
         final JButton attack = new JButton("Attacco");
         final JButton endTurn = new JButton("Fine turno");
         this.currentPlayer = new JLabel();
@@ -82,14 +82,16 @@ public class TopBarPanel extends JPanel {
 
         final Font font = new Font("Serif", Font.BOLD, FONT_SIZE);
         objective.setFont(font);
+        place.setFont(font);
         attack.setFont(font);
         endTurn.setFont(font);
         currentPlayer.setFont(font);
 
         addComponent(currentPlayer, 0, 0);
         addComponent(objective, 1, 0);
-        addComponent(attack, 2, 0);
-        addComponent(endTurn, 3, 0);
+        addComponent(place, 2, 0);
+        addComponent(attack, 3, 0);
+        addComponent(endTurn, 4, 0);
     }
 
     private void addComponent(Component component, int gridx, int gridy) {
@@ -108,7 +110,7 @@ public class TopBarPanel extends JPanel {
         };
     }
 
-    public void setCurrentPlayer() {
+    private void setCurrentPlayer() {
         var currentColor = this.controller.getCurrentPlayer().getColor();
         this.currentPlayer.setForeground(getLabelColor(currentColor));
         this.currentPlayer.setText("Player: " + currentColor.getColorName());
