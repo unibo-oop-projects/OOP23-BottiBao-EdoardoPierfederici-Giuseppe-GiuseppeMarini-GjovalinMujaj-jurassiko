@@ -24,7 +24,6 @@ public class MainControllerImpl implements MainController {
 
     private static final int MAX_TERRITORIES = 7;
     private static final int START_AMOUNT_DINO = 1;
-    private static final int ADD_AMOUNT_DINO = 13;
 
     private final Set<Territory> allTerritories;
     private final Set<Ocean> oceans;
@@ -38,6 +37,9 @@ public class MainControllerImpl implements MainController {
 
     private Player redPlayer, greenPlayer, bluePlayer;
 
+    /**
+     * Costrunctor to initialize and full the mapTerritories and the mapOcean.
+     */
     public MainControllerImpl() {
         this.allTerritories = new TerritoryFactoryImpl().createTerritories();
         this.oceans = new OceanFactoryImpl().createOceans();
@@ -46,7 +48,7 @@ public class MainControllerImpl implements MainController {
         fullTerritories();
         fullOcean();
         this.game = new GameEngineImpl(this);
-        mainFrame = new ViewImpl(this);
+        this.mainFrame = new ViewImpl(this);
         this.terrSelect = new TerritorySelector(this);
 
     }
@@ -153,11 +155,11 @@ public class MainControllerImpl implements MainController {
     // its startPlacing for testing purpuse, change into gameloop
     // when completed
     public void startGameLoop() {
-        game.startGameLoop();
+        this.game.startGameLoop();
     }
 
     public boolean isPlayerTerritory(final String territoryName){
-        final var currentColor = game.getPlayerTurn().getCurrentPlayerTurn().getColor();
+        final var currentColor = this.game.getPlayerTurn().getCurrentPlayerTurn().getColor();
         return getColorTerritory(getMapTerritoryKey(territoryName)).equals(currentColor);
     }
 
@@ -177,20 +179,6 @@ public class MainControllerImpl implements MainController {
         throw new IllegalArgumentException("Territory not valid");
     }
 
-    /*
-     * private GameColor getColorOcean(final Ocean oc) {
-     * if(greenPlayer.getOwnedOceans().contains(oc)){
-     * return greenPlayer.getColor();
-     * }
-     * if(bluePlayer.getOwnedOceans().contains(oc)){
-     * return bluePlayer.getColor();
-     * }
-     * if(redPlayer.getOwnedOceans().contains(oc)){
-     * return redPlayer.getColor();
-     * }
-     * throw new IllegalArgumentException("Ocean not valid");
-     * }
-     */
     /**
      * Create all the players using the methods that we have created,
      * inside the constructor.
@@ -241,14 +229,6 @@ public class MainControllerImpl implements MainController {
         return temp;
     }
 
-    /*
-     * private Set<Ocean> shuffleOcean(final Set<Ocean> oceans) {
-     * final Set<Ocean> temp =
-     * oceans.stream().findFirst().stream().collect(Collectors.toSet());
-     * oceans.removeAll(temp);
-     * return temp;
-     * }
-     */
     /**
      * Full the mapOcean only with the oceans
      */

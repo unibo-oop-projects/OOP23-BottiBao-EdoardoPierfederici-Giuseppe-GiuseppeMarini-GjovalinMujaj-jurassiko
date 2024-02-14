@@ -69,10 +69,7 @@ public class TerritorySelector extends JFrame implements View {
         this.setPreferredSize(new Dimension(width, height));
         this.setLocation(x, y);
         this.setResizable(false);
-        // TODO: use GUI button
     }
-
-    // TODO: enable/disable buttons according to game phase and current player
 
     /**
      * Adds the created panels with all buttons to the main panel.
@@ -152,12 +149,6 @@ public class TerritorySelector extends JFrame implements View {
     private JButton createJButton(final String name) {
         final var button = new JButton(name);
         button.addActionListener(e -> {
-            /* 
-            if (mainContr.getGamePhase().getPhase().equals(GamePhase.Phase.PLACEMENT)) {
-                mainContr.placeGroundDino(name, 1);
-                mainContr.updateBoard();
-            }
-            */
             totalClick++;
             mainContr.manageSelection(name);
             mainContr.startGameLoop();
@@ -185,11 +176,22 @@ public class TerritorySelector extends JFrame implements View {
 
     public void updateButtons() {
         disableAllJButtons();
-        for (final var jb : territoryButtons.values()) {
-            if (mainContr.isPlayerTerritory(jb.getText())) {
-                jb.setEnabled(true);
+        if(mainContr.getGamePhase().getPhase().equals(Phase.PLACEMENT)){
+            for (final var jb : territoryButtons.values()) {
+                if (mainContr.isPlayerTerritory(jb.getText())) {
+                    jb.setEnabled(true);
+                }
             }
         }
+        if(mainContr.getGamePhase().getPhase().equals(Phase.ATTACK)){
+            for (final var jb : territoryButtons.values()) {
+                //TODO: Change method isPlayerTerritory with the method for the attack
+                if (mainContr.isPlayerTerritory(jb.getText())) {
+                    jb.setEnabled(true);
+                }
+            }
+        }
+        
     }
 
     private void disableAllJButtons(){
