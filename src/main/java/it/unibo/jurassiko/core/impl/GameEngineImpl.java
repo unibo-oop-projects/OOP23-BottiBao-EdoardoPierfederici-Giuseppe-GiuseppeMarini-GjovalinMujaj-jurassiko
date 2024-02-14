@@ -63,11 +63,12 @@ public class GameEngineImpl implements GameEngine {
             return;
         }
         if (gamePhase.getPhase().equals(GamePhase.Phase.PLACEMENT)) {
-            //TODO
+            // TODO
         }
     }
 
     private void firstTurnPlacing() {
+        // controller.openObjectiveCard(); // TODO: it must open only once per player
         controller.openTerritorySelector();
         if (controller.getTotalClick() == FIRST_TURN_BONUS) {
             playerTurn.goNext();

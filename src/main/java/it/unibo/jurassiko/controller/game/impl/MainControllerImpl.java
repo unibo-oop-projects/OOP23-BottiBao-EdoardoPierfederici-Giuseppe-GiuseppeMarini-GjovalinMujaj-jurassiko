@@ -62,6 +62,10 @@ public class MainControllerImpl implements MainController {
         this.terrSelect.closeView();
     }
 
+    public void openObjectiveCard() {
+        this.mainFrame.displayObjective();
+    }
+
     public void openView() {
         mainFrame.display();
         updateBoard();
@@ -89,7 +93,7 @@ public class MainControllerImpl implements MainController {
         }
     }
 
-    public Player getCurrentPlayer(){
+    public Player getCurrentPlayer() {
         return game.getPlayerTurn().getCurrentPlayerTurn();
     }
 
@@ -158,7 +162,7 @@ public class MainControllerImpl implements MainController {
         this.game.startGameLoop();
     }
 
-    public boolean isPlayerTerritory(final String territoryName){
+    public boolean isPlayerTerritory(final String territoryName) {
         final var currentColor = this.game.getPlayerTurn().getCurrentPlayerTurn().getColor();
         return getColorTerritory(getMapTerritoryKey(territoryName)).equals(currentColor);
     }
@@ -209,7 +213,9 @@ public class MainControllerImpl implements MainController {
      * @return a set of 7 territories
      */
     private Set<Territory> shuffleTerritories(final Set<Territory> territories, final int maxTerritories) {
-        final Set<Territory> temp = territories.stream()
+        List<Territory> territoryList = new ArrayList<>(territories);
+        Collections.shuffle(territoryList);
+        final Set<Territory> temp = territoryList.stream()
                 .limit(maxTerritories)
                 .collect(Collectors.toSet());
         territories.removeAll(temp);
@@ -223,9 +229,11 @@ public class MainControllerImpl implements MainController {
      * @param objective all of the objectives
      * @return a single objective for the corresponding player
      */
-    private Objective shuffleObjective(final Set<Objective> objective) {
-        final Objective temp = objective.stream().findFirst().get();
-        objective.remove(temp);
+    private Objective shuffleObjective(final Set<Objective> objectives) {
+        List<Objective> objectiveList = new ArrayList<>(objectives);
+        Collections.shuffle(objectiveList);
+        final Objective temp = objectiveList.get(0);
+        objectives.remove(temp);
         return temp;
     }
 

@@ -37,6 +37,11 @@ public interface MainController {
     void closeTerritorySelector();
 
     /**
+     * Opens the OptionPane containing the objective.
+     */
+    void openObjectiveCard();
+
+    /**
      * Shows and updates the main frame.
      */
     void openView();
@@ -52,7 +57,7 @@ public interface MainController {
      * Adds an amount of dino at the territory in the map.
      * 
      * @param territoryName name of the territory
-     * @param amount amount of dino to add at the map
+     * @param amount        amount of dino to add at the map
      */
     void placeGroundDino(String territoryName, int amount);
 
@@ -80,9 +85,10 @@ public interface MainController {
      * @return current player
      */
     Player getCurrentPlayer();
-    
+
     /**
-     * Based on the phase and the color of the current player, it manages the various phases.
+     * Based on the phase and the color of the current player, it manages the
+     * various phases.
      * 
      * @param territory name of the territory
      */
