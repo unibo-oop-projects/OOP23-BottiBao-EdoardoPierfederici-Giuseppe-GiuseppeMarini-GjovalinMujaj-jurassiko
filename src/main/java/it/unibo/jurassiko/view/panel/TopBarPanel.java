@@ -50,7 +50,7 @@ public class TopBarPanel extends JPanel {
      * Set the top-bar in the relevant label load the buttons in it,
      * and add all to the relevant panel.
      */
-    public TopBarPanel(MainController controller, ObjectiveWindow objectiveCard) {
+    public TopBarPanel(final MainController controller, final ObjectiveWindow objectiveCard) {
         this.objectiveCard = objectiveCard;
         this.controller = controller;
         BufferedImage imageBar;
@@ -83,21 +83,21 @@ public class TopBarPanel extends JPanel {
 
         this.objective.addActionListener(e -> this.objectiveCard.showObjectiveCard());
         this.place.addActionListener(e -> this.controller.startGameLoop());
-        //TODO: attack actionListener
-        this.endTurn.addActionListener(e ->{
-            final String[] options = {"Yes", "Movement"};
-            final int result = JOptionPane.showOptionDialog(this, 
-            "End Turn",
-            "Premere \"Yes\" per finire il turno\nMovement per entrare nella fase di Movimento",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.WARNING_MESSAGE,
-            null, options, options);
-            switch(result){
+        // TODO: attack actionListener
+        this.endTurn.addActionListener(e -> {
+            final String[] options = { "Yes", "Movement" };
+            final int result = JOptionPane.showOptionDialog(this,
+                    "End Turn",
+                    "Premere \"Yes\" per finire il turno\nMovement per entrare nella fase di Movimento",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null, options, options);
+            switch (result) {
                 case 0 -> controller.endTurn();
                 case 1 -> controller.setGamePhase(Phase.MOVEMENT);
-                default -> throw  new IllegalArgumentException("How?");
+                default -> throw new IllegalArgumentException("How?");
             }
-        } );
+        });
         this.currentPlayer = new JLabel();
         this.currentPlayer.setBackground(new Color(BG_PLAYER_RGB, BG_PLAYER_RGB, BG_PLAYER_RGB));
         this.currentPlayer.setOpaque(true);
@@ -117,14 +117,14 @@ public class TopBarPanel extends JPanel {
         addComponent(endTurn, 4, 0);
     }
 
-    private void addComponent(Component component, int gridx, int gridy) {
+    private void addComponent(final Component component, final int gridx, final int gridy) {
         final Insets insets = new Insets(8, DISTANCE_BUTTON_L_R, 8, DISTANCE_BUTTON_L_R);
-        var gbc = new GridBagConstraints(gridx, gridy, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.CENTER,
+        final var gbc = new GridBagConstraints(gridx, gridy, 1, 1, 0, 0, GridBagConstraints.CENTER, GridBagConstraints.CENTER,
                 insets, 0, 0);
         this.topLabel.add(component, gbc);
     }
 
-    private Color getLabelColor(GameColor color) {
+    private Color getLabelColor(final GameColor color) {
         return switch (color) {
             case RED -> Color.RED;
             case GREEN -> Color.GREEN;
@@ -134,7 +134,7 @@ public class TopBarPanel extends JPanel {
     }
 
     private void setCurrentPlayer() {
-        var currentColor = this.controller.getCurrentPlayer().getColor();
+        final var currentColor = this.controller.getCurrentPlayer().getColor();
         this.currentPlayer.setForeground(getLabelColor(currentColor));
         this.currentPlayer.setText("Player: " + currentColor.getColorName());
     }
@@ -142,12 +142,12 @@ public class TopBarPanel extends JPanel {
     private void setActiveButton() {
         final var phase = controller.getGamePhase();
         disableAllJButtons();
-        if (phase.equals(Phase.PLACEMENT)){
+        if (phase.equals(Phase.PLACEMENT)) {
             place.setEnabled(true);
-        } else if (phase.equals(Phase.ATTACK)){
+        } else if (phase.equals(Phase.ATTACK)) {
             attack.setEnabled(true);
             endTurn.setEnabled(true);
-        } else if (phase.equals(Phase.MOVEMENT)){
+        } else if (phase.equals(Phase.MOVEMENT)) {
             endTurn.setEnabled(true);
         }
     }
