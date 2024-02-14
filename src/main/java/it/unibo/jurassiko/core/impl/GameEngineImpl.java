@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,14 +29,16 @@ import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 public class GameEngineImpl implements GameEngine {
 
     private static final int MAX_PLAYERS = 3;
+    private static final int FIRST_TURN_BONUS = 13;
+    private static final long PERIOD = 1000;
 
     private final GamePhase gamePhase;
     private final PlayerTurn playerTurn;
     private MainController controller;
     private final Random ran;
-    private Map<Territory, Pair<GameColor, Integer>> territories;
+    private boolean firstTurn;
 
-    public GameEngineImpl(MainController controller){
+    public GameEngineImpl(MainController controller) {
         this.gamePhase = new GamePhaseImpl();
         this.ran = new Random();
         this.controller = controller;
@@ -44,18 +47,47 @@ public class GameEngineImpl implements GameEngine {
         } catch (CloneNotSupportedException e) {
             throw new IllegalStateException("Failed to create a new istance of the player", e);
         }
+        this.firstTurn = true;
     }
 
     @Override
     public void startGameLoop() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'startGameLoop'");
+        long previousCycleStartTime = System.currentTimeMillis();
+        while (true) { // TODO: mod true into method isOver when available
+            final long currentCycleStartTime = System.currentTimeMillis();
+            startPlacing();
+            controller.updateBoard();
+            waitForNextFrame(currentCycleStartTime);
+            previousCycleStartTime = currentCycleStartTime;
+        }
+    }
+
+    private void waitForNextFrame(final long cycleStartTime) {
+        final long dt = System.currentTimeMillis() - cycleStartTime;
+        if (dt < PERIOD) {
+            try {
+                Thread.sleep(PERIOD - dt);
+            } catch (InterruptedException e) {
+            }
+        }
     }
 
     @Override
     public void startPlacing() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'startPlacing'");
+        final var bonusDino = playerTurn.getCurrentPlayerTurn().getBonusGroundDino();
+        if (firstTurn) {
+            controller.openTerritorySelector();
+            final var tSelector = controller.getTerritorySelector();
+            System.out.println(tSelector.getTotalClick());
+            if (tSelector.getTotalClick() == FIRST_TURN_BONUS) {
+                controller.closeTerritorySelector();
+                tSelector.resetTotalClick();
+                firstTurn = false;
+            }
+        }
+        if (gamePhase.getPhase().equals(GamePhase.Phase.PLACEMENT)) {
+
+        }
     }
 
     @Override
