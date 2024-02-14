@@ -3,7 +3,7 @@ package it.unibo.jurassiko.core.api;
 import it.unibo.jurassiko.model.player.api.Player;
 
 /**
- * TODO: help?
+ * TODO: 
  */
 public interface GameEngine {
 
@@ -46,8 +46,18 @@ public interface GameEngine {
      */
     Player getWinner();
 
+    /**
+     * Get a copy of the GamePhase.
+     * 
+     * @return a copy of the GamePhase
+     */
     GamePhase getGamePhase();
 
+    /**
+     * Get a copy of the PlayerTurn.
+     * 
+     * @return a copy of the PlayerTurn
+     */
     PlayerTurn getPlayerTurn();
 
 }
