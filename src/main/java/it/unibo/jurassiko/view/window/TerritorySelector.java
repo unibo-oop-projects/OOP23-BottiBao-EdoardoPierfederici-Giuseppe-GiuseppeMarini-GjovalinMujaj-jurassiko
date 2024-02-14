@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import it.unibo.jurassiko.controller.game.api.MainController;
+import it.unibo.jurassiko.core.api.GamePhase;
+import it.unibo.jurassiko.core.api.GamePhase.Phase;
 import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
 import it.unibo.jurassiko.model.territory.impl.OceanFactoryImpl;
@@ -39,6 +41,7 @@ public class TerritorySelector extends JFrame implements View{
     private final Map<String, JButton> oceanButtons;
 
     private final MainController mainContr;
+    private int totalClick = 0;
 
     /**
      * Creates a TerritorySelector window.
@@ -52,7 +55,7 @@ public class TerritorySelector extends JFrame implements View{
 
         final Set<String> territoryNames = allTerritories.stream().map(Territory::getName).collect(Collectors.toSet());
         final Set<String> oceanNames = allOceans.stream().map(Ocean::getName).collect(Collectors.toSet());
-        territoryNames.stream().forEach(t -> this.territoryButtons.put(t, new JButton(t)));
+        territoryNames.stream().forEach(t -> this.territoryButtons.put(t, createJButton(t)));
         oceanNames.stream().forEach(t -> this.oceanButtons.put(t, new JButton(t)));
 
         final int width = (int) (WIDTH_RATIO * ViewImpl.getScreenSize().getWidth());
@@ -139,6 +142,28 @@ public class TerritorySelector extends JFrame implements View{
                 .map(Territory::getName)
                 .sorted()
                 .toList();
+    }
+
+    // L'idea sarebbe che dipendente dalla fase del gioco fa cose diverse :)
+    // total click serve al game engine cosi sai quando si finiscono le truppe da piazzare
+    private JButton createJButton(final String name){
+        final var button = new JButton(name);
+        button.addActionListener(e ->{
+            if (mainContr.getGamePhase().getPhase().equals(GamePhase.Phase.PLACEMENT)){
+                mainContr.addGroundDino(name, 1);
+                totalClick++;
+                mainContr.updateBoard();
+            }
+        } );
+        return button;
+    }
+
+    public int getTotalClick() {
+        return totalClick;
+    }
+
+    public void resetTotalClick(){
+        totalClick = 0;
     }
 
     @Override
