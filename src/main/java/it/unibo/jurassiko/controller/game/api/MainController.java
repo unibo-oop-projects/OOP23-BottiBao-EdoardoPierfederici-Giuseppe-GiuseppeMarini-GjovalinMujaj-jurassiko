@@ -38,4 +38,6 @@ public interface MainController {
 
     boolean isPlayerTerritory(String territoryName);
 
+    Player getCurrentPlayer();
+    
 }
