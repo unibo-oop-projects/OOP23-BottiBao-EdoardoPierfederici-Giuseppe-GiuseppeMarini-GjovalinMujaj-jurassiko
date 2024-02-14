@@ -38,7 +38,6 @@ public class MainControllerImpl implements MainController {
     private Player redPlayer, greenPlayer, bluePlayer;
 
     public MainControllerImpl() {
-        mainFrame = new ViewImpl(this);
         this.allTerritories = new TerritoryFactoryImpl().createTerritories();
         this.oceans = new OceanFactoryImpl().createOceans();
         this.objectives = new ObjectiveFactoryImpl().createObjectives();
@@ -46,6 +45,7 @@ public class MainControllerImpl implements MainController {
         fullTerritories();
         fullOcean();
         this.game = new GameEngineImpl(this);
+        mainFrame = new ViewImpl(this);
         this.terrSelect = new TerritorySelector(this);
 
     }
@@ -69,7 +69,7 @@ public class MainControllerImpl implements MainController {
     }
 
     private void manageSelection(final String territory) {
-        final var colorCurrentPlayer = this.game.getPlayerTurn().getCurrentPlayerTurn().getColor();
+        final var colorCurrentPlayer = getCurrentPlayer().getColor();
         switch (this.game.getGamePhase().getPhase()) {
             case PLACEMENT:
                 /*
@@ -90,6 +90,10 @@ public class MainControllerImpl implements MainController {
             default:
                 break;
         }
+    }
+
+    public Player getCurrentPlayer(){
+        return game.getPlayerTurn().getCurrentPlayerTurn();
     }
 
     public Set<Territory> getTerritories(final GameColor color) {
