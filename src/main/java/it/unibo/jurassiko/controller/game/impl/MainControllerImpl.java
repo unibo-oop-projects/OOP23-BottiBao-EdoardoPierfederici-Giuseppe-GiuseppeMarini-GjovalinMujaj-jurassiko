@@ -24,6 +24,7 @@ public class MainControllerImpl implements MainController {
 
     private static final int MAX_TERRITORIES = 7;
     private static final int START_AMOUNT_DINO = 1;
+    private static final int ADD_AMOUNT_DINO = 13;
 
     private final Set<Territory> allTerritories;
     private final Set<Ocean> oceans;
@@ -68,17 +69,11 @@ public class MainControllerImpl implements MainController {
         mainFrame.updatePanel();
     }
 
-    private void manageSelection(final String territory) {
+    public void manageSelection(final String territory) {
         final var colorCurrentPlayer = getCurrentPlayer().getColor();
         switch (this.game.getGamePhase().getPhase()) {
             case PLACEMENT:
-                /*
-                 * final Territory terr = getMapTerritoryKey(territory);
-                 * final int d = getMapTerritoryValue(territory).y();
-                 * mapTerritories.put(terr, new Pair<GameColor, Integer>(colorCurrentPlayer, d +
-                 * 1));
-                 */
-                // Same as PlaceGoundDino
+                placeGroundDino(territory, START_AMOUNT_DINO);
                 updateBoard();
                 break;
             case ATTACK:
@@ -118,9 +113,12 @@ public class MainControllerImpl implements MainController {
         return game.getGamePhase();
     }
 
-    public TerritorySelector getTerritorySelector() {
-        return terrSelect; // Penso che serve un copy nei metodi del territory Selector
-        // TODO: NOTA resetclick nella copia non va
+    public int getTotalClick() {
+        return terrSelect.getTotalClick();
+    }
+
+    public void resetTotalClick() {
+        terrSelect.resetTotalClick();
     }
 
     public void placeGroundDino(final String territoryName, final int amount) {

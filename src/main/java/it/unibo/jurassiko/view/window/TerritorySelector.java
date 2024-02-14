@@ -152,12 +152,14 @@ public class TerritorySelector extends JFrame implements View {
     private JButton createJButton(final String name) {
         final var button = new JButton(name);
         button.addActionListener(e -> {
+            /* 
             if (mainContr.getGamePhase().getPhase().equals(GamePhase.Phase.PLACEMENT)) {
                 mainContr.placeGroundDino(name, 1);
-                totalClick++;
                 mainContr.updateBoard();
             }
-
+            */
+            totalClick++;
+            mainContr.manageSelection(name);
             mainContr.startGameLoop();
         });
         return button;

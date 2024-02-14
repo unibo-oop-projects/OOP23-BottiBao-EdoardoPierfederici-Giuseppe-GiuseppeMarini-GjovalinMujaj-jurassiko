@@ -32,12 +32,15 @@ public interface MainController {
 
     void updateBoard();
 
-    TerritorySelector getTerritorySelector();
-
     void startGameLoop();
 
     boolean isPlayerTerritory(String territoryName);
 
     Player getCurrentPlayer();
     
+    void manageSelection(final String territory);
+
+    void resetTotalClick();
+
+    int getTotalClick();
 }

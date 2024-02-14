@@ -69,10 +69,9 @@ public class GameEngineImpl implements GameEngine {
 
     private void firstTurnPlacing() {
         controller.openTerritorySelector();
-        final var tSelector = controller.getTerritorySelector();
-        if (tSelector.getTotalClick() == FIRST_TURN_BONUS) {
+        if (controller.getTotalClick() == FIRST_TURN_BONUS) {
             playerTurn.goNext();
-            tSelector.resetTotalClick();
+            controller.resetTotalClick();
             if (checkInitDino()) {
                 controller.closeTerritorySelector();
                 firstTurn = false;
