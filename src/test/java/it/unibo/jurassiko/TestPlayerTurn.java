@@ -36,17 +36,17 @@ class TestPlayerTurn {
 
     @Test
     public void testTurns() {
-        assertEquals(Player.GameColor.RED, turn.getCurrentPlayerTurn());
+        assertEquals(Player.GameColor.RED, turn.getCurrentPlayerTurn().getColor());
         turn.goNext();
-        assertEquals(Player.GameColor.GREEN, turn.getCurrentPlayerTurn());
+        assertEquals(Player.GameColor.GREEN, turn.getCurrentPlayerTurn().getColor());
         turn.goNext();
-        assertEquals(Player.GameColor.BLUE, turn.getCurrentPlayerTurn());
+        assertEquals(Player.GameColor.BLUE, turn.getCurrentPlayerTurn().getColor());
         turn.goNext();
-        assertEquals(Player.GameColor.RED, turn.getCurrentPlayerTurn());
+        assertEquals(Player.GameColor.RED, turn.getCurrentPlayerTurn().getColor());
         turn.goNext();
         turn.goNext();
         turn.goNext();
-        assertEquals(Player.GameColor.RED, turn.getCurrentPlayerTurn());
+        assertEquals(Player.GameColor.RED, turn.getCurrentPlayerTurn().getColor());
     }
 
 }
