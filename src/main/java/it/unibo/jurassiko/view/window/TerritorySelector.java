@@ -56,7 +56,7 @@ public class TerritorySelector extends JFrame implements View {
         final Set<String> territoryNames = allTerritories.stream().map(Territory::getName).collect(Collectors.toSet());
         final Set<String> oceanNames = allOceans.stream().map(Ocean::getName).collect(Collectors.toSet());
         territoryNames.stream().forEach(t -> this.territoryButtons.put(t, createJButton(t)));
-        oceanNames.stream().forEach(t -> this.oceanButtons.put(t, new JButton(t)));
+        oceanNames.stream().forEach(t -> this.oceanButtons.put(t, createJButton(t)));
 
         final int width = (int) (WIDTH_RATIO * ViewImpl.getScreenSize().getWidth());
         final int height = (int) (HEIGHT_RATIO * ViewImpl.getScreenSize().getHeight());
@@ -177,6 +177,12 @@ public class TerritorySelector extends JFrame implements View {
     public void updateButtons() {
         disableAllJButtons();
         if(mainContr.getGamePhase().getPhase().equals(Phase.PLACEMENT)){
+            if (totalClick == 0 && !mainContr.getFirstTurn()){
+                for (final var jb : oceanButtons.values()){
+                    jb.setEnabled(true);
+                }
+                return;
+            }
             for (final var jb : territoryButtons.values()) {
                 if (mainContr.isPlayerTerritory(jb.getText())) {
                     jb.setEnabled(true);
@@ -196,6 +202,9 @@ public class TerritorySelector extends JFrame implements View {
 
     private void disableAllJButtons(){
         for (final var jb : territoryButtons.values()){
+            jb.setEnabled(false);
+        }
+        for (final var jb : oceanButtons.values()){
             jb.setEnabled(false);
         }
     }
