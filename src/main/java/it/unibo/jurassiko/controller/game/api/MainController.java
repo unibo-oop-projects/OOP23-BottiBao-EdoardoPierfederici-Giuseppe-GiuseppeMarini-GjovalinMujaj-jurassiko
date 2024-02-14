@@ -40,4 +40,5 @@ public interface MainController {
 
     Player getCurrentPlayer();
     
+    void manageSelection(final String territory);
 }
