@@ -32,11 +32,11 @@ public interface GameEngine {
     Player getWinner();
 
     /**
-     * Get a copy of the GamePhase.
+     * Get the Phase of the game
      * 
-     * @return a copy of the GamePhase
+     * @return Phase of the Game
      */
-    GamePhase getGamePhase();
+    GamePhase.Phase getGamePhase();
 
     /**
      * Get a copy of the PlayerTurn.
@@ -51,5 +51,12 @@ public interface GameEngine {
      * @return true if its the first turn, false otherwise
      */
     boolean getFirstTurn();
+
+    /**
+     * Set the phase of the Game.
+     * 
+     * @param phase phase to set
+     */
+    void setGamePhase(GamePhase.Phase phase);
 
 }

@@ -5,6 +5,7 @@ import it.unibo.jurassiko.controller.game.api.MainController;
 import it.unibo.jurassiko.core.api.GameEngine;
 import it.unibo.jurassiko.core.api.GamePhase;
 import it.unibo.jurassiko.core.api.PlayerTurn;
+import it.unibo.jurassiko.core.api.GamePhase.Phase;
 import it.unibo.jurassiko.model.player.api.Player;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 
@@ -15,7 +16,7 @@ public class GameEngineImpl implements GameEngine {
 
     private final GamePhase gamePhase;
     private final PlayerTurn playerTurn;
-    private MainController controller;
+    private final MainController controller;
 
     private boolean firstTurn;
 
@@ -24,12 +25,12 @@ public class GameEngineImpl implements GameEngine {
      * 
      * @param controller the MainController used to interact with the view
      */
-    public GameEngineImpl(MainController controller) {
+    public GameEngineImpl(final MainController controller) {
         this.gamePhase = new GamePhaseImpl();
         this.controller = controller;
         try {
             this.playerTurn = new PlayerTurnImpl(this.controller.getPlayers());
-        } catch (CloneNotSupportedException e) {
+        } catch (final CloneNotSupportedException e) {
             throw new IllegalStateException("Failed to create a new istance of the player", e);
         }
         this.firstTurn = true;
@@ -40,24 +41,27 @@ public class GameEngineImpl implements GameEngine {
      */
     @Override
     public void startGameLoop() {
-        startPlacing();
+        placementePhase();
+        attackPhase();
+        movimentPhase();
         controller.updateBoard();
     }
 
     /**
      * Manage the Placement Phase of the game
      */
-    private void startPlacing() {
+    private void placementePhase() {
         final var bonusGroundDino = playerTurn.getCurrentPlayerTurn().getBonusGroundDino();
         final var bonusWaterDino = playerTurn.getCurrentPlayerTurn().getBonusWaterDino();
         if (firstTurn) {
-            firstTurnPlacing();
+            firstTurnPlacement();
             return;
         }
         if (gamePhase.getPhase().equals(GamePhase.Phase.PLACEMENT)) {
             controller.openTerritorySelector();
             if (controller.getTotalClick() == bonusGroundDino + bonusWaterDino) {
                 gamePhase.goNext();
+                controller.resetTotalClick();
                 controller.closeTerritorySelector();
             }
         }
@@ -66,7 +70,7 @@ public class GameEngineImpl implements GameEngine {
     /**
      * Init the first Placing Phase of the game.
      */
-    private void firstTurnPlacing() {
+    private void firstTurnPlacement() {
         // controller.openObjectiveCard(); // TODO: it must open only once per player
         controller.openTerritorySelector();
         if (controller.getTotalClick() == FIRST_TURN_BONUS) {
@@ -94,14 +98,16 @@ public class GameEngineImpl implements GameEngine {
                 .sum() == initDinoAmount * MAX_PLAYERS;
     }
 
-    private void startCombat() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'startCombat'");
+    private void attackPhase() {
+        if (gamePhase.getPhase().equals(Phase.ATTACK)){
+//TODO: 
+        }
     }
 
     private void movimentPhase() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'movimentPhase'");
+        if (gamePhase.getPhase().equals(Phase.MOVEMENT)){
+            //TODO:
+        }
     }
 
     /**
@@ -109,8 +115,9 @@ public class GameEngineImpl implements GameEngine {
      */
     @Override
     public void endTurn() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'endTurn'");
+        playerTurn.goNext();
+        gamePhase.setPhase(Phase.PLACEMENT);
+        controller.updateBoard();
     }
 
     /**
@@ -135,8 +142,8 @@ public class GameEngineImpl implements GameEngine {
      * {@inheritDoc}
      */
     @Override
-    public GamePhase getGamePhase() {
-        return new GamePhaseImpl(gamePhase);
+    public Phase getGamePhase() {
+        return gamePhase.getPhase();
     }
 
     /**
@@ -147,9 +154,21 @@ public class GameEngineImpl implements GameEngine {
         return new PlayerTurnImpl(playerTurn);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean getFirstTurn() {
         return firstTurn;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setGamePhase(Phase phase) {
+        gamePhase.setPhase(phase);
+        controller.updateBoard();
     }
 
 }

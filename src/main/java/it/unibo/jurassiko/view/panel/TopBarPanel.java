@@ -1,6 +1,7 @@
 package it.unibo.jurassiko.view.panel;
 
 import it.unibo.jurassiko.controller.game.api.MainController;
+import it.unibo.jurassiko.core.api.GamePhase.Phase;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 import it.unibo.jurassiko.view.window.ObjectiveWindow;
@@ -20,6 +21,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -39,6 +41,10 @@ public class TopBarPanel extends JPanel {
     private final JLabel topLabel;
     private JLabel currentPlayer;
     private final ObjectiveWindow objectiveCard;
+    final JButton objective;
+    final JButton place;
+    final JButton attack;
+    final JButton endTurn;
 
     /**
      * Set the top-bar in the relevant label load the buttons in it,
@@ -58,9 +64,14 @@ public class TopBarPanel extends JPanel {
         final ImageIcon imageTopBar = ViewImpl.scaleImage(imageBar, width, height);
         this.topLabel = new JLabel(imageTopBar);
         this.topLabel.setLayout(new GridBagLayout());
+        this.objective = new JButton("Obiettivo");
+        this.place = new JButton("Piazza");
+        this.attack = new JButton("Attacco");
+        this.endTurn = new JButton("Fine turno");
         this.loadLabel();
         this.topLabel.setBounds(0, 0, width, height);
         this.setLayout(new BorderLayout());
+
         this.add(topLabel);
         this.setPreferredSize(new Dimension(width, height));
     }
@@ -69,12 +80,24 @@ public class TopBarPanel extends JPanel {
      * Load the button in the relevant label.
      */
     private void loadLabel() {
-        final JButton objective = new JButton("Obiettivo");
-        objective.addActionListener(e -> this.objectiveCard.showObjectiveCard());
-        final JButton place = new JButton("Piazza");
-        place.addActionListener(e -> this.controller.startGameLoop());
-        final JButton attack = new JButton("Attacco");
-        final JButton endTurn = new JButton("Fine turno");
+
+        this.objective.addActionListener(e -> this.objectiveCard.showObjectiveCard());
+        this.place.addActionListener(e -> this.controller.startGameLoop());
+        //TODO: attack actionListener
+        this.endTurn.addActionListener(e ->{
+            final String[] options = {"Yes", "Movement"};
+            final int result = JOptionPane.showOptionDialog(this, 
+            "End Turn",
+            "Premere \"Yes\" per finire il turno\nMovement per entrare nella fase di Movimento",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE,
+            null, options, options);
+            switch(result){
+                case 0 -> controller.endTurn();
+                case 1 -> controller.setGamePhase(Phase.MOVEMENT);
+                default -> throw  new IllegalArgumentException("How?");
+            }
+        } );
         this.currentPlayer = new JLabel();
         this.currentPlayer.setBackground(new Color(BG_PLAYER_RGB, BG_PLAYER_RGB, BG_PLAYER_RGB));
         this.currentPlayer.setOpaque(true);
@@ -116,7 +139,27 @@ public class TopBarPanel extends JPanel {
         this.currentPlayer.setText("Player: " + currentColor.getColorName());
     }
 
+    private void setActiveButton() {
+        final var phase = controller.getGamePhase();
+        disableAllJButtons();
+        if (phase.equals(Phase.PLACEMENT)){
+            place.setEnabled(true);
+        } else if (phase.equals(Phase.ATTACK)){
+            attack.setEnabled(true);
+            endTurn.setEnabled(true);
+        } else if (phase.equals(Phase.MOVEMENT)){
+            endTurn.setEnabled(true);
+        }
+    }
+
+    private void disableAllJButtons() {
+        place.setEnabled(false);
+        attack.setEnabled(false);
+        endTurn.setEnabled(false);
+    }
+
     public void updateTopBar() {
         setCurrentPlayer();
+        setActiveButton();
     }
 }

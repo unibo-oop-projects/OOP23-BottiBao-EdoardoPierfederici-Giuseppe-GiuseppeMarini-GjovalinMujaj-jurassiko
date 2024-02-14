@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import it.unibo.jurassiko.common.Pair;
 import it.unibo.jurassiko.controller.game.api.MainController;
 import it.unibo.jurassiko.core.api.GameEngine;
-import it.unibo.jurassiko.core.api.GamePhase;
+import it.unibo.jurassiko.core.api.GamePhase.Phase;
 import it.unibo.jurassiko.core.impl.GameEngineImpl;
 import it.unibo.jurassiko.model.objective.api.Objective;
 import it.unibo.jurassiko.model.objective.impl.ObjectiveFactoryImpl;
@@ -53,31 +53,37 @@ public class MainControllerImpl implements MainController {
 
     }
 
+    @Override
     public void openTerritorySelector() {
         this.terrSelect.updateButtons();
         this.terrSelect.display();
     }
 
+    @Override
     public void closeTerritorySelector() {
         this.terrSelect.closeView();
     }
 
+    @Override
     public void openObjectiveCard() {
         this.mainFrame.displayObjective();
     }
 
+    @Override
     public void openView() {
         mainFrame.display();
         updateBoard();
     }
 
+    @Override
     public void updateBoard() {
         mainFrame.updatePanel();
     }
 
+    @Override
     public void manageSelection(final String territory) {
         final var colorCurrentPlayer = getCurrentPlayer().getColor();
-        switch (this.game.getGamePhase().getPhase()) {
+        switch (this.game.getGamePhase()) {
             case PLACEMENT:
                 placeGroundDino(territory, START_AMOUNT_DINO);
                 updateBoard();
@@ -93,10 +99,12 @@ public class MainControllerImpl implements MainController {
         }
     }
 
+    @Override
     public Player getCurrentPlayer() {
         return game.getPlayerTurn().getCurrentPlayerTurn();
     }
 
+    @Override
     public boolean getFirstTurn() {
         return game.getFirstTurn();
     }
@@ -119,18 +127,22 @@ public class MainControllerImpl implements MainController {
         return players;
     }
 
-    public GamePhase getGamePhase() {
+    @Override
+    public Phase getGamePhase() {
         return game.getGamePhase();
     }
 
+    @Override
     public int getTotalClick() {
         return terrSelect.getTotalClick();
     }
 
+    @Override
     public void resetTotalClick() {
         terrSelect.resetTotalClick();
     }
 
+    @Override
     public void placeGroundDino(final String territoryName, final int amount) {
         if (getMapOceanKey(territoryName).isPresent()) {
             placeWaterDino(territoryName);
@@ -143,6 +155,16 @@ public class MainControllerImpl implements MainController {
 
     private void placeWaterDino(final String oceanName) {
         mapOcean.replace(getMapOceanKey(oceanName).get(), game.getPlayerTurn().getCurrentPlayerTurn().getColor());
+    }
+
+    @Override
+    public void endTurn() {
+        game.endTurn();
+    }
+
+    @Override
+    public void setGamePhase(Phase phase) {
+        game.setGamePhase(phase);
     }
 
     // given a name return the value

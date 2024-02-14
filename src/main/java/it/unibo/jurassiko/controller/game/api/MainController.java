@@ -51,7 +51,7 @@ public interface MainController {
      * 
      * @return actual game phase
      */
-    GamePhase getGamePhase();
+    GamePhase.Phase getGamePhase();
 
     /**
      * Adds an amount of dino at the territory in the map.
@@ -110,4 +110,16 @@ public interface MainController {
      * @return true if its the first turn, false otherwise
      */
     boolean getFirstTurn();
+
+    /**
+     * Pass the Turn to the next Player.
+     */
+    void endTurn();
+
+    /**
+     * Set the phase of the Game.
+     * 
+     * @param phase phase to set
+     */
+    void setGamePhase(GamePhase.Phase phase);
 }

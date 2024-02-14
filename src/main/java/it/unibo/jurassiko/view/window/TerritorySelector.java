@@ -148,7 +148,9 @@ public class TerritorySelector extends JFrame implements View {
     private JButton createJButton(final String name) {
         final var button = new JButton(name);
         button.addActionListener(e -> {
-            totalClick++;
+            if (mainContr.getGamePhase().equals(Phase.PLACEMENT)) {
+                totalClick++;
+            }
             mainContr.manageSelection(name);
             mainContr.startGameLoop();
         });
@@ -175,9 +177,9 @@ public class TerritorySelector extends JFrame implements View {
 
     public void updateButtons() {
         disableAllJButtons();
-        if(mainContr.getGamePhase().getPhase().equals(Phase.PLACEMENT)){
-            if (totalClick == 0 && !mainContr.getFirstTurn()){
-                for (final var jb : oceanButtons.values()){
+        if (mainContr.getGamePhase().equals(Phase.PLACEMENT)) {
+            if (totalClick == 0 && !mainContr.getFirstTurn()) {
+                for (final var jb : oceanButtons.values()) {
                     jb.setEnabled(true);
                 }
                 return;
@@ -188,22 +190,22 @@ public class TerritorySelector extends JFrame implements View {
                 }
             }
         }
-        if(mainContr.getGamePhase().getPhase().equals(Phase.ATTACK)){
+        if (mainContr.getGamePhase().equals(Phase.ATTACK)) {
             for (final var jb : territoryButtons.values()) {
-                //TODO: Change method isPlayerTerritory with the method for the attack
+                // TODO: Change method isPlayerTerritory with the method for the attack
                 if (mainContr.isPlayerTerritory(jb.getText())) {
                     jb.setEnabled(true);
                 }
             }
         }
-        
+
     }
 
-    private void disableAllJButtons(){
-        for (final var jb : territoryButtons.values()){
+    private void disableAllJButtons() {
+        for (final var jb : territoryButtons.values()) {
             jb.setEnabled(false);
         }
-        for (final var jb : oceanButtons.values()){
+        for (final var jb : oceanButtons.values()) {
             jb.setEnabled(false);
         }
     }
