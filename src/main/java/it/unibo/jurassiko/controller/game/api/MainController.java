@@ -9,6 +9,9 @@ import it.unibo.jurassiko.model.territory.api.Territory;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Interface for the MainController, the core controller.
+ */
 public interface MainController {
 
     /**
@@ -87,12 +90,12 @@ public interface MainController {
     Player getCurrentPlayer();
 
     /**
-     * Based on the phase and the color of the current player, it manages the
-     * various phases.
+     * Based on the phase and the color of the current player.
+     * It manages the various phases.
      * 
      * @param territory name of the territory
      */
-    void manageSelection(final String territory);
+    void manageSelection(String territory);
 
     /**
      * Resets the amount of total clicks.

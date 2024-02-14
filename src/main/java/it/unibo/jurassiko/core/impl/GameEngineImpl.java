@@ -9,6 +9,9 @@ import it.unibo.jurassiko.core.api.GamePhase.Phase;
 import it.unibo.jurassiko.model.player.api.Player;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 
+/**
+ * Implementation of the interface {@GameEngine}.
+ */
 public class GameEngineImpl implements GameEngine {
 
     private static final int MAX_PLAYERS = 3;
@@ -48,7 +51,7 @@ public class GameEngineImpl implements GameEngine {
     }
 
     /**
-     * Manage the Placement Phase of the game
+     * Manage the Placement Phase of the game.
      */
     private void placementePhase() {
         final var bonusGroundDino = playerTurn.getCurrentPlayerTurn().getBonusGroundDino();
@@ -99,14 +102,14 @@ public class GameEngineImpl implements GameEngine {
     }
 
     private void attackPhase() {
-        if (gamePhase.getPhase().equals(Phase.ATTACK)){
-//TODO: 
+        if (gamePhase.getPhase().equals(Phase.ATTACK)) {
+            // TODO:
         }
     }
 
     private void movimentPhase() {
-        if (gamePhase.getPhase().equals(Phase.MOVEMENT)){
-            //TODO:
+        if (gamePhase.getPhase().equals(Phase.MOVEMENT)) {
+            // TODO:
         }
     }
 
@@ -166,7 +169,7 @@ public class GameEngineImpl implements GameEngine {
      * {@inheritDoc}
      */
     @Override
-    public void setGamePhase(Phase phase) {
+    public void setGamePhase(final Phase phase) {
         gamePhase.setPhase(phase);
         controller.updateBoard();
     }

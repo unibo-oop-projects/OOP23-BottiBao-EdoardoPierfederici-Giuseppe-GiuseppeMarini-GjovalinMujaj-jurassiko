@@ -17,7 +17,7 @@ public class GamePhaseImpl implements GamePhase {
     }
 
     /**
-     * Contructor used to clone a new istance
+     * Contructor used to clone a new istance.
      * 
      * @param gp gamePhase
      */

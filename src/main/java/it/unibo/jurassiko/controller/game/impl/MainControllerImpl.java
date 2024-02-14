@@ -1,6 +1,13 @@
 package it.unibo.jurassiko.controller.game.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import it.unibo.jurassiko.common.Pair;
@@ -20,6 +27,9 @@ import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 import it.unibo.jurassiko.view.window.TerritorySelector;
 
+/**
+ * Implementation of the interface {@MainController}.
+ */
 public class MainControllerImpl implements MainController {
 
     private static final int MAX_TERRITORIES = 7;
@@ -53,33 +63,51 @@ public class MainControllerImpl implements MainController {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openTerritorySelector() {
         this.terrSelect.updateButtons();
         this.terrSelect.display();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void closeTerritorySelector() {
         this.terrSelect.closeView();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openObjectiveCard() {
         this.mainFrame.displayObjective();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void openView() {
         mainFrame.display();
         updateBoard();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateBoard() {
         mainFrame.updatePanel();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void manageSelection(final String territory) {
         final var colorCurrentPlayer = getCurrentPlayer().getColor();
@@ -99,16 +127,25 @@ public class MainControllerImpl implements MainController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Player getCurrentPlayer() {
         return game.getPlayerTurn().getCurrentPlayerTurn();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean getFirstTurn() {
         return game.getFirstTurn();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Set<Territory> getTerritories(final GameColor color) {
         final var setTerr = mapTerritories.entrySet()
                 .stream()
@@ -118,6 +155,9 @@ public class MainControllerImpl implements MainController {
         return setTerr;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Player> getPlayers() throws CloneNotSupportedException {
         final List<Player> players = new ArrayList<>();
@@ -127,21 +167,33 @@ public class MainControllerImpl implements MainController {
         return players;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Phase getGamePhase() {
         return game.getGamePhase();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getTotalClick() {
         return terrSelect.getTotalClick();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resetTotalClick() {
         terrSelect.resetTotalClick();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void placeGroundDino(final String territoryName, final int amount) {
         if (getMapOceanKey(territoryName).isPresent()) {
@@ -157,13 +209,19 @@ public class MainControllerImpl implements MainController {
         mapOcean.replace(getMapOceanKey(oceanName).get(), game.getPlayerTurn().getCurrentPlayerTurn().getColor());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void endTurn() {
         game.endTurn();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setGamePhase(Phase phase) {
+    public void setGamePhase(final Phase phase) {
         game.setGamePhase(phase);
     }
 
@@ -191,6 +249,9 @@ public class MainControllerImpl implements MainController {
                 .findFirst();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Map<Territory, Pair<GameColor, Integer>> getTerritoriesMap() {
         return Map.copyOf(mapTerritories);
     }
@@ -198,17 +259,26 @@ public class MainControllerImpl implements MainController {
     // TODO: NOTE TEMP, remove or mod if necessary
     // its startPlacing for testing purpuse, change into gameloop
     // when completed
+    /**
+     * {@inheritDoc}
+     */
     public void startGameLoop() {
         this.game.startGameLoop();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean isPlayerTerritory(final String territoryName) {
         final var currentColor = this.game.getPlayerTurn().getCurrentPlayerTurn().getColor();
         return getColorTerritory(getMapTerritoryKey(territoryName)).equals(currentColor);
     }
 
     /**
-     * Returns the color of the territory that we passed as input
+     * Returns the color of the territory that we passed as input.
+     * 
+     * @param terr input territory
+     * @return Color of the Territory
      */
     private GameColor getColorTerritory(final Territory terr) {
         if (redPlayer.getOwnedTerritories().contains(terr)) {
@@ -278,7 +348,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * Full the mapOcean only with the oceans
+     * Fill the mapOcean only with the oceans.
      */
     private void fullOcean() {
         mapOcean = new HashMap<>();
@@ -286,7 +356,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * Full the mapTerritories with the territories and
+     * Fill the mapTerritories with the territories and
      * the corresponding color and initial amout.
      */
     private void fullTerritories() {

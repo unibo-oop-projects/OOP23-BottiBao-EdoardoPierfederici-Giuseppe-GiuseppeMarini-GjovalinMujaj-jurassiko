@@ -31,7 +31,7 @@ public class ViewImpl extends JFrame implements View {
     /**
      * Set up the relevant panels and show everything in the GUI.
      */
-    public ViewImpl(MainController mainContr) {
+    public ViewImpl(final MainController mainContr) {
         this.mainContr = mainContr;
         this.panel = new MapPanel(this.mainContr);
         this.objectiveCard = new ObjectiveWindow(this.mainContr);
@@ -77,6 +77,9 @@ public class ViewImpl extends JFrame implements View {
         return Toolkit.getDefaultToolkit().getScreenSize();
     }
 
+    /**
+     * Update all the Panel, Label in the frame.
+     */
     public void updatePanel() {
         this.panel.updateBoard();
         this.buttons.updateTopBar();

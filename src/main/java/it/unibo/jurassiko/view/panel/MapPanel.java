@@ -37,8 +37,10 @@ public class MapPanel extends JPanel {
 
     /**
      * Set the map in the relevant label and add it to the LayeredPane.
+     * 
+     * @param main is the MainController
      */
-    public MapPanel(MainController main) {
+    public MapPanel(final MainController main) {
         this.main = main;
         this.territoryViews = new HashMap<>();
         this.oceanViews = new HashMap<>();
@@ -74,7 +76,10 @@ public class MapPanel extends JPanel {
         this.add(layPane);
     }
 
-    public void updateBoard(){
+    /**
+     * Update this Panel in order to Display the Correct amount of dino and color.
+     */
+    public void updateBoard() {
         final var map = this.main.getTerritoriesMap();
         map.entrySet().stream().forEach(t -> {
             final String territoryName = t.getKey().getName();
