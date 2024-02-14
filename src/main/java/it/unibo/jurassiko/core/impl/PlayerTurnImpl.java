@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import it.unibo.jurassiko.core.api.PlayerTurn;
 import it.unibo.jurassiko.model.player.api.Player;
-import it.unibo.jurassiko.model.player.api.Player.GameColor;
 
 /**
  * Implementation ot {@link PlayerTurn} interface.
