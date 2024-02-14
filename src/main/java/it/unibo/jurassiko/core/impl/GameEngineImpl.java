@@ -52,42 +52,41 @@ public class GameEngineImpl implements GameEngine {
 
     @Override
     public void startGameLoop() {
-        long previousCycleStartTime = System.currentTimeMillis();
-        while (true) { // TODO: mod true into method isOver when available
-            final long currentCycleStartTime = System.currentTimeMillis();
-            startPlacing();
-            controller.updateBoard();
-            waitForNextFrame(currentCycleStartTime);
-            previousCycleStartTime = currentCycleStartTime;
-        }
-    }
-
-    private void waitForNextFrame(final long cycleStartTime) {
-        final long dt = System.currentTimeMillis() - cycleStartTime;
-        if (dt < PERIOD) {
-            try {
-                Thread.sleep(PERIOD - dt);
-            } catch (InterruptedException e) {
-            }
-        }
+        startPlacing();
     }
 
     @Override
     public void startPlacing() {
         final var bonusDino = playerTurn.getCurrentPlayerTurn().getBonusGroundDino();
         if (firstTurn) {
-            controller.openTerritorySelector();
-            final var tSelector = controller.getTerritorySelector();
-            System.out.println(tSelector.getTotalClick());
-            if (tSelector.getTotalClick() == FIRST_TURN_BONUS) {
+            firstTurnPlacing();
+            return;
+        }
+        if (gamePhase.getPhase().equals(GamePhase.Phase.PLACEMENT)) {
+            //TODO
+        }
+    }
+
+    private void firstTurnPlacing() {
+        controller.openTerritorySelector();
+        final var tSelector = controller.getTerritorySelector();
+        if (tSelector.getTotalClick() == FIRST_TURN_BONUS) {
+            playerTurn.goNext();
+            tSelector.resetTotalClick();
+            if (checkInitDino()) {
                 controller.closeTerritorySelector();
-                tSelector.resetTotalClick();
                 firstTurn = false;
             }
         }
-        if (gamePhase.getPhase().equals(GamePhase.Phase.PLACEMENT)) {
+    }
 
-        }
+    private boolean checkInitDino() {
+        final var temp = controller.getTerritoriesMap().values();
+        final var initDinoAmount = FIRST_TURN_BONUS
+                + (int) temp.stream().filter(t -> t.x().equals(GameColor.RED)).count();
+        return temp.stream()
+                .mapToInt(value -> value.y())
+                .sum() == initDinoAmount * MAX_PLAYERS;
     }
 
     @Override
