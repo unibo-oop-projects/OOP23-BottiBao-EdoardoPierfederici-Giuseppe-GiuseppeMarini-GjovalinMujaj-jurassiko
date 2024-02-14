@@ -113,9 +113,12 @@ public class MainControllerImpl implements MainController {
         return game.getGamePhase();
     }
 
-    public TerritorySelector getTerritorySelector() {
-        return terrSelect; // Penso che serve un copy nei metodi del territory Selector
-        // TODO: NOTA resetclick nella copia non va
+    public int getTotalClick() {
+        return terrSelect.getTotalClick();
+    }
+
+    public void resetTotalClick() {
+        terrSelect.resetTotalClick();
     }
 
     public void placeGroundDino(final String territoryName, final int amount) {
