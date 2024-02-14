@@ -28,12 +28,14 @@ public interface MainController {
 
     GamePhase getGamePhase();
 
-    void addGroundDino(String territoryName, int amount);
+    void placeGroundDino(String territoryName, int amount);
 
     void updateBoard();
 
     TerritorySelector getTerritorySelector();
 
     void startGameLoop();
+
+    boolean isPlayerTerritory(String territoryName);
 
 }

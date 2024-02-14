@@ -51,6 +51,7 @@ public class MainControllerImpl implements MainController {
     }
 
     public void openTerritorySelector() {
+        this.terrSelect.updateButtons();
         this.terrSelect.display();
     }
 
@@ -77,7 +78,7 @@ public class MainControllerImpl implements MainController {
                  * mapTerritories.put(terr, new Pair<GameColor, Integer>(colorCurrentPlayer, d +
                  * 1));
                  */
-                // Same as AddGoundDino
+                // Same as PlaceGoundDino
                 updateBoard();
                 break;
             case ATTACK:
@@ -118,7 +119,7 @@ public class MainControllerImpl implements MainController {
         // TODO: NOTA resetclick nella copia non va
     }
 
-    public void addGroundDino(final String territoryName, final int amount) {
+    public void placeGroundDino(final String territoryName, final int amount) {
         final var temp = getMapTerritoryValue(territoryName);
         final var newPair = new Pair<>(temp.x(), temp.y() + amount);
         mapTerritories.replace(getMapTerritoryKey(territoryName), newPair);
@@ -151,6 +152,11 @@ public class MainControllerImpl implements MainController {
     // when completed
     public void startGameLoop() {
         game.startGameLoop();
+    }
+
+    public boolean isPlayerTerritory(final String territoryName){
+        final var currentColor = game.getPlayerTurn().getCurrentPlayerTurn().getColor();
+        return getColorTerritory(getMapTerritoryKey(territoryName)).equals(currentColor);
     }
 
     /**
