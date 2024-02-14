@@ -46,7 +46,7 @@ public interface Player {
          * 
          * @return color name
          */
-        public String getColor() {
+        public String getColorName() {
             return color;
         }
 

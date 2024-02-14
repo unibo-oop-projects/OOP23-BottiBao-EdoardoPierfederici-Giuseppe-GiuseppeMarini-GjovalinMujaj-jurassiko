@@ -105,7 +105,7 @@ public class TopBarPanel extends JPanel {
     public void setCurrentPlayer() {
         var currentColor = this.main.getCurrentPlayer().getColor();
         this.currentPlayer.setForeground(getLabelColor(currentColor));
-        this.currentPlayer.setText("Player: " + currentColor.getColor()); // TODO: change method name
+        this.currentPlayer.setText("Player: " + currentColor.getColorName());
     }
 
     public void updateTopBar() {
