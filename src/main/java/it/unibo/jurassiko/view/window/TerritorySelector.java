@@ -26,7 +26,7 @@ import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
  * Class that implements the window containing the buttons to select a territory
  * or an ocean.
  */
-public class TerritorySelector extends JFrame implements View{
+public class TerritorySelector extends JFrame implements View {
 
     private static final long serialVersionUID = -4064915483089661582L;
     private static final double WIDTH_RATIO = 0.475;
@@ -69,7 +69,7 @@ public class TerritorySelector extends JFrame implements View{
         this.setPreferredSize(new Dimension(width, height));
         this.setLocation(x, y);
         this.setResizable(false);
-         // TODO: use GUI button
+        // TODO: use GUI button
     }
 
     // TODO: enable/disable buttons according to game phase and current player
@@ -144,17 +144,22 @@ public class TerritorySelector extends JFrame implements View{
                 .toList();
     }
 
-    // L'idea sarebbe che dipendente dalla fase del gioco fa cose diverse :)
-    // total click serve al game engine cosi sai quando si finiscono le truppe da piazzare
-    private JButton createJButton(final String name){
+    // L'idea sarebbe che dipendente dalla fase del gioco fa cose diverse,
+    // questa roba deve stare nel main controller si tiene solo per fare qualche
+    // test
+    // total click serve al game engine cosi sai quando si finiscono le truppe da
+    // piazzare
+    private JButton createJButton(final String name) {
         final var button = new JButton(name);
-        button.addActionListener(e ->{
-            if (mainContr.getGamePhase().getPhase().equals(GamePhase.Phase.PLACEMENT)){
-                mainContr.addGroundDino(name, 1);
+        button.addActionListener(e -> {
+            if (mainContr.getGamePhase().getPhase().equals(GamePhase.Phase.PLACEMENT)) {
+                mainContr.placeGroundDino(name, 1);
                 totalClick++;
                 mainContr.updateBoard();
             }
-        } );
+
+            mainContr.startGameLoop();
+        });
         return button;
     }
 
@@ -162,7 +167,7 @@ public class TerritorySelector extends JFrame implements View{
         return totalClick;
     }
 
-    public void resetTotalClick(){
+    public void resetTotalClick() {
         totalClick = 0;
     }
 
@@ -174,5 +179,20 @@ public class TerritorySelector extends JFrame implements View{
 
     public void closeView() {
         this.setVisible(false);
+    }
+
+    public void updateButtons() {
+        disableAllJButtons();
+        for (final var jb : territoryButtons.values()) {
+            if (mainContr.isPlayerTerritory(jb.getText())) {
+                jb.setEnabled(true);
+            }
+        }
+    }
+
+    private void disableAllJButtons(){
+        for (final var jb : territoryButtons.values()){
+            jb.setEnabled(false);
+        }
     }
 }
