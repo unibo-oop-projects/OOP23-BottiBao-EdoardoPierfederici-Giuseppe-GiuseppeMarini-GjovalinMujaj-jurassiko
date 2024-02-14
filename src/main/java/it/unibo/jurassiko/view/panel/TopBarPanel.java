@@ -3,6 +3,7 @@ package it.unibo.jurassiko.view.panel;
 import it.unibo.jurassiko.controller.game.api.MainController;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
+import it.unibo.jurassiko.view.window.ObjectiveWindow;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -34,16 +35,18 @@ public class TopBarPanel extends JPanel {
     private static final int DISTANCE_BUTTON_L_R = 48;
     private static final int BG_PLAYER_RGB = 175;
     private static final String URL_IMAGE = "images/topbar.png";
-    private final MainController main;
+    private final MainController controller;
     private final JLabel topLabel;
     private JLabel currentPlayer;
+    private final ObjectiveWindow objectiveCard;
 
     /**
      * Set the top-bar in the relevant label load the buttons in it,
      * and add all to the relevant panel.
      */
-    public TopBarPanel(MainController main) {
-        this.main = main;
+    public TopBarPanel(MainController controller, ObjectiveWindow objectiveCard) {
+        this.objectiveCard = objectiveCard;
+        this.controller = controller;
         BufferedImage imageBar;
         try {
             imageBar = ImageIO.read(ClassLoader.getSystemResource(URL_IMAGE));
@@ -67,6 +70,9 @@ public class TopBarPanel extends JPanel {
      */
     private void loadLabel() {
         final JButton objective = new JButton("Obiettivo");
+        objective.addActionListener(e -> {
+            this.objectiveCard.showObjectiveCard();
+        });
         final JButton attack = new JButton("Attacco");
         final JButton endTurn = new JButton("Fine turno");
         this.currentPlayer = new JLabel();
@@ -103,7 +109,7 @@ public class TopBarPanel extends JPanel {
     }
 
     public void setCurrentPlayer() {
-        var currentColor = this.main.getCurrentPlayer().getColor();
+        var currentColor = this.controller.getCurrentPlayer().getColor();
         this.currentPlayer.setForeground(getLabelColor(currentColor));
         this.currentPlayer.setText("Player: " + currentColor.getColorName());
     }
