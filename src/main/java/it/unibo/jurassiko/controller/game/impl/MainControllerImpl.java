@@ -97,6 +97,10 @@ public class MainControllerImpl implements MainController {
         return game.getPlayerTurn().getCurrentPlayerTurn();
     }
 
+    public boolean getFirstTurn() {
+        return game.getFirstTurn();
+    }
+
     public Set<Territory> getTerritories(final GameColor color) {
         final var setTerr = mapTerritories.entrySet()
                 .stream()
@@ -128,27 +132,41 @@ public class MainControllerImpl implements MainController {
     }
 
     public void placeGroundDino(final String territoryName, final int amount) {
+        if (getMapOceanKey(territoryName).isPresent()) {
+            placeWaterDino(territoryName);
+            return;
+        }
         final var temp = getMapTerritoryValue(territoryName);
         final var newPair = new Pair<>(temp.x(), temp.y() + amount);
         mapTerritories.replace(getMapTerritoryKey(territoryName), newPair);
     }
 
+    private void placeWaterDino(final String oceanName) {
+        mapOcean.replace(getMapOceanKey(oceanName).get(), game.getPlayerTurn().getCurrentPlayerTurn().getColor());
+    }
+
     // given a name return the value
-    private Pair<GameColor, Integer> getMapTerritoryValue(final String territoryname) {
+    private Pair<GameColor, Integer> getMapTerritoryValue(final String territoryName) {
         return mapTerritories.entrySet().stream()
-                .filter(t -> t.getKey().getName().equals(territoryname))
+                .filter(t -> t.getKey().getName().equals(territoryName))
                 .map(t -> t.getValue())
                 .findFirst()
                 .get();
     }
 
     // given a name return the key
-    private Territory getMapTerritoryKey(final String territoryname) {
+    private Territory getMapTerritoryKey(final String territoryName) {
         return mapTerritories.entrySet().stream()
-                .filter(t -> t.getKey().getName().equals(territoryname))
+                .filter(t -> t.getKey().getName().equals(territoryName))
                 .map(t -> t.getKey())
                 .findFirst()
                 .get();
+    }
+
+    private Optional<Ocean> getMapOceanKey(final String oceanName) {
+        return mapOcean.keySet().stream()
+                .filter(o -> o.getName().equals(oceanName))
+                .findFirst();
     }
 
     public Map<Territory, Pair<GameColor, Integer>> getTerritoriesMap() {

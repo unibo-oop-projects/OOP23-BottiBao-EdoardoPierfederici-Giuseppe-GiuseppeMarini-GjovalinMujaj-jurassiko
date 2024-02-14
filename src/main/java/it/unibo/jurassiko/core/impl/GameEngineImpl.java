@@ -26,7 +26,6 @@ public class GameEngineImpl implements GameEngine {
      */
     public GameEngineImpl(MainController controller) {
         this.gamePhase = new GamePhaseImpl();
-
         this.controller = controller;
         try {
             this.playerTurn = new PlayerTurnImpl(this.controller.getPlayers());
@@ -42,20 +41,25 @@ public class GameEngineImpl implements GameEngine {
     @Override
     public void startGameLoop() {
         startPlacing();
+        controller.updateBoard();
     }
 
     /**
-     * {@inheritDoc}
+     * Manage the Placement Phase of the game
      */
-    @Override
-    public void startPlacing() {
-        final var bonusDino = playerTurn.getCurrentPlayerTurn().getBonusGroundDino();
+    private void startPlacing() {
+        final var bonusGroundDino = playerTurn.getCurrentPlayerTurn().getBonusGroundDino();
+        final var bonusWaterDino = playerTurn.getCurrentPlayerTurn().getBonusWaterDino();
         if (firstTurn) {
             firstTurnPlacing();
             return;
         }
         if (gamePhase.getPhase().equals(GamePhase.Phase.PLACEMENT)) {
-            // TODO
+            controller.openTerritorySelector();
+            if (controller.getTotalClick() == bonusGroundDino + bonusWaterDino) {
+                gamePhase.goNext();
+                controller.closeTerritorySelector();
+            }
         }
     }
 
@@ -68,6 +72,7 @@ public class GameEngineImpl implements GameEngine {
         if (controller.getTotalClick() == FIRST_TURN_BONUS) {
             playerTurn.goNext();
             controller.resetTotalClick();
+            controller.openTerritorySelector();
             if (checkInitDino()) {
                 controller.closeTerritorySelector();
                 firstTurn = false;
@@ -89,20 +94,12 @@ public class GameEngineImpl implements GameEngine {
                 .sum() == initDinoAmount * MAX_PLAYERS;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void startCombat() {
+    private void startCombat() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'startCombat'");
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void movimentPhase() {
+    private void movimentPhase() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'movimentPhase'");
     }
@@ -148,6 +145,11 @@ public class GameEngineImpl implements GameEngine {
     @Override
     public PlayerTurn getPlayerTurn() {
         return new PlayerTurnImpl(playerTurn);
+    }
+
+    @Override
+    public boolean getFirstTurn() {
+        return firstTurn;
     }
 
 }

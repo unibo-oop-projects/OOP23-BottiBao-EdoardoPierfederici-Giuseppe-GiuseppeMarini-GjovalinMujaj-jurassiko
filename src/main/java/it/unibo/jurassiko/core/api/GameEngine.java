@@ -3,7 +3,7 @@ package it.unibo.jurassiko.core.api;
 import it.unibo.jurassiko.model.player.api.Player;
 
 /**
- * TODO: 
+ * TODO:
  */
 public interface GameEngine {
 
@@ -11,21 +11,6 @@ public interface GameEngine {
      * Start game loop.
      */
     void startGameLoop();
-
-    /**
-     * Start Placing Dinos phase.
-     */
-    void startPlacing();
-
-    /**
-     * Start Combat phase.
-     */
-    void startCombat();
-
-    /**
-     * Start Moviment phase.
-     */
-    void movimentPhase();
 
     /**
      * End the Turn of the Player.
@@ -59,5 +44,12 @@ public interface GameEngine {
      * @return a copy of the PlayerTurn
      */
     PlayerTurn getPlayerTurn();
+
+    /**
+     * Get the first turn.
+     * 
+     * @return true if its the first turn, false otherwise
+     */
+    boolean getFirstTurn();
 
 }

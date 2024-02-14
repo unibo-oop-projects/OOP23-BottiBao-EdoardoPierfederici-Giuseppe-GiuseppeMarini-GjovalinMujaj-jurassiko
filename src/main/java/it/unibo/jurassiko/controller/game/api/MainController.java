@@ -105,4 +105,9 @@ public interface MainController {
      * @return amount of clicks
      */
     int getTotalClick();
+
+    /**
+     * @return true if its the first turn, false otherwise
+     */
+    boolean getFirstTurn();
 }
