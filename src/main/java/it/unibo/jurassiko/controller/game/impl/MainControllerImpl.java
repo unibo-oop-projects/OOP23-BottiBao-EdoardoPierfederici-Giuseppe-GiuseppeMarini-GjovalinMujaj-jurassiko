@@ -192,7 +192,7 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}
+     * // TODO: should be private
      */
     @Override
     public void placeGroundDino(final String territoryName, final int amount) {
