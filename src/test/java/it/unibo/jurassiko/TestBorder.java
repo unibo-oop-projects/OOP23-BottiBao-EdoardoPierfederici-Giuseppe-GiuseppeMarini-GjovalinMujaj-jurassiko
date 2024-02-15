@@ -21,11 +21,11 @@ class TestBorder {
     private Set<Territory> territories;
     private Set<Ocean> oceans;
 
-    private static final String territoryNameString = "Madagascar";
-    private static final String oceanNameString = "Oceano Tetide";
-    private static final String oceanNameString2 = "Oceano Atlantico";
-    private static final Set<String> neighbourNames = Set.of("India","Antartica");
-    private static final Set<String> neighbourNames2 = Set.of("Tibet","Indonesia","Nord Africa",
+    private static final String TERRITORY_NAME_1 = "Madagascar";
+    private static final String OCEAN_NAME_1 = "Oceano Tetide";
+    private static final String OCEAN_NAME_2 = "Oceano Atlantico";
+    private static final Set<String> NEIGHBOUR_NAMES = Set.of("India","Antartica");
+    private static final Set<String> NEIGHBOUR_NAME_2 = Set.of("Tibet","Indonesia","Nord Africa",
         "Congo","Sud Africa","Australia","India","Madagascar","Antartica");
 
 
@@ -39,19 +39,19 @@ class TestBorder {
     @Test
     void testBorder() {
         final Territory terr1 = this.territories.stream()
-            .filter(s -> s.getName().equals(territoryNameString))
+            .filter(s -> s.getName().equals(TERRITORY_NAME_1))
             .findFirst()
             .get();
         final Ocean ocean1 = this.oceans.stream()
-            .filter(o -> o.getName().equals(oceanNameString))
+            .filter(o -> o.getName().equals(OCEAN_NAME_1))
             .findFirst()
             .get();
-        assertEquals(neighbourNames, this.border.getTerritoriesBorder(terr1, ocean1));
+        assertEquals(NEIGHBOUR_NAMES, this.border.getTerritoriesBorder(terr1, ocean1));
         final Ocean ocean2 = this.oceans.stream()
-            .filter(o -> o.getName().equals(oceanNameString2))
+            .filter(o -> o.getName().equals(OCEAN_NAME_2))
             .findFirst()
             .get();
-        assertNotEquals(neighbourNames, this.border.getTerritoriesBorder(terr1, ocean2));
-        assertEquals(neighbourNames2, this.border.getTerritoriesBorder(terr1, ocean2));
+        assertNotEquals(NEIGHBOUR_NAMES, this.border.getTerritoriesBorder(terr1, ocean2));
+        assertEquals(NEIGHBOUR_NAME_2, this.border.getTerritoriesBorder(terr1, ocean2));
     }
 }
