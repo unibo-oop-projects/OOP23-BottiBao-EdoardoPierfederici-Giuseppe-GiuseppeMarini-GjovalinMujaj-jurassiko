@@ -10,4 +10,8 @@ package it.unibo.jurassiko.common;
  */
 public record Pair<X, Y>(X x, Y y) {
 
+    public Pair(final Pair<X, Y> pair) {
+        this(pair.x(), pair.y());
+    }
+
 }

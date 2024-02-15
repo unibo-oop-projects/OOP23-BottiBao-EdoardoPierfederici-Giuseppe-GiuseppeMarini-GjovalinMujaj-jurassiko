@@ -4,10 +4,12 @@ import it.unibo.jurassiko.common.Pair;
 import it.unibo.jurassiko.core.api.GamePhase;
 import it.unibo.jurassiko.model.player.api.Player;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
+import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Interface for the MainController, the core controller.
@@ -20,6 +22,13 @@ public interface MainController {
      * @return map of the territories with the color and the amount of dino
      */
     Map<Territory, Pair<GameColor, Integer>> getTerritoriesMap();
+
+    /**
+     * Gets the pair containing the ocean and the current owner.
+     * 
+     * @return a pair with the selected ocean and its owner.
+     */
+    Optional<Pair<Ocean, GameColor>> getCurrentOcean();
 
     /**
      * Creates and returns a list of all the players.

@@ -38,8 +38,8 @@ public class MainControllerImpl implements MainController {
     private final Set<Territory> allTerritories;
     private final Set<Ocean> oceans;
     private final Set<Objective> objectives;
-    private Map<Territory, Pair<GameColor, Integer>> mapTerritories;
-    private Map<Ocean, GameColor> mapOcean;
+    private Map<Territory, Pair<GameColor, Integer>> territoriesMap;
+    private Optional<Pair<Ocean, GameColor>> currentOcean;
 
     private final GameEngine game;
     private final TerritorySelector terrSelect;
@@ -56,11 +56,10 @@ public class MainControllerImpl implements MainController {
         this.objectives = new ObjectiveFactoryImpl().createObjectives();
         createPlayers();
         fullTerritories();
-        fullOcean();
+        this.currentOcean = Optional.empty();
         this.game = new GameEngineImpl(this);
         this.mainFrame = new ViewImpl(this);
         this.terrSelect = new TerritorySelector(this);
-
     }
 
     /**
@@ -147,7 +146,7 @@ public class MainControllerImpl implements MainController {
      * {@inheritDoc}
      */
     public Set<Territory> getTerritories(final GameColor color) {
-        final var setTerr = mapTerritories.entrySet()
+        final var setTerr = territoriesMap.entrySet()
                 .stream()
                 .filter(s -> s.getValue().x().equals(color))
                 .map(s -> s.getKey())
@@ -198,13 +197,13 @@ public class MainControllerImpl implements MainController {
      * @param amount        amount of dino to add at the map
      */
     private void placeGroundDino(final String territoryName, final int amount) {
-        if (getMapOceanKey(territoryName).isPresent()) {
+        if (getOceanByName(territoryName).isPresent()) {
             placeWaterDino(territoryName);
             return;
         }
         final var temp = getMapTerritoryValue(territoryName);
         final var newPair = new Pair<>(temp.x(), temp.y() + amount);
-        mapTerritories.replace(getMapTerritoryKey(territoryName), newPair);
+        territoriesMap.replace(getMapTerritoryKey(territoryName), newPair);
     }
 
     /**
@@ -213,7 +212,8 @@ public class MainControllerImpl implements MainController {
      * @param oceanName name of the ocean
      */
     private void placeWaterDino(final String oceanName) {
-        mapOcean.replace(getMapOceanKey(oceanName).get(), game.getPlayerTurn().getCurrentPlayerTurn().getColor());
+        this.currentOcean = Optional.of(new Pair<Ocean, GameColor>(getOceanByName(oceanName).get(),
+                this.game.getPlayerTurn().getCurrentPlayerTurn().getColor()));
     }
 
     /**
@@ -239,14 +239,13 @@ public class MainControllerImpl implements MainController {
      * @return the color and the amount of dino
      */
     private Pair<GameColor, Integer> getMapTerritoryValue(final String territoryName) {
-        return mapTerritories.entrySet().stream()
+        return territoriesMap.entrySet().stream()
                 .filter(t -> t.getKey().getName().equals(territoryName))
                 .map(t -> t.getValue())
                 .findFirst()
                 .get();
     }
 
-    
     /**
      * Given a name return the key.
      * 
@@ -254,22 +253,21 @@ public class MainControllerImpl implements MainController {
      * @return key of the map
      */
     private Territory getMapTerritoryKey(final String territoryName) {
-        return mapTerritories.entrySet().stream()
+        return territoriesMap.entrySet().stream()
                 .filter(t -> t.getKey().getName().equals(territoryName))
                 .map(t -> t.getKey())
                 .findFirst()
                 .get();
     }
 
-    
     /**
      * Given a name return an Optional.
      * 
      * @param oceanName namme of the ocean
      * @return optional of ocean
      */
-    private Optional<Ocean> getMapOceanKey(final String oceanName) {
-        return mapOcean.keySet().stream()
+    private Optional<Ocean> getOceanByName(final String oceanName) {
+        return this.oceans.stream()
                 .filter(o -> o.getName().equals(oceanName))
                 .findFirst();
     }
@@ -278,10 +276,17 @@ public class MainControllerImpl implements MainController {
      * {@inheritDoc}
      */
     public Map<Territory, Pair<GameColor, Integer>> getTerritoriesMap() {
-        return Map.copyOf(mapTerritories);
+        return Map.copyOf(territoriesMap);
     }
 
-    // TODO: NOTE TEMP, remove or mod if necessary
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Pair<Ocean, GameColor>> getCurrentOcean() {
+        return this.currentOcean.isPresent() ? Optional.of(new Pair<>(this.currentOcean.get())) : Optional.empty();
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -371,20 +376,12 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * Fill the mapOcean only with the oceans.
-     */
-    private void fullOcean() {
-        mapOcean = new HashMap<>();
-        oceans.stream().forEach(ocean -> mapOcean.put(ocean, null));
-    }
-
-    /**
      * Fill the mapTerritories with the territories and
      * the corresponding color and initial amout.
      */
     private void fullTerritories() {
-        mapTerritories = new HashMap<>();
+        territoriesMap = new HashMap<>();
         allTerritories.stream()
-                .forEach(terr -> mapTerritories.put(terr, new Pair<>(getColorTerritory(terr), START_AMOUNT_DINO)));
+                .forEach(terr -> territoriesMap.put(terr, new Pair<>(getColorTerritory(terr), START_AMOUNT_DINO)));
     }
 }
