@@ -15,6 +15,8 @@ import it.unibo.jurassiko.controller.game.api.MainController;
 import it.unibo.jurassiko.core.api.GameEngine;
 import it.unibo.jurassiko.core.api.GamePhase.Phase;
 import it.unibo.jurassiko.core.impl.GameEngineImpl;
+import it.unibo.jurassiko.model.borders.api.Border;
+import it.unibo.jurassiko.model.borders.impl.BorderImpl;
 import it.unibo.jurassiko.model.objective.api.Objective;
 import it.unibo.jurassiko.model.objective.impl.ObjectiveFactoryImpl;
 import it.unibo.jurassiko.model.player.api.Player;
@@ -44,6 +46,7 @@ public class MainControllerImpl implements MainController {
     private final GameEngine game;
     private final TerritorySelector terrSelect;
     private final ViewImpl mainFrame;
+    private final Border border;
 
     private Player redPlayer, greenPlayer, bluePlayer;
 
@@ -60,6 +63,7 @@ public class MainControllerImpl implements MainController {
         this.game = new GameEngineImpl(this);
         this.mainFrame = new ViewImpl(this);
         this.terrSelect = new TerritorySelector(this);
+        this.border = new BorderImpl();
     }
 
     /**
