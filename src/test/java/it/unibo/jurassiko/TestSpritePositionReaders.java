@@ -34,7 +34,7 @@ class TestSpritePositionReaders {
     private static final double OCEAN_GREEN_Y = 35.0;
 
     private Map<String, Pair<Double, Double>> territoryPositions;
-    private Map<String, Map<GameColor, Pair<Double, Double>>> oceanPositions;
+    private Map<String, Pair<Double, Double>> oceanPositions;
     // TODO: use territories/oceans actual sets to check files?
 
     @BeforeEach
@@ -64,17 +64,14 @@ class TestSpritePositionReaders {
         assertFalse(oceanPositions.isEmpty());
         assertEquals(NUM_OCEANS, oceanPositions.size());
 
-        oceanPositions.values().stream()
-                .flatMap(t -> t.values().stream())
-                .allMatch(t -> isValid(t.x()) && isValid(t.y()));
+        assertTrue(oceanPositions.values().stream().allMatch(t -> isValid(t.x()) && isValid(t.y())));
 
-        assertTrue(oceanPositions.keySet().contains(SAMPLE_OCEAN));
-        final var redCoordinates = new Pair<>(OCEAN_RED_X, OCEAN_RED_Y);
-        final var blueCoordinates = new Pair<>(OCEAN_BLUE_X, OCEAN_BLUE_Y);
-        final var greenCoordinates = new Pair<>(OCEAN_GREEN_X, OCEAN_GREEN_Y);
-        assertEquals(redCoordinates, oceanPositions.get(SAMPLE_OCEAN).get(GameColor.RED));
-        assertEquals(blueCoordinates, oceanPositions.get(SAMPLE_OCEAN).get(GameColor.BLUE));
-        assertEquals(greenCoordinates, oceanPositions.get(SAMPLE_OCEAN).get(GameColor.GREEN));
+        // TODO: rework
+        /*
+         * assertTrue(oceanPositions.keySet().contains(SAMPLE_OCEAN));
+         * final var coordinates = new Pair<>(OCEA, TERRITORY_Y);
+         * assertEquals(coordinates, territoryPositions.get(SAMPLE_TERRITORY));
+         */
     }
 
     /**

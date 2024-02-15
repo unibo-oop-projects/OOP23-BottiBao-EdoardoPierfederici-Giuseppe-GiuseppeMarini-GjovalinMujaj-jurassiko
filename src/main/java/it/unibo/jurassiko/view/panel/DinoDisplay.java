@@ -49,7 +49,9 @@ public class DinoDisplay extends JPanel {
 
         final JLayeredPane lpane = new JLayeredPane();
         lpane.add(dinoSprite, JLayeredPane.DEFAULT_LAYER);
-        lpane.add(nTroops, JLayeredPane.PALETTE_LAYER);
+        if (!isOcean) {
+            lpane.add(nTroops, JLayeredPane.PALETTE_LAYER);
+        }
         lpane.setPreferredSize(new Dimension(width, height));
         this.setLayout(new BorderLayout());
         this.add(lpane);
@@ -61,7 +63,7 @@ public class DinoDisplay extends JPanel {
      * 
      * @param color the color of dino to set
      */
-    public final void setSpriteColor(final GameColor color) {
+    public void setSpriteColor(final GameColor color) {
         this.dinoSprite.setIcon(this.sprites.get(color));
     }
 
@@ -69,7 +71,7 @@ public class DinoDisplay extends JPanel {
      * 
      * @param dinoAmount the amount of dino to set
      */
-    public final void setNumber(final int dinoAmount) {
+    public void setNumber(final int dinoAmount) {
         this.nTroops.setText(Integer.toString(dinoAmount));
     }
 
@@ -90,6 +92,6 @@ public class DinoDisplay extends JPanel {
         final int y = totalHeight - height;
         this.nTroops.setBounds(x, y, width, height);
         this.nTroops.setOpaque(true);
-        setNumber(10);
+        setNumber(1);
     }
 }

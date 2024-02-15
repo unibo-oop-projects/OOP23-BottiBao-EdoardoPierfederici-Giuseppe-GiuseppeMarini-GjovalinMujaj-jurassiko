@@ -32,16 +32,16 @@ public class MapPanel extends JPanel {
     private static final String URL_IMAGE = "images/mappa.png";
 
     private final Map<String, DinoDisplay> territoryViews;
-    private final Map<String, Map<GameColor, DinoDisplay>> oceanViews;
-    private final MainController main;
+    private final Map<String, DinoDisplay> oceanViews;
+    private final MainController controller;
 
     /**
      * Set the map in the relevant label and add it to the LayeredPane.
      * 
-     * @param main is the MainController
+     * @param controller is the MainController
      */
-    public MapPanel(final MainController main) {
-        this.main = main;
+    public MapPanel(final MainController controller) {
+        this.controller = controller;
         this.territoryViews = new HashMap<>();
         this.oceanViews = new HashMap<>();
 
@@ -68,8 +68,7 @@ public class MapPanel extends JPanel {
 
         createOceanDisplays(spriteLoader, width, height);
         this.oceanViews.entrySet().stream()
-                .forEach(t -> t.getValue().entrySet()
-                        .forEach(u -> layPane.add(u.getValue(), JLayeredPane.PALETTE_LAYER)));
+                .forEach(o -> layPane.add(o.getValue(), JLayeredPane.PALETTE_LAYER));
 
         layPane.setPreferredSize(new Dimension(width, height));
         this.setLayout(new BorderLayout());
@@ -80,13 +79,20 @@ public class MapPanel extends JPanel {
      * Update this Panel in order to Display the Correct amount of dino and color.
      */
     public void updateBoard() {
-        final var map = this.main.getTerritoriesMap();
-        map.entrySet().stream().forEach(t -> {
+        final var territoriesMap = this.controller.getTerritoriesMap();
+        final var currentOcean = this.controller.getCurrentOcean();
+        territoriesMap.entrySet().stream().forEach(t -> {
             final String territoryName = t.getKey().getName();
             final DinoDisplay display = this.territoryViews.get(territoryName);
             display.setSpriteColor(t.getValue().x());
             display.setNumber(t.getValue().y());
         });
+
+        this.oceanViews.values().forEach(o -> o.setSpriteColor(GameColor.DEFAULT));
+        if (currentOcean.isPresent()) {
+            var currentOceanContent = currentOcean.get();
+            this.oceanViews.get(currentOceanContent.x().getName()).setSpriteColor(currentOceanContent.y());
+        }
     }
 
     private void createTerritoryDisplays(final SpriteLoader spriteLoader, final int width, final int height) {
@@ -100,14 +106,9 @@ public class MapPanel extends JPanel {
     private void createOceanDisplays(final SpriteLoader spriteLoader, final int width, final int height) {
         final var oceanPositions = new OceanSpritePositionReader().readFileData(OCEAN_PATH);
         oceanPositions.entrySet().stream()
-                .forEach(t -> {
-                    final Map<GameColor, DinoDisplay> colorViews = new HashMap<>();
-                    t.getValue().entrySet().stream()
-                            .forEach(u -> colorViews.put(u.getKey(),
-                                    new DinoDisplay(spriteLoader, true, calculatePosition(u.getValue().x(), width),
-                                            calculatePosition(u.getValue().y(), height))));
-                    this.oceanViews.put(t.getKey(), colorViews);
-                });
+                .forEach(t -> this.oceanViews.put(t.getKey(),
+                        new DinoDisplay(spriteLoader, true, calculatePosition(t.getValue().x(), width),
+                                calculatePosition(t.getValue().y(), height))));
     }
 
     /**

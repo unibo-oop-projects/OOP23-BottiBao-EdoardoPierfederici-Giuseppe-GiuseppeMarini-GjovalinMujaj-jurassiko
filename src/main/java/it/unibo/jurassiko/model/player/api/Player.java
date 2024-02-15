@@ -15,7 +15,11 @@ public interface Player {
      */
     enum GameColor {
         /**
-         * Color red.
+         * Default color represented by Black.
+         */
+        DEFAULT("Black", "000000"),
+        /**
+         * Color Red.
          */
         RED("Red", "#ff0000"),
         /**

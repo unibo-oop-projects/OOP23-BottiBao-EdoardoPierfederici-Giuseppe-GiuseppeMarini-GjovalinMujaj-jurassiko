@@ -19,6 +19,7 @@ public class SpriteLoader {
     private static final String URL_REDDINO = "images/sprites/dinored.png";
     private static final String URL_BLUEDINO = "images/sprites/dinoblue.png";
     private static final String URL_GREENDINO = "images/sprites/dinogreen.png";
+    private static final String URL_DEFAULTLAPRAS = "images/sprites/laprasbase.png";
     private static final String URL_REDLAPRAS = "images/sprites/laprasred.png";
     private static final String URL_BLUELAPRAS = "images/sprites/laprasblue.png";
     private static final String URL_GREENLAPRAS = "images/sprites/laprasgreen.png";
@@ -39,11 +40,12 @@ public class SpriteLoader {
 
     private void loadSprites() {
         BufferedImage redDino, blueDino, greenDino;
-        BufferedImage redLapras, blueLapras, greenLapras;
+        BufferedImage baseLapras, redLapras, blueLapras, greenLapras;
         try {
             redDino = ImageIO.read(ClassLoader.getSystemResource(URL_REDDINO));
             blueDino = ImageIO.read(ClassLoader.getSystemResource(URL_BLUEDINO));
             greenDino = ImageIO.read(ClassLoader.getSystemResource(URL_GREENDINO));
+            baseLapras = ImageIO.read(ClassLoader.getSystemResource(URL_DEFAULTLAPRAS));
             redLapras = ImageIO.read(ClassLoader.getSystemResource(URL_REDLAPRAS));
             blueLapras = ImageIO.read(ClassLoader.getSystemResource(URL_BLUELAPRAS));
             greenLapras = ImageIO.read(ClassLoader.getSystemResource(URL_GREENLAPRAS));
@@ -59,6 +61,8 @@ public class SpriteLoader {
                 GameColor.BLUE, ViewImpl.scaleImage(blueDino, width, height));
         this.dinoSprites.put(
                 GameColor.GREEN, ViewImpl.scaleImage(greenDino, width, height));
+        this.laprasSprites.put(GameColor.DEFAULT,
+                ViewImpl.scaleImage(baseLapras, width, height));
         this.laprasSprites.put(GameColor.RED,
                 ViewImpl.scaleImage(redLapras, width, height));
         this.laprasSprites.put(GameColor.BLUE,
