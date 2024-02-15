@@ -57,14 +57,6 @@ public interface MainController {
     GamePhase.Phase getGamePhase();
 
     /**
-     * Adds an amount of dino at the territory in the map.
-     * 
-     * @param territoryName name of the territory
-     * @param amount        amount of dino to add at the map
-     */
-    void placeGroundDino(String territoryName, int amount);
-
-    /**
      * Updates the panel of dinos.
      */
     void updateBoard();
