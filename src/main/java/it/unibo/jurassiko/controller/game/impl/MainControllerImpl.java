@@ -192,10 +192,12 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * // TODO: should be private
+     * Adds an amount of dino at the territory in the map.
+     * 
+     * @param territoryName name of the territory
+     * @param amount        amount of dino to add at the map
      */
-    @Override
-    public void placeGroundDino(final String territoryName, final int amount) {
+    private void placeGroundDino(final String territoryName, final int amount) {
         if (getMapOceanKey(territoryName).isPresent()) {
             placeWaterDino(territoryName);
             return;
@@ -205,6 +207,11 @@ public class MainControllerImpl implements MainController {
         mapTerritories.replace(getMapTerritoryKey(territoryName), newPair);
     }
 
+    /**
+     * Puts the color of the player in the correct ocean.
+     * 
+     * @param oceanName name of the ocean
+     */
     private void placeWaterDino(final String oceanName) {
         mapOcean.replace(getMapOceanKey(oceanName).get(), game.getPlayerTurn().getCurrentPlayerTurn().getColor());
     }
@@ -225,7 +232,12 @@ public class MainControllerImpl implements MainController {
         game.setGamePhase(phase);
     }
 
-    // given a name return the value
+    /**
+     * Given a name return the value.
+     * 
+     * @param territoryName name of the territory
+     * @return the color and the amount of dino
+     */
     private Pair<GameColor, Integer> getMapTerritoryValue(final String territoryName) {
         return mapTerritories.entrySet().stream()
                 .filter(t -> t.getKey().getName().equals(territoryName))
@@ -234,7 +246,13 @@ public class MainControllerImpl implements MainController {
                 .get();
     }
 
-    // given a name return the key
+    
+    /**
+     * Given a name return the key.
+     * 
+     * @param territoryName name of the territory
+     * @return key of the map
+     */
     private Territory getMapTerritoryKey(final String territoryName) {
         return mapTerritories.entrySet().stream()
                 .filter(t -> t.getKey().getName().equals(territoryName))
@@ -243,6 +261,13 @@ public class MainControllerImpl implements MainController {
                 .get();
     }
 
+    
+    /**
+     * Given a name return an Optional.
+     * 
+     * @param oceanName namme of the ocean
+     * @return optional of ocean
+     */
     private Optional<Ocean> getMapOceanKey(final String oceanName) {
         return mapOcean.keySet().stream()
                 .filter(o -> o.getName().equals(oceanName))
@@ -257,8 +282,6 @@ public class MainControllerImpl implements MainController {
     }
 
     // TODO: NOTE TEMP, remove or mod if necessary
-    // its startPlacing for testing purpuse, change into gameloop
-    // when completed
     /**
      * {@inheritDoc}
      */
@@ -364,5 +387,4 @@ public class MainControllerImpl implements MainController {
         allTerritories.stream()
                 .forEach(terr -> mapTerritories.put(terr, new Pair<>(getColorTerritory(terr), START_AMOUNT_DINO)));
     }
-
 }
