@@ -22,7 +22,7 @@ public class DinoDisplay extends JPanel {
     private static final long serialVersionUID = -4807657096142808628L;
     private static final double NTROOPS_WIDTH_RATIO = 0.43;
     private static final double NTROOPS_HEIGHT_RATIO = 0.35;
-    private static final int FONT_SIZE = 15;
+    private static final int FONT_SIZE = 14;
 
     private final JLabel dinoSprite;
     private final JLabel nTroops;
