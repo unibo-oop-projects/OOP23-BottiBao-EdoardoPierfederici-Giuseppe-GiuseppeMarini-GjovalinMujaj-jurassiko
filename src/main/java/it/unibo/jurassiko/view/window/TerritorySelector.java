@@ -65,6 +65,7 @@ public class TerritorySelector extends JFrame implements View {
         this.setLayout(new GridLayout(ROWS, 1, 0, VGAP));
         setAllPanels(allTerritories, allOceans);
         this.setTitle("Seleziona un territorio");
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setPreferredSize(new Dimension(width, height));
         this.setLocation(x, y);
         this.setResizable(false);
