@@ -90,6 +90,6 @@ public class DinoDisplay extends JPanel {
         final int y = totalHeight - height;
         this.nTroops.setBounds(x, y, width, height);
         this.nTroops.setOpaque(true);
-        setNumber(1);
+        setNumber(10);
     }
 }
