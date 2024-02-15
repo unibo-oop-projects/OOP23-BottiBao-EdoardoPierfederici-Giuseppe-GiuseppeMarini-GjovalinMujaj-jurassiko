@@ -16,7 +16,7 @@ public class BorderImpl implements Border{
         if(ocean.isAdjTerritory(terr.getName())){
             final Set<String> temp = new HashSet<>();
             temp.addAll(terr.getNeighbourNames());
-            temp.addAll(ocean.getNeighbourNames());
+            temp.addAll(ocean.getAdjTerritoryNames());
             return temp;
         }
         return terr.getNeighbourNames();
