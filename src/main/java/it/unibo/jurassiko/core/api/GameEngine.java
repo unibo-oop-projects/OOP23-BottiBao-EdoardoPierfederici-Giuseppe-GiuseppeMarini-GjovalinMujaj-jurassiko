@@ -50,7 +50,7 @@ public interface GameEngine {
      * 
      * @return true if its the first turn, false otherwise
      */
-    boolean getFirstTurn();
+    boolean isFirstTurn();
 
     /**
      * Set the phase of the Game.

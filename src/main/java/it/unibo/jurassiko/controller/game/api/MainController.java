@@ -81,7 +81,13 @@ public interface MainController {
      * @param territoryName name of the territory
      * @return true if current player has the territory passed as input
      */
-    boolean isPlayerTerritory(String territoryName);
+    boolean isAllyTerritory(String territoryName);
+
+    boolean isAllyTerritoryWithMoreThanOne(String territoryName);
+
+    boolean isEnemyAdjTerritory(String territoryName);
+
+    boolean isAllyAdjTerritory(String territoryName);
 
     /**
      * Returns current player.
@@ -113,7 +119,7 @@ public interface MainController {
     /**
      * @return true if its the first turn, false otherwise
      */
-    boolean getFirstTurn();
+    boolean isFirstTurn();
 
     /**
      * Pass the Turn to the next Player.

@@ -103,7 +103,7 @@ public class GameEngineImpl implements GameEngine {
 
     private void attackPhase() {
         if (gamePhase.getPhase().equals(Phase.ATTACK)) {
-            // TODO:
+            controller.updateBoard();
         }
     }
 
@@ -161,7 +161,7 @@ public class GameEngineImpl implements GameEngine {
      * {@inheritDoc}
      */
     @Override
-    public boolean getFirstTurn() {
+    public boolean isFirstTurn() {
         return firstTurn;
     }
 

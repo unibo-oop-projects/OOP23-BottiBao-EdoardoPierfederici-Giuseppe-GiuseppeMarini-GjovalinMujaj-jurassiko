@@ -89,7 +89,7 @@ public class TopBarPanel extends JPanel {
     private void loadLabel() {
         this.objective.addActionListener(e -> this.objectiveCard.showObjectiveCard());
         this.place.addActionListener(e -> this.controller.startGameLoop());
-        // TODO: attack actionListener
+        this.attack.addActionListener(e -> this.controller.openTerritorySelector());
         this.endTurn.addActionListener(e -> {
             final String[] options = { "Sì", "No" };
             final int result = JOptionPane.showOptionDialog(this,

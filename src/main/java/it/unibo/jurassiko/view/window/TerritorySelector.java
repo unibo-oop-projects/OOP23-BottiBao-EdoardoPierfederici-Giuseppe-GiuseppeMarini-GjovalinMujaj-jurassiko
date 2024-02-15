@@ -2,10 +2,12 @@ package it.unibo.jurassiko.view.window;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.swing.JButton;
@@ -41,6 +43,7 @@ public class TerritorySelector extends JFrame implements View {
 
     private final MainController mainContr;
     private int totalClick = 0;
+    private boolean attacknMovementFirstPhase = true;
 
     /**
      * Creates a TerritorySelector window.
@@ -141,11 +144,6 @@ public class TerritorySelector extends JFrame implements View {
                 .toList();
     }
 
-    // L'idea sarebbe che dipendente dalla fase del gioco fa cose diverse,
-    // questa roba deve stare nel main controller si tiene solo per fare qualche
-    // test
-    // total click serve al game engine cosi sai quando si finiscono le truppe da
-    // piazzare
     private JButton createJButton(final String name) {
         final var button = new JButton(name);
         button.addActionListener(e -> {
@@ -178,26 +176,34 @@ public class TerritorySelector extends JFrame implements View {
 
     public void updateButtons() {
         disableAllJButtons();
-        if (mainContr.getGamePhase().equals(Phase.PLACEMENT)) {
-            if (totalClick == 0 && !mainContr.getFirstTurn()) {
-                for (final var jb : oceanButtons.values()) {
-                    jb.setEnabled(true);
+        switch (mainContr.getGamePhase()) {
+            case PLACEMENT:
+                if (totalClick == 0 && !mainContr.isFirstTurn()) {
+                    activateButton(oceanButtons.values(), t -> true);
+                } else {
+                    activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritory(t));
                 }
-                return;
-            }
-            for (final var jb : territoryButtons.values()) {
-                if (mainContr.isPlayerTerritory(jb.getText())) {
-                    jb.setEnabled(true);
+                break;
+            case ATTACK:
+                if (attacknMovementFirstPhase) {
+                    activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritoryWithMoreThanOne(t));
+                    attacknMovementFirstPhase = false;
+                } else {
+                    activateButton(territoryButtons.values(), t -> mainContr.isEnemyAdjTerritory(t));
+                    attacknMovementFirstPhase = true;
                 }
-            }
-        }
-        if (mainContr.getGamePhase().equals(Phase.ATTACK)) {
-            for (final var jb : territoryButtons.values()) {
-                // TODO: Change method isPlayerTerritory with the method for the attack
-                if (mainContr.isPlayerTerritory(jb.getText())) {
-                    jb.setEnabled(true);
+                break;
+            case MOVEMENT:
+                if (attacknMovementFirstPhase) {
+                    activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritoryWithMoreThanOne(t));
+                    attacknMovementFirstPhase = false;
+                } else {
+                    //TODO: UGA BUTGA
+                    attacknMovementFirstPhase = true;
                 }
-            }
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid Phase");
         }
 
     }
@@ -208,6 +214,20 @@ public class TerritorySelector extends JFrame implements View {
         }
         for (final var jb : oceanButtons.values()) {
             jb.setEnabled(false);
+        }
+    }
+
+    /**
+     * Given certain condition activate the button.
+     * 
+     * @param buttons   Collection of JButtons to modify
+     * @param condition if the condition is true will activate the button
+     */
+    private static void activateButton(Collection<JButton> buttons, Predicate<String> condition) {
+        for (final var jb : buttons) {
+            if (condition.test(jb.getText())) {
+                jb.setEnabled(true);
+            }
         }
     }
 }
