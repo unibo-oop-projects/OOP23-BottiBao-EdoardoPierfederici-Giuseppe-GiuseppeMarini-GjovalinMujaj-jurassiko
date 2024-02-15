@@ -33,7 +33,6 @@ public class ObjectiveWindow extends JPanel {
     private static final int TEXT_SIZE = 16;
 
     private final JLabel textLabel;
-    // private String description;
     private final MainController controller;
 
     /**
