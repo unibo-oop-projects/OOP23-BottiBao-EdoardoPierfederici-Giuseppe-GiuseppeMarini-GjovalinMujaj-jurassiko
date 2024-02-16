@@ -73,8 +73,12 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public void openTerritorySelector() {
-        this.terrSelect.updateButtons();
         this.terrSelect.display();
+    }
+
+    @Override 
+    public void updateTerritorySelectorButtons(){
+        this.terrSelect.updateButtons();
     }
 
     /**
@@ -108,7 +112,6 @@ public class MainControllerImpl implements MainController {
     @Override
     public void updateBoard() {
         mainFrame.updatePanel();
-        this.terrSelect.updateButtons();
     }
 
     /**
@@ -120,10 +123,8 @@ public class MainControllerImpl implements MainController {
         switch (this.game.getGamePhase()) {
             case PLACEMENT:
                 placeGroundDino(territory, START_AMOUNT_DINO);
-                updateBoard();
                 break;
             case ATTACK:
-                updateBoard();
                 break;
             case MOVEMENT:
 
@@ -309,34 +310,14 @@ public class MainControllerImpl implements MainController {
         final var currentColor = this.game.getPlayerTurn().getCurrentPlayerTurn().getColor();
         return getColorTerritory(getMapTerritoryKey(territoryName)).equals(currentColor);
     }
+
     @Override
     public boolean isAllyTerritoryWithMoreThanOne(final String territoryName) {
         return isAllyTerritory(territoryName) && getMapTerritoryValue(territoryName).y() > 1;
     }
 
-    @Override
-    public boolean isEnemyAdjTerritory(String territoryName) {
-        return isAdj(territoryName, t -> !isAllyTerritory(t));
-    }
-
-    @Override
-    public boolean isAllyAdjTerritory(String territoryName) {
-        final var temp = border.getTerritoriesBorder(getMapTerritoryKey(territoryName), currentOcean.get().x());
-        final var result = temp.stream()
-                .filter(t -> isAllyTerritory(t))
-                .collect(Collectors.toSet());
-        return result.contains(territoryName);
-    }
-
-    private boolean isAdj(String territoryName, Predicate<String> condition){
-        final var temp = border.getTerritoriesBorder(getMapTerritoryKey(territoryName), currentOcean.get().x());
-        final var result = temp.stream()
-                .filter(t -> condition.test(t))
-                .collect(Collectors.toSet());
-                for (final var x : temp){
-                    System.out.println(x);
-                }
-        return result.contains(territoryName);
+    public Set<String> getAdj (String territoryName) {
+        return border.getTerritoriesBorder(getMapTerritoryKey(territoryName), currentOcean.get().x());
     }
 
     /**

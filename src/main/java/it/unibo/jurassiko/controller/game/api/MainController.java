@@ -10,6 +10,7 @@ import it.unibo.jurassiko.model.territory.api.Territory;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Interface for the MainController, the core controller.
@@ -42,6 +43,8 @@ public interface MainController {
      * Updates and shows the buttons in the frame.
      */
     void openTerritorySelector();
+
+    void updateTerritorySelectorButtons();
 
     /**
      * Closes the frame of territories.
@@ -85,9 +88,7 @@ public interface MainController {
 
     boolean isAllyTerritoryWithMoreThanOne(String territoryName);
 
-    boolean isEnemyAdjTerritory(String territoryName);
-
-    boolean isAllyAdjTerritory(String territoryName);
+    Set<String> getAdj(String terrytoryName);
 
     /**
      * Returns current player.
