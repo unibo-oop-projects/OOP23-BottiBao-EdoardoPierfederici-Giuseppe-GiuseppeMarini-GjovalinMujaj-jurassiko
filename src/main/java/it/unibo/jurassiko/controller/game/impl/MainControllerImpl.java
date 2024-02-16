@@ -134,19 +134,19 @@ public class MainControllerImpl implements MainController {
                 colorAttackPlayer = colorCurrentPlayer;
                 break;
             case ATTACK_SECOND_PART:
+                defence = getMapTerritoryKey(territory);
                 var pairattack = getMapTerritoryValue(attack.getName());
                 var pairdefence = getMapTerritoryValue(defence.getName());
-                defence = getMapTerritoryKey(territory);
                 var deaths = battle.attack(pairattack.y(), pairdefence.y(), calculateDice(pairattack.y()),
                         calculateDice(pairdefence.y()));
                 placeGroundDino(attack.getName(), -deaths.x());
                 placeGroundDino(defence.getName(), -deaths.y());
-                if (pairdefence.y() <= 0) {
-                    Pair<GameColor, Integer> bella = new Pair<Player.GameColor, Integer>(colorAttackPlayer,
-                            calculateDinoToMove(pairattack.y()));
-                    territoriesMap.replace(attack, bella);
+                if (getMapTerritoryValue(defence.getName()).y() <= 0) {
+                    int dinoToMove = calculateDinoToMove(getMapTerritoryValue(attack.getName()).y());
+                    Pair<GameColor, Integer> bella = new Pair<>(colorAttackPlayer, dinoToMove);
+                    territoriesMap.replace(defence, bella);
+                    placeGroundDino(attack.getName(), -dinoToMove);
                 }
-                updateBoard();
                 break;
             case MOVEMENT_FIRST_PART:
 
