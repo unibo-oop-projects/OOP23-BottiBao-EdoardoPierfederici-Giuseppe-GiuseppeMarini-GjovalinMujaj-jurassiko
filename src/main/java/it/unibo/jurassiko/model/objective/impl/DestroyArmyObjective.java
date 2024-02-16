@@ -4,6 +4,8 @@ import java.util.Locale;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import it.unibo.jurassiko.model.player.api.Player.GameColor;
+
 /**
  * Implementation of objectives based on destroying an enemy army.
  */
@@ -25,8 +27,12 @@ public class DestroyArmyObjective extends AbstractObjective {
     /**
      * @return the color of the army to destroy
      */
-    public String getArmyColor() {
-        return armyColor;
+    public GameColor getArmyColor() {
+        try {
+            return GameColor.valueOf(this.armyColor.toUpperCase(Locale.ROOT));
+        } catch (final IllegalArgumentException e) {
+            throw new IllegalStateException("Invalid army color", e);
+        }
     }
 
     /**
