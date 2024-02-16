@@ -135,15 +135,15 @@ public class MainControllerImpl implements MainController {
                 break;
             case ATTACK_SECOND_PART:
                 defence = getMapTerritoryKey(territory);
-                int diceAttack = calculatedice(attack.getDinoAmount());
+                int diceAttack = calculateDice(attack.getDinoAmount());
                 var deaths = battle.attack(attack.getDinoAmount(), defence.getDinoAmount(),
-                        diceAttack, calculatedice(defence.getDinoAmount()));
+                        calculateDice(attack.getDinoAmount()), calculateDice(defence.getDinoAmount()));
                 placeGroundDino(attack.getName(), -deaths.x());
                 placeGroundDino(defence.getName(), -deaths.y());
                 if (defence.getDinoAmount() <= 0) {
                     Pair<GameColor, Integer> bella = new Pair<Player.GameColor, Integer>(colorAttackPlayer,
-                            diceAttack);
-                    territoriesMap.replace(defence, bella);
+                            calculateDinoToMove(attack.getDinoAmount()));
+                    territoriesMap.replace(attack, bella);
                 }
                 updateBoard();
                 break;
@@ -429,11 +429,19 @@ public class MainControllerImpl implements MainController {
                 .forEach(terr -> territoriesMap.put(terr, new Pair<>(getColorTerritory(terr), START_AMOUNT_DINO)));
     }
 
-    private int calculatedice(int dinoAmount) {
+    private int calculateDice(int dinoAmount) {
         if (dinoAmount >= 3) {
             return 3;
         } else {
             return dinoAmount;
+        }
+    }
+
+    private int calculateDinoToMove(int dinoAmount) {
+        if (dinoAmount > 3) {
+            return 3;
+        } else {
+            return dinoAmount - 1;
         }
     }
 }

@@ -1,17 +1,14 @@
 package it.unibo.jurassiko.core.impl;
 
 import java.util.Optional;
-import java.util.Set;
 
 import it.unibo.jurassiko.controller.game.api.MainController;
 
 import it.unibo.jurassiko.core.api.GameEngine;
 import it.unibo.jurassiko.core.api.GamePhase;
 import it.unibo.jurassiko.core.api.PlayerTurn;
+import it.unibo.jurassiko.core.api.WinCondition;
 import it.unibo.jurassiko.core.api.GamePhase.Phase;
-import it.unibo.jurassiko.model.objective.impl.ConquerContinentsObjective;
-import it.unibo.jurassiko.model.objective.impl.ConquerTerritoriesObjective;
-import it.unibo.jurassiko.model.objective.impl.DestroyArmyObjective;
 import it.unibo.jurassiko.model.player.api.Player;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 
@@ -26,6 +23,7 @@ public class GameEngineImpl implements GameEngine {
     private final GamePhase gamePhase;
     private final PlayerTurn playerTurn;
     private final MainController controller;
+    private final WinCondition winCondition;
 
     private boolean firstTurn;
     private Optional<Player> winner;
@@ -38,6 +36,7 @@ public class GameEngineImpl implements GameEngine {
     public GameEngineImpl(final MainController controller) {
         this.gamePhase = new GamePhaseImpl();
         this.controller = controller;
+        this.winCondition = new WinConditionImpl();
         try {
             this.playerTurn = new PlayerTurnImpl(this.controller.getPlayers());
         } catch (final CloneNotSupportedException e) {
@@ -141,60 +140,11 @@ public class GameEngineImpl implements GameEngine {
      */
     @Override
     public boolean isOver() {
-        var territoriesMap = controller.getTerritoriesMap();
-        var currentPlayer = controller.getCurrentPlayer();
-        var currentPlayerColor = currentPlayer.getColor();
-        var objective = currentPlayer.getObjective();
-        switch (objective.getType()) {
-            case "conquerContinents" -> {
-                var continentsObjective = (ConquerContinentsObjective) objective;
-                Set<String> continents = continentsObjective.getContinents();
-                boolean continentsConquered = territoriesMap.entrySet().stream()
-                        .filter(t -> {
-                            String continent = t.getKey().getContinent();
-                            return continents.contains(continent);
-                        })
-                        .allMatch(t -> t.getValue().x().equals(currentPlayerColor));
-                boolean selectableContinentConquered = true;
-                if (continentsObjective.isSelectableContinent()) {
-                    selectableContinentConquered = territoriesMap.entrySet().stream()
-                            .filter(t -> {
-                                String continent = t.getKey().getContinent();
-                                return !continents.contains(continent);
-                            })
-                            .anyMatch((t -> t.getValue().x().equals(currentPlayerColor)));
-                }
-                if (continentsConquered && selectableContinentConquered) {
-                    this.winner = Optional.of(currentPlayer);
-                    return true;
-                }
-            }
-            case "conquerTerritories" -> {
-                var territoriesObjective = (ConquerTerritoriesObjective) objective;
-                int territoryAmount = territoriesObjective.getNumTerritories();
-                int minDinos = territoriesObjective.getMinDinos();
-                boolean numberReached = territoriesMap.values().stream()
-                        .filter(t -> t.x().equals(currentPlayerColor))
-                        .filter(t -> t.y() >= minDinos)
-                        .count() >= territoryAmount;
-                if (numberReached) {
-                    this.winner = Optional.of(currentPlayer);
-                    return true;
-                }
-            }
-            case "destroyArmy" -> {
-                var armyObjective = (DestroyArmyObjective) objective;
-                var armyColor = armyObjective.getArmyColor();
-                boolean checkColorPresence = territoriesMap.values().stream().noneMatch(p -> p.x().equals(armyColor));
-                if (checkColorPresence) {
-                    this.winner = Optional.of(currentPlayer);
-                    return true;
-                }
-            }
-            default -> throw new IllegalArgumentException("Invalid objective type");
-        }
+        final var currentPlayer = this.controller.getCurrentPlayer();
 
-        return false;
+        return this.winCondition
+                .getWinner(this.controller.getTerritoriesMap(), currentPlayer, currentPlayer.getObjective())
+                .isPresent();
     }
 
     /**
