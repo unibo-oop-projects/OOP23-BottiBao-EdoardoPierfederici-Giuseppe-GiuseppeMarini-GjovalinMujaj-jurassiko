@@ -61,6 +61,7 @@ public class GameEngineImpl implements GameEngine {
             return;
         }
         if (gamePhase.getPhase().equals(GamePhase.Phase.PLACEMENT)) {
+            controller.updateTerritorySelectorButtons();
             controller.openTerritorySelector();
             if (controller.getTotalClick() == bonusGroundDino + bonusWaterDino) {
                 gamePhase.goNext();
@@ -75,11 +76,12 @@ public class GameEngineImpl implements GameEngine {
      */
     private void firstTurnPlacement() {
         // controller.openObjectiveCard(); // TODO: it must open only once per player
+        controller.updateTerritorySelectorButtons();
         controller.openTerritorySelector();
         if (controller.getTotalClick() == FIRST_TURN_BONUS) {
             playerTurn.goNext();
             controller.resetTotalClick();
-            controller.openTerritorySelector();
+            controller.updateTerritorySelectorButtons();
             if (checkInitDino()) {
                 controller.closeTerritorySelector();
                 firstTurn = false;
@@ -104,12 +106,14 @@ public class GameEngineImpl implements GameEngine {
     private void attackPhase() {
         if (gamePhase.getPhase().equals(Phase.ATTACK)) {
             controller.updateBoard();
+            controller.updateTerritorySelectorButtons();
         }
     }
 
     private void movimentPhase() {
         if (gamePhase.getPhase().equals(Phase.MOVEMENT)) {
-            // TODO:
+            controller.updateTerritorySelectorButtons();
+            controller.openTerritorySelector();
         }
     }
 
