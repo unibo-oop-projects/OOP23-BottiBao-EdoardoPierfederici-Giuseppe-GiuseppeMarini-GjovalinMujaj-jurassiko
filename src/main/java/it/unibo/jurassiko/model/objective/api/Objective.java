@@ -25,15 +25,6 @@ public interface Objective {
     String getType();
 
     /**
-     * Checks if the objective has been completed successfully.
-     * 
-     * @return true if the objective has been achieved, false otherwise
-     */
-    boolean isAchieved();
-
-    // void setAchieved();
-
-    /**
      * Processes the description of the objective using data parsed from the
      * configuration file.
      */

@@ -36,8 +36,13 @@ class TestOcean {
     void testOceanAttributes() {
         final String name = "Oceano Tetide";
         final var neighbours = Set.of("Oceano Pacifico", "Oceano Atlantico");
-        // TODO: fix adjTerritories if changes are made to the JSON file
-        final var adjTerritoryNames = Set.of("Groenlandia", "Arabia", "Baltica", "Asia Centrale", "Cina");
+        final var adjTerritoryNames = Set.of("Groenlandia",
+                "Arabia",
+                "Baltica",
+                "Siberia",
+                "Europa",
+                "Asia Centrale",
+                "Cina");
 
         // TODO: uncomment if adjTerritory instance will be needed
         /*
@@ -53,7 +58,5 @@ class TestOcean {
         assertEquals(neighbours, sampleOcean.getNeighbourNames());
         assertEquals(adjTerritoryNames, sampleOcean.getAdjTerritoryNames());
     }
-
-    // TODO: add missing tests
 
 }

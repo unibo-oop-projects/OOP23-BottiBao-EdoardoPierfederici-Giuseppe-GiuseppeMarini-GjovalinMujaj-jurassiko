@@ -22,11 +22,11 @@ class TestSpritePositionReaders {
     private static final int NUM_TERRITORIES = 21;
     private static final int NUM_OCEANS = 3;
     private static final String SAMPLE_TERRITORY = "Sud America";
-    private static final double TERRITORY_X = 27.0;
+    private static final double TERRITORY_X = 16.5;
     private static final double TERRITORY_Y = 80.0;
     private static final String SAMPLE_OCEAN = "Oceano Tetide";
     private static final double OCEAN_X = 40.0;
-    private static final double OCEAN_Y = 35.0;
+    private static final double OCEAN_Y = 32.0;
 
     private Map<String, Pair<Double, Double>> territoryPositions;
     private Map<String, Pair<Double, Double>> oceanPositions;

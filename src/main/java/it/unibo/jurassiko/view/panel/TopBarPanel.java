@@ -164,6 +164,7 @@ public class TopBarPanel extends JPanel {
             }
             case MOVEMENT_FIRST_PART -> this.endTurn.setEnabled(true);
             case MOVEMENT_SECOND_PART -> this.endTurn.setEnabled(true);
+            default -> throw new IllegalArgumentException("Invalid game phase");
         }
     }
 

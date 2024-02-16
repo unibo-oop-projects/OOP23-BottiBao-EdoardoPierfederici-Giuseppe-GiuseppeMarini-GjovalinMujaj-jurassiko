@@ -16,6 +16,7 @@ import it.unibo.jurassiko.model.objective.impl.ConquerContinentsObjective;
 import it.unibo.jurassiko.model.objective.impl.ConquerTerritoriesObjective;
 import it.unibo.jurassiko.model.objective.impl.DestroyArmyObjective;
 import it.unibo.jurassiko.model.objective.impl.ObjectiveFactoryImpl;
+import it.unibo.jurassiko.model.player.api.Player.GameColor;
 
 // TODO: Some tests are not implemented yet
 class TestObjective {
@@ -24,6 +25,11 @@ class TestObjective {
     private static final int NUM_CONQTERRITORIES = 2;
     private static final int NUM_CONQCONTINENTS = 3;
     private static final int NUM_DESTROYARMY = 3;
+
+    private static final int NUM_TERRITORIES_1 = 12;
+    private static final int MIN_DINOS_1 = 0;
+    private static final int NUM_TERRITORIES_2 = 9;
+    private static final int MIN_DINOS_2 = 3;
 
     private Set<Objective> objectives;
 
@@ -70,12 +76,39 @@ class TestObjective {
 
     @Test
     void testConquerTerritories() {
+        final String description1 = "Conquista 12 territori.";
+        final String description2 = "Conquista 9 territori con almeno 3 Dino ciascuno.";
 
+        final var conquerTerritoriesObjectives = objectives.stream()
+                .filter(ConquerTerritoriesObjective.class::isInstance)
+                .map(ConquerTerritoriesObjective.class::cast)
+                .collect(Collectors.toSet());
+
+        assertTrue(conquerTerritoriesObjectives.stream()
+                .anyMatch(o -> o.getNumTerritories() == NUM_TERRITORIES_1 && o.getMinDinos() == MIN_DINOS_1));
+        assertTrue(conquerTerritoriesObjectives.stream()
+                .anyMatch(o -> o.getNumTerritories() == NUM_TERRITORIES_2 && o.getMinDinos() == MIN_DINOS_2));
+
+        final var actualDescription1 = conquerTerritoriesObjectives.stream()
+                .filter(o -> o.getNumTerritories() == NUM_TERRITORIES_1 && o.getMinDinos() == MIN_DINOS_1)
+                .findAny()
+                .get()
+                .getDescription();
+        final var actualDescription2 = conquerTerritoriesObjectives.stream()
+                .filter(o -> o.getNumTerritories() == NUM_TERRITORIES_2 && o.getMinDinos() == MIN_DINOS_2)
+                .findAny()
+                .get()
+                .getDescription();
+
+        assertEquals(description1, actualDescription1);
+        assertEquals(description2, actualDescription2);
     }
 
     @Test
     void testDestroyArmy() {
-        final Set<String> armyColors = Set.of("ROSSO", "GIALLO", "BLU");
+        final Set<GameColor> armyColors = Set.of(GameColor.valueOf("RED"),
+                GameColor.valueOf("BLUE"),
+                GameColor.valueOf("GREEN"));
 
         final var destroyArmyObjectives = objectives.stream()
                 .filter(DestroyArmyObjective.class::isInstance)
@@ -85,11 +118,6 @@ class TestObjective {
         assertEquals(armyColors, destroyArmyObjectives.stream()
                 .map(DestroyArmyObjective::getArmyColor)
                 .collect(Collectors.toSet()));
-    }
-
-    @Test
-    void testAchieved() {
-
     }
 
     @Test
@@ -104,7 +132,6 @@ class TestObjective {
         assertEquals(contObjective.getType(), contObjectiveClone.getType());
         assertEquals(contObjective.getContinents(), contObjectiveClone.getContinents());
         assertEquals(contObjective.getDescription(), contObjectiveClone.getDescription());
-        assertEquals(contObjective.isAchieved(), contObjectiveClone.isAchieved());
 
         final var terrObjective = objectives.stream()
                 .filter(ConquerTerritoriesObjective.class::isInstance)
@@ -117,7 +144,6 @@ class TestObjective {
         assertEquals(terrObjective.getNumTerritories(), terrObjectiveClone.getNumTerritories());
         assertEquals(terrObjective.getMinDinos(), terrObjectiveClone.getMinDinos());
         assertEquals(terrObjective.getDescription(), terrObjectiveClone.getDescription());
-        assertEquals(terrObjective.isAchieved(), terrObjectiveClone.isAchieved());
 
         final var armyObjective = objectives.stream()
                 .filter(DestroyArmyObjective.class::isInstance)
@@ -129,7 +155,6 @@ class TestObjective {
         assertEquals(armyObjective.getType(), armyObjectiveClone.getType());
         assertEquals(armyObjective.getArmyColor(), armyObjectiveClone.getArmyColor());
         assertEquals(armyObjective.getDescription(), armyObjectiveClone.getDescription());
-        assertEquals(armyObjective.isAchieved(), armyObjectiveClone.isAchieved());
     }
 
 }
