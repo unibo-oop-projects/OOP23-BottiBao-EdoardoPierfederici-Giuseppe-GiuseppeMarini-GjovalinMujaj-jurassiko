@@ -124,9 +124,9 @@ public class MainControllerImpl implements MainController {
             case PLACEMENT:
                 placeGroundDino(territory, START_AMOUNT_DINO);
                 break;
-            case ATTACK:
+            case ATTACK_FIRST_PART:
                 break;
-            case MOVEMENT:
+            case MOVEMENT_FIRST_PART:
 
                 break;
             default:

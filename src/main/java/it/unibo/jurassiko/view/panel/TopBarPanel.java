@@ -102,7 +102,7 @@ public class TopBarPanel extends JPanel {
                     0);
             switch (result) {
                 case 0:
-                    controller.setGamePhase(Phase.MOVEMENT);
+                    controller.setGamePhase(Phase.MOVEMENT_FIRST_PART);
                     controller.startGameLoop();
                     break;
                 case 1:
@@ -158,11 +158,11 @@ public class TopBarPanel extends JPanel {
         disableAllJButtons();
         switch (phase) {
             case PLACEMENT -> this.place.setEnabled(true);
-            case ATTACK -> {
+            case ATTACK_FIRST_PART -> {
                 this.attack.setEnabled(true);
                 this.endTurn.setEnabled(true);
             }
-            case MOVEMENT -> this.endTurn.setEnabled(true);
+            case MOVEMENT_FIRST_PART -> this.endTurn.setEnabled(true);
         }
     }
 

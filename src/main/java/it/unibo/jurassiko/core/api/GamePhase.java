@@ -14,15 +14,27 @@ public interface GamePhase {
          */
         PLACEMENT,
         /**
-         * The attack phase, the player can attack other territories
-         * in this phase or can decide to not attack.
+         * The first attack phase, the player can attack other territories
+         * in this phase or can decide to not attack, you have to select one
+         * of your territory to attack.
          */
-        ATTACK,
+        ATTACK_FIRST_PART,
         /**
-         * The movement phase, the player can move the dino from
-         * one of his territoriy to other adj territories.
+         * The second attack phase, the player have to select one of the
+         * enemy territory that's adjacent from the first part selected territory.
          */
-        MOVEMENT
+        ATTACK_SECOND_PART,
+        /**
+         * The first movement phase, the player can move the dino from
+         * one of his territoriy to other adj territories, you have to
+         * select an ally territory who has more than one dino.
+         */
+        MOVEMENT_FIRST_PART,
+        /**
+         * The second movement phase, you the player have to select one of
+         * the ally territory that's adjacent from the first part selected movement.
+         */
+        MOVEMENT_SECOND_PART;
     }
 
     /**
