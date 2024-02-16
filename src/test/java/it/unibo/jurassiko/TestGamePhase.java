@@ -23,7 +23,11 @@ class TestGamePhase {
         gPhase.goNext();
         assertEquals(gPhase.getPhase(), GamePhase.Phase.ATTACK_FIRST_PART);
         gPhase.goNext();
+        assertEquals(gPhase.getPhase(), GamePhase.Phase.ATTACK_SECOND_PART);
+        gPhase.goNext();
         assertEquals(gPhase.getPhase(), GamePhase.Phase.MOVEMENT_FIRST_PART);
+        gPhase.goNext();
+        assertEquals(gPhase.getPhase(), GamePhase.Phase.MOVEMENT_SECOND_PART);
         gPhase.goNext();
         assertEquals(gPhase.getPhase(), GamePhase.Phase.PLACEMENT);
     }

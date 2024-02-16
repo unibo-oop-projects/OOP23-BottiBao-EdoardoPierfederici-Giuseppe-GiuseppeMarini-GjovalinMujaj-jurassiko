@@ -15,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import ch.qos.logback.core.util.OptionHelper;
 import it.unibo.jurassiko.controller.game.api.MainController;
 import it.unibo.jurassiko.core.api.GamePhase.Phase;
 import it.unibo.jurassiko.model.territory.api.Ocean;
@@ -149,18 +148,21 @@ public class TerritorySelector extends JFrame implements View {
     private JButton createJButton(final String name) {
         final var button = new JButton(name);
         button.addActionListener(e -> {
+            mainContr.manageSelection(name);
             if (mainContr.getGamePhase().equals(Phase.PLACEMENT)) {
                 totalClick++;
             } else if (mainContr.getGamePhase().equals(Phase.ATTACK_FIRST_PART)
-                    || mainContr.getGamePhase().equals(Phase.PLACEMENT)) {
-                if (selectedTerritory.isEmpty()) {
-                    selectedTerritory = Optional.of(name);
-                } else {
-                    selectedTerritory = Optional.empty();
-                }
+                    || mainContr.getGamePhase().equals(Phase.MOVEMENT_FIRST_PART)) {
+                selectedTerritory = Optional.of(name);
+                        if (mainContr.getGamePhase().equals(Phase.ATTACK_SECOND_PART)) {
+                            mainContr.setGamePhase(Phase.ATTACK_SECOND_PART);
+                        } else {
+                            mainContr.setGamePhase(Phase.MOVEMENT_SECOND_PART);
+                        }
+            } else if (mainContr.getGamePhase().equals(Phase.ATTACK_SECOND_PART)
+                    || mainContr.getGamePhase().equals(Phase.MOVEMENT_SECOND_PART)) {
+                selectedTerritory = Optional.empty();
             }
-            System.out.println(selectedTerritory.orElse("VUOTO!!"));
-            mainContr.manageSelection(name);
             mainContr.startGameLoop();
         });
         return button;
@@ -172,6 +174,10 @@ public class TerritorySelector extends JFrame implements View {
 
     public void resetTotalClick() {
         totalClick = 0;
+    }
+
+    public Optional<String> getSelectedTerritory() {
+        return selectedTerritory.isPresent() ? Optional.of(selectedTerritory.get()) : Optional.empty();
     }
 
     @Override
@@ -197,19 +203,25 @@ public class TerritorySelector extends JFrame implements View {
             case ATTACK_FIRST_PART:
                 if (selectedTerritory.isEmpty()) {
                     activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritoryWithMoreThanOne(t));
-                } else {
+                }
+            case ATTACK_SECOND_PART:
+                if (selectedTerritory.isPresent()) {
                     activateButton(territoryButtons.values(),
                             t -> mainContr.getAdj(selectedTerritory.get()).contains(t)
                                     && !mainContr.isAllyTerritory(t));
+                                    mainContr.setGamePhase(Phase.ATTACK_FIRST_PART);
                 }
                 break;
             case MOVEMENT_FIRST_PART:
                 if (selectedTerritory.isEmpty()) {
                     activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritoryWithMoreThanOne(t));
-                } else {
+                }
+                case MOVEMENT_SECOND_PART:
+                if (selectedTerritory.isPresent()){
                     activateButton(territoryButtons.values(),
                             t -> mainContr.getAdj(selectedTerritory.get()).contains(t)
                                     && mainContr.isAllyTerritory(t));
+                    mainContr.setGamePhase(Phase.ATTACK_FIRST_PART);
                 }
                 break;
             default:

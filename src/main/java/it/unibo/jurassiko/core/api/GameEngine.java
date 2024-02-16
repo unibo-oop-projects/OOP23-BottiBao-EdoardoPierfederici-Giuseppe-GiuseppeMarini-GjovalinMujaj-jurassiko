@@ -39,6 +39,13 @@ public interface GameEngine {
     GamePhase.Phase getGamePhase();
 
     /**
+     * Set the phase of the Game.
+     * 
+     * @param phase phase to set
+     */
+    void setGamePhase(GamePhase.Phase phase);
+
+    /**
      * Get a copy of the PlayerTurn.
      * 
      * @return a copy of the PlayerTurn
@@ -51,12 +58,5 @@ public interface GameEngine {
      * @return true if its the first turn, false otherwise
      */
     boolean isFirstTurn();
-
-    /**
-     * Set the phase of the Game.
-     * 
-     * @param phase phase to set
-     */
-    void setGamePhase(GamePhase.Phase phase);
 
 }

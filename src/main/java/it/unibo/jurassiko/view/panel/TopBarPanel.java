@@ -162,7 +162,12 @@ public class TopBarPanel extends JPanel {
                 this.attack.setEnabled(true);
                 this.endTurn.setEnabled(true);
             }
+            case ATTACK_SECOND_PART ->{
+                this.attack.setEnabled(true);
+                this.endTurn.setEnabled(false);
+            }
             case MOVEMENT_FIRST_PART -> this.endTurn.setEnabled(true);
+            case MOVEMENT_SECOND_PART -> this.endTurn.setEnabled(true);
         }
     }
 

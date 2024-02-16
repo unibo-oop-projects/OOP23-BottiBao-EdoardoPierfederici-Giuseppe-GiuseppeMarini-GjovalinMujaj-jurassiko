@@ -97,6 +97,8 @@ public interface MainController {
      */
     Player getCurrentPlayer();
 
+    Optional<String> getSelectedTerritory();
+
     /**
      * Based on the phase and the color of the current player.
      * It manages the various phases.

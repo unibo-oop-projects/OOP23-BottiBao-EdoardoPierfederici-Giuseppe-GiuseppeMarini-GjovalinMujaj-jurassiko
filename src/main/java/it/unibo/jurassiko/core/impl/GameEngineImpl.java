@@ -112,7 +112,8 @@ public class GameEngineImpl implements GameEngine {
     }
 
     private void attackPhase() {
-        if (gamePhase.getPhase().equals(Phase.ATTACK_FIRST_PART)) {
+        if (gamePhase.getPhase().equals(Phase.ATTACK_FIRST_PART)
+                || gamePhase.getPhase().equals(Phase.ATTACK_SECOND_PART)) {
             controller.updateBoard();
             controller.updateTerritorySelectorButtons();
         }
@@ -216,6 +217,15 @@ public class GameEngineImpl implements GameEngine {
      * {@inheritDoc}
      */
     @Override
+    public void setGamePhase(final Phase phase) {
+        gamePhase.setPhase(phase);
+        controller.updateBoard();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public PlayerTurn getPlayerTurn() {
         return new PlayerTurnImpl(playerTurn);
     }
@@ -226,15 +236,6 @@ public class GameEngineImpl implements GameEngine {
     @Override
     public boolean isFirstTurn() {
         return firstTurn;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setGamePhase(final Phase phase) {
-        gamePhase.setPhase(phase);
-        controller.updateBoard();
     }
 
 }

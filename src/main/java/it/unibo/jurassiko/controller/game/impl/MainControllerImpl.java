@@ -108,7 +108,7 @@ public class MainControllerImpl implements MainController {
     @Override
     public void openView() {
         mainFrame.display();
-        updateBoard();
+        mainFrame.updatePanel();
     }
 
     /**
@@ -314,6 +314,11 @@ public class MainControllerImpl implements MainController {
     @Override
     public Optional<Pair<Ocean, GameColor>> getCurrentOcean() {
         return this.currentOcean.isPresent() ? Optional.of(new Pair<>(this.currentOcean.get())) : Optional.empty();
+    }
+
+    @Override
+    public Optional<String> getSelectedTerritory() {
+        return terrSelect.getSelectedTerritory();
     }
 
     /**
