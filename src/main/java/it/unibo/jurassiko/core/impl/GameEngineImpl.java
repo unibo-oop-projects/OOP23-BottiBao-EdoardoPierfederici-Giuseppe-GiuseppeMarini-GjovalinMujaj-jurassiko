@@ -26,6 +26,7 @@ public class GameEngineImpl implements GameEngine {
     private final WinCondition winCondition;
 
     private boolean firstTurn;
+    private boolean openObjective;
     private Optional<Player> winner;
 
     /**
@@ -43,6 +44,7 @@ public class GameEngineImpl implements GameEngine {
             throw new IllegalStateException("Failed to create a new istance of the player", e);
         }
         this.firstTurn = true;
+        this.openObjective = true;
         this.winner = Optional.empty();
     }
 
@@ -86,10 +88,14 @@ public class GameEngineImpl implements GameEngine {
      * Init the first Placing Phase of the game.
      */
     private void firstTurnPlacement() {
-        // controller.openObjectiveCard(); // TODO: it must open only once per player
+        if (this.openObjective) {
+            controller.openObjectiveCard();
+            this.openObjective = false;
+        }
         controller.updateBoard();
         controller.openTerritorySelector();
         if (controller.getTotalClick() == FIRST_TURN_BONUS) {
+            this.openObjective = true; // TODO: player successivi al primo devono mostrare obiettivo prima di piazzare
             playerTurn.goNext();
             controller.resetTotalClick();
             controller.updateBoard();
