@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.text.html.Option;
 
 import it.unibo.jurassiko.controller.game.api.MainController;
 import it.unibo.jurassiko.core.api.GamePhase.Phase;
@@ -43,7 +45,7 @@ public class TerritorySelector extends JFrame implements View {
 
     private final MainController mainContr;
     private int totalClick = 0;
-    private boolean attacknMovementFirstPhase = true;
+    private Optional<String> selectedTerritory = Optional.empty();
 
     /**
      * Creates a TerritorySelector window.
@@ -149,6 +151,9 @@ public class TerritorySelector extends JFrame implements View {
         button.addActionListener(e -> {
             if (mainContr.getGamePhase().equals(Phase.PLACEMENT)) {
                 totalClick++;
+            } else if (mainContr.getGamePhase().equals(Phase.ATTACK)
+                    || mainContr.getGamePhase().equals(Phase.PLACEMENT)) {
+                selectedTerritory = Optional.of(name);
             }
             mainContr.manageSelection(name);
             mainContr.startGameLoop();
@@ -185,21 +190,23 @@ public class TerritorySelector extends JFrame implements View {
                 }
                 break;
             case ATTACK:
-                if (attacknMovementFirstPhase) {
+                if (selectedTerritory.isEmpty()) {
                     activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritoryWithMoreThanOne(t));
-                    attacknMovementFirstPhase = false;
                 } else {
-                    activateButton(territoryButtons.values(), t -> mainContr.isEnemyAdjTerritory(t));
-                    attacknMovementFirstPhase = true;
+                    activateButton(territoryButtons.values(),
+                            t -> mainContr.getAdj(selectedTerritory.get()).contains(t)
+                                    && !mainContr.isAllyTerritory(t));
+                    selectedTerritory = Optional.empty();
                 }
                 break;
             case MOVEMENT:
-                if (attacknMovementFirstPhase) {
+                if (selectedTerritory.isEmpty()) {
                     activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritoryWithMoreThanOne(t));
-                    attacknMovementFirstPhase = false;
                 } else {
-                    //TODO: UGA BUTGA
-                    attacknMovementFirstPhase = true;
+                    activateButton(territoryButtons.values(),
+                            t -> mainContr.getAdj(selectedTerritory.get()).contains(t)
+                                    && mainContr.isAllyTerritory(t));
+                    selectedTerritory = Optional.empty();
                 }
                 break;
             default:
