@@ -132,6 +132,7 @@ public class MainControllerImpl implements MainController {
             case ATTACK_FIRST_PART:
                 attack = getMapTerritoryKey(territory);
                 colorAttackPlayer = colorCurrentPlayer;
+                updateBoard();
                 break;
             case ATTACK_SECOND_PART:
                 defence = getMapTerritoryKey(territory);
@@ -143,7 +144,7 @@ public class MainControllerImpl implements MainController {
                 if (defence.getDinoAmount() <= 0) {
                     Pair<GameColor, Integer> bella = new Pair<Player.GameColor, Integer>(colorAttackPlayer,
                             calculateDinoToMove(attack.getDinoAmount()));
-                    territoriesMap.replace(attack, bella);
+                    territoriesMap.replace(attack, bella); 
                 }
                 updateBoard();
                 break;

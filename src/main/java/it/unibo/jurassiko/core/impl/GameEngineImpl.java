@@ -18,7 +18,7 @@ import it.unibo.jurassiko.model.player.api.Player.GameColor;
 public class GameEngineImpl implements GameEngine {
 
     private static final int MAX_PLAYERS = 3;
-    private static final int FIRST_TURN_BONUS = 13;
+    private static final int FIRST_TURN_BONUS = 1; //TODO: change number, its 1 for test purpuse
 
     private final GamePhase gamePhase;
     private final PlayerTurn playerTurn;

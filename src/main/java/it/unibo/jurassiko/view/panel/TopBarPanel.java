@@ -158,13 +158,9 @@ public class TopBarPanel extends JPanel {
         disableAllJButtons();
         switch (phase) {
             case PLACEMENT -> this.place.setEnabled(true);
-            case ATTACK_FIRST_PART -> {
+            case ATTACK_FIRST_PART, ATTACK_SECOND_PART -> {
                 this.attack.setEnabled(true);
                 this.endTurn.setEnabled(true);
-            }
-            case ATTACK_SECOND_PART ->{
-                this.attack.setEnabled(true);
-                this.endTurn.setEnabled(false);
             }
             case MOVEMENT_FIRST_PART -> this.endTurn.setEnabled(true);
             case MOVEMENT_SECOND_PART -> this.endTurn.setEnabled(true);
