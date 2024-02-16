@@ -18,7 +18,7 @@ import it.unibo.jurassiko.model.player.api.Player.GameColor;
 public class GameEngineImpl implements GameEngine {
 
     private static final int MAX_PLAYERS = 3;
-    private static final int FIRST_TURN_BONUS = 1; //TODO: change number, its 1 for test purpuse
+    private static final int FIRST_TURN_BONUS = 1; // TODO: change number, its 1 for test purpuse
 
     private final GamePhase gamePhase;
     private final PlayerTurn playerTurn;
@@ -55,6 +55,10 @@ public class GameEngineImpl implements GameEngine {
         attackPhase();
         movimentPhase();
         controller.updateBoard();
+
+        if (isOver()) {
+            // TODO: display JOptionPane with winner name
+        }
     }
 
     /**
@@ -68,7 +72,7 @@ public class GameEngineImpl implements GameEngine {
             return;
         }
         if (gamePhase.getPhase().equals(GamePhase.Phase.PLACEMENT)) {
-            controller.updateTerritorySelectorButtons();
+            controller.updateBoard();
             controller.openTerritorySelector();
             if (controller.getTotalClick() == bonusGroundDino + bonusWaterDino) {
                 gamePhase.goNext();
@@ -83,12 +87,12 @@ public class GameEngineImpl implements GameEngine {
      */
     private void firstTurnPlacement() {
         // controller.openObjectiveCard(); // TODO: it must open only once per player
-        controller.updateTerritorySelectorButtons();
+        controller.updateBoard();
         controller.openTerritorySelector();
         if (controller.getTotalClick() == FIRST_TURN_BONUS) {
             playerTurn.goNext();
             controller.resetTotalClick();
-            controller.updateTerritorySelectorButtons();
+            controller.updateBoard();
             if (checkInitDino()) {
                 controller.closeTerritorySelector();
                 firstTurn = false;
@@ -114,13 +118,12 @@ public class GameEngineImpl implements GameEngine {
         if (gamePhase.getPhase().equals(Phase.ATTACK_FIRST_PART)
                 || gamePhase.getPhase().equals(Phase.ATTACK_SECOND_PART)) {
             controller.updateBoard();
-            controller.updateTerritorySelectorButtons();
         }
     }
 
     private void movimentPhase() {
         if (gamePhase.getPhase().equals(Phase.MOVEMENT_FIRST_PART)) {
-            controller.updateTerritorySelectorButtons();
+            controller.updateBoard();
             controller.openTerritorySelector();
         }
     }

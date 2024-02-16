@@ -53,7 +53,6 @@ public class MainControllerImpl implements MainController {
     private Player redPlayer, greenPlayer, bluePlayer;
     private Territory attack;
     private Territory defence;
-    private GameColor colorAttackPlayer;
     private Battle battle;
 
     /**
@@ -79,11 +78,6 @@ public class MainControllerImpl implements MainController {
     @Override
     public void openTerritorySelector() {
         this.terrSelect.display();
-    }
-
-    @Override
-    public void updateTerritorySelectorButtons() {
-        this.terrSelect.updateButtons();
     }
 
     /**
@@ -117,6 +111,7 @@ public class MainControllerImpl implements MainController {
     @Override
     public void updateBoard() {
         mainFrame.updatePanel();
+        this.terrSelect.updateButtons();
     }
 
     /**
@@ -131,7 +126,6 @@ public class MainControllerImpl implements MainController {
                 break;
             case ATTACK_FIRST_PART:
                 attack = getMapTerritoryKey(territory);
-                colorAttackPlayer = colorCurrentPlayer;
                 break;
             case ATTACK_SECOND_PART:
                 defence = getMapTerritoryKey(territory);
@@ -143,10 +137,11 @@ public class MainControllerImpl implements MainController {
                 placeGroundDino(defence.getName(), -deaths.y());
                 if (getMapTerritoryValue(defence.getName()).y() <= 0) {
                     int dinoToMove = calculateDinoToMove(getMapTerritoryValue(attack.getName()).y());
-                    Pair<GameColor, Integer> bella = new Pair<>(colorAttackPlayer, dinoToMove);
-                    territoriesMap.replace(defence, bella);
+                    Pair<GameColor, Integer> defReplacement = new Pair<>(colorCurrentPlayer, dinoToMove);
+                    territoriesMap.replace(defence, defReplacement);
                     placeGroundDino(attack.getName(), -dinoToMove);
                 }
+                updateBoard();
                 break;
             case MOVEMENT_FIRST_PART:
 

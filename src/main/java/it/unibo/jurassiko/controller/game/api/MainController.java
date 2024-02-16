@@ -44,8 +44,6 @@ public interface MainController {
      */
     void openTerritorySelector();
 
-    void updateTerritorySelectorButtons();
-
     /**
      * Closes the frame of territories.
      */
