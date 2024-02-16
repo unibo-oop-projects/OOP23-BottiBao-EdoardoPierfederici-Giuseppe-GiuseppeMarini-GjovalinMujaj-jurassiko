@@ -108,7 +108,7 @@ public class MainControllerImpl implements MainController {
     @Override
     public void openView() {
         mainFrame.display();
-        mainFrame.updatePanel();
+        updateBoard();
     }
 
     /**
@@ -132,19 +132,19 @@ public class MainControllerImpl implements MainController {
             case ATTACK_FIRST_PART:
                 attack = getMapTerritoryKey(territory);
                 colorAttackPlayer = colorCurrentPlayer;
-                updateBoard();
                 break;
             case ATTACK_SECOND_PART:
+                var pairattack = getMapTerritoryValue(attack.getName());
+                var pairdefence = getMapTerritoryValue(defence.getName());
                 defence = getMapTerritoryKey(territory);
-                int diceAttack = calculateDice(attack.getDinoAmount());
-                var deaths = battle.attack(attack.getDinoAmount(), defence.getDinoAmount(),
-                        calculateDice(attack.getDinoAmount()), calculateDice(defence.getDinoAmount()));
+                var deaths = battle.attack(pairattack.y(), pairdefence.y(), calculateDice(pairattack.y()),
+                        calculateDice(pairdefence.y()));
                 placeGroundDino(attack.getName(), -deaths.x());
                 placeGroundDino(defence.getName(), -deaths.y());
-                if (defence.getDinoAmount() <= 0) {
+                if (pairdefence.y() <= 0) {
                     Pair<GameColor, Integer> bella = new Pair<Player.GameColor, Integer>(colorAttackPlayer,
-                            calculateDinoToMove(attack.getDinoAmount()));
-                    territoriesMap.replace(attack, bella); 
+                            calculateDinoToMove(pairattack.y()));
+                    territoriesMap.replace(attack, bella);
                 }
                 updateBoard();
                 break;
@@ -317,11 +317,6 @@ public class MainControllerImpl implements MainController {
         return this.currentOcean.isPresent() ? Optional.of(new Pair<>(this.currentOcean.get())) : Optional.empty();
     }
 
-    @Override
-    public Optional<String> getSelectedTerritory() {
-        return terrSelect.getSelectedTerritory();
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -444,5 +439,10 @@ public class MainControllerImpl implements MainController {
         } else {
             return dinoAmount - 1;
         }
+    }
+
+    @Override
+    public Optional<String> getSelectedTerritory() {
+        return terrSelect.getSelectedTerritory();
     }
 }
