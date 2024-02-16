@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import it.unibo.jurassiko.common.Pair;
@@ -17,6 +15,8 @@ import it.unibo.jurassiko.controller.game.api.MainController;
 import it.unibo.jurassiko.core.api.GameEngine;
 import it.unibo.jurassiko.core.api.GamePhase.Phase;
 import it.unibo.jurassiko.core.impl.GameEngineImpl;
+import it.unibo.jurassiko.model.battle.api.Battle;
+import it.unibo.jurassiko.model.battle.impl.BattleImpl;
 import it.unibo.jurassiko.model.borders.api.Border;
 import it.unibo.jurassiko.model.borders.impl.BorderImpl;
 import it.unibo.jurassiko.model.objective.api.Objective;
@@ -51,6 +51,10 @@ public class MainControllerImpl implements MainController {
     private final Border border;
 
     private Player redPlayer, greenPlayer, bluePlayer;
+    private Territory attack;
+    private Territory defence;
+    private GameColor colorAttackPlayer;
+    private Battle battle;
 
     /**
      * Costrunctor to initialize and full the mapTerritories and the mapOcean.
@@ -66,6 +70,7 @@ public class MainControllerImpl implements MainController {
         this.mainFrame = new ViewImpl(this);
         this.terrSelect = new TerritorySelector(this);
         this.border = new BorderImpl();
+        this.battle = new BattleImpl();
     }
 
     /**
@@ -76,8 +81,8 @@ public class MainControllerImpl implements MainController {
         this.terrSelect.display();
     }
 
-    @Override 
-    public void updateTerritorySelectorButtons(){
+    @Override
+    public void updateTerritorySelectorButtons() {
         this.terrSelect.updateButtons();
     }
 
@@ -124,9 +129,25 @@ public class MainControllerImpl implements MainController {
             case PLACEMENT:
                 placeGroundDino(territory, START_AMOUNT_DINO);
                 break;
-            case ATTACK:
+            case ATTACK_FIRST_PART:
+                attack = getMapTerritoryKey(territory);
+                colorAttackPlayer = colorCurrentPlayer;
                 break;
-            case MOVEMENT:
+            case ATTACK_SECOND_PART:
+                defence = getMapTerritoryKey(territory);
+                int diceAttack = calculateDice(attack.getDinoAmount());
+                var deaths = battle.attack(attack.getDinoAmount(), defence.getDinoAmount(),
+                        calculateDice(attack.getDinoAmount()), calculateDice(defence.getDinoAmount()));
+                placeGroundDino(attack.getName(), -deaths.x());
+                placeGroundDino(defence.getName(), -deaths.y());
+                if (defence.getDinoAmount() <= 0) {
+                    Pair<GameColor, Integer> bella = new Pair<Player.GameColor, Integer>(colorAttackPlayer,
+                            calculateDinoToMove(attack.getDinoAmount()));
+                    territoriesMap.replace(attack, bella);
+                }
+                updateBoard();
+                break;
+            case MOVEMENT_FIRST_PART:
 
                 break;
             default:
@@ -316,7 +337,7 @@ public class MainControllerImpl implements MainController {
         return isAllyTerritory(territoryName) && getMapTerritoryValue(territoryName).y() > 1;
     }
 
-    public Set<String> getAdj (String territoryName) {
+    public Set<String> getAdj(String territoryName) {
         return border.getTerritoriesBorder(getMapTerritoryKey(territoryName), currentOcean.get().x());
     }
 
@@ -401,5 +422,21 @@ public class MainControllerImpl implements MainController {
         territoriesMap = new HashMap<>();
         allTerritories.stream()
                 .forEach(terr -> territoriesMap.put(terr, new Pair<>(getColorTerritory(terr), START_AMOUNT_DINO)));
+    }
+
+    private int calculateDice(int dinoAmount) {
+        if (dinoAmount >= 3) {
+            return 3;
+        } else {
+            return dinoAmount;
+        }
+    }
+
+    private int calculateDinoToMove(int dinoAmount) {
+        if (dinoAmount > 3) {
+            return 3;
+        } else {
+            return dinoAmount - 1;
+        }
     }
 }

@@ -112,14 +112,14 @@ public class GameEngineImpl implements GameEngine {
     }
 
     private void attackPhase() {
-        if (gamePhase.getPhase().equals(Phase.ATTACK)) {
+        if (gamePhase.getPhase().equals(Phase.ATTACK_FIRST_PART)) {
             controller.updateBoard();
             controller.updateTerritorySelectorButtons();
         }
     }
 
     private void movimentPhase() {
-        if (gamePhase.getPhase().equals(Phase.MOVEMENT)) {
+        if (gamePhase.getPhase().equals(Phase.MOVEMENT_FIRST_PART)) {
             controller.updateTerritorySelectorButtons();
             controller.openTerritorySelector();
         }
