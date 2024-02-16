@@ -1,11 +1,17 @@
 package it.unibo.jurassiko.core.impl;
 
+import java.util.Optional;
+import java.util.Set;
+
 import it.unibo.jurassiko.controller.game.api.MainController;
 
 import it.unibo.jurassiko.core.api.GameEngine;
 import it.unibo.jurassiko.core.api.GamePhase;
 import it.unibo.jurassiko.core.api.PlayerTurn;
 import it.unibo.jurassiko.core.api.GamePhase.Phase;
+import it.unibo.jurassiko.model.objective.impl.ConquerContinentsObjective;
+import it.unibo.jurassiko.model.objective.impl.ConquerTerritoriesObjective;
+import it.unibo.jurassiko.model.objective.impl.DestroyArmyObjective;
 import it.unibo.jurassiko.model.player.api.Player;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 
@@ -22,6 +28,7 @@ public class GameEngineImpl implements GameEngine {
     private final MainController controller;
 
     private boolean firstTurn;
+    private Optional<Player> winner;
 
     /**
      * Contructor for the GameEngine.
@@ -37,6 +44,7 @@ public class GameEngineImpl implements GameEngine {
             throw new IllegalStateException("Failed to create a new istance of the player", e);
         }
         this.firstTurn = true;
+        this.winner = Optional.empty();
     }
 
     /**
@@ -44,7 +52,7 @@ public class GameEngineImpl implements GameEngine {
      */
     @Override
     public void startGameLoop() {
-        placementePhase();
+        placementPhase();
         attackPhase();
         movimentPhase();
         controller.updateBoard();
@@ -53,7 +61,7 @@ public class GameEngineImpl implements GameEngine {
     /**
      * Manage the Placement Phase of the game.
      */
-    private void placementePhase() {
+    private void placementPhase() {
         final var bonusGroundDino = playerTurn.getCurrentPlayerTurn().getBonusGroundDino();
         final var bonusWaterDino = playerTurn.getCurrentPlayerTurn().getBonusWaterDino();
         if (firstTurn) {
@@ -132,8 +140,60 @@ public class GameEngineImpl implements GameEngine {
      */
     @Override
     public boolean isOver() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isOver'");
+        var territoriesMap = controller.getTerritoriesMap();
+        var currentPlayer = controller.getCurrentPlayer();
+        var currentPlayerColor = currentPlayer.getColor();
+        var objective = currentPlayer.getObjective();
+        switch (objective.getType()) {
+            case "conquerContinents" -> {
+                var continentsObjective = (ConquerContinentsObjective) objective;
+                Set<String> continents = continentsObjective.getContinents();
+                boolean continentsConquered = territoriesMap.entrySet().stream()
+                        .filter(t -> {
+                            String continent = t.getKey().getContinent();
+                            return continents.contains(continent);
+                        })
+                        .allMatch(t -> t.getValue().x().equals(currentPlayerColor));
+                boolean selectableContinentConquered = true;
+                if (continentsObjective.isSelectableContinent()) {
+                    selectableContinentConquered = territoriesMap.entrySet().stream()
+                            .filter(t -> {
+                                String continent = t.getKey().getContinent();
+                                return !continents.contains(continent);
+                            })
+                            .anyMatch((t -> t.getValue().x().equals(currentPlayerColor)));
+                }
+                if (continentsConquered && selectableContinentConquered) {
+                    this.winner = Optional.of(currentPlayer);
+                    return true;
+                }
+            }
+            case "conquerTerritories" -> {
+                var territoriesObjective = (ConquerTerritoriesObjective) objective;
+                int territoryAmount = territoriesObjective.getNumTerritories();
+                int minDinos = territoriesObjective.getMinDinos();
+                boolean numberReached = territoriesMap.values().stream()
+                        .filter(t -> t.x().equals(currentPlayerColor))
+                        .filter(t -> t.y() >= minDinos)
+                        .count() >= territoryAmount;
+                if (numberReached) {
+                    this.winner = Optional.of(currentPlayer);
+                    return true;
+                }
+            }
+            case "destroyArmy" -> {
+                var armyObjective = (DestroyArmyObjective) objective;
+                var armyColor = armyObjective.getArmyColor();
+                boolean checkColorPresence = territoriesMap.values().stream().noneMatch(p -> p.x().equals(armyColor));
+                if (checkColorPresence) {
+                    this.winner = Optional.of(currentPlayer);
+                    return true;
+                }
+            }
+            default -> throw new IllegalArgumentException("Invalid objective type");
+        }
+
+        return false;
     }
 
     /**
@@ -141,8 +201,7 @@ public class GameEngineImpl implements GameEngine {
      */
     @Override
     public Player getWinner() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getWinner'");
+        return winner.orElse(null);
     }
 
     /**
