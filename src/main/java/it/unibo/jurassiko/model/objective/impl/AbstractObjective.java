@@ -15,15 +15,6 @@ public abstract class AbstractObjective implements Objective, Serializable {
     private static final String DEFAULT_OBJECTIVE_DESCRIPTION = "Conquista 12 territori.";
 
     private String description = "";
-    private final boolean achieved = false;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAchieved() {
-        return achieved;
-    }
 
     /**
      * {@inheritDoc}
