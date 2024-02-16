@@ -70,14 +70,6 @@ public class PlayerImpl implements Player, Cloneable {
      * {@inheritDoc}
      */
     @Override
-    public boolean isObjectiveComplete() {
-        return objective.isAchieved();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void addPlayerTerritory(final Territory territory) {
         territories.add(territory);
     }

@@ -79,12 +79,6 @@ public interface Player {
     Objective getObjective();
 
     /**
-     * @return {@code true} if the objective is completed, {@code false} if
-     *         otherwise
-     */
-    boolean isObjectiveComplete();
-
-    /**
      * Add a {@code Territory} to the player.
      * 
      * @param territory the territory to add
