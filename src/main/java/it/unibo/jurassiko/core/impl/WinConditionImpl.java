@@ -3,9 +3,6 @@ package it.unibo.jurassiko.core.impl;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.swing.RowFilter.Entry;
 
 import it.unibo.jurassiko.common.Pair;
 import it.unibo.jurassiko.core.api.WinCondition;
@@ -17,14 +14,30 @@ import it.unibo.jurassiko.model.objective.impl.DestroyArmyObjective;
 import it.unibo.jurassiko.model.player.api.Player;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 
+/**
+ * Implementation of {@link WinCondition} interface.
+ */
 public class WinConditionImpl implements WinCondition {
 
     private Optional<Player> winner;
 
+    /**
+     * Creates a WinCondition object.
+     */
     public WinConditionImpl() {
         this.winner = Optional.empty();
     }
 
+    /**
+     * Checks if some player has completed their objective and if that is the case
+     * that player is returned.
+     *
+     * @param territoriesMap the map representing the owner of all territories.
+     * @param player         the player to be checked.
+     * @param objective      the objective of the player to check.
+     * @return an Optional containing the winning player if there is one, or an
+     *         empty Optional otherwise.
+     */
     @Override
     public Optional<Player> getWinner(final Map<Territory, Pair<GameColor, Integer>> territoriesMap,
             final Player player,
