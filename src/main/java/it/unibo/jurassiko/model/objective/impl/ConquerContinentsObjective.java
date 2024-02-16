@@ -33,6 +33,15 @@ public class ConquerContinentsObjective extends AbstractObjective {
     }
 
     /**
+     * Defines whether any additional continent has to be conquered.
+     * 
+     * @return true if any additional continent must be conquered, false otherwise
+     */
+    public boolean isSelectableContinent() {
+        return selectableContinent;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
