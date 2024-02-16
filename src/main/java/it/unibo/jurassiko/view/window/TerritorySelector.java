@@ -15,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import ch.qos.logback.core.util.OptionHelper;
 import it.unibo.jurassiko.controller.game.api.MainController;
 import it.unibo.jurassiko.core.api.GamePhase.Phase;
 import it.unibo.jurassiko.model.territory.api.Ocean;
@@ -70,7 +69,6 @@ public class TerritorySelector extends JFrame implements View {
         this.setLayout(new GridLayout(ROWS, 1, 0, VGAP));
         setAllPanels(allTerritories, allOceans);
         this.setTitle("Seleziona un territorio");
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setPreferredSize(new Dimension(width, height));
         this.setLocation(x, y);
         this.setResizable(false);
@@ -149,18 +147,19 @@ public class TerritorySelector extends JFrame implements View {
     private JButton createJButton(final String name) {
         final var button = new JButton(name);
         button.addActionListener(e -> {
+            mainContr.manageSelection(name);
             if (mainContr.getGamePhase().equals(Phase.PLACEMENT)) {
                 totalClick++;
             } else if (mainContr.getGamePhase().equals(Phase.ATTACK_FIRST_PART)
-                    || mainContr.getGamePhase().equals(Phase.PLACEMENT)) {
-                if (selectedTerritory.isEmpty()) {
-                    selectedTerritory = Optional.of(name);
-                } else {
-                    selectedTerritory = Optional.empty();
-                }
+                    || mainContr.getGamePhase().equals(Phase.MOVEMENT_FIRST_PART)) {
+                selectedTerritory = Optional.of(name);
+                mainContr.setGamePhase(Phase.ATTACK_SECOND_PART);
+            } else if (mainContr.getGamePhase().equals(Phase.ATTACK_SECOND_PART)
+                    || mainContr.getGamePhase().equals(Phase.MOVEMENT_SECOND_PART)) {
+                selectedTerritory = Optional.empty();
+                mainContr.closeTerritorySelector();
+                mainContr.setGamePhase(Phase.ATTACK_FIRST_PART);
             }
-            System.out.println(selectedTerritory.orElse("VUOTO!!"));
-            mainContr.manageSelection(name);
             mainContr.startGameLoop();
         });
         return button;
@@ -172,6 +171,10 @@ public class TerritorySelector extends JFrame implements View {
 
     public void resetTotalClick() {
         totalClick = 0;
+    }
+
+    public Optional<String> getSelectedTerritory() {
+        return selectedTerritory.isPresent() ? Optional.of(selectedTerritory.get()) : Optional.empty();
     }
 
     @Override
@@ -186,6 +189,7 @@ public class TerritorySelector extends JFrame implements View {
 
     public void updateButtons() {
         disableAllJButtons();
+        final var allTerr = mainContr.getTerritoriesMap();
         switch (mainContr.getGamePhase()) {
             case PLACEMENT:
                 if (totalClick == 0 && !mainContr.isFirstTurn()) {
@@ -195,9 +199,18 @@ public class TerritorySelector extends JFrame implements View {
                 }
                 break;
             case ATTACK_FIRST_PART:
+                final var temp = allTerr.entrySet().stream()
+                .filter(t -> !t.getValue().x().equals(mainContr.getCurrentPlayer().getColor()))
+                .map(t -> t.getKey().getName())
+                .collect(Collectors.toSet());
                 if (selectedTerritory.isEmpty()) {
-                    activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritoryWithMoreThanOne(t));
-                } else {
+
+                    activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritoryWithMoreThanOne(t) 
+                    )
+                    ;
+                }
+            case ATTACK_SECOND_PART:
+                if (selectedTerritory.isPresent()) {
                     activateButton(territoryButtons.values(),
                             t -> mainContr.getAdj(selectedTerritory.get()).contains(t)
                                     && !mainContr.isAllyTerritory(t));
@@ -206,10 +219,13 @@ public class TerritorySelector extends JFrame implements View {
             case MOVEMENT_FIRST_PART:
                 if (selectedTerritory.isEmpty()) {
                     activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritoryWithMoreThanOne(t));
-                } else {
+                }
+            case MOVEMENT_SECOND_PART:
+                if (selectedTerritory.isPresent()) {
                     activateButton(territoryButtons.values(),
                             t -> mainContr.getAdj(selectedTerritory.get()).contains(t)
                                     && mainContr.isAllyTerritory(t));
+                    mainContr.setGamePhase(Phase.ATTACK_FIRST_PART);
                 }
                 break;
             default:

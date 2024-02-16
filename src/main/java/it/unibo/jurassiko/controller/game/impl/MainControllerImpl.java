@@ -108,7 +108,7 @@ public class MainControllerImpl implements MainController {
     @Override
     public void openView() {
         mainFrame.display();
-        updateBoard();
+        mainFrame.updatePanel();
     }
 
     /**
@@ -132,6 +132,7 @@ public class MainControllerImpl implements MainController {
             case ATTACK_FIRST_PART:
                 attack = getMapTerritoryKey(territory);
                 colorAttackPlayer = colorCurrentPlayer;
+                updateBoard();
                 break;
             case ATTACK_SECOND_PART:
                 defence = getMapTerritoryKey(territory);
@@ -143,7 +144,7 @@ public class MainControllerImpl implements MainController {
                 if (defence.getDinoAmount() <= 0) {
                     Pair<GameColor, Integer> bella = new Pair<Player.GameColor, Integer>(colorAttackPlayer,
                             calculateDinoToMove(attack.getDinoAmount()));
-                    territoriesMap.replace(attack, bella);
+                    territoriesMap.replace(attack, bella); 
                 }
                 updateBoard();
                 break;
@@ -314,6 +315,11 @@ public class MainControllerImpl implements MainController {
     @Override
     public Optional<Pair<Ocean, GameColor>> getCurrentOcean() {
         return this.currentOcean.isPresent() ? Optional.of(new Pair<>(this.currentOcean.get())) : Optional.empty();
+    }
+
+    @Override
+    public Optional<String> getSelectedTerritory() {
+        return terrSelect.getSelectedTerritory();
     }
 
     /**
