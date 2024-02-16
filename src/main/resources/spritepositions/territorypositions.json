@@ -1,7 +1,7 @@
 [
     {
         "territory": "Groenlandia",
-        "x": 38.0,
+        "x": 36.5,
         "y": 5.0
     },
     {
@@ -46,7 +46,7 @@
     },
     {
         "territory": "Sud America",
-        "x": 27.0,
+        "x": 16.5,
         "y": 80.0
     },
     {
@@ -71,8 +71,8 @@
     },
     {
         "territory": "Baltica",
-        "x": 62.0,
-        "y": 2.0
+        "x": 53.0,
+        "y": 7.3
     },
     {
         "territory": "Europa",
@@ -81,8 +81,8 @@
     },
     {
         "territory": "Siberia",
-        "x": 75.5,
-        "y": 18.5
+        "x": 78.5,
+        "y": 12.5
     },
     {
         "territory": "Asia Centrale",
