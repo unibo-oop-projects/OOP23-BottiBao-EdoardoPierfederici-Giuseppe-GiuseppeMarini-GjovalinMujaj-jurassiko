@@ -41,8 +41,4 @@ public interface Ocean extends BoardArea<Ocean> {
      */
     boolean isAdjTerritory(String territoryName);
 
-    // changeDinoAmount()
-
-    // getDinoAmount()
-
 }
