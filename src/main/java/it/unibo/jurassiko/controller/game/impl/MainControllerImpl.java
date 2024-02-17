@@ -50,10 +50,10 @@ public class MainControllerImpl implements MainController {
     private final ViewImpl mainFrame;
     private final Border border;
 
-    private Player redPlayer, greenPlayer, bluePlayer;
+    private final List<Player> players;
     private Territory attack;
     private Territory defence;
-    private Battle battle;
+    private final Battle battle;
 
     /**
      * Costrunctor to initialize and full the mapTerritories and the mapOcean.
@@ -62,6 +62,7 @@ public class MainControllerImpl implements MainController {
         this.allTerritories = new TerritoryFactoryImpl().createTerritories();
         this.oceans = new OceanFactoryImpl().createOceans();
         this.objectives = new ObjectiveFactoryImpl().createObjectives();
+        this.players = new ArrayList<>();
         createPlayers();
         fullTerritories();
         this.currentOcean = Optional.empty();
@@ -129,15 +130,23 @@ public class MainControllerImpl implements MainController {
                 break;
             case ATTACK_SECOND_PART:
                 defence = getMapTerritoryKey(territory);
-                var pairattack = getMapTerritoryValue(attack.getName());
-                var pairdefence = getMapTerritoryValue(defence.getName());
-                var deaths = battle.attack(pairattack.y(), pairdefence.y(), calculateDice(pairattack.y()),
+                final var pairattack = getMapTerritoryValue(attack.getName());
+                final var pairdefence = getMapTerritoryValue(defence.getName());
+                final var deaths = battle.attack(pairattack.y(), pairdefence.y(), calculateDice(pairattack.y()),
                         calculateDice(pairdefence.y()));
                 placeGroundDino(attack.getName(), -deaths.x());
                 placeGroundDino(defence.getName(), -deaths.y());
                 if (getMapTerritoryValue(defence.getName()).y() <= 0) {
-                    int dinoToMove = calculateDinoToMove(getMapTerritoryValue(attack.getName()).y());
-                    Pair<GameColor, Integer> defReplacement = new Pair<>(colorCurrentPlayer, dinoToMove);
+                    final int dinoToMove = calculateDinoToMove(getMapTerritoryValue(attack.getName()).y());
+                    final Pair<GameColor, Integer> defReplacement = new Pair<>(colorCurrentPlayer, dinoToMove);
+                    final var loserColor = getMapTerritoryValue(territory).x();
+                    for (final var player : players) {
+                        if (player.getColor().equals(colorCurrentPlayer)) {
+                            player.addPlayerTerritory(getMapTerritoryKey(territory));
+                        } else if (player.getColor().equals(loserColor)) {
+                            player.removePlayerTerritory(getMapTerritoryKey(territory));
+                        }
+                    }
                     territoriesMap.replace(defence, defReplacement);
                     placeGroundDino(attack.getName(), -dinoToMove);
                 }
@@ -184,11 +193,7 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public List<Player> getPlayers() throws CloneNotSupportedException {
-        final List<Player> players = new ArrayList<>();
-        players.add(redPlayer.getPlayer());
-        players.add(greenPlayer.getPlayer());
-        players.add(bluePlayer.getPlayer());
-        return players;
+        return new ArrayList<>(players);
     }
 
     /**
@@ -325,7 +330,7 @@ public class MainControllerImpl implements MainController {
     @Override
     public boolean isAllyTerritory(final String territoryName) {
         final var currentColor = this.game.getPlayerTurn().getCurrentPlayerTurn().getColor();
-        return getColorTerritory(getMapTerritoryKey(territoryName)).equals(currentColor);
+        return getColorTerritory(territoryName).equals(currentColor);
     }
 
     @Override
@@ -333,27 +338,25 @@ public class MainControllerImpl implements MainController {
         return isAllyTerritory(territoryName) && getMapTerritoryValue(territoryName).y() > 1;
     }
 
-    public Set<String> getAdj(String territoryName) {
+    public Set<String> getAdj(final String territoryName) {
         return border.getTerritoriesBorder(getMapTerritoryKey(territoryName), currentOcean.get().x());
     }
 
     /**
      * Returns the color of the territory that we passed as input.
      * 
-     * @param terr input territory
+     * @param terr input territory name
      * @return Color of the Territory
      */
-    private GameColor getColorTerritory(final Territory terr) {
-        if (redPlayer.getOwnedTerritories().contains(terr)) {
-            return redPlayer.getColor();
+    private GameColor getColorTerritory(final String terr) {
+        for (final var player : players) {
+            for (final var temp : player.getOwnedTerritories()) {
+                if (temp.getName().equals(terr)) {
+                    return player.getColor();
+                }
+            }
         }
-        if (greenPlayer.getOwnedTerritories().contains(terr)) {
-            return greenPlayer.getColor();
-        }
-        if (bluePlayer.getOwnedTerritories().contains(terr)) {
-            return bluePlayer.getColor();
-        }
-        throw new IllegalArgumentException("Territory not valid");
+        throw new IllegalArgumentException("Invalid territory name");
     }
 
     /**
@@ -363,18 +366,21 @@ public class MainControllerImpl implements MainController {
     private void createPlayers() {
         final Set<Territory> copyTerritories = new HashSet<>(this.allTerritories);
         final Set<Objective> copyObjectives = new HashSet<>(this.objectives);
-        this.redPlayer = new PlayerImpl(GameColor.RED,
+        final var redPlayer = new PlayerImpl(GameColor.RED,
                 shuffleObjective(copyObjectives),
                 shuffleTerritories(copyTerritories, MAX_TERRITORIES),
                 Set.of());
-        this.greenPlayer = new PlayerImpl(GameColor.GREEN,
+        final var greenPlayer = new PlayerImpl(GameColor.GREEN,
                 shuffleObjective(copyObjectives),
                 shuffleTerritories(copyTerritories, MAX_TERRITORIES),
                 Set.of());
-        this.bluePlayer = new PlayerImpl(GameColor.BLUE,
+        final var bluePlayer = new PlayerImpl(GameColor.BLUE,
                 shuffleObjective(copyObjectives),
                 shuffleTerritories(copyTerritories, MAX_TERRITORIES),
                 Set.of());
+        players.add(redPlayer);
+        players.add(greenPlayer);
+        players.add(bluePlayer);
     }
 
     /**
@@ -417,10 +423,11 @@ public class MainControllerImpl implements MainController {
     private void fullTerritories() {
         territoriesMap = new HashMap<>();
         allTerritories.stream()
-                .forEach(terr -> territoriesMap.put(terr, new Pair<>(getColorTerritory(terr), START_AMOUNT_DINO)));
+                .forEach(terr -> territoriesMap.put(terr,
+                        new Pair<>(getColorTerritory(terr.getName()), START_AMOUNT_DINO)));
     }
 
-    private int calculateDice(int dinoAmount) {
+    private int calculateDice(final int dinoAmount) {
         if (dinoAmount >= 3) {
             return 3;
         } else {
@@ -428,7 +435,7 @@ public class MainControllerImpl implements MainController {
         }
     }
 
-    private int calculateDinoToMove(int dinoAmount) {
+    private int calculateDinoToMove(final int dinoAmount) {
         if (dinoAmount > 3) {
             return 3;
         } else {
