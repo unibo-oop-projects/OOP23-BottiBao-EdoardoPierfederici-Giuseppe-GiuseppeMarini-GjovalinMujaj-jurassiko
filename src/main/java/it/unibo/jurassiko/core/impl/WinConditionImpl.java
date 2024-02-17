@@ -3,6 +3,7 @@ package it.unibo.jurassiko.core.impl;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import it.unibo.jurassiko.common.Pair;
 import it.unibo.jurassiko.core.api.WinCondition;
@@ -11,6 +12,7 @@ import it.unibo.jurassiko.model.objective.api.Objective;
 import it.unibo.jurassiko.model.objective.impl.ConquerContinentsObjective;
 import it.unibo.jurassiko.model.objective.impl.ConquerTerritoriesObjective;
 import it.unibo.jurassiko.model.objective.impl.DestroyArmyObjective;
+import it.unibo.jurassiko.model.objective.impl.ObjectiveFactoryImpl;
 import it.unibo.jurassiko.model.player.api.Player;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 
@@ -19,13 +21,17 @@ import it.unibo.jurassiko.model.player.api.Player.GameColor;
  */
 public class WinConditionImpl implements WinCondition {
 
+    private static final int DEFAULT_NUM_TERRITORIES = 12;
+
     private Optional<Player> winner;
+    private final ConquerTerritoriesObjective defaultObjective;
 
     /**
      * Creates a WinCondition object.
      */
     public WinConditionImpl() {
         this.winner = Optional.empty();
+        this.defaultObjective = getDefaultObjective();
     }
 
     /**
@@ -56,7 +62,7 @@ public class WinConditionImpl implements WinCondition {
             }
             case "conquerTerritories" -> {
                 final var territoriesObjective = (ConquerTerritoriesObjective) objective;
-                setWinner(checkConquerContinents(territoriesMap, playerColor, territoriesObjective), player);
+                setWinner(checkConquerTerritories(territoriesMap, playerColor, territoriesObjective), player);
             }
             case "destroyArmy" -> {
                 final var armyObjective = (DestroyArmyObjective) objective;
@@ -84,21 +90,24 @@ public class WinConditionImpl implements WinCondition {
                 })
                 .allMatch(t -> t.getValue().x().equals(playerColor));
 
-        // TODO: Fix or remove selectableContinent
-        final boolean selectableContinentConquered = true;
+        boolean selectableContinentConquered = true;
         if (objective.isSelectableContinent()) {
-            final var selectableContinents = territoriesMap.entrySet().stream()
-                    .filter(t -> {
-                        final String continent = t.getKey().getContinent();
-                        return !continents.contains(continent);
-                    })
-                    .map(entry -> entry.getKey().getContinent());
+            final Set<String> selectableContinents = territoriesMap.keySet().stream()
+                    .map(Territory::getContinent)
+                    .distinct()
+                    .filter(t -> !continents.contains(t))
+                    .collect(Collectors.toSet());
+
+            selectableContinentConquered = selectableContinents.stream()
+                    .anyMatch(c -> territoriesMap.entrySet().stream()
+                            .filter(t -> t.getKey().getContinent().equals(c))
+                            .allMatch(t -> t.getValue().x().equals(playerColor)));
         }
 
         return continentsConquered && selectableContinentConquered;
     }
 
-    private boolean checkConquerContinents(final Map<Territory, Pair<GameColor, Integer>> territoriesMap,
+    private boolean checkConquerTerritories(final Map<Territory, Pair<GameColor, Integer>> territoriesMap,
             final GameColor playerColor,
             final ConquerTerritoriesObjective objective) {
         final int territoryAmount = objective.getNumTerritories();
@@ -116,8 +125,26 @@ public class WinConditionImpl implements WinCondition {
             final DestroyArmyObjective objective) {
         final var armyObjective = (DestroyArmyObjective) objective;
         final var armyColor = armyObjective.getArmyColor();
-        final boolean checkColorPresence = territoriesMap.values().stream().noneMatch(p -> p.x().equals(armyColor));
+
+        boolean checkColorPresence = false;
+
+        // If the player must destroy theirself, the objective becomes the default one
+        checkColorPresence = armyColor.equals(playerColor)
+                ? checkConquerTerritories(territoriesMap, playerColor, this.defaultObjective)
+                : territoriesMap.values().stream().noneMatch(p -> p.x().equals(armyColor));
 
         return checkColorPresence;
     }
+
+    private ConquerTerritoriesObjective getDefaultObjective() {
+        final Set<Objective> allObjectives = new ObjectiveFactoryImpl().createObjectives();
+        final var defaultObjective = allObjectives.stream()
+                .filter(ConquerTerritoriesObjective.class::isInstance)
+                .map(ConquerTerritoriesObjective.class::cast)
+                .filter(t -> t.getNumTerritories() == DEFAULT_NUM_TERRITORIES)
+                .findFirst()
+                .get();
+        return defaultObjective;
+    }
+
 }

@@ -41,11 +41,27 @@ public class DestroyArmyObjective extends AbstractObjective {
     @Override
     public void writeDescription() {
         final String description = "Distruggi l'armata di colore "
-                + this.armyColor.toLowerCase(Locale.ROOT)
+                + colorToString(getArmyColor())
                 + ". Se l'armata non è in gioco, "
                 + super.getDefaultObjectiveDescription().toLowerCase(Locale.ROOT);
 
         setDescription(description);
+    }
+
+    /**
+     * Turns a game color instance into a string with the color translated in
+     * Italian for the objective description.
+     * 
+     * @param color the color to transform
+     * @return the translation in Italian of the color
+     */
+    private String colorToString(GameColor color) {
+        return switch (color) {
+            case RED -> "ROSSO";
+            case BLUE -> "BLU";
+            case GREEN -> "VERDE";
+            default -> throw new IllegalArgumentException("Invalid color");
+        };
     }
 
 }

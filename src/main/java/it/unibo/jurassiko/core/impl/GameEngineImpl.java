@@ -58,7 +58,8 @@ public class GameEngineImpl implements GameEngine {
         controller.updateBoard();
 
         if (isOver()) {
-            // TODO: display JOptionPane with winner name
+            controller.showWinnerName(getWinner().getColor());
+            controller.closeGame();
         }
     }
 
@@ -143,10 +144,14 @@ public class GameEngineImpl implements GameEngine {
     @Override
     public boolean isOver() {
         final var currentPlayer = this.controller.getCurrentPlayer();
-
-        return this.winCondition
-                .getWinner(this.controller.getTerritoriesMap(), currentPlayer, currentPlayer.getObjective())
-                .isPresent();
+        final Optional<Player> winner = this.winCondition
+                .getWinner(this.controller.getTerritoriesMap(), currentPlayer, currentPlayer.getObjective());
+        final boolean condition = winner.isPresent();
+        if (condition) {
+            this.winner = winner;
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -154,7 +159,7 @@ public class GameEngineImpl implements GameEngine {
      */
     @Override
     public Player getWinner() {
-        return winner.orElse(null);
+        return this.winner.orElse(null);
     }
 
     /**
