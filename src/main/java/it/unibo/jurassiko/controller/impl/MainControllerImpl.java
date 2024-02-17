@@ -1,4 +1,4 @@
-package it.unibo.jurassiko.controller.game.impl;
+package it.unibo.jurassiko.controller.impl;
 
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import javax.swing.border.EmptyBorder;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jurassiko.common.Pair;
-import it.unibo.jurassiko.controller.game.api.MainController;
+import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.core.api.GameEngine;
 import it.unibo.jurassiko.core.api.GamePhase.Phase;
 import it.unibo.jurassiko.core.impl.GameEngineImpl;

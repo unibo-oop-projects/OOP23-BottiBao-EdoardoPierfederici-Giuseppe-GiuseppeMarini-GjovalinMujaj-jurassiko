@@ -2,8 +2,7 @@ package it.unibo.jurassiko.core.impl;
 
 import java.util.Optional;
 
-import it.unibo.jurassiko.controller.game.api.MainController;
-
+import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.core.api.GameEngine;
 import it.unibo.jurassiko.core.api.GamePhase;
 import it.unibo.jurassiko.core.api.PlayerTurn;

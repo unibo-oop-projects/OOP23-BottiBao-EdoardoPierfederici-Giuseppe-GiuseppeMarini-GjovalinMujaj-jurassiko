@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import it.unibo.jurassiko.controller.game.api.MainController;
+import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.view.gamescreen.api.View;
 import it.unibo.jurassiko.view.panel.TopBarPanel;
 import it.unibo.jurassiko.view.window.ObjectiveWindow;

@@ -1,6 +1,6 @@
 package it.unibo.jurassiko.view.panel;
 
-import it.unibo.jurassiko.controller.game.api.MainController;
+import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.core.api.GamePhase.Phase;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;

@@ -13,7 +13,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import it.unibo.jurassiko.controller.game.api.MainController;
+import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 
 /**
