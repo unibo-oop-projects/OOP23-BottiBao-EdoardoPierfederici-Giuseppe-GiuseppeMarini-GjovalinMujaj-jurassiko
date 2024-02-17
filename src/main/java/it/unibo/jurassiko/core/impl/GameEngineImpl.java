@@ -134,7 +134,7 @@ public class GameEngineImpl implements GameEngine {
     @Override
     public void endTurn() {
         playerTurn.goNext();
-        if (playerTurn.getCurrentPlayerTurn().getOwnedTerritories().size() == 0) {
+        while (playerTurn.getCurrentPlayerTurn().getOwnedTerritories().size() == 0) {
             playerTurn.goNext();
         }
         gamePhase.setPhase(Phase.PLACEMENT);
