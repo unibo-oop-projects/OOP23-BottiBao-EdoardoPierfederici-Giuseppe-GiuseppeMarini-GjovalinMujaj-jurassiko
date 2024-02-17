@@ -208,8 +208,8 @@ public class MainControllerImpl implements MainController {
         return setTerr;
     }
 
-    public int getDinoToPlace() {
-        return this.game.getDinoToPlace();
+    public int getRemainedDinoToPlace() {
+        return this.game.getRemainedDinoToPlace();
     }
 
     /**
@@ -549,6 +549,10 @@ public class MainControllerImpl implements MainController {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void showWinnerName(GameColor winner) {
         var dinoSprites = new SpriteLoader().getDinoSprites();
         ImageIcon winnerSprite = dinoSprites.get(winner);
@@ -563,6 +567,10 @@ public class MainControllerImpl implements MainController {
         JOptionPane.showMessageDialog(this.mainFrame, winnerPanel, "Fine del gioco", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void closeGame() {
         this.mainFrame.dispose();
         System.exit(0);
@@ -583,5 +591,4 @@ public class MainControllerImpl implements MainController {
             default -> throw new IllegalArgumentException("Invalid color");
         };
     }
-
 }

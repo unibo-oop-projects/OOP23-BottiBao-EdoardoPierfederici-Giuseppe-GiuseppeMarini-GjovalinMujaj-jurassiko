@@ -50,7 +50,7 @@ public interface GameEngine {
      * 
      * @return the remaining amount of dino to place
      */
-    int getDinoToPlace();
+    int getRemainedDinoToPlace();
 
     /**
      * Get the current player Turn.

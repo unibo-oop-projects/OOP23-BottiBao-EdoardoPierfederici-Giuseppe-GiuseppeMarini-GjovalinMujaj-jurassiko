@@ -25,10 +25,6 @@ public class BattleImpl implements Battle {
         int nTroopsAttackDeath = 0;
         int nTroopsDefenceDeath = 0;
         final int nDiceLower = Math.min(nDiceAttack, nDiceDefence);
-        /*
-         * if (checkTroops(nTroopsAttack, nDiceAttack, true) &&
-         * checkTroops(nTroopsDefence, nDiceDefence, false))
-         */
         for (int i = 0; i < nDiceLower; i++) {
             if (listRollDefence.get(i) >= listRollAttack.get(i)) {
                 nTroopsAttackDeath++;
@@ -38,9 +34,4 @@ public class BattleImpl implements Battle {
         }
         return new Pair<Integer, Integer>(nTroopsAttackDeath, nTroopsDefenceDeath);
     }
-
-    private boolean checkTroops(final int nTroopsTerritory, final int nTroops, final boolean offensive) {
-        return offensive ? nTroopsTerritory > nTroops && nTroopsTerritory != 1 : nTroopsTerritory >= nTroops;
-    }
-
 }

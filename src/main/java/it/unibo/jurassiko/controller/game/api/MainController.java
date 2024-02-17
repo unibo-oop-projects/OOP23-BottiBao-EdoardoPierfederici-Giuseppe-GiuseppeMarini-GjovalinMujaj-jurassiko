@@ -168,9 +168,22 @@ public interface MainController {
      */
     void setGamePhase(GamePhase.Phase phase);
 
-    public int getDinoToPlace();
+    /**
+     * Calculate dino to place and return it.
+     * 
+     * @return the amount of dino to place
+     */
+    int getRemainedDinoToPlace();
 
+    /**
+     * Show a pop up window with the winner color.
+     * 
+     * @param winner color of the winner
+     */
     void showWinnerName(GameColor winner);
 
+    /**
+     * Close the view.
+     */
     void closeGame();
 }

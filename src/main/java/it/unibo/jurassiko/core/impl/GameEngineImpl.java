@@ -183,7 +183,7 @@ public class GameEngineImpl implements GameEngine {
      * {@inheritDoc}
      */
     @Override
-    public int getDinoToPlace() {
+    public int getRemainedDinoToPlace() {
         final var currentPlayer = playerTurn.getCurrentPlayerTurn();
         return firstTurn ? FIRST_TURN_BONUS - controller.getTotalClick()
                 : currentPlayer.getBonusGroundDino() + currentPlayer.getBonusWaterDino() - controller.getTotalClick();

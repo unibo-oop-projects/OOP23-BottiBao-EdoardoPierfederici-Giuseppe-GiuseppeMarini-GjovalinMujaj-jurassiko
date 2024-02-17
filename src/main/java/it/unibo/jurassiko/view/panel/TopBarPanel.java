@@ -124,7 +124,6 @@ public class TopBarPanel extends JPanel {
         this.currentPlayer.setBackground(new Color(BG_PLAYER_RGB, BG_PLAYER_RGB, BG_PLAYER_RGB));
         this.currentPlayer.setOpaque(true);
         setCurrentPlayer();
-
         final Font font = new Font("Serif", Font.BOLD, FONT_SIZE);
         this.objective.setFont(font);
         this.place.setFont(font);
@@ -132,7 +131,6 @@ public class TopBarPanel extends JPanel {
         this.endTurn.setFont(font);
         this.currentAmountDino.setFont(font);
         this.currentPlayer.setFont(font);
-
         addComponent(currentPlayer, 0, 0);
         addComponent(currentAmountDino, 1, 0);
         addComponent(objective, 2, 0);
@@ -166,8 +164,8 @@ public class TopBarPanel extends JPanel {
         this.currentPlayer.setText("Player: " + currentColor.getColorName());
     }
 
-    private void setCurrentAmountDino(){
-        final int currentAmount = this.controller.getDinoToPlace();
+    private void setCurrentAmountDino() {
+        final int currentAmount = this.controller.getRemainedDinoToPlace();
         this.currentAmountDino.setText("Dino da piazzare: " + currentAmount);
     }
 
@@ -181,7 +179,7 @@ public class TopBarPanel extends JPanel {
             case PLACEMENT -> {
                 this.currentAmountDino.setVisible(true);
                 this.place.setEnabled(true);
-            }  
+            }
             case ATTACK_FIRST_PART -> {
                 this.attack.setEnabled(true);
                 this.endTurn.setEnabled(true);
