@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.core.api.GamePhase.Phase;
 import it.unibo.jurassiko.model.territory.api.Ocean;
@@ -42,19 +43,22 @@ public class TerritorySelector extends JFrame implements View {
     private final Map<String, JButton> territoryButtons;
     private final Map<String, JButton> oceanButtons;
 
-    private final MainController mainContr;
+    private final transient MainController mainContr;
     private int totalClick;
-    private Optional<String> selectedTerritory = Optional.empty();
+    @SuppressFBWarnings("SE_BAD_FIELD")
+    private Optional<String> selectedTerritory;
 
     /**
      * Creates a TerritorySelector window.
      * 
      * @param mainContr the main controller instance
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "MainController instance is needed on this class by design")
     public TerritorySelector(final MainController mainContr) {
         this.mainContr = mainContr;
         this.territoryButtons = new HashMap<>();
         this.oceanButtons = new HashMap<>();
+        this.selectedTerritory = Optional.empty();
         final Set<Territory> allTerritories = new TerritoryFactoryImpl().createTerritories();
         final Set<Ocean> allOceans = new OceanFactoryImpl().createOceans();
 

@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
@@ -33,13 +35,14 @@ public class MapPanel extends JPanel {
 
     private final Map<String, DinoDisplay> territoryViews;
     private final Map<String, DinoDisplay> oceanViews;
-    private final MainController controller;
+    private final transient MainController controller;
 
     /**
      * Set the map in the relevant label and add it to the LayeredPane.
      * 
      * @param controller is the MainController
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "MainController instance is needed on this class by design")
     public MapPanel(final MainController controller) {
         this.controller = controller;
         this.territoryViews = new HashMap<>();

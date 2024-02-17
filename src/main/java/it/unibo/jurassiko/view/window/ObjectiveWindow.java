@@ -13,6 +13,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 
@@ -33,7 +34,7 @@ public class ObjectiveWindow extends JPanel {
     private static final int TEXT_SIZE = 16;
 
     private final JLabel textLabel;
-    private final MainController controller;
+    private final transient MainController controller;
 
     /**
      * Creates the objective window initializing the card and the text for the
@@ -41,6 +42,7 @@ public class ObjectiveWindow extends JPanel {
      * 
      * @param controller the main controller instance
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "MainController instance is needed on this class by design")
     public ObjectiveWindow(final MainController controller) {
         this.controller = controller;
         final int windowWidth = (int) (WIDTH_RATIO * ViewImpl.getScreenSize().getWidth());

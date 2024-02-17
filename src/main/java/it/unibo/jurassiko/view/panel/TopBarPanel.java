@@ -24,6 +24,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Makes the top-bar for the GUI.
  */
@@ -42,7 +44,7 @@ public class TopBarPanel extends JPanel {
     private static final String ENDTURN_BUTTON_NAME = "Fine Turno";
     private static final String ENDTURN_DIALOG_QUESTION = "Vuoi effettuare uno spostamento prima di terminare il turno?";
 
-    private final MainController controller;
+    private final transient MainController controller;
     private final JLabel topLabel;
     private JLabel currentPlayer;
     private JLabel currentAmountDino;
@@ -59,6 +61,10 @@ public class TopBarPanel extends JPanel {
      * @param controller    the MainController
      * @param objectiveCard the ObjectiveCard
      */
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "MainController and ObjectiveWindow instances are needed on this class by design"
+        )
     public TopBarPanel(final MainController controller, final ObjectiveWindow objectiveCard) {
         this.objectiveCard = objectiveCard;
         this.controller = controller;
@@ -126,7 +132,7 @@ public class TopBarPanel extends JPanel {
         this.endTurn.setFont(font);
         this.currentAmountDino.setFont(font);
         this.currentPlayer.setFont(font);
-        // CHECKSTYLE: MagicNumber OFF 
+        // CHECKSTYLE: MagicNumber OFF
         // Simple incremental grid x value
         addComponent(currentPlayer, 0, 0);
         addComponent(currentAmountDino, 1, 0);
