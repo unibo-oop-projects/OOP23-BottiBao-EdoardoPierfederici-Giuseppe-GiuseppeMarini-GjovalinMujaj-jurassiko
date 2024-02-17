@@ -15,7 +15,11 @@ public interface Player {
      */
     enum GameColor {
         /**
-         * Color red.
+         * Default color represented by Black.
+         */
+        DEFAULT("Black", "000000"),
+        /**
+         * Color Red.
          */
         RED("Red", "#ff0000"),
         /**
@@ -46,7 +50,7 @@ public interface Player {
          * 
          * @return color name
          */
-        public String getColor() {
+        public String getColorName() {
             return color;
         }
 
@@ -73,12 +77,6 @@ public interface Player {
      * @return player objective
      */
     Objective getObjective();
-
-    /**
-     * @return {@code true} if the objective is completed, {@code false} if
-     *         otherwise
-     */
-    boolean isObjectiveComplete();
 
     /**
      * Add a {@code Territory} to the player.

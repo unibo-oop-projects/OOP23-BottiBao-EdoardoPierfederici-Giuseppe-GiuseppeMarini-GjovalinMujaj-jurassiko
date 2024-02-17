@@ -11,15 +11,15 @@
     },
     {
         "type": "destroyArmy",
-        "value": "BLU"
+        "value": "RED"
     },
     {
         "type": "destroyArmy",
-        "value": "ROSSO"
+        "value": "BLUE"
     },
     {
         "type": "destroyArmy",
-        "value": "GIALLO"
+        "value": "GREEN"
     },
     {
         "type": "conquerContinents",

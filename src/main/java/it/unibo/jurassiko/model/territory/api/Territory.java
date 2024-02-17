@@ -17,20 +17,4 @@ public interface Territory extends BoardArea<Territory> {
      */
     String getContinent();
 
-    // TODO: uncomment getOwner method when needed and document the missing methods
-
-    // Player getOwner();
-
-    /**
-     * 
-     * @param delta
-     */
-    void changeDinoAmount(int delta);
-
-    /**
-     * 
-     * @return get the dino amount in the territory
-     */
-    int getDinoAmount();
-
 }

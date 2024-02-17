@@ -28,20 +28,4 @@ public final class TerritoryImpl extends AbstractBoardArea<Territory> implements
         return continent;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void changeDinoAmount(final int delta) {
-        this.dinoAmount += delta;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getDinoAmount() {
-        return dinoAmount;
-    }
-
 }

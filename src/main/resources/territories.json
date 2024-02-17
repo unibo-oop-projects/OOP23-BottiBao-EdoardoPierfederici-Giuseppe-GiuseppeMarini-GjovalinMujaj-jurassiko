@@ -20,7 +20,8 @@
         "continent": "Nord America",
         "neighbours": [
             "Canada",
-            "Appalachia"
+            "Appalachia",
+            "Groenlandia"
         ]
     },
     {
@@ -34,8 +35,7 @@
         "name": "Arabia",
         "continent": "Gondwana Occidentale",
         "neighbours": [
-            "Nord Africa",
-            "Messico"
+            "Nord Africa"
         ]
     },
     {
@@ -79,7 +79,8 @@
         "neighbours": [
             "Nord Africa",
             "Amazzonia",
-            "Sud America"
+            "Congo",
+            "Sud Africa"
         ]
     },
     {
@@ -87,7 +88,8 @@
         "continent": "Gondwana Orientale",
         "neighbours": [
             "India",
-            "Antartica"
+            "Antartica",
+            "Madagascar"
         ]
     },
     {
@@ -103,7 +105,8 @@
         "continent": "Gondwana Orientale",
         "neighbours": [
             "India",
-            "Antartica"
+            "Antartica",
+            "Australia"
         ]
     },
     {

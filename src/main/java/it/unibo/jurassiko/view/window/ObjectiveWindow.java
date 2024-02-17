@@ -13,6 +13,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import it.unibo.jurassiko.controller.game.api.MainController;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 
 /**
@@ -21,7 +22,7 @@ import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 public class ObjectiveWindow extends JPanel {
 
     private static final long serialVersionUID = -8078185574894759437L;
-    private static final String IMAGE_PATH = "images/cartaobiettivo.png";
+    private static final String IMAGE_PATH = "images/objectivecard.png";
     private static final double WIDTH_RATIO = 0.17;
     private static final double HEIGHT_RATIO = 0.38;
     private static final double TEXT_XRATIO = 0.09;
@@ -32,13 +33,16 @@ public class ObjectiveWindow extends JPanel {
     private static final int TEXT_SIZE = 16;
 
     private final JLabel textLabel;
-    private String description;
+    private final MainController controller;
 
     /**
      * Creates the objective window initializing the card and the text for the
      * description.
+     * 
+     * @param mainContr the main controller instance
      */
-    public ObjectiveWindow() {
+    public ObjectiveWindow(final MainController controller) {
+        this.controller = controller;
         final int windowWidth = (int) (WIDTH_RATIO * ViewImpl.getScreenSize().getWidth());
         final int windowHeight = (int) (HEIGHT_RATIO * ViewImpl.getScreenSize().getHeight());
         final ImageIcon objectiveCard = loadCardImage(windowWidth, windowHeight);
@@ -52,9 +56,8 @@ public class ObjectiveWindow extends JPanel {
 
         final JLabel objectiveLabel = new JLabel(objectiveCard);
         setObjectiveLabel(objectiveLabel, windowWidth, windowHeight);
-        this.description = ""; // TODO: take it as an argument?
         // Make text go to new line when needed
-        this.textLabel = new JLabel("<html>" + this.description + "</html>");
+        this.textLabel = new JLabel();
         setTextLabel(this.textLabel, textX, textY, textWidth, textHeight);
 
         final JLayeredPane layPane = new JLayeredPane();
@@ -67,20 +70,26 @@ public class ObjectiveWindow extends JPanel {
     }
 
     /**
-     * Sets the description to put over the card.
-     * 
-     * @param description the description of the objective
-     */
-    public void setDescription(final String description) {
-        this.description = description;
-        this.textLabel.setText(description);
-    }
-
-    /**
      * Displays the objective card as a JOptionPane.
      */
     public void showObjectiveCard() {
         JOptionPane.showMessageDialog(null, this, "Obiettivo", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    /**
+     * Update the Objective based on the turn of the Player.
+     */
+    public void updateObjective() {
+        setDescription(this.controller.getCurrentPlayer().getObjective().getDescription());
+    }
+
+    /**
+     * Sets the description to put over the card.
+     * 
+     * @param description the description of the objective
+     */
+    private void setDescription(final String description) {
+        this.textLabel.setText("<html>" + description + "</html>");
     }
 
     /**

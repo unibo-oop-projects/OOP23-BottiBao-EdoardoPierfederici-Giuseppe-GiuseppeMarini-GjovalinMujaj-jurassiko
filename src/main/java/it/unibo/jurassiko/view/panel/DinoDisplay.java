@@ -20,11 +20,9 @@ import it.unibo.jurassiko.model.player.api.Player.GameColor;
 public class DinoDisplay extends JPanel {
 
     private static final long serialVersionUID = -4807657096142808628L;
-    private static final double NTROOPS_XRATIO = 0.72;
-    private static final double NTROOPS_YRATIO = 0.64;
-    private static final double NTROOPS_WIDTH_RATIO = 0.26;
-    private static final double NTROOPS_HEIGHT_RATIO = 0.34;
-    private static final int FONT_SIZE = 11;
+    private static final double NTROOPS_WIDTH_RATIO = 0.43;
+    private static final double NTROOPS_HEIGHT_RATIO = 0.35;
+    private static final int FONT_SIZE = 14;
 
     private final JLabel dinoSprite;
     private final JLabel nTroops;
@@ -39,7 +37,6 @@ public class DinoDisplay extends JPanel {
      * @param y            the y-coordinate
      */
     public DinoDisplay(final SpriteLoader spriteLoader, final boolean isOcean, final int x, final int y) {
-
         this.sprites = isOcean ? spriteLoader.getLaprasSprites() : spriteLoader.getDinoSprites();
 
         final int width = sprites.get(GameColor.RED).getIconWidth();
@@ -52,20 +49,21 @@ public class DinoDisplay extends JPanel {
 
         final JLayeredPane lpane = new JLayeredPane();
         lpane.add(dinoSprite, JLayeredPane.DEFAULT_LAYER);
-        lpane.add(nTroops, JLayeredPane.PALETTE_LAYER);
+        if (!isOcean) {
+            lpane.add(nTroops, JLayeredPane.PALETTE_LAYER);
+        }
         lpane.setPreferredSize(new Dimension(width, height));
         this.setLayout(new BorderLayout());
         this.add(lpane);
         this.setOpaque(false);
         this.setBounds(x, y, width, height);
-
     }
 
     /**
      * 
      * @param color the color of dino to set
      */
-    public final void setSpriteColor(final GameColor color) {
+    public void setSpriteColor(final GameColor color) {
         this.dinoSprite.setIcon(this.sprites.get(color));
     }
 
@@ -73,7 +71,7 @@ public class DinoDisplay extends JPanel {
      * 
      * @param dinoAmount the amount of dino to set
      */
-    public final void setNumber(final int dinoAmount) {
+    public void setNumber(final int dinoAmount) {
         this.nTroops.setText(Integer.toString(dinoAmount));
     }
 
@@ -83,16 +81,17 @@ public class DinoDisplay extends JPanel {
         this.dinoSprite.setBounds(0, 0, width, height);
     }
 
-    private void setNTroopsLabel(final int width, final int height) {
+    private void setNTroopsLabel(final int totalWidth, final int totalHeight) {
         this.nTroops.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
         this.nTroops.setBackground(Color.BLUE);
         this.nTroops.setForeground(Color.YELLOW);
         this.nTroops.setHorizontalAlignment(JLabel.CENTER);
-        this.nTroops.setBounds((int) (NTROOPS_XRATIO * width),
-                (int) (NTROOPS_YRATIO * height),
-                (int) (NTROOPS_WIDTH_RATIO * width),
-                (int) (NTROOPS_HEIGHT_RATIO * height));
+        final int width = (int) (NTROOPS_WIDTH_RATIO * totalWidth);
+        final int height = (int) (NTROOPS_HEIGHT_RATIO * totalHeight);
+        final int x = totalWidth - width;
+        final int y = totalHeight - height;
+        this.nTroops.setBounds(x, y, width, height);
         this.nTroops.setOpaque(true);
-        setNumber(10);
+        setNumber(1);
     }
 }

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.jurassiko.common.Pair;
-import it.unibo.jurassiko.model.player.api.Player.GameColor;
 import it.unibo.jurassiko.reader.impl.OceanSpritePositionReader;
 import it.unibo.jurassiko.reader.impl.TerritorySpritePositionReader;
 
@@ -23,19 +22,14 @@ class TestSpritePositionReaders {
     private static final int NUM_TERRITORIES = 21;
     private static final int NUM_OCEANS = 3;
     private static final String SAMPLE_TERRITORY = "Sud America";
-    private static final double TERRITORY_X = 27.0;
+    private static final double TERRITORY_X = 16.5;
     private static final double TERRITORY_Y = 80.0;
     private static final String SAMPLE_OCEAN = "Oceano Tetide";
-    private static final double OCEAN_RED_X = 40.0;
-    private static final double OCEAN_RED_Y = 35.0;
-    private static final double OCEAN_BLUE_X = 50.0;
-    private static final double OCEAN_BLUE_Y = 20.0;
-    private static final double OCEAN_GREEN_X = 60.0;
-    private static final double OCEAN_GREEN_Y = 35.0;
+    private static final double OCEAN_X = 40.0;
+    private static final double OCEAN_Y = 32.0;
 
     private Map<String, Pair<Double, Double>> territoryPositions;
-    private Map<String, Map<GameColor, Pair<Double, Double>>> oceanPositions;
-    // TODO: use territories/oceans actual sets to check files?
+    private Map<String, Pair<Double, Double>> oceanPositions;
 
     @BeforeEach
     void init() {
@@ -64,17 +58,11 @@ class TestSpritePositionReaders {
         assertFalse(oceanPositions.isEmpty());
         assertEquals(NUM_OCEANS, oceanPositions.size());
 
-        oceanPositions.values().stream()
-                .flatMap(t -> t.values().stream())
-                .allMatch(t -> isValid(t.x()) && isValid(t.y()));
+        assertTrue(oceanPositions.values().stream().allMatch(t -> isValid(t.x()) && isValid(t.y())));
 
         assertTrue(oceanPositions.keySet().contains(SAMPLE_OCEAN));
-        final var redCoordinates = new Pair<>(OCEAN_RED_X, OCEAN_RED_Y);
-        final var blueCoordinates = new Pair<>(OCEAN_BLUE_X, OCEAN_BLUE_Y);
-        final var greenCoordinates = new Pair<>(OCEAN_GREEN_X, OCEAN_GREEN_Y);
-        assertEquals(redCoordinates, oceanPositions.get(SAMPLE_OCEAN).get(GameColor.RED));
-        assertEquals(blueCoordinates, oceanPositions.get(SAMPLE_OCEAN).get(GameColor.BLUE));
-        assertEquals(greenCoordinates, oceanPositions.get(SAMPLE_OCEAN).get(GameColor.GREEN));
+        final var coordinates = new Pair<>(OCEAN_X, OCEAN_Y);
+        assertEquals(coordinates, oceanPositions.get(SAMPLE_OCEAN));
     }
 
     /**
