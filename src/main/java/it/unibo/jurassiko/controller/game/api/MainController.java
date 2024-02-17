@@ -167,4 +167,6 @@ public interface MainController {
      * @param phase phase to set
      */
     void setGamePhase(GamePhase.Phase phase);
+
+    public int getDinoToPlace();
 }
