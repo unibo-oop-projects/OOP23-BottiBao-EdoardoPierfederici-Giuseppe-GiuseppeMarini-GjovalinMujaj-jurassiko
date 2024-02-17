@@ -43,11 +43,13 @@ public class TerritorySelector extends JFrame implements View {
     private final Map<String, JButton> oceanButtons;
 
     private final MainController mainContr;
-    private int totalClick = 0;
+    private int totalClick;
     private Optional<String> selectedTerritory = Optional.empty();
 
     /**
      * Creates a TerritorySelector window.
+     * 
+     * @param mainContr the main controller instance
      */
     public TerritorySelector(final MainController mainContr) {
         this.mainContr = mainContr;

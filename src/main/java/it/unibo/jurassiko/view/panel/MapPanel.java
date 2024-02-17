@@ -90,7 +90,7 @@ public class MapPanel extends JPanel {
 
         this.oceanViews.values().forEach(o -> o.setSpriteColor(GameColor.DEFAULT));
         if (currentOcean.isPresent()) {
-            var currentOceanContent = currentOcean.get();
+            final var currentOceanContent = currentOcean.get();
             this.oceanViews.get(currentOceanContent.x().getName()).setSpriteColor(currentOceanContent.y());
         }
     }

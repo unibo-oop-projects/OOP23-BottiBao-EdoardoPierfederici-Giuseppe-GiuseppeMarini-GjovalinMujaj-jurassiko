@@ -36,6 +36,7 @@ class TestWinCondition {
     private Map<Territory, Pair<GameColor, Integer>> initialMap;
     private Player initialPlayer;
     private GameColor initialPlayerColor;
+    private final Random random = new Random();
 
     @BeforeEach
     void init() {
@@ -319,10 +320,9 @@ class TestWinCondition {
     }
 
     private GameColor getDifferentRandomColor(final GameColor excluded) {
-        final Random random = new Random();
         GameColor randColor;
         do {
-            randColor = GameColor.values()[random.nextInt(GameColor.values().length)];
+            randColor = GameColor.values()[this.random.nextInt(GameColor.values().length)];
         } while (randColor == excluded);
         return randColor;
     }
