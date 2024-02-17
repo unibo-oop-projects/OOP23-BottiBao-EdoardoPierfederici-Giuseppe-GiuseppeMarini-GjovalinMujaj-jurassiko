@@ -26,7 +26,7 @@ class TestTerritory {
     private Set<Territory> territories;
 
     @BeforeEach
-    void initFactory() {
+    void init() {
         this.territories = new TerritoryFactoryImpl().createTerritories();
     }
 
@@ -65,7 +65,5 @@ class TestTerritory {
         assertEquals(neighbourNames, sampleTerritory.getNeighbourNames());
         assertEquals(neighbours, sampleTerritory.getNeighbours());
     }
-
-    // TODO: add missing tests
 
 }

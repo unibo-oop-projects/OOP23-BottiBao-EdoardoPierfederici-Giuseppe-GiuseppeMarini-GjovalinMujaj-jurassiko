@@ -13,7 +13,7 @@ class TestGamePhase {
     private GamePhase gPhase;
 
     @BeforeEach
-    void initPhase() {
+    void init() {
         gPhase = new GamePhaseImpl();
     }
 
