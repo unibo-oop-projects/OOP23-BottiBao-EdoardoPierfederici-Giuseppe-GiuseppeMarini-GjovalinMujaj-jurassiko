@@ -169,4 +169,8 @@ public interface MainController {
     void setGamePhase(GamePhase.Phase phase);
 
     public int getDinoToPlace();
+
+    void showWinnerName(GameColor winner);
+
+    void closeGame();
 }
