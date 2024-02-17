@@ -10,9 +10,9 @@ import it.unibo.jurassiko.model.battle.api.Battle;
 import it.unibo.jurassiko.model.battle.impl.BattleImpl;
 
 /**
- * Test for the Dice Class.
+ * Test for the Battle Class.
  */
-public class TestBattle {
+class TestBattle {
 
     private static final int MAXNUMBER_DICE = 3;
     private static final int TROOPS_ATTACK = 2;
@@ -24,12 +24,12 @@ public class TestBattle {
      * before each test.
      */
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.battle = new BattleImpl();
     }
 
     @Test
-    public void testBattle() {
+    void testBattle() {
         for (int i = 1; i < MAXNUMBER_DICE; i++) {
             for (int j = 1; j < MAXNUMBER_DICE; j++) {
                 if (i < TROOPS_ATTACK && j < TROOPS_DEFENCE) {
