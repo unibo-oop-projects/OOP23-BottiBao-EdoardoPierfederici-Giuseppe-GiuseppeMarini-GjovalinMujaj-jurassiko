@@ -33,7 +33,7 @@ public class TopBarPanel extends JPanel {
     private static final double HEIGHT_RATIO = 0.1;
     private static final double WIDTH_RATIO = 0.8;
     private static final int FONT_SIZE = 24;
-    private static final int DISTANCE_BUTTON_L_R = 48;
+    private static final int DISTANCE_BUTTON_L_R = 30;
     private static final int BG_PLAYER_RGB = 175;
     private static final String URL_IMAGE = "images/topbar.png";
     private static final String OBJ_BUTTON_NAME = "Obiettivo";
@@ -45,6 +45,7 @@ public class TopBarPanel extends JPanel {
     private final MainController controller;
     private final JLabel topLabel;
     private JLabel currentPlayer;
+    private JLabel currentAmountDino;
     private final ObjectiveWindow objectiveCard;
     private final JButton objective;
     private final JButton place;
@@ -115,6 +116,10 @@ public class TopBarPanel extends JPanel {
                     throw new IllegalArgumentException("Invalid option");
             }
         });
+        this.currentAmountDino = new JLabel();
+        this.currentAmountDino.setBackground(new Color(BG_PLAYER_RGB, BG_PLAYER_RGB, BG_PLAYER_RGB));
+        this.currentAmountDino.setOpaque(true);
+        setCurrentAmountDino();
         this.currentPlayer = new JLabel();
         this.currentPlayer.setBackground(new Color(BG_PLAYER_RGB, BG_PLAYER_RGB, BG_PLAYER_RGB));
         this.currentPlayer.setOpaque(true);
@@ -125,13 +130,15 @@ public class TopBarPanel extends JPanel {
         this.place.setFont(font);
         this.attack.setFont(font);
         this.endTurn.setFont(font);
+        this.currentAmountDino.setFont(font);
         this.currentPlayer.setFont(font);
 
         addComponent(currentPlayer, 0, 0);
-        addComponent(objective, 1, 0);
-        addComponent(place, 2, 0);
-        addComponent(attack, 3, 0);
-        addComponent(endTurn, 4, 0);
+        addComponent(currentAmountDino, 1, 0);
+        addComponent(objective, 2, 0);
+        addComponent(place, 3, 0);
+        addComponent(attack, 4, 0);
+        addComponent(endTurn, 5, 0);
     }
 
     // TODO: add javaDoc, remove if you don't want to
@@ -159,6 +166,16 @@ public class TopBarPanel extends JPanel {
         this.currentPlayer.setText("Player: " + currentColor.getColorName());
     }
 
+    private void setCurrentAmountDino(){
+        final int currentAmount;
+        if(this.controller.isFirstTurn()){
+            currentAmount = this.controller. this.controller.getTotalClick();
+        }else{
+            currentAmount = this.controller.getCurrentPlayer().getBonusGroundDino() - this.controller.getTotalClick();
+        }
+        this.currentAmountDino.setText("Dino rimasti: " + currentAmount);
+    }
+
     /**
      * Set the Button Enabled or Disabled based on the Phase of the game.
      */
@@ -166,7 +183,10 @@ public class TopBarPanel extends JPanel {
         final var phase = controller.getGamePhase();
         disableAllJButtons();
         switch (phase) {
-            case PLACEMENT -> this.place.setEnabled(true);
+            case PLACEMENT -> {
+                this.currentAmountDino.setVisible(true);
+                this.place.setEnabled(true);
+            }  
             case ATTACK_FIRST_PART -> {
                 this.attack.setEnabled(true);
                 this.endTurn.setEnabled(true);
@@ -181,9 +201,10 @@ public class TopBarPanel extends JPanel {
      * Disable all the buttons but the Objective Button.
      */
     private void disableAllJButtons() {
-        place.setEnabled(false);
-        attack.setEnabled(false);
-        endTurn.setEnabled(false);
+        this.currentAmountDino.setVisible(false);
+        this.place.setEnabled(false);
+        this.attack.setEnabled(false);
+        this.endTurn.setEnabled(false);
     }
 
     /**
