@@ -167,12 +167,7 @@ public class TopBarPanel extends JPanel {
     }
 
     private void setCurrentAmountDino(){
-        final int currentAmount;
-        if(this.controller.isFirstTurn()){
-            currentAmount = this.controller.getDinoToPlace() - this.controller.getTotalClick();
-        }else{
-            currentAmount = this.controller.getCurrentPlayer().getBonusGroundDino() - this.controller.getTotalClick() + 1;
-        }
+        final int currentAmount = this.controller.getDinoToPlace();
         this.currentAmountDino.setText("Dino da piazzare: " + currentAmount);
     }
 
