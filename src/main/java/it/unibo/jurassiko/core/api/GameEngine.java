@@ -3,7 +3,7 @@ package it.unibo.jurassiko.core.api;
 import it.unibo.jurassiko.model.player.api.Player;
 
 /**
- * TODO:.
+ * Manage the Game loop.
  */
 public interface GameEngine {
 

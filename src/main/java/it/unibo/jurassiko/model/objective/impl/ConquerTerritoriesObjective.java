@@ -25,7 +25,7 @@ public class ConquerTerritoriesObjective extends AbstractObjective {
     /**
      * @return the amount of territories to conquer
      */
-    public int getNumTerritories() {
+    public final int getNumTerritories() {
         return numTerritories;
     }
 

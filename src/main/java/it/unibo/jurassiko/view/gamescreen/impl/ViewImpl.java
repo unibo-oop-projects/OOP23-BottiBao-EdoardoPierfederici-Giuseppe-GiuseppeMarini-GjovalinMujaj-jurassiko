@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import it.unibo.jurassiko.controller.game.api.MainController;
+import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.view.gamescreen.api.View;
 import it.unibo.jurassiko.view.panel.TopBarPanel;
 import it.unibo.jurassiko.view.window.ObjectiveWindow;
@@ -25,7 +25,6 @@ public class ViewImpl extends JFrame implements View {
     private final MapPanel panel;
     private final TopBarPanel buttons;
     private final ObjectiveWindow objectiveCard;
-    private final MainController mainContr;
     private static final String TITLE = "Jurassiko";
 
     /**
@@ -34,10 +33,9 @@ public class ViewImpl extends JFrame implements View {
      * @param mainContr the MainController
      */
     public ViewImpl(final MainController mainContr) {
-        this.mainContr = mainContr;
-        this.panel = new MapPanel(this.mainContr);
-        this.objectiveCard = new ObjectiveWindow(this.mainContr);
-        this.buttons = new TopBarPanel(this.mainContr, this.objectiveCard);
+        this.panel = new MapPanel(mainContr);
+        this.objectiveCard = new ObjectiveWindow(mainContr);
+        this.buttons = new TopBarPanel(mainContr, this.objectiveCard);
         this.setTitle(TITLE);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);

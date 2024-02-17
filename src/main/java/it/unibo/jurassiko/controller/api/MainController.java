@@ -1,4 +1,4 @@
-package it.unibo.jurassiko.controller.game.api;
+package it.unibo.jurassiko.controller.api;
 
 import it.unibo.jurassiko.common.Pair;
 import it.unibo.jurassiko.core.api.GamePhase;

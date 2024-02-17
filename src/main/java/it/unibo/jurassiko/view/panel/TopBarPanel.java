@@ -1,6 +1,6 @@
 package it.unibo.jurassiko.view.panel;
 
-import it.unibo.jurassiko.controller.game.api.MainController;
+import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.core.api.GamePhase.Phase;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
@@ -126,15 +126,17 @@ public class TopBarPanel extends JPanel {
         this.endTurn.setFont(font);
         this.currentAmountDino.setFont(font);
         this.currentPlayer.setFont(font);
+        // CHECKSTYLE: MagicNumber OFF 
+        // Simple incremental grid x value
         addComponent(currentPlayer, 0, 0);
         addComponent(currentAmountDino, 1, 0);
         addComponent(objective, 2, 0);
         addComponent(place, 3, 0);
         addComponent(attack, 4, 0);
         addComponent(endTurn, 5, 0);
+        // CHECKSTYLE: MagicNumber ON
     }
 
-    // TODO: add javaDoc, remove if you don't want to
     private void addComponent(final Component component, final int gridx, final int gridy) {
         final Insets insets = new Insets(8, DISTANCE_BUTTON_L_R, 8, DISTANCE_BUTTON_L_R);
         final var gbc = new GridBagConstraints(gridx, gridy, 1, 1, 0, 0, GridBagConstraints.CENTER,
@@ -142,7 +144,6 @@ public class TopBarPanel extends JPanel {
         this.topLabel.add(component, gbc);
     }
 
-    // TODO: add javaDoc, remove if you don't want to
     private Color getLabelColor(final GameColor color) {
         return switch (color) {
             case RED -> Color.RED;
@@ -152,7 +153,6 @@ public class TopBarPanel extends JPanel {
         };
     }
 
-    // TODO: add javaDoc, remove if you don't want to
     private void setCurrentPlayer() {
         final var currentColor = this.controller.getCurrentPlayer().getColor();
         this.currentPlayer.setForeground(getLabelColor(currentColor));

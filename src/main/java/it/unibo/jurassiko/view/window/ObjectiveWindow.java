@@ -13,7 +13,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import it.unibo.jurassiko.controller.game.api.MainController;
+import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 
 /**
@@ -39,7 +39,7 @@ public class ObjectiveWindow extends JPanel {
      * Creates the objective window initializing the card and the text for the
      * description.
      * 
-     * @param mainContr the main controller instance
+     * @param controller the main controller instance
      */
     public ObjectiveWindow(final MainController controller) {
         this.controller = controller;

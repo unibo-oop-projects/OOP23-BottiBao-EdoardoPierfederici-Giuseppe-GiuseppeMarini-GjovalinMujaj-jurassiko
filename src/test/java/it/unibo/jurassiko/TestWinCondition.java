@@ -13,8 +13,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.jurassiko.common.Pair;
-import it.unibo.jurassiko.controller.game.api.MainController;
-import it.unibo.jurassiko.controller.game.impl.MainControllerImpl;
+import it.unibo.jurassiko.controller.api.MainController;
+import it.unibo.jurassiko.controller.impl.MainControllerImpl;
 import it.unibo.jurassiko.core.api.WinCondition;
 import it.unibo.jurassiko.core.impl.WinConditionImpl;
 import it.unibo.jurassiko.model.objective.api.Objective;

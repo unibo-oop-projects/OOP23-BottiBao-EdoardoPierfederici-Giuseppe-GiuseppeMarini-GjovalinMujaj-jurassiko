@@ -1,8 +1,7 @@
 package it.unibo.jurassiko.controller.impl;
 
+import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.controller.api.MenuController;
-import it.unibo.jurassiko.controller.game.api.MainController;
-import it.unibo.jurassiko.controller.game.impl.MainControllerImpl;
 
 /**
  * Implementation of {@link MenuController} interface.
