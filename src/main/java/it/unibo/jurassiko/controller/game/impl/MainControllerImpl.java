@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import it.unibo.jurassiko.common.Pair;
@@ -120,7 +121,7 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public void manageSelection(final String territory) {
-        final var colorCurrentPlayer = getCurrentPlayer().getColor();
+        final var colorCurrentPlayer = game.getCurrentPlayerTurn().getColor();
         switch (this.game.getGamePhase()) {
             case PLACEMENT:
                 placeGroundDino(territory, START_AMOUNT_DINO);
@@ -165,7 +166,7 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public Player getCurrentPlayer() {
-        return game.getPlayerTurn().getCurrentPlayerTurn();
+        return game.getCurrentPlayerTurn();
     }
 
     /**
@@ -243,7 +244,7 @@ public class MainControllerImpl implements MainController {
      */
     private void placeWaterDino(final String oceanName) {
         this.currentOcean = Optional.of(new Pair<Ocean, GameColor>(getOceanByName(oceanName).get(),
-                this.game.getPlayerTurn().getCurrentPlayerTurn().getColor()));
+                this.game.getCurrentPlayerTurn().getColor()));
     }
 
     /**
@@ -329,13 +330,39 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public boolean isAllyTerritory(final String territoryName) {
-        final var currentColor = this.game.getPlayerTurn().getCurrentPlayerTurn().getColor();
+        final var currentColor = this.game.getCurrentPlayerTurn().getColor();
         return getColorTerritory(territoryName).equals(currentColor);
     }
 
     @Override
     public boolean isAllyTerritoryWithMoreThanOne(final String territoryName) {
         return isAllyTerritory(territoryName) && getMapTerritoryValue(territoryName).y() > 1;
+    }
+
+    @Override
+    public boolean hasAdjEnemy(String territoryName) {
+        return supportHasAdj(territoryName,t -> !t.x().equals(game.getCurrentPlayerTurn().getColor()));
+    }
+
+    @Override
+    public boolean hasAdjAlly(String territoryName) {
+        return supportHasAdj(territoryName,t -> t.x().equals(game.getCurrentPlayerTurn().getColor()));
+    }
+
+    /**
+     * Support method.
+     * 
+     * @param territoryName territory name
+     * @param condition     condition
+     * @return true if the condition is verified, false otherwise
+     */
+    private boolean supportHasAdj(String territoryName, Predicate<Pair<GameColor, Integer>> condition) {
+        for (final var temp : getAdj(territoryName)) {
+            if (condition.test(getMapTerritoryValue(temp))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Set<String> getAdj(final String territoryName) {

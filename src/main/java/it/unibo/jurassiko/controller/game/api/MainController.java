@@ -86,7 +86,11 @@ public interface MainController {
 
     boolean isAllyTerritoryWithMoreThanOne(String territoryName);
 
-    Set<String> getAdj(String terrytoryName);
+    boolean hasAdjEnemy(String territoryName);
+
+    boolean hasAdjAlly(String territoryName);
+
+    Set<String> getAdj(String territoryName);
 
     /**
      * Returns current player.
