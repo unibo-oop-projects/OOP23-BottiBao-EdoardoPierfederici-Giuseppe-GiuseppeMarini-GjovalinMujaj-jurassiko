@@ -142,10 +142,11 @@ public class GameEngineImpl implements GameEngine {
     }
 
     /**
-     * {@inheritDoc}
+     * Is game Over?.
+     * 
+     * @return true if the game is over, false otherwise
      */
-    @Override
-    public boolean isOver() {
+    private boolean isOver() {
         final var currentPlayer = this.controller.getCurrentPlayer();
         final Optional<Player> winner = this.winCondition
                 .getWinner(this.controller.getTerritoriesMap(), currentPlayer, currentPlayer.getObjective());
@@ -158,10 +159,11 @@ public class GameEngineImpl implements GameEngine {
     }
 
     /**
-     * {@inheritDoc}
+     * Get the winner of the game.
+     * 
+     * @return the winner of the game.
      */
-    @Override
-    public Player getWinner() {
+    private Player getWinner() {
         return this.winner.orElse(null);
     }
 

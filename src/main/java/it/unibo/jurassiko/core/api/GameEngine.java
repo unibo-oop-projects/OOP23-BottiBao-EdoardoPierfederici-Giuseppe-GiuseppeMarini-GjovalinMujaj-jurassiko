@@ -18,20 +18,6 @@ public interface GameEngine {
     void endTurn();
 
     /**
-     * Is game Over?.
-     * 
-     * @return true if the game is over, false otherwise
-     */
-    boolean isOver();
-
-    /**
-     * Get the winner of the game.
-     * 
-     * @return the winner of the game.
-     */
-    Player getWinner();
-
-    /**
      * Get the Phase of the game.
      * 
      * @return Phase of the Game
