@@ -140,13 +140,13 @@ public class MainControllerImpl implements MainController {
                 secondSelected = getMapTerritoryKey(territory);
                 final var pairAttack = getMapTerritoryValue(firstSelected.getName());
                 final var pairDefence = getMapTerritoryValue(secondSelected.getName());
-                final var deaths = battle.attack(pairAttack.y(), pairDefence.y(), calculateDice(pairAttack.y()),
-                        calculateDice(pairDefence.y()));
+                final var deaths = battle.attack(pairAttack.y(), pairDefence.y(), calculateDino(pairAttack.y(), true),
+                        calculateDino(pairDefence.y(), false));
                 changeGroundDinoAmount(firstSelected.getName(), -deaths.x());
                 changeGroundDinoAmount(secondSelected.getName(), -deaths.y());
                 if (getMapTerritoryValue(secondSelected.getName()).y() <= 0) {
                     conquestSuccesful = true;
-                    final int dinoToMove = calculateDinoToMove(getMapTerritoryValue(firstSelected.getName()).y());
+                    final int dinoToMove = calculateDino(getMapTerritoryValue(firstSelected.getName()).y(), true);
                     final Pair<GameColor, Integer> defReplacement = new Pair<>(colorCurrentPlayer, dinoToMove);
                     final var loserColor = getMapTerritoryValue(territory).x();
                     for (final var player : players) {
@@ -494,31 +494,19 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * Calculate the max number of dino can attack.
+     * Calculate the dino to combat and to move when the territory is conquered.
      * 
      * @param dinoAmount the ammount of dino of territory
-     * @return the number of dice to roll
+     * @param offensive  true if is action of attack or otherwise
+     * @return dino to battle or to move
      */
-    private int calculateDice(final int dinoAmount) {
-        if (dinoAmount >= 3) {
-            return 3;
-        } else {
-            return dinoAmount;
-        }
-    }
-
-    /**
-     * Calculate the dino to move when the territory is conquered.
-     * 
-     * @param dinoAmount the ammount of dino of offensive territory
-     * @return dino to move
-     */
-    private int calculateDinoToMove(final int dinoAmount) {
+    private int calculateDino(final int dinoAmount, boolean offensive) {
         if (dinoAmount > 3) {
             return 3;
-        } else {
+        } else if (offensive) {
             return dinoAmount - 1;
         }
+        return dinoAmount;
     }
 
     /**
