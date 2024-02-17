@@ -26,7 +26,6 @@ public class GameEngineImpl implements GameEngine {
     private final WinCondition winCondition;
 
     private boolean firstTurn;
-    private boolean openObjective;
     private Optional<Player> winner;
 
     /**
@@ -44,7 +43,6 @@ public class GameEngineImpl implements GameEngine {
             throw new IllegalStateException("Failed to create a new istance of the player", e);
         }
         this.firstTurn = true;
-        this.openObjective = true;
         this.winner = Optional.empty();
     }
 
@@ -56,7 +54,6 @@ public class GameEngineImpl implements GameEngine {
         placementPhase();
         movimentPhase();
         controller.updateBoard();
-
         if (isOver()) {
             controller.showWinnerName(getWinner().getColor());
             controller.closeGame();
@@ -88,19 +85,13 @@ public class GameEngineImpl implements GameEngine {
      * Init the first Placing Phase of the game.
      */
     private void firstTurnPlacement() {
-        /*
-         * if (this.openObjective) {
-         * controller.openObjectiveCard();
-         * this.openObjective = false;
-         * }
-         */
         controller.updateBoard();
         controller.openTerritorySelector();
         if (controller.getTotalClick() == FIRST_TURN_BONUS) {
-            this.openObjective = true; // TODO: player successivi al primo devono mostrare obiettivo prima di piazzare
             playerTurn.goNext();
             controller.resetTotalClick();
             controller.updateBoard();
+            controller.openObjectiveCard();
             if (checkInitDino()) {
                 controller.closeTerritorySelector();
                 firstTurn = false;
@@ -116,7 +107,7 @@ public class GameEngineImpl implements GameEngine {
     private boolean checkInitDino() {
         final var temp = controller.getTerritoriesMap().values();
         final var initDinoAmount = FIRST_TURN_BONUS
-                + (int) temp.stream().filter(t -> t.x().equals(GameColor.RED)).count();
+                + Math.toIntExact(temp.stream().filter(t -> t.x().equals(GameColor.RED)).count());
         return temp.stream()
                 .mapToInt(value -> value.y())
                 .sum() == initDinoAmount * MAX_PLAYERS;
@@ -134,6 +125,9 @@ public class GameEngineImpl implements GameEngine {
     @Override
     public void endTurn() {
         playerTurn.goNext();
+        while (playerTurn.getCurrentPlayerTurn().getOwnedTerritories().size() == 0) {
+            playerTurn.goNext();
+        }
         gamePhase.setPhase(Phase.PLACEMENT);
         controller.updateBoard();
     }

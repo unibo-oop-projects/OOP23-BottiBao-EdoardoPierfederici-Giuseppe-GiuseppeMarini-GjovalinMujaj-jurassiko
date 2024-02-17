@@ -167,7 +167,8 @@ public class TerritorySelector extends JFrame implements View {
                 }
                 case MOVEMENT_SECOND_PART -> {
                     selectedTerritory = Optional.empty();
-                    mainContr.setGamePhase(Phase.MOVEMENT_FIRST_PART);
+                    mainContr.closeTerritorySelector();
+                    mainContr.endTurn();
                 }
                 default -> throw new IllegalArgumentException("Cannot be in this Phase");
             }
@@ -278,7 +279,7 @@ public class TerritorySelector extends JFrame implements View {
      * @param buttons   Collection of JButtons to modify
      * @param condition if the condition is true will activate the button
      */
-    private static void activateButton(final Collection<JButton> buttons, final Predicate<String> condition) {
+    private void activateButton(final Collection<JButton> buttons, final Predicate<String> condition) {
         for (final var jb : buttons) {
             if (condition.test(jb.getText())) {
                 jb.setEnabled(true);
