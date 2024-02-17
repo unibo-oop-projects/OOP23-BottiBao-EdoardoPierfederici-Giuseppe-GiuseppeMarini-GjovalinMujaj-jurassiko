@@ -20,7 +20,7 @@ class TestPlayerTurn {
     private PlayerTurn turn;
 
     @BeforeEach
-    public void initPlayerTurn() {
+    public void init() {
         final List<Player> temp = new ArrayList<>();
         temp.add(new PlayerImpl(Player.GameColor.BLUE,
                 new ObjectiveFactoryImpl().createObjectives().stream().findFirst().get(),

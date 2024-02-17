@@ -35,14 +35,7 @@ public class WinConditionImpl implements WinCondition {
     }
 
     /**
-     * Checks if some player has completed their objective and if that is the case
-     * that player is returned.
-     *
-     * @param territoriesMap the map representing the owner of all territories.
-     * @param player         the player to be checked.
-     * @param objective      the objective of the player to check.
-     * @return an Optional containing the winning player if there is one, or an
-     *         empty Optional otherwise.
+     * {@inheritDoc}
      */
     @Override
     public Optional<Player> getWinner(final Map<Territory, Pair<GameColor, Integer>> territoriesMap,

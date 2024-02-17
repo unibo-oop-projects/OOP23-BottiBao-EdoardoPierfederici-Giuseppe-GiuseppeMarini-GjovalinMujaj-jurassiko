@@ -14,6 +14,7 @@ import it.unibo.jurassiko.model.territory.api.Territory;
 /**
  * Implementation of the game Ocean.
  */
+@SuppressWarnings("PMD") // This class is used by the Jackson deserializer for the factory
 public final class OceanImpl extends AbstractBoardArea<Ocean> implements Ocean {
 
     @JsonProperty("territories")
@@ -22,6 +23,7 @@ public final class OceanImpl extends AbstractBoardArea<Ocean> implements Ocean {
     @JsonIgnore
     private Set<Territory> adjTerritories;
 
+    // NOPMD using the class for Jackson deserializer for the factory
     private OceanImpl() {
         this.adjTerritories = new HashSet<>();
     }
