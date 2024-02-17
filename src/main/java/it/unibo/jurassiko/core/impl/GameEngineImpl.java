@@ -2,6 +2,7 @@ package it.unibo.jurassiko.core.impl;
 
 import java.util.Optional;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.core.api.GameEngine;
 import it.unibo.jurassiko.core.api.GamePhase;
@@ -25,6 +26,7 @@ public class GameEngineImpl implements GameEngine {
     private final WinCondition winCondition;
 
     private boolean firstTurn;
+    private boolean once;
     private Optional<Player> winner;
 
     /**
@@ -32,6 +34,7 @@ public class GameEngineImpl implements GameEngine {
      * 
      * @param controller the MainController used to interact with the view
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "MainController instance is needed on this class by design")
     public GameEngineImpl(final MainController controller) {
         this.gamePhase = new GamePhaseImpl();
         this.controller = controller;
@@ -84,13 +87,20 @@ public class GameEngineImpl implements GameEngine {
      * Init the first Placing Phase of the game.
      */
     private void firstTurnPlacement() {
+        final var firstColor = playerTurn.getPlayers().get(0).getColor();
         controller.updateBoard();
         controller.openTerritorySelector();
+        if (playerTurn.getCurrentPlayerTurn().getColor().equals(firstColor) && once) {
+            controller.openObjectiveCard();
+            once = false;
+        }
         if (controller.getTotalClick() == FIRST_TURN_BONUS) {
             playerTurn.goNext();
             controller.resetTotalClick();
             controller.updateBoard();
-            controller.openObjectiveCard();
+            if (!playerTurn.getCurrentPlayerTurn().getColor().equals(firstColor)) {
+                controller.openObjectiveCard();
+            }
             if (checkInitDino()) {
                 controller.closeTerritorySelector();
                 firstTurn = false;
