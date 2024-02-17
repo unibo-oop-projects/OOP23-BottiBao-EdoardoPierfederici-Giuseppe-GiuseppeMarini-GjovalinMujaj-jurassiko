@@ -148,15 +148,18 @@ public class TerritorySelector extends JFrame implements View {
         final var button = new JButton(name);
         button.addActionListener(e -> {
             mainContr.manageSelection(name);
-            if (mainContr.getGamePhase().equals(Phase.PLACEMENT)) {
-                totalClick++;
-            } else if (mainContr.getGamePhase().equals(Phase.ATTACK_FIRST_PART)) {
-                selectedTerritory = Optional.of(name);
-                mainContr.setGamePhase(Phase.ATTACK_SECOND_PART);
-            } else if (mainContr.getGamePhase().equals(Phase.ATTACK_SECOND_PART)) {
-                selectedTerritory = Optional.empty();
-                mainContr.closeTerritorySelector();
-                mainContr.setGamePhase(Phase.ATTACK_FIRST_PART);
+            switch (mainContr.getGamePhase()) {
+                case PLACEMENT -> totalClick++;
+                case ATTACK_FIRST_PART -> {
+                    selectedTerritory = Optional.of(name);
+                    mainContr.setGamePhase(Phase.ATTACK_SECOND_PART);
+                }
+                case ATTACK_SECOND_PART -> {
+                    selectedTerritory = Optional.empty();
+                    mainContr.closeTerritorySelector();
+                    mainContr.setGamePhase(Phase.ATTACK_FIRST_PART);
+                }
+                default -> throw new IllegalStateException("Cannot be in this Phase");
             }
             mainContr.startGameLoop();
         });
@@ -209,14 +212,14 @@ public class TerritorySelector extends JFrame implements View {
                 break;
             case MOVEMENT_FIRST_PART:
                 if (selectedTerritory.isEmpty()) {
-                    activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritoryWithMoreThanOne(t));
+                    activateButton(territoryButtons.values(),
+                            t -> mainContr.isAllyTerritoryWithMoreThanOne(t) && mainContr.hasAdjAlly(t));
                 }
             case MOVEMENT_SECOND_PART:
                 if (selectedTerritory.isPresent()) {
                     activateButton(territoryButtons.values(),
                             t -> mainContr.getAdj(selectedTerritory.get()).contains(t)
                                     && mainContr.isAllyTerritory(t));
-                    mainContr.setGamePhase(Phase.ATTACK_FIRST_PART);
                 }
                 break;
             default:
