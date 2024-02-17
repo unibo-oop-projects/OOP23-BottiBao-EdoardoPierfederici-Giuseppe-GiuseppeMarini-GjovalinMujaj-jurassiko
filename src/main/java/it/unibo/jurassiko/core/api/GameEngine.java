@@ -46,6 +46,13 @@ public interface GameEngine {
     void setGamePhase(GamePhase.Phase phase);
 
     /**
+     * Get the Remaining dino to place.
+     * 
+     * @return the remaining amount of dino to place
+     */
+    int getDinoToPlace();
+
+    /**
      * Get the current player Turn.
      * 
      * @return Current Player Turn
