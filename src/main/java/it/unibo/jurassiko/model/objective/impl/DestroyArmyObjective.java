@@ -55,7 +55,7 @@ public class DestroyArmyObjective extends AbstractObjective {
      * @param color the color to transform
      * @return the translation in Italian of the color
      */
-    private String colorToString(GameColor color) {
+    private String colorToString(final GameColor color) {
         return switch (color) {
             case RED -> "ROSSO";
             case BLUE -> "BLU";
