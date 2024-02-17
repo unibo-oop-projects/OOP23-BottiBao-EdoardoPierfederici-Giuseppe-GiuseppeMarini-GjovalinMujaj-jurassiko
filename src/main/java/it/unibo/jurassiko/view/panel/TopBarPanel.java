@@ -104,16 +104,11 @@ public class TopBarPanel extends JPanel {
                     null,
                     options,
                     0);
-            switch (result) {
-                case 0:
-                    controller.setGamePhase(Phase.MOVEMENT_FIRST_PART);
-                    controller.startGameLoop();
-                    break;
-                case 1:
-                    controller.endTurn();
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid option");
+            if (result == 0) {
+                controller.setGamePhase(Phase.MOVEMENT_FIRST_PART);
+                controller.startGameLoop();
+            } else {
+                controller.endTurn();
             }
         });
         this.currentAmountDino = new JLabel();
