@@ -8,6 +8,7 @@ import it.unibo.jurassiko.model.territory.api.Territory;
 /**
  * Implementation of the game territory.
  */
+@SuppressWarnings("PMD") // This class is used by the Jackson deserializer for the factory
 public final class TerritoryImpl extends AbstractBoardArea<Territory> implements Territory {
 
     @JsonProperty("continent")
