@@ -30,6 +30,8 @@ public class ViewImpl extends JFrame implements View {
 
     /**
      * Set up the relevant panels and show everything in the GUI.
+     * 
+     * @param mainContr the MainController
      */
     public ViewImpl(final MainController mainContr) {
         this.mainContr = mainContr;
@@ -86,6 +88,9 @@ public class ViewImpl extends JFrame implements View {
         this.objectiveCard.updateObjective();
     }
 
+    /**
+     * Show the Objective.
+     */
     public void displayObjective() {
         this.objectiveCard.showObjectiveCard();
     }

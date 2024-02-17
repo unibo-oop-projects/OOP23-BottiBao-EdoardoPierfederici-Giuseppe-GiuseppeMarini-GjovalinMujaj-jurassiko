@@ -46,14 +46,17 @@ public class TopBarPanel extends JPanel {
     private final JLabel topLabel;
     private JLabel currentPlayer;
     private final ObjectiveWindow objectiveCard;
-    final JButton objective;
-    final JButton place;
-    final JButton attack;
-    final JButton endTurn;
+    private final JButton objective;
+    private final JButton place;
+    private final JButton attack;
+    private final JButton endTurn;
 
     /**
      * Set the top-bar in the relevant label load the buttons in it,
      * and add all to the relevant panel.
+     * 
+     * @param controller    the MainController
+     * @param objectiveCard the ObjectiveCard
      */
     public TopBarPanel(final MainController controller, final ObjectiveWindow objectiveCard) {
         this.objectiveCard = objectiveCard;
@@ -131,6 +134,7 @@ public class TopBarPanel extends JPanel {
         addComponent(endTurn, 4, 0);
     }
 
+    // TODO: add javaDoc, remove if you don't want to
     private void addComponent(final Component component, final int gridx, final int gridy) {
         final Insets insets = new Insets(8, DISTANCE_BUTTON_L_R, 8, DISTANCE_BUTTON_L_R);
         final var gbc = new GridBagConstraints(gridx, gridy, 1, 1, 0, 0, GridBagConstraints.CENTER,
@@ -138,6 +142,7 @@ public class TopBarPanel extends JPanel {
         this.topLabel.add(component, gbc);
     }
 
+    // TODO: add javaDoc, remove if you don't want to
     private Color getLabelColor(final GameColor color) {
         return switch (color) {
             case RED -> Color.RED;
@@ -147,18 +152,22 @@ public class TopBarPanel extends JPanel {
         };
     }
 
+    // TODO: add javaDoc, remove if you don't want to
     private void setCurrentPlayer() {
         final var currentColor = this.controller.getCurrentPlayer().getColor();
         this.currentPlayer.setForeground(getLabelColor(currentColor));
         this.currentPlayer.setText("Player: " + currentColor.getColorName());
     }
 
+    /**
+     * Set the Button Enabled or Disabled based on the Phase of the game.
+     */
     private void setActiveButton() {
         final var phase = controller.getGamePhase();
         disableAllJButtons();
         switch (phase) {
             case PLACEMENT -> this.place.setEnabled(true);
-            case ATTACK_FIRST_PART-> {
+            case ATTACK_FIRST_PART -> {
                 this.attack.setEnabled(true);
                 this.endTurn.setEnabled(true);
             }
@@ -168,12 +177,18 @@ public class TopBarPanel extends JPanel {
         }
     }
 
+    /**
+     * Disable all the buttons but the Objective Button.
+     */
     private void disableAllJButtons() {
         place.setEnabled(false);
         attack.setEnabled(false);
         endTurn.setEnabled(false);
     }
 
+    /**
+     * Update all the Component in the topBarPanel.
+     */
     public void updateTopBar() {
         setCurrentPlayer();
         setActiveButton();

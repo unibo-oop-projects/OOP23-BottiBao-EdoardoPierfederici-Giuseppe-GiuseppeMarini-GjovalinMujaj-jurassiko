@@ -74,6 +74,9 @@ public class ObjectiveWindow extends JPanel {
         JOptionPane.showMessageDialog(null, this, "Obiettivo", JOptionPane.PLAIN_MESSAGE);
     }
 
+    /**
+     * Update the Objective based on the turn of the Player.
+     */
     public void updateObjective() {
         setDescription(this.controller.getCurrentPlayer().getObjective().getDescription());
     }

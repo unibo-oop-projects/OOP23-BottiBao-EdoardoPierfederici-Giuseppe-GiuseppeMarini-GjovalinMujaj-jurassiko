@@ -334,19 +334,28 @@ public class MainControllerImpl implements MainController {
         return getColorTerritory(territoryName).equals(currentColor);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isAllyTerritoryWithMoreThanOne(final String territoryName) {
         return isAllyTerritory(territoryName) && getMapTerritoryValue(territoryName).y() > 1;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean hasAdjEnemy(String territoryName) {
-        return supportHasAdj(territoryName,t -> !t.x().equals(game.getCurrentPlayerTurn().getColor()));
+    public boolean hasAdjEnemy(final String territoryName) {
+        return supportHasAdj(territoryName, t -> !t.x().equals(game.getCurrentPlayerTurn().getColor()));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean hasAdjAlly(String territoryName) {
-        return supportHasAdj(territoryName,t -> t.x().equals(game.getCurrentPlayerTurn().getColor()));
+    public boolean hasAdjAlly(final String territoryName) {
+        return supportHasAdj(territoryName, t -> t.x().equals(game.getCurrentPlayerTurn().getColor()));
     }
 
     /**
@@ -356,7 +365,7 @@ public class MainControllerImpl implements MainController {
      * @param condition     condition
      * @return true if the condition is verified, false otherwise
      */
-    private boolean supportHasAdj(String territoryName, Predicate<Pair<GameColor, Integer>> condition) {
+    private boolean supportHasAdj(final String territoryName, final Predicate<Pair<GameColor, Integer>> condition) {
         for (final var temp : getAdj(territoryName)) {
             if (condition.test(getMapTerritoryValue(temp))) {
                 return true;
@@ -365,6 +374,9 @@ public class MainControllerImpl implements MainController {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Set<String> getAdj(final String territoryName) {
         return border.getTerritoriesBorder(getMapTerritoryKey(territoryName), currentOcean.get().x());
     }
@@ -454,6 +466,7 @@ public class MainControllerImpl implements MainController {
                         new Pair<>(getColorTerritory(terr.getName()), START_AMOUNT_DINO)));
     }
 
+    // TODO: add javaDoc, remove if you don't want to
     private int calculateDice(final int dinoAmount) {
         if (dinoAmount >= 3) {
             return 3;
@@ -462,6 +475,7 @@ public class MainControllerImpl implements MainController {
         }
     }
 
+    // TODO: add javaDoc, remove if you don't want to
     private int calculateDinoToMove(final int dinoAmount) {
         if (dinoAmount > 3) {
             return 3;
@@ -470,6 +484,9 @@ public class MainControllerImpl implements MainController {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Optional<String> getSelectedTerritory() {
         return terrSelect.getSelectedTerritory();

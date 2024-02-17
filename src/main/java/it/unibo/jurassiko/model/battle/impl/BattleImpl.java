@@ -25,16 +25,17 @@ public class BattleImpl implements Battle {
         int nTroopsAttackDeath = 0;
         int nTroopsDefenceDeath = 0;
         final int nDiceLower = Math.min(nDiceAttack, nDiceDefence);
-       /*  if (checkTroops(nTroopsAttack, nDiceAttack, true) &&
-                checkTroops(nTroopsDefence, nDiceDefence, false))  */
-            for (int i = 0; i < nDiceLower; i++) {
-                if (listRollDefence.get(i) >= listRollAttack.get(i)) {
-                    nTroopsAttackDeath++;
-                } else {
-                    nTroopsDefenceDeath++;
-                }
+        /*
+         * if (checkTroops(nTroopsAttack, nDiceAttack, true) &&
+         * checkTroops(nTroopsDefence, nDiceDefence, false))
+         */
+        for (int i = 0; i < nDiceLower; i++) {
+            if (listRollDefence.get(i) >= listRollAttack.get(i)) {
+                nTroopsAttackDeath++;
+            } else {
+                nTroopsDefenceDeath++;
             }
-        
+        }
         return new Pair<Integer, Integer>(nTroopsAttackDeath, nTroopsDefenceDeath);
     }
 

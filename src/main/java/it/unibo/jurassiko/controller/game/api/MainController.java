@@ -84,12 +84,37 @@ public interface MainController {
      */
     boolean isAllyTerritory(String territoryName);
 
+    /**
+     * Same as isAllyTerritory but it must have more than one Dino.
+     * 
+     * @param territoryName name of the territory
+     * @return true if current player has the territory with more than one dino
+     */
     boolean isAllyTerritoryWithMoreThanOne(String territoryName);
 
+    /**
+     * Checks if the input territory has al least one adjEnemy.
+     * 
+     * @param territoryName name of the territory
+     * @return true if has one adj Enemy, false otherwise
+     */
     boolean hasAdjEnemy(String territoryName);
 
+    /**
+     * Checks if the input territory has al least one adjAlly.
+     * 
+     * @param territoryName name of the territory
+     * @return true if has one adj Ally, false otherwise
+     */
     boolean hasAdjAlly(String territoryName);
 
+    /**
+     * Get a Set of Adj territory name of the input.
+     * 
+     * @param territoryName name of the territory
+     * @return a Set of String, name of the territory,
+     *         that is Adj to the territoryName
+     */
     Set<String> getAdj(String territoryName);
 
     /**
@@ -99,6 +124,11 @@ public interface MainController {
      */
     Player getCurrentPlayer();
 
+    /**
+     * Get the SelectedTerritory from the TerritorySelector.
+     * 
+     * @return the Name of the Territory if is present, Optional.empty otherwise
+     */
     Optional<String> getSelectedTerritory();
 
     /**

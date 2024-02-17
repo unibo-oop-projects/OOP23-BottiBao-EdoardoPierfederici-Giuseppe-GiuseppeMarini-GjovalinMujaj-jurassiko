@@ -49,7 +49,7 @@ public class TerritorySelector extends JFrame implements View {
     /**
      * Creates a TerritorySelector window.
      */
-    public TerritorySelector(MainController mainContr) {
+    public TerritorySelector(final MainController mainContr) {
         this.mainContr = mainContr;
         this.territoryButtons = new HashMap<>();
         this.oceanButtons = new HashMap<>();
@@ -163,10 +163,10 @@ public class TerritorySelector extends JFrame implements View {
                     selectedTerritory = Optional.of(name);
                     mainContr.setGamePhase(Phase.MOVEMENT_SECOND_PART);
                 }
-                case MOVEMENT_SECOND_PART ->{
+                case MOVEMENT_SECOND_PART -> {
                     selectedTerritory = Optional.empty();
                     mainContr.setGamePhase(Phase.MOVEMENT_FIRST_PART);
-                } 
+                }
                 default -> throw new IllegalArgumentException("Cannot be in this Phase");
             }
             mainContr.startGameLoop();
@@ -174,28 +174,50 @@ public class TerritorySelector extends JFrame implements View {
         return button;
     }
 
+    /**
+     * Get the total amount of Clicks of the all the buttons.
+     * 
+     * @return total amount of clicks
+     */
     public int getTotalClick() {
         return totalClick;
     }
 
+    /**
+     * Reset the total amount of Clicks of the all the buttons.
+     */
     public void resetTotalClick() {
         totalClick = 0;
     }
 
+    /**
+     * get the Selected Territory.
+     * 
+     * @return An Optional of the SelectedTerritory
+     */
     public Optional<String> getSelectedTerritory() {
         return selectedTerritory.isPresent() ? Optional.of(selectedTerritory.get()) : Optional.empty();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void display() {
         super.pack();
         this.setVisible(true);
     }
 
+    /**
+     * Set this frame not visible.
+     */
     public void closeView() {
         this.setVisible(false);
     }
 
+    /**
+     * Update the Enabled Buttons based on the Phase of the Game.
+     */
     public void updateButtons() {
         disableAllJButtons();
         switch (mainContr.getGamePhase()) {
@@ -236,6 +258,9 @@ public class TerritorySelector extends JFrame implements View {
 
     }
 
+    /**
+     * Set all Buttons disabled.
+     */
     private void disableAllJButtons() {
         for (final var jb : territoryButtons.values()) {
             jb.setEnabled(false);
@@ -251,7 +276,7 @@ public class TerritorySelector extends JFrame implements View {
      * @param buttons   Collection of JButtons to modify
      * @param condition if the condition is true will activate the button
      */
-    private static void activateButton(Collection<JButton> buttons, Predicate<String> condition) {
+    private static void activateButton(final Collection<JButton> buttons, final Predicate<String> condition) {
         for (final var jb : buttons) {
             if (condition.test(jb.getText())) {
                 jb.setEnabled(true);

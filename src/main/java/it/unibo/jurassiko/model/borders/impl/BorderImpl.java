@@ -7,6 +7,9 @@ import it.unibo.jurassiko.model.borders.api.Border;
 import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
 
+/**
+ * Implementation of the interface {@link Border}.
+ */
 public class BorderImpl implements Border {
 
     /**
