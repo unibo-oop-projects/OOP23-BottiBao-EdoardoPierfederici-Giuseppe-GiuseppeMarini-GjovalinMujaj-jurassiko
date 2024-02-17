@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -38,6 +39,7 @@ import it.unibo.jurassiko.model.territory.api.Territory;
 import it.unibo.jurassiko.model.territory.impl.OceanFactoryImpl;
 import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
+import it.unibo.jurassiko.view.panel.SpriteLoader;
 import it.unibo.jurassiko.view.window.TerritorySelector;
 
 /**
@@ -555,6 +557,41 @@ public class MainControllerImpl implements MainController {
         }
         JOptionPane.showMessageDialog(this.mainFrame, outcomeMessage, "Esito battaglia",
                 JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void showWinnerName(GameColor winner) {
+        var dinoSprites = new SpriteLoader().getDinoSprites();
+        ImageIcon winnerSprite = dinoSprites.get(winner);
+        String message = "Il giocatore " + colorToString(winner) + " ha vinto!";
+
+        JPanel winnerPanel = new JPanel(new BorderLayout());
+        JLabel spriteLabel = new JLabel(winnerSprite);
+        JLabel messageLabel = new JLabel(message);
+        winnerPanel.add(spriteLabel, BorderLayout.WEST);
+        winnerPanel.add(messageLabel, BorderLayout.EAST);
+
+        JOptionPane.showMessageDialog(this.mainFrame, winnerPanel, "Fine del gioco", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void closeGame() {
+        this.mainFrame.dispose();
+        System.exit(0);
+    }
+
+    /**
+     * Turns a game color instance into a string with the color translated in
+     * Italian for the objective description.
+     * 
+     * @param color the color to transform
+     * @return the translation in Italian of the color
+     */
+    private String colorToString(GameColor color) {
+        return switch (color) {
+            case RED -> "ROSSO";
+            case BLUE -> "BLU";
+            case GREEN -> "VERDE";
+            default -> throw new IllegalArgumentException("Invalid color");
+        };
     }
 
 }
