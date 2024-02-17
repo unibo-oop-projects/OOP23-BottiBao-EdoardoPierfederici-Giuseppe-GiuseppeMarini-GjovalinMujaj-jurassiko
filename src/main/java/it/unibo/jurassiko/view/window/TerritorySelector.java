@@ -165,7 +165,6 @@ public class TerritorySelector extends JFrame implements View {
                 }
                 case MOVEMENT_SECOND_PART ->{
                     selectedTerritory = Optional.empty();
-                    mainContr.closeTerritorySelector();
                     mainContr.setGamePhase(Phase.MOVEMENT_FIRST_PART);
                 } 
                 default -> throw new IllegalArgumentException("Cannot be in this Phase");
