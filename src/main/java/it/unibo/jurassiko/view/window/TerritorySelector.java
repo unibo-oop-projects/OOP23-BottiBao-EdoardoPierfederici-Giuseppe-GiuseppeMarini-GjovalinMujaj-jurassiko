@@ -197,7 +197,8 @@ public class TerritorySelector extends JFrame implements View {
                 break;
             case ATTACK_FIRST_PART:
                 if (selectedTerritory.isEmpty()) {
-                    activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritoryWithMoreThanOne(t));
+                    activateButton(territoryButtons.values(),
+                            t -> mainContr.isAllyTerritoryWithMoreThanOne(t) && mainContr.hasAdjEnemy(t));
                 }
             case ATTACK_SECOND_PART:
                 if (selectedTerritory.isPresent()) {
