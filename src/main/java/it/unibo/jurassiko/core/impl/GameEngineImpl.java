@@ -54,7 +54,6 @@ public class GameEngineImpl implements GameEngine {
     @Override
     public void startGameLoop() {
         placementPhase();
-        attackPhase();
         movimentPhase();
         controller.updateBoard();
 
@@ -88,10 +87,10 @@ public class GameEngineImpl implements GameEngine {
      * Init the first Placing Phase of the game.
      */
     private void firstTurnPlacement() {
-        if (this.openObjective) {
+       /*  if (this.openObjective) {
             controller.openObjectiveCard();
             this.openObjective = false;
-        }
+        } */
         controller.updateBoard();
         controller.openTerritorySelector();
         if (controller.getTotalClick() == FIRST_TURN_BONUS) {
@@ -120,16 +119,8 @@ public class GameEngineImpl implements GameEngine {
                 .sum() == initDinoAmount * MAX_PLAYERS;
     }
 
-    private void attackPhase() {
-        if (gamePhase.getPhase().equals(Phase.ATTACK_FIRST_PART)
-                || gamePhase.getPhase().equals(Phase.ATTACK_SECOND_PART)) {
-            controller.updateBoard();
-        }
-    }
-
     private void movimentPhase() {
         if (gamePhase.getPhase().equals(Phase.MOVEMENT_FIRST_PART)) {
-            controller.updateBoard();
             controller.openTerritorySelector();
         }
     }
