@@ -168,7 +168,7 @@ public class TerritorySelector extends JFrame implements View {
                     mainContr.closeTerritorySelector();
                     mainContr.setGamePhase(Phase.MOVEMENT_FIRST_PART);
                 } 
-                default -> throw new IllegalStateException("Cannot be in this Phase");
+                default -> throw new IllegalArgumentException("Cannot be in this Phase");
             }
             mainContr.startGameLoop();
         });

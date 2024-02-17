@@ -158,12 +158,12 @@ public class TopBarPanel extends JPanel {
         disableAllJButtons();
         switch (phase) {
             case PLACEMENT -> this.place.setEnabled(true);
-            case ATTACK_FIRST_PART, ATTACK_SECOND_PART -> {
+            case ATTACK_FIRST_PART-> {
                 this.attack.setEnabled(true);
                 this.endTurn.setEnabled(true);
             }
-            case MOVEMENT_FIRST_PART -> this.endTurn.setEnabled(true);
-            case MOVEMENT_SECOND_PART -> this.endTurn.setEnabled(true);
+            case ATTACK_SECOND_PART -> this.attack.setEnabled(true);
+            case MOVEMENT_FIRST_PART, MOVEMENT_SECOND_PART -> this.endTurn.setEnabled(true);
             default -> throw new IllegalArgumentException("Invalid game phase");
         }
     }
