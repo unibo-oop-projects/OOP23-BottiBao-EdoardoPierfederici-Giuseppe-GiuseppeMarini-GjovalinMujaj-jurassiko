@@ -3,7 +3,6 @@ package it.unibo.jurassiko.core.impl;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import it.unibo.jurassiko.common.Pair;
@@ -25,7 +24,7 @@ public class WinConditionImpl implements WinCondition {
     private static final int DEFAULT_NUM_TERRITORIES = 12;
 
     private Optional<Player> winner;
-    private ConquerTerritoriesObjective defaultObjective;
+    private final ConquerTerritoriesObjective defaultObjective;
 
     /**
      * Creates a WinCondition object.
@@ -93,7 +92,7 @@ public class WinConditionImpl implements WinCondition {
 
         boolean selectableContinentConquered = true;
         if (objective.isSelectableContinent()) {
-            Set<String> selectableContinents = territoriesMap.keySet().stream()
+            final Set<String> selectableContinents = territoriesMap.keySet().stream()
                     .map(Territory::getContinent)
                     .distinct()
                     .filter(t -> !continents.contains(t))
@@ -138,8 +137,8 @@ public class WinConditionImpl implements WinCondition {
     }
 
     private ConquerTerritoriesObjective getDefaultObjective() {
-        Set<Objective> allObjectives = new ObjectiveFactoryImpl().createObjectives();
-        var defaultObjective = allObjectives.stream()
+        final Set<Objective> allObjectives = new ObjectiveFactoryImpl().createObjectives();
+        final var defaultObjective = allObjectives.stream()
                 .filter(ConquerTerritoriesObjective.class::isInstance)
                 .map(ConquerTerritoriesObjective.class::cast)
                 .filter(t -> t.getNumTerritories() == DEFAULT_NUM_TERRITORIES)
