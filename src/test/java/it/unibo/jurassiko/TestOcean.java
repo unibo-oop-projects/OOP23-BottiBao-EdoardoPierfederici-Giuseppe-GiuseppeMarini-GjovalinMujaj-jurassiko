@@ -20,7 +20,7 @@ class TestOcean {
     private Set<Ocean> oceans;
 
     @BeforeEach
-    void initFactory() {
+    void init() {
         this.oceans = new OceanFactoryImpl().createOceans();
     }
 

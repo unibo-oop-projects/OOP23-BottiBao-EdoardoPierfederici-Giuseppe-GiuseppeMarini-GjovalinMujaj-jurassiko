@@ -24,7 +24,7 @@ class TestBattle {
      * before each test.
      */
     @BeforeEach
-    void setUp() {
+    void init() {
         this.battle = new BattleImpl();
     }
 

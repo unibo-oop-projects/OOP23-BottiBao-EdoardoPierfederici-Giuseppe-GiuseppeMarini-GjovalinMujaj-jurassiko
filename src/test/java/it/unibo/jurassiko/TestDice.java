@@ -26,7 +26,7 @@ class TestDice {
      * before each test.
      */
     @BeforeEach
-    public void initDice() {
+    public void init() {
         this.dice = new DiceImpl();
         possibleValues = new HashSet<>();
         // CHECKSTYLE: MagicNumber OFF

@@ -194,7 +194,7 @@ public class TerritorySelector extends JFrame implements View {
     }
 
     /**
-     * get the Selected Territory.
+     * Gets the Selected Territory.
      * 
      * @return An Optional of the SelectedTerritory
      */

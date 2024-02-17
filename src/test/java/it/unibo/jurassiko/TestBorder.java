@@ -29,7 +29,7 @@ class TestBorder {
             "Congo", "Sud Africa", "Australia", "India", "Madagascar", "Antartica");
 
     @BeforeEach
-    void initBorder() {
+    void init() {
         this.border = new BorderImpl();
         this.territories = new TerritoryFactoryImpl().createTerritories();
         this.oceans = new OceanFactoryImpl().createOceans();
