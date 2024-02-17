@@ -150,12 +150,10 @@ public class TerritorySelector extends JFrame implements View {
             mainContr.manageSelection(name);
             if (mainContr.getGamePhase().equals(Phase.PLACEMENT)) {
                 totalClick++;
-            } else if (mainContr.getGamePhase().equals(Phase.ATTACK_FIRST_PART)
-                    || mainContr.getGamePhase().equals(Phase.MOVEMENT_FIRST_PART)) {
+            } else if (mainContr.getGamePhase().equals(Phase.ATTACK_FIRST_PART)) {
                 selectedTerritory = Optional.of(name);
                 mainContr.setGamePhase(Phase.ATTACK_SECOND_PART);
-            } else if (mainContr.getGamePhase().equals(Phase.ATTACK_SECOND_PART)
-                    || mainContr.getGamePhase().equals(Phase.MOVEMENT_SECOND_PART)) {
+            } else if (mainContr.getGamePhase().equals(Phase.ATTACK_SECOND_PART)) {
                 selectedTerritory = Optional.empty();
                 mainContr.closeTerritorySelector();
                 mainContr.setGamePhase(Phase.ATTACK_FIRST_PART);
@@ -189,7 +187,6 @@ public class TerritorySelector extends JFrame implements View {
 
     public void updateButtons() {
         disableAllJButtons();
-        final var allTerr = mainContr.getTerritoriesMap();
         switch (mainContr.getGamePhase()) {
             case PLACEMENT:
                 if (totalClick == 0 && !mainContr.isFirstTurn()) {
@@ -199,15 +196,8 @@ public class TerritorySelector extends JFrame implements View {
                 }
                 break;
             case ATTACK_FIRST_PART:
-                final var temp = allTerr.entrySet().stream()
-                .filter(t -> !t.getValue().x().equals(mainContr.getCurrentPlayer().getColor()))
-                .map(t -> t.getKey().getName())
-                .collect(Collectors.toSet());
                 if (selectedTerritory.isEmpty()) {
-
-                    activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritoryWithMoreThanOne(t) 
-                    )
-                    ;
+                    activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritoryWithMoreThanOne(t));
                 }
             case ATTACK_SECOND_PART:
                 if (selectedTerritory.isPresent()) {
