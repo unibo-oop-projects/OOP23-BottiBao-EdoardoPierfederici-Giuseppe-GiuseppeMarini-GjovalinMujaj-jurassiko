@@ -87,10 +87,12 @@ public class GameEngineImpl implements GameEngine {
      * Init the first Placing Phase of the game.
      */
     private void firstTurnPlacement() {
-       /*  if (this.openObjective) {
-            controller.openObjectiveCard();
-            this.openObjective = false;
-        } */
+        /*
+         * if (this.openObjective) {
+         * controller.openObjectiveCard();
+         * this.openObjective = false;
+         * }
+         */
         controller.updateBoard();
         controller.openTerritorySelector();
         if (controller.getTotalClick() == FIRST_TURN_BONUS) {
@@ -170,6 +172,15 @@ public class GameEngineImpl implements GameEngine {
     public void setGamePhase(final Phase phase) {
         gamePhase.setPhase(phase);
         controller.updateBoard();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getDinoToPlace() {
+        return firstTurn ? FIRST_TURN_BONUS - controller.getTotalClick()
+                : playerTurn.getCurrentPlayerTurn().getBonusGroundDino() - controller.getTotalClick();
     }
 
     /**

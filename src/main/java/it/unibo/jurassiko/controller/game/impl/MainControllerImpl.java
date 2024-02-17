@@ -76,8 +76,8 @@ public class MainControllerImpl implements MainController {
         fullTerritories();
         this.currentOcean = Optional.empty();
         this.game = new GameEngineImpl(this);
-        this.mainFrame = new ViewImpl(this);
         this.terrSelect = new TerritorySelector(this);
+        this.mainFrame = new ViewImpl(this);
         this.border = new BorderImpl();
         this.battle = new BattleImpl();
     }
@@ -120,7 +120,7 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public void updateBoard() {
-        mainFrame.updatePanel();
+        this.mainFrame.updatePanel();
         this.terrSelect.updateButtons();
     }
 
@@ -204,6 +204,10 @@ public class MainControllerImpl implements MainController {
                 .map(s -> s.getKey())
                 .collect(Collectors.toSet());
         return setTerr;
+    }
+
+    public int getDinoToPlace(){
+        return this.game.getDinoToPlace();
     }
 
     /**
