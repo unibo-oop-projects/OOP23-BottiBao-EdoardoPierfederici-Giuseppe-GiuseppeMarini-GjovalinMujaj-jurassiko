@@ -37,12 +37,11 @@ class TestPlayer {
 
     @Test
     void testTerritoriesAndOceans() {
-
         final var iterator = territory.iterator();
         while (iterator.hasNext()) {
             final var temp = iterator.next();
             player.removePlayerTerritory(temp);
-            if (temp.getName().equals("Cina")) {
+            if ("Cina".equals(temp.getName())) {
                 player.addPlayerTerritory(temp);
                 assertEquals(player.getOwnedTerritories(), Set.of(temp));
                 player.removePlayerTerritory(temp);
@@ -54,7 +53,7 @@ class TestPlayer {
         while (iterator.hasNext()) {
             final var temp = iteratorOcean.next();
             player.removePlayerOcean(temp);
-            if (temp.getName().equals("Oceano Atlantico")) {
+            if ("Oceano Atlantico".equals(temp.getName())) {
                 player.addPlayerOcean(temp);
                 assertEquals(player.getOwnedTerritories(), Set.of(temp));
                 player.removePlayerOcean(temp);

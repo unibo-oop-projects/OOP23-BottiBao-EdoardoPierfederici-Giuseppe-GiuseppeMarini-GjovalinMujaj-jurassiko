@@ -23,10 +23,10 @@ class TestDice {
     private Set<Integer> possibleValues;
 
     /**
-     * before each test.
+     * Before each test.
      */
     @BeforeEach
-    public void init() {
+    void init() {
         this.dice = new DiceImpl();
         possibleValues = new HashSet<>();
         // CHECKSTYLE: MagicNumber OFF
@@ -37,10 +37,10 @@ class TestDice {
     }
 
     /**
-     * test if the setUp is successful.
+     * Test if the init method is successful.
      */
     @Test
-    public void testSetUp() {
+    void testInit() {
         assertNotEquals(null, dice);
         for (int i = 1; i <= 6; i++) {
             assertTrue(possibleValues.contains(i));
@@ -48,20 +48,20 @@ class TestDice {
     }
 
     /**
-     * test roll method.
+     * Test roll method.
      */
     @Test
-    public void testRoll() {
+    void testRoll() {
         for (int i = 0; i < 10; i++) {
             assertTrue(possibleValues.contains(dice.roll()));
         }
     }
 
     /**
-     * test multiple roll method.
+     * Test multiple roll method.
      */
     @Test
-    public void testMultiple() {
+    void testMultiple() {
         List<Integer> tempList;
 
         tempList = dice.rollMultiple(10);

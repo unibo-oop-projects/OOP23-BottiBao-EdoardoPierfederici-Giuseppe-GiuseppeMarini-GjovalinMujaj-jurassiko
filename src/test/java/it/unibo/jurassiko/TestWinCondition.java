@@ -31,7 +31,6 @@ class TestWinCondition {
     private static final int DEFAULT_NUM_TERRITORIES = 12;
 
     private WinCondition winCondition;
-    private MainController controller;
     private Set<Objective> objectives;
     private Map<Territory, Pair<GameColor, Integer>> initialMap;
     private Player initialPlayer;
@@ -41,10 +40,11 @@ class TestWinCondition {
     @BeforeEach
     void init() {
         this.winCondition = new WinConditionImpl();
-        this.controller = new MainControllerImpl();
         this.objectives = new ObjectiveFactoryImpl().createObjectives();
-        this.initialMap = this.controller.getTerritoriesMap();
-        this.initialPlayer = this.controller.getCurrentPlayer();
+
+        final MainController controller = new MainControllerImpl();
+        this.initialMap = controller.getTerritoriesMap();
+        this.initialPlayer = controller.getCurrentPlayer();
         this.initialPlayerColor = this.initialPlayer.getColor();
     }
 

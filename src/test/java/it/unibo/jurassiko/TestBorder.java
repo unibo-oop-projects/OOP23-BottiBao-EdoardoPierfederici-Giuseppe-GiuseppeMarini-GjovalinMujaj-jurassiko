@@ -38,16 +38,16 @@ class TestBorder {
     @Test
     void testBorder() {
         final Territory terr1 = this.territories.stream()
-                .filter(s -> s.getName().equals(TERRITORY_NAME_1))
+                .filter(s -> TERRITORY_NAME_1.equals(s.getName()))
                 .findFirst()
                 .get();
         final Ocean ocean1 = this.oceans.stream()
-                .filter(o -> o.getName().equals(OCEAN_NAME_1))
+                .filter(o -> OCEAN_NAME_1.equals(o.getName()))
                 .findFirst()
                 .get();
         assertEquals(NEIGHBOUR_NAMES, this.border.getTerritoriesBorder(terr1, ocean1));
         final Ocean ocean2 = this.oceans.stream()
-                .filter(o -> o.getName().equals(OCEAN_NAME_2))
+                .filter(o -> OCEAN_NAME_2.equals(o.getName()))
                 .findFirst()
                 .get();
         assertNotEquals(NEIGHBOUR_NAMES, this.border.getTerritoriesBorder(terr1, ocean2));
