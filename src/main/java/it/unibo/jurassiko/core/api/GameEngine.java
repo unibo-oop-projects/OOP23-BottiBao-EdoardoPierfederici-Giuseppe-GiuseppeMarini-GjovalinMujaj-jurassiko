@@ -46,11 +46,11 @@ public interface GameEngine {
     void setGamePhase(GamePhase.Phase phase);
 
     /**
-     * Get a copy of the PlayerTurn.
+     * Get the current player Turn.
      * 
-     * @return a copy of the PlayerTurn
+     * @return Current Player Turn
      */
-    PlayerTurn getPlayerTurn();
+    Player getCurrentPlayerTurn();
 
     /**
      * Get the first turn.

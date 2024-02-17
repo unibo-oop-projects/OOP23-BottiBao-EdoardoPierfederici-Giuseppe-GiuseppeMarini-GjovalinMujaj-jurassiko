@@ -176,8 +176,8 @@ public class GameEngineImpl implements GameEngine {
      * {@inheritDoc}
      */
     @Override
-    public PlayerTurn getPlayerTurn() {
-        return new PlayerTurnImpl(playerTurn);
+    public Player getCurrentPlayerTurn() {
+        return playerTurn.getCurrentPlayerTurn();
     }
 
     /**
