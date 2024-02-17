@@ -208,6 +208,10 @@ public class MainControllerImpl implements MainController {
         return setTerr;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int getRemainedDinoToPlace() {
         return this.game.getRemainedDinoToPlace();
     }

@@ -5,6 +5,9 @@ import java.util.Set;
 import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
 
+/**
+ * Interface of BorderImpl class.
+ */
 public interface Border {
 
     /**
