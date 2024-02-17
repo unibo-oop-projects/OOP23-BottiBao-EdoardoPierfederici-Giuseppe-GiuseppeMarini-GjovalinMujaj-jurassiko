@@ -15,6 +15,14 @@ import it.unibo.jurassiko.model.territory.api.Territory;
  */
 public interface WinCondition {
 
+    /**
+     * If the winner is present get the winner.
+     * 
+     * @param territoriesMap input map
+     * @param player         currentPlayer
+     * @param objective      Player Objective
+     * @return Optional of the Player
+     */
     Optional<Player> getWinner(Map<Territory, Pair<GameColor, Integer>> territoriesMap,
             Player player,
             Objective objective);

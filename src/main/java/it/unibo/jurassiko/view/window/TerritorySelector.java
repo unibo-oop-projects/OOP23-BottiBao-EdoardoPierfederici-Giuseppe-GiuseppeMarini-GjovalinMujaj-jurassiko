@@ -224,39 +224,40 @@ public class TerritorySelector extends JFrame implements View {
     public void updateButtons() {
         disableAllJButtons();
         switch (mainContr.getGamePhase()) {
-            case PLACEMENT:
+            case PLACEMENT -> {
                 if (totalClick == 0 && !mainContr.isFirstTurn()) {
                     activateButton(oceanButtons.values(), t -> true);
                 } else {
                     activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritory(t));
                 }
-                break;
-            case ATTACK_FIRST_PART:
+            }
+            case ATTACK_FIRST_PART -> {
                 if (selectedTerritory.isEmpty()) {
                     activateButton(territoryButtons.values(),
                             t -> mainContr.isAllyTerritoryWithMoreThanOne(t) && mainContr.hasAdjEnemy(t));
                 }
-            case ATTACK_SECOND_PART:
+            }
+            case ATTACK_SECOND_PART -> {
                 if (selectedTerritory.isPresent()) {
                     activateButton(territoryButtons.values(),
                             t -> mainContr.getAdj(selectedTerritory.get()).contains(t)
                                     && !mainContr.isAllyTerritory(t));
                 }
-                break;
-            case MOVEMENT_FIRST_PART:
+            }
+            case MOVEMENT_FIRST_PART -> {
                 if (selectedTerritory.isEmpty()) {
                     activateButton(territoryButtons.values(),
                             t -> mainContr.isAllyTerritoryWithMoreThanOne(t) && mainContr.hasAdjAlly(t));
                 }
-            case MOVEMENT_SECOND_PART:
+            }
+            case MOVEMENT_SECOND_PART -> {
                 if (selectedTerritory.isPresent()) {
                     activateButton(territoryButtons.values(),
                             t -> mainContr.getAdj(selectedTerritory.get()).contains(t)
                                     && mainContr.isAllyTerritory(t));
                 }
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid Phase");
+            }
+            default -> throw new IllegalArgumentException("Invalid Phase");
         }
 
     }

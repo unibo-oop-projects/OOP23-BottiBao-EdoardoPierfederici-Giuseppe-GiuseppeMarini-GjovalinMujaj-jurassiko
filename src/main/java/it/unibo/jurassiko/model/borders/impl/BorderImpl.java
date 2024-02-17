@@ -15,6 +15,7 @@ public class BorderImpl implements Border {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Set<String> getTerritoriesBorder(final Territory terr, final Ocean ocean) {
         if (ocean.isAdjTerritory(terr.getName())) {
             final Set<String> temp = new HashSet<>();

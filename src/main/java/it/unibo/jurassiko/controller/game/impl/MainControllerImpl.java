@@ -20,6 +20,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.jurassiko.common.Pair;
 import it.unibo.jurassiko.controller.game.api.MainController;
 import it.unibo.jurassiko.core.api.GameEngine;
@@ -47,6 +48,7 @@ import it.unibo.jurassiko.view.window.TerritorySelector;
  */
 public class MainControllerImpl implements MainController {
 
+    private static final int SELECTOR_HGAP = 15;
     private static final int MAX_TERRITORIES = 7;
     private static final int START_AMOUNT_DINO = 1;
 
@@ -62,8 +64,7 @@ public class MainControllerImpl implements MainController {
     private final Border border;
 
     private final List<Player> players;
-    private Territory firstSelected;
-    private Territory secondSelected;
+
     private final Battle battle;
 
     /**
@@ -134,19 +135,21 @@ public class MainControllerImpl implements MainController {
         final var colorCurrentPlayer = game.getCurrentPlayerTurn().getColor();
         switch (this.game.getGamePhase()) {
             case PLACEMENT -> changeGroundDinoAmount(territory, START_AMOUNT_DINO);
-            case ATTACK_FIRST_PART -> firstSelected = getMapTerritoryKey(territory);
+            case ATTACK_FIRST_PART -> {
+            }
             case ATTACK_SECOND_PART -> {
                 boolean conquestSuccesful = false;
-                secondSelected = getMapTerritoryKey(territory);
-                final var pairAttack = getMapTerritoryValue(firstSelected.getName());
-                final var pairDefence = getMapTerritoryValue(secondSelected.getName());
+                final var attacker = terrSelect.getSelectedTerritory().get();
+                final var defender = getMapTerritoryKey(territory);
+                final var pairAttack = getMapTerritoryValue(terrSelect.getSelectedTerritory().get());
+                final var pairDefence = getMapTerritoryValue(defender.getName());
                 final var deaths = battle.attack(pairAttack.y(), pairDefence.y(), calculateDino(pairAttack.y(), true),
                         calculateDino(pairDefence.y(), false));
-                changeGroundDinoAmount(firstSelected.getName(), -deaths.x());
-                changeGroundDinoAmount(secondSelected.getName(), -deaths.y());
-                if (getMapTerritoryValue(secondSelected.getName()).y() <= 0) {
+                changeGroundDinoAmount(attacker, -deaths.x());
+                changeGroundDinoAmount(defender.getName(), -deaths.y());
+                if (getMapTerritoryValue(defender.getName()).y() <= 0) {
                     conquestSuccesful = true;
-                    final int dinoToMove = calculateDino(getMapTerritoryValue(firstSelected.getName()).y(), true);
+                    final int dinoToMove = calculateDino(getMapTerritoryValue(attacker).y(), true);
                     final Pair<GameColor, Integer> defReplacement = new Pair<>(colorCurrentPlayer, dinoToMove);
                     final var loserColor = getMapTerritoryValue(territory).x();
                     for (final var player : players) {
@@ -156,25 +159,22 @@ public class MainControllerImpl implements MainController {
                             player.removePlayerTerritory(getMapTerritoryKey(territory));
                         }
                     }
-                    territoriesMap.replace(secondSelected, defReplacement);
-                    changeGroundDinoAmount(firstSelected.getName(), -dinoToMove);
+                    territoriesMap.replace(defender, defReplacement);
+                    changeGroundDinoAmount(attacker, -dinoToMove);
                 }
                 updateBoard();
-                showBattleOutcome(firstSelected.getName(), deaths.x(), territory, deaths.y(), conquestSuccesful);
+                showBattleOutcome(attacker, deaths.x(), territory, deaths.y(), conquestSuccesful);
             }
-            case MOVEMENT_FIRST_PART -> this.firstSelected = getMapTerritoryKey(territory);
+            case MOVEMENT_FIRST_PART -> {
+            }
             case MOVEMENT_SECOND_PART -> {
-                this.secondSelected = getMapTerritoryKey(territory);
-                final int amount = showDinoAmountSelector(this.firstSelected.getName(),
-                        territory,
-                        getMapTerritoryValue(this.firstSelected.getName()).y() - 1);
-                changeGroundDinoAmount(firstSelected.getName(), -amount);
+                final var firstSelected = terrSelect.getSelectedTerritory().get();
+                final var secondSelected = getMapTerritoryKey(territory);
+                final int amount = showDinoAmountSelector(firstSelected, territory,
+                        getMapTerritoryValue(firstSelected).y() - 1);
+                changeGroundDinoAmount(firstSelected, -amount);
                 changeGroundDinoAmount(secondSelected.getName(), amount);
                 updateBoard();
-                // TODO: nella seconda parte il territorio stesso selezionato nella prima parte
-                // a volte
-                // non viene rimosso dal selector e dopo aver effettuato lo spostamento il turno
-                // deve terminare automaticamente
             }
             default -> throw new IllegalStateException("Invalid game phase");
         }
@@ -200,12 +200,11 @@ public class MainControllerImpl implements MainController {
      * {@inheritDoc}
      */
     public Set<Territory> getTerritories(final GameColor color) {
-        final var setTerr = territoriesMap.entrySet()
+        return territoriesMap.entrySet()
                 .stream()
                 .filter(s -> s.getValue().x().equals(color))
                 .map(s -> s.getKey())
                 .collect(Collectors.toSet());
-        return setTerr;
     }
 
     /**
@@ -333,6 +332,7 @@ public class MainControllerImpl implements MainController {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Map<Territory, Pair<GameColor, Integer>> getTerritoriesMap() {
         return Map.copyOf(territoriesMap);
     }
@@ -348,6 +348,7 @@ public class MainControllerImpl implements MainController {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void startGameLoop() {
         this.game.startGameLoop();
     }
@@ -404,6 +405,7 @@ public class MainControllerImpl implements MainController {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Set<String> getAdj(final String territoryName) {
         return border.getTerritoriesBorder(getMapTerritoryKey(territoryName), currentOcean.get().x());
     }
@@ -471,7 +473,7 @@ public class MainControllerImpl implements MainController {
      * Return a single objective for the current player and
      * remove it from the set.
      * 
-     * @param objective all of the objectives
+     * @param objectives all of the objectives
      * @return a single objective for the corresponding player
      */
     private Objective shuffleObjective(final Set<Objective> objectives) {
@@ -500,7 +502,7 @@ public class MainControllerImpl implements MainController {
      * @param offensive  true if is action of attack or otherwise
      * @return dino to battle or to move
      */
-    private int calculateDino(final int dinoAmount, boolean offensive) {
+    private int calculateDino(final int dinoAmount, final boolean offensive) {
         if (dinoAmount > 3) {
             return 3;
         } else if (offensive) {
@@ -517,12 +519,11 @@ public class MainControllerImpl implements MainController {
         return terrSelect.getSelectedTerritory();
     }
 
-    // TODO: da spostare fuori dal MainController?
     private int showDinoAmountSelector(final String source, final String target, final int maximum) {
         final JPanel amountSelectorPanel = new JPanel(new BorderLayout());
         final JLabel text = new JLabel("Inserisci il numero di Dino da spostare da " + source + " a " + target + ":");
         text.setHorizontalAlignment(JLabel.CENTER);
-        text.setBorder(new EmptyBorder(0, 0, 0, 15));
+        text.setBorder(new EmptyBorder(0, 0, 0, SELECTOR_HGAP));
 
         final JSpinner spinner = new JSpinner(new SpinnerNumberModel(1, 1, maximum, 1));
         amountSelectorPanel.add(text, BorderLayout.WEST);
@@ -555,14 +556,14 @@ public class MainControllerImpl implements MainController {
      * {@inheritDoc}
      */
     @Override
-    public void showWinnerName(GameColor winner) {
-        var dinoSprites = new SpriteLoader().getDinoSprites();
-        ImageIcon winnerSprite = dinoSprites.get(winner);
-        String message = "Il giocatore " + colorToString(winner) + " ha vinto!";
+    public void showWinnerName(final GameColor winner) {
+        final var dinoSprites = new SpriteLoader().getDinoSprites();
+        final ImageIcon winnerSprite = dinoSprites.get(winner);
+        final String message = "Il giocatore " + colorToString(winner) + " ha vinto!";
 
-        JPanel winnerPanel = new JPanel(new BorderLayout());
-        JLabel spriteLabel = new JLabel(winnerSprite);
-        JLabel messageLabel = new JLabel(message);
+        final JPanel winnerPanel = new JPanel(new BorderLayout());
+        final JLabel spriteLabel = new JLabel(winnerSprite);
+        final JLabel messageLabel = new JLabel(message);
         winnerPanel.add(spriteLabel, BorderLayout.WEST);
         winnerPanel.add(messageLabel, BorderLayout.EAST);
 
@@ -573,6 +574,7 @@ public class MainControllerImpl implements MainController {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(value = "DM_EXIT", justification = "Shut down program after closing the main frame")
     public void closeGame() {
         this.mainFrame.dispose();
         System.exit(0);
@@ -585,7 +587,7 @@ public class MainControllerImpl implements MainController {
      * @param color the color to transform
      * @return the translation in Italian of the color
      */
-    private String colorToString(GameColor color) {
+    private String colorToString(final GameColor color) {
         return switch (color) {
             case RED -> "ROSSO";
             case BLUE -> "BLU";

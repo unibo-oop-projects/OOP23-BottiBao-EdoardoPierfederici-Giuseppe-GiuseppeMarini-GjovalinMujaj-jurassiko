@@ -63,7 +63,7 @@ public class DinoDisplay extends JPanel {
      * 
      * @param color the color of dino to set
      */
-    public void setSpriteColor(final GameColor color) {
+    public final void setSpriteColor(final GameColor color) {
         this.dinoSprite.setIcon(this.sprites.get(color));
     }
 
@@ -71,7 +71,7 @@ public class DinoDisplay extends JPanel {
      * 
      * @param dinoAmount the amount of dino to set
      */
-    public void setNumber(final int dinoAmount) {
+    public final void setNumber(final int dinoAmount) {
         this.nTroops.setText(Integer.toString(dinoAmount));
     }
 

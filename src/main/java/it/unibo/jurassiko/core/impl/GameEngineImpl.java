@@ -18,7 +18,7 @@ import it.unibo.jurassiko.model.player.api.Player.GameColor;
 public class GameEngineImpl implements GameEngine {
 
     private static final int MAX_PLAYERS = 3;
-    private static final int FIRST_TURN_BONUS = 1; // TODO: change number, its 1 for test purpuse
+    private static final int FIRST_TURN_BONUS = 13;
 
     private final GamePhase gamePhase;
     private final PlayerTurn playerTurn;
@@ -64,8 +64,6 @@ public class GameEngineImpl implements GameEngine {
      * Manage the Placement Phase of the game.
      */
     private void placementPhase() {
-        final var bonusGroundDino = playerTurn.getCurrentPlayerTurn().getBonusGroundDino();
-        final var bonusWaterDino = playerTurn.getCurrentPlayerTurn().getBonusWaterDino();
         if (firstTurn) {
             firstTurnPlacement();
             return;
@@ -73,6 +71,8 @@ public class GameEngineImpl implements GameEngine {
         if (gamePhase.getPhase().equals(GamePhase.Phase.PLACEMENT)) {
             controller.updateBoard();
             controller.openTerritorySelector();
+            final var bonusGroundDino = playerTurn.getCurrentPlayerTurn().getBonusGroundDino();
+            final var bonusWaterDino = playerTurn.getCurrentPlayerTurn().getBonusWaterDino();
             if (controller.getTotalClick() == bonusGroundDino + bonusWaterDino) {
                 gamePhase.goNext();
                 controller.resetTotalClick();
