@@ -112,12 +112,10 @@ public class WinConditionImpl implements WinCondition {
             final ConquerTerritoriesObjective objective) {
         final int territoryAmount = objective.getNumTerritories();
         final int minDinos = objective.getMinDinos();
-        final boolean numberReached = territoriesMap.values().stream()
+        return territoriesMap.values().stream()
                 .filter(t -> t.x().equals(playerColor))
                 .filter(t -> t.y() >= minDinos)
                 .count() >= territoryAmount;
-
-        return numberReached;
     }
 
     private boolean checkDestroyArmy(final Map<Territory, Pair<GameColor, Integer>> territoriesMap,
@@ -126,25 +124,20 @@ public class WinConditionImpl implements WinCondition {
         final var armyObjective = (DestroyArmyObjective) objective;
         final var armyColor = armyObjective.getArmyColor();
 
-        boolean checkColorPresence = false;
-
         // If the player must destroy theirself, the objective becomes the default one
-        checkColorPresence = armyColor.equals(playerColor)
+        return armyColor.equals(playerColor)
                 ? checkConquerTerritories(territoriesMap, playerColor, this.defaultObjective)
                 : territoriesMap.values().stream().noneMatch(p -> p.x().equals(armyColor));
-
-        return checkColorPresence;
     }
 
     private ConquerTerritoriesObjective getDefaultObjective() {
         final Set<Objective> allObjectives = new ObjectiveFactoryImpl().createObjectives();
-        final var defaultObjective = allObjectives.stream()
+        return allObjectives.stream()
                 .filter(ConquerTerritoriesObjective.class::isInstance)
                 .map(ConquerTerritoriesObjective.class::cast)
                 .filter(t -> t.getNumTerritories() == DEFAULT_NUM_TERRITORIES)
                 .findFirst()
                 .get();
-        return defaultObjective;
     }
 
 }

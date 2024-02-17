@@ -489,7 +489,12 @@ public class MainControllerImpl implements MainController {
                         new Pair<>(getColorTerritory(terr.getName()), START_AMOUNT_DINO)));
     }
 
-    // TODO: add javaDoc, remove if you don't want to
+    /**
+     * Calculate the max number of dino can attack.
+     * 
+     * @param dinoAmount the ammount of dino of territory
+     * @return the number of dice to roll
+     */
     private int calculateDice(final int dinoAmount) {
         if (dinoAmount >= 3) {
             return 3;
@@ -498,7 +503,12 @@ public class MainControllerImpl implements MainController {
         }
     }
 
-    // TODO: add javaDoc, remove if you don't want to
+    /**
+     * Calculate the dino to move when the territory is conquered.
+     * 
+     * @param dinoAmount the ammount of dino of offensive territory
+     * @return dino to move
+     */
     private int calculateDinoToMove(final int dinoAmount) {
         if (dinoAmount > 3) {
             return 3;
