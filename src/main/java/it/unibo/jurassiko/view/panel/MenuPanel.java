@@ -7,12 +7,10 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -37,6 +35,7 @@ public class MenuPanel extends JPanel {
     private static final String QUIT = "Quit";
     private static final String RULE = "Rules";
     private static final String FONT_STYLE = "Serif";
+    private static final String NEW_LINE = "\n";
     private static final double WIDTH_PERC = 0.5;
     private static final double HEIGHT_PERC = 0.5;
     private static final double BUTTON_WIDTH_PERC = WIDTH_PERC * 0.2;
@@ -95,21 +94,18 @@ public class MenuPanel extends JPanel {
                 frame.dispose();
             }
         });
-
-        String temp = "";
-        try {
-            final URL url = ClassLoader.getSystemResource(RULES_PATH);
-            final List<String> lines = Files.readAllLines(Path.of(url.toURI()));
-            for (final var line : lines) {
-                temp = temp.concat(line + "\n");
-            }
-        } catch (final IOException | URISyntaxException e) {
-            throw new IllegalStateException("Failed to read the menu Rule file", e);
+        final StringBuilder tempBuilder = new StringBuilder();
+        try (InputStream in = ClassLoader.getSystemResourceAsStream(RULES_PATH);
+                BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"))) {
+            br.lines().forEach(t -> {
+                tempBuilder.append(t);
+                tempBuilder.append(NEW_LINE);
+            });
+        } catch (final IOException e) {
+            throw new IllegalStateException("Failed to read the menu rules file", e);
         }
-        final String ruleText = temp;
-
         final JButton rules = createButton(RULE, getButtonDimension());
-        rules.addActionListener(e -> JOptionPane.showMessageDialog(this, ruleText));
+        rules.addActionListener(e -> JOptionPane.showMessageDialog(this, tempBuilder.toString()));
         addButton(buttonPanel, start, gbc);
         addButton(buttonPanel, quit, gbc);
         addButton(buttonPanel, rules, gbc);
