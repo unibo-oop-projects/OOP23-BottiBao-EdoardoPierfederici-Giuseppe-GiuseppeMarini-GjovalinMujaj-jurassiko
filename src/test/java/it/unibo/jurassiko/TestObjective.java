@@ -55,8 +55,8 @@ class TestObjective {
     @Test
     void testConquerContinents() {
         final Set<String> continents = Set.of("Gondwana Occidentale", "Nord America");
-        final String description1 = "Conquista la totalità dei seguenti continenti: Gondwana Occidentale, Nord America.";
-        final String description2 = "Conquista la totalità dei seguenti continenti: Nord America, Gondwana Occidentale.";
+        final String description1 = "Conquista interamente i seguenti continenti: Gondwana Occidentale, Nord America.";
+        final String description2 = "Conquista interamente i seguenti continenti: Nord America, Gondwana Occidentale.";
 
         final var conquerContinentsObjectives = objectives.stream()
                 .filter(ConquerContinentsObjective.class::isInstance)
@@ -109,7 +109,7 @@ class TestObjective {
 
     @Test
     void testDestroyArmy() {
-        final String description = "Distruggi l'armata di colore BLU. Se l'armata non è nemica, conquista 12 territori.";
+        final String description = "Distruggi l'armata di colore BLU. In caso di armata non nemica, conquista 12 territori.";
         final Set<GameColor> armyColors = Set.of(GameColor.valueOf("RED"),
                 GameColor.valueOf("BLUE"),
                 GameColor.valueOf("GREEN"));

@@ -101,7 +101,7 @@ public class TopBarPanel extends JPanel {
         this.place.addActionListener(e -> this.controller.startGameLoop());
         this.attack.addActionListener(e -> this.controller.openTerritorySelector());
         this.endTurn.addActionListener(e -> {
-            final String[] options = { "Sì", "No" };
+            final String[] options = { "Si", "No" };
             final int result = JOptionPane.showOptionDialog(this,
                     ENDTURN_DIALOG_QUESTION,
                     ENDTURN_BUTTON_NAME,

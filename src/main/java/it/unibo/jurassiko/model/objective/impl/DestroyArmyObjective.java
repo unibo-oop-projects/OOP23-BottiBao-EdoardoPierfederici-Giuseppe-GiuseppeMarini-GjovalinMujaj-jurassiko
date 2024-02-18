@@ -42,7 +42,7 @@ public class DestroyArmyObjective extends AbstractObjective {
     public void writeDescription() {
         final String description = "Distruggi l'armata di colore "
                 + colorToString(getArmyColor())
-                + ". Se l'armata non è nemica, "
+                + ". In caso di armata non nemica, "
                 + super.getDefaultObjectiveDescription().toLowerCase(Locale.ROOT);
 
         setDescription(description);
