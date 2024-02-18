@@ -46,7 +46,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("it.unibo.jurassiko")
+    mainClass.set("it.unibo.jurassiko.Jurassiko")
 }
 
 tasks.test {
