@@ -203,7 +203,7 @@ public class TerritorySelector extends JFrame implements View {
      * @return An Optional of the SelectedTerritory
      */
     public Optional<String> getSelectedTerritory() {
-        return selectedTerritory.isPresent() ? Optional.of(selectedTerritory.get()) : Optional.empty();
+        return selectedTerritory.isPresent() ? selectedTerritory : Optional.empty();
     }
 
     /**
