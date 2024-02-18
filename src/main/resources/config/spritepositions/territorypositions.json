@@ -1,106 +1,106 @@
 [
     {
-        "territory": "Groenlandia",
+        "name": "Groenlandia",
         "x": 36.5,
         "y": 5.0
     },
     {
-        "territory": "Canada",
+        "name": "Canada",
         "x": 29.0,
         "y": 2.8
     },
     {
-        "territory": "Messico",
+        "name": "Messico",
         "x": 16.5,
         "y": 19.2
     },
     {
-        "territory": "Appalachia",
+        "name": "Appalachia",
         "x": 9.0,
         "y": 26.0
     },
     {
-        "territory": "Arabia",
+        "name": "Arabia",
         "x": 51.0,
         "y": 58.5
     },
     {
-        "territory": "Nord Africa",
+        "name": "Nord Africa",
         "x": 33.5,
         "y": 63.0
     },
     {
-        "territory": "Congo",
+        "name": "Congo",
         "x": 34.5,
         "y": 76.0
     },
     {
-        "territory": "Sud Africa",
+        "name": "Sud Africa",
         "x": 49.5,
         "y": 90.0
     },
     {
-        "territory": "Amazzonia",
+        "name": "Amazzonia",
         "x": 24.0,
         "y": 57.0
     },
     {
-        "territory": "Sud America",
+        "name": "Sud America",
         "x": 16.5,
         "y": 80.0
     },
     {
-        "territory": "Australia",
+        "name": "Australia",
         "x": 82.0,
         "y": 65.5
     },
     {
-        "territory": "India",
+        "name": "India",
         "x": 67.5,
         "y": 77.0
     },
     {
-        "territory": "Madagascar",
+        "name": "Madagascar",
         "x": 64.0,
         "y": 89.0
     },
     {
-        "territory": "Antartica",
+        "name": "Antartica",
         "x": 89.5,
         "y": 87.0
     },
     {
-        "territory": "Baltica",
+        "name": "Baltica",
         "x": 53.0,
         "y": 7.3
     },
     {
-        "territory": "Europa",
+        "name": "Europa",
         "x": 55.0,
         "y": 22.0
     },
     {
-        "territory": "Siberia",
+        "name": "Siberia",
         "x": 78.5,
         "y": 12.5
     },
     {
-        "territory": "Asia Centrale",
+        "name": "Asia Centrale",
         "x": 69.7,
         "y": 27.0
     },
     {
-        "territory": "Cina",
+        "name": "Cina",
         "x": 73.0,
         "y": 35.0
     },
     {
-        "territory": "Tibet",
+        "name": "Tibet",
         "x": 70.0,
         "y": 45.0
     },
     {
-        "territory": "Indonesia",
+        "name": "Indonesia",
         "x": 96.0,
         "y": 59.0
     }

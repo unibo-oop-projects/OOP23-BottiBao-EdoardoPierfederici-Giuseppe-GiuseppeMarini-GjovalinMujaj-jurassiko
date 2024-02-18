@@ -17,14 +17,14 @@ import it.unibo.jurassiko.reader.api.JSONFileReader;
  * coordinates of the sprites for the game board, calculated as a percentage of
  * the board panel dimension.
  */
-public abstract class AbstractSpritePositionReader implements JSONFileReader<Map<String, Pair<Double, Double>>> {
+public class SpritePositionsReader implements JSONFileReader<Map<String, Pair<Double, Double>>> {
 
     private final ObjectMapper mapper;
 
     /**
      * Creates an AbstractSpritePositionReader.
      */
-    public AbstractSpritePositionReader() {
+    public SpritePositionsReader() {
         this.mapper = new ObjectMapper();
     }
 
@@ -38,7 +38,7 @@ public abstract class AbstractSpritePositionReader implements JSONFileReader<Map
         try (InputStream in = Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(filePath))) {
             final JsonNode jsonNode = this.mapper.readTree(in);
             jsonNode.forEach(t -> {
-                final String spriteName = getSpriteName(t);
+                final String spriteName = t.get("name").asText();
                 final double x = t.get("x").asDouble();
                 final double y = t.get("y").asDouble();
                 data.put(spriteName, new Pair<>(x, y));
@@ -49,13 +49,5 @@ public abstract class AbstractSpritePositionReader implements JSONFileReader<Map
 
         return Map.copyOf(data);
     }
-
-    /**
-     * Reads the type of the sprite from the given Jackson jsonNode.
-     * 
-     * @param jsonNode the jsonNode used to parse data
-     * @return the name of the sprite type
-     */
-    protected abstract String getSpriteName(JsonNode jsonNode);
 
 }

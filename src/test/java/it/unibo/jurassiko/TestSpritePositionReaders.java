@@ -11,8 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.jurassiko.common.Pair;
-import it.unibo.jurassiko.reader.impl.OceanSpritePositionReader;
-import it.unibo.jurassiko.reader.impl.TerritorySpritePositionReader;
+import it.unibo.jurassiko.reader.impl.SpritePositionsReader;
 
 class TestSpritePositionReaders {
 
@@ -33,8 +32,8 @@ class TestSpritePositionReaders {
 
     @BeforeEach
     void init() {
-        this.territoryPositions = new TerritorySpritePositionReader().readFileData(TERRITORY_PATH);
-        this.oceanPositions = new OceanSpritePositionReader().readFileData(OCEAN_PATH);
+        this.territoryPositions = new SpritePositionsReader().readFileData(TERRITORY_PATH);
+        this.oceanPositions = new SpritePositionsReader().readFileData(OCEAN_PATH);
     }
 
     @Test

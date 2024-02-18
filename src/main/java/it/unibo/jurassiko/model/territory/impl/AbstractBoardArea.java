@@ -1,10 +1,7 @@
 package it.unibo.jurassiko.model.territory.impl;
 
-import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import it.unibo.jurassiko.model.territory.api.BoardArea;
@@ -20,16 +17,13 @@ public abstract class AbstractBoardArea<T extends BoardArea<T>> implements Board
     @JsonProperty("name")
     private String name;
     @JsonProperty("neighbours")
-    private Set<String> neighbourNames;
-
-    @JsonIgnore
-    private Set<T> neighbours;
+    private Set<String> neighbours;
 
     /**
-     * Blank constructor used by Jackson JSON parser.
+     * Default constructor used by Jackson JSON parser.
      */
     protected AbstractBoardArea() {
-        this.neighbours = new HashSet<>();
+        // Intentionally blank constructor for the Factory class
     }
 
     /**
@@ -44,36 +38,8 @@ public abstract class AbstractBoardArea<T extends BoardArea<T>> implements Board
      * {@inheritDoc}
      */
     @Override
-    public Set<String> getNeighbourNames() {
-        return Set.copyOf(neighbourNames);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setNeighbours(final Set<T> neighbours) {
-        Objects.requireNonNull(neighbours);
-        this.neighbours = new HashSet<>(neighbours);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Set<T> getNeighbours() {
+    public Set<String> getNeighbours() {
         return Set.copyOf(neighbours);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isNeighbour(final String name) {
-        Objects.requireNonNull(neighbours);
-        return neighbours.stream()
-                .map(BoardArea::getName)
-                .anyMatch(name::equals);
     }
 
 }
