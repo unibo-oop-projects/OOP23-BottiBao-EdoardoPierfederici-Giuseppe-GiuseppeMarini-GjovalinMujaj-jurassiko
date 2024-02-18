@@ -44,7 +44,7 @@ public class TerritorySelector extends JFrame implements View {
     private final Map<String, JButton> oceanButtons;
 
     private final transient MainController mainContr;
-    private int totalClick;
+    private int totalClicks;
     @SuppressFBWarnings("SE_BAD_FIELD")
     private Optional<String> selectedTerritory;
 
@@ -155,7 +155,7 @@ public class TerritorySelector extends JFrame implements View {
         button.addActionListener(e -> {
             mainContr.manageSelection(name);
             switch (mainContr.getGamePhase()) {
-                case PLACEMENT -> totalClick++;
+                case PLACEMENT -> totalClicks++;
                 case ATTACK_FIRST_PART -> {
                     selectedTerritory = Optional.of(name);
                     mainContr.setGamePhase(Phase.ATTACK_SECOND_PART);
@@ -186,15 +186,15 @@ public class TerritorySelector extends JFrame implements View {
      * 
      * @return total amount of clicks
      */
-    public int getTotalClick() {
-        return totalClick;
+    public int getTotalClicks() {
+        return totalClicks;
     }
 
     /**
      * Reset the total amount of Clicks of the all the buttons.
      */
-    public void resetTotalClick() {
-        totalClick = 0;
+    public void resetTotalClicks() {
+        totalClicks = 0;
     }
 
     /**
@@ -229,7 +229,7 @@ public class TerritorySelector extends JFrame implements View {
         disableAllJButtons();
         switch (mainContr.getGamePhase()) {
             case PLACEMENT -> {
-                if (totalClick == 0 && !mainContr.isFirstTurn()) {
+                if (totalClicks == 0 && !mainContr.isFirstTurn()) {
                     activateButton(oceanButtons.values(), t -> true);
                 } else {
                     activateButton(territoryButtons.values(), t -> mainContr.isAllyTerritory(t));

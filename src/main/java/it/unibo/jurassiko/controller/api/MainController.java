@@ -40,6 +40,13 @@ public interface MainController {
     List<Player> getPlayers() throws CloneNotSupportedException;
 
     /**
+     * Returns current player.
+     * 
+     * @return current player
+     */
+    Player getCurrentPlayer();
+
+    /**
      * Updates and shows the buttons in the frame.
      */
     void openTerritorySelector();
@@ -55,9 +62,31 @@ public interface MainController {
     void openObjectiveCard();
 
     /**
+     * Updates the panel of dinos.
+     */
+    void updateBoard();
+
+    /**
      * Shows and updates the main frame.
      */
     void openView();
+
+    /**
+     * Close the view.
+     */
+    void closeGame();
+
+    /**
+     * Show a pop up window with the winner color.
+     * 
+     * @param winner color of the winner
+     */
+    void showWinnerName(GameColor winner);
+
+    /**
+     * Tells the game engine to start the loop.
+     */
+    void startGameLoop();
 
     /**
      * Gets the actual game phase from the GameEngine.
@@ -67,14 +96,21 @@ public interface MainController {
     GamePhase.Phase getGamePhase();
 
     /**
-     * Updates the panel of dinos.
+     * Set the phase of the Game.
+     * 
+     * @param phase phase to set
      */
-    void updateBoard();
+    void setGamePhase(GamePhase.Phase phase);
+
+     /**
+     * @return true if its the first turn, false otherwise
+     */
+    boolean isFirstTurn();
 
     /**
-     * Tells the game engine to start the loop.
+     * Pass the Turn to the next Player.
      */
-    void startGameLoop();
+    void endTurn();
 
     /**
      * Checks if the player has the territory in the map.
@@ -118,20 +154,6 @@ public interface MainController {
     Set<String> getAdj(String territoryName);
 
     /**
-     * Returns current player.
-     * 
-     * @return current player
-     */
-    Player getCurrentPlayer();
-
-    /**
-     * Get the SelectedTerritory from the TerritorySelector.
-     * 
-     * @return the Name of the Territory if is present, Optional.empty otherwise
-     */
-    Optional<String> getSelectedTerritory();
-
-    /**
      * Based on the phase and the color of the current player.
      * It manages the various phases.
      * 
@@ -140,50 +162,22 @@ public interface MainController {
     void manageSelection(String territory);
 
     /**
-     * Resets the amount of total clicks.
-     */
-    void resetTotalClick();
-
-    /**
      * Returns the amount of clicks.
      * 
      * @return amount of clicks
      */
-    int getTotalClick();
+    int getTotalClicks();
 
     /**
-     * @return true if its the first turn, false otherwise
+     * Resets the amount of total clicks.
      */
-    boolean isFirstTurn();
-
-    /**
-     * Pass the Turn to the next Player.
-     */
-    void endTurn();
-
-    /**
-     * Set the phase of the Game.
-     * 
-     * @param phase phase to set
-     */
-    void setGamePhase(GamePhase.Phase phase);
+    void resetTotalClicks();
 
     /**
      * Calculate dino to place and return it.
      * 
      * @return the amount of dino to place
      */
-    int getRemainedDinoToPlace();
+    int getRemainingDinoToPlace();
 
-    /**
-     * Show a pop up window with the winner color.
-     * 
-     * @param winner color of the winner
-     */
-    void showWinnerName(GameColor winner);
-
-    /**
-     * Close the view.
-     */
-    void closeGame();
 }

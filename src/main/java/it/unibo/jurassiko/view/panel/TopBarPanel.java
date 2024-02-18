@@ -166,7 +166,7 @@ public class TopBarPanel extends JPanel {
     }
 
     private void setCurrentAmountDino() {
-        final int currentAmount = this.controller.getRemainedDinoToPlace();
+        final int currentAmount = this.controller.getRemainingDinoToPlace();
         this.currentAmountDino.setText("Dino da piazzare: " + currentAmount);
     }
 

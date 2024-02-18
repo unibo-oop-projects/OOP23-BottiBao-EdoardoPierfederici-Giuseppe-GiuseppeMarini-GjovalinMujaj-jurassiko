@@ -75,9 +75,9 @@ public class GameEngineImpl implements GameEngine {
             controller.openTerritorySelector();
             final var bonusGroundDino = playerTurn.getCurrentPlayerTurn().getBonusGroundDino();
             final var bonusWaterDino = playerTurn.getCurrentPlayerTurn().getBonusWaterDino();
-            if (controller.getTotalClick() == bonusGroundDino + bonusWaterDino) {
+            if (controller.getTotalClicks() == bonusGroundDino + bonusWaterDino) {
                 gamePhase.goNext();
-                controller.resetTotalClick();
+                controller.resetTotalClicks();
                 controller.closeTerritorySelector();
             }
         }
@@ -94,9 +94,9 @@ public class GameEngineImpl implements GameEngine {
             controller.openObjectiveCard();
             once = false;
         }
-        if (controller.getTotalClick() == FIRST_TURN_BONUS) {
+        if (controller.getTotalClicks() == FIRST_TURN_BONUS) {
             playerTurn.goNext();
-            controller.resetTotalClick();
+            controller.resetTotalClicks();
             controller.updateBoard();
             if (!playerTurn.getCurrentPlayerTurn().getColor().equals(firstColor)) {
                 controller.openObjectiveCard();
@@ -188,10 +188,10 @@ public class GameEngineImpl implements GameEngine {
      * {@inheritDoc}
      */
     @Override
-    public int getRemainedDinoToPlace() {
+    public int getRemainingDinoToPlace() {
         final var currentPlayer = playerTurn.getCurrentPlayerTurn();
-        return firstTurn ? FIRST_TURN_BONUS - controller.getTotalClick()
-                : currentPlayer.getBonusGroundDino() + currentPlayer.getBonusWaterDino() - controller.getTotalClick();
+        return firstTurn ? FIRST_TURN_BONUS - controller.getTotalClicks()
+                : currentPlayer.getBonusGroundDino() + currentPlayer.getBonusWaterDino() - controller.getTotalClicks();
     }
 
     /**

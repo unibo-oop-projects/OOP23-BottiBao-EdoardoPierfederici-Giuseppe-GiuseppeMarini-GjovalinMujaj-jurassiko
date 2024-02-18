@@ -16,8 +16,8 @@ import it.unibo.jurassiko.reader.impl.TerritorySpritePositionReader;
 
 class TestSpritePositionReaders {
 
-    private static final String TERRITORY_PATH = "spritepositions/territorypositions.json";
-    private static final String OCEAN_PATH = "spritepositions/oceanpositions.json";
+    private static final String TERRITORY_PATH = "config/spritepositions/territorypositions.json";
+    private static final String OCEAN_PATH = "config/spritepositions/oceanpositions.json";
 
     private static final int NUM_TERRITORIES = 21;
     private static final int NUM_OCEANS = 3;

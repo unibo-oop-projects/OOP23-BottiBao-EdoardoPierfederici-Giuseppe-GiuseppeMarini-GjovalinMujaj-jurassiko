@@ -89,6 +89,38 @@ public class MainControllerImpl implements MainController {
      * {@inheritDoc}
      */
     @Override
+    public Map<Territory, Pair<GameColor, Integer>> getTerritoriesMap() {
+        return Map.copyOf(territoriesMap);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Pair<Ocean, GameColor>> getCurrentOcean() {
+        return this.currentOcean.isPresent() ? Optional.of(new Pair<>(this.currentOcean.get())) : Optional.empty();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Player> getPlayers() throws CloneNotSupportedException {
+        return new ArrayList<>(players);
+    }
+
+     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Player getCurrentPlayer() {
+        return game.getCurrentPlayerTurn();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void openTerritorySelector() {
         this.terrSelect.display();
     }
@@ -113,18 +145,127 @@ public class MainControllerImpl implements MainController {
      * {@inheritDoc}
      */
     @Override
-    public void openView() {
-        mainFrame.display();
-        updateBoard();
+    public void updateBoard() {
+        this.mainFrame.updatePanel();
+        this.terrSelect.updateButtons();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void updateBoard() {
-        this.mainFrame.updatePanel();
-        this.terrSelect.updateButtons();
+    public void openView() {
+        mainFrame.display();
+        updateBoard();
+    }
+
+     /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressFBWarnings(value = "DM_EXIT", justification = "Shut down program after closing the main frame")
+    public void closeGame() {
+        this.mainFrame.dispose();
+        System.exit(0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void showWinnerName(final GameColor winner) {
+        final var dinoSprites = new SpriteLoader().getDinoSprites();
+        final ImageIcon winnerSprite = dinoSprites.get(winner);
+        final String message = "Il giocatore " + colorToString(winner) + " ha vinto!";
+
+        final JPanel winnerPanel = new JPanel(new BorderLayout());
+        final JLabel spriteLabel = new JLabel(winnerSprite);
+        final JLabel messageLabel = new JLabel(message);
+        winnerPanel.add(spriteLabel, BorderLayout.WEST);
+        winnerPanel.add(messageLabel, BorderLayout.EAST);
+
+        JOptionPane.showMessageDialog(this.mainFrame, winnerPanel, "Fine del gioco", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void startGameLoop() {
+        this.game.startGameLoop();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Phase getGamePhase() {
+        return game.getGamePhase();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setGamePhase(final Phase phase) {
+        game.setGamePhase(phase);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isFirstTurn() {
+        return game.isFirstTurn();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void endTurn() {
+        game.endTurn();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isAllyTerritory(final String territoryName) {
+        final var currentColor = this.game.getCurrentPlayerTurn().getColor();
+        return getColorTerritory(territoryName).equals(currentColor);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isAllyTerritoryWithMoreThanOne(final String territoryName) {
+        return isAllyTerritory(territoryName) && getMapTerritoryValue(territoryName).y() > 1;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean hasAdjEnemy(final String territoryName) {
+        return supportHasAdj(territoryName, t -> !t.x().equals(game.getCurrentPlayerTurn().getColor()));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean hasAdjAlly(final String territoryName) {
+        return supportHasAdj(territoryName, t -> t.x().equals(game.getCurrentPlayerTurn().getColor()));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<String> getAdj(final String territoryName) {
+        return border.getTerritoriesBorder(getMapTerritoryKey(territoryName), currentOcean.get().x());
     }
 
     /**
@@ -184,67 +325,24 @@ public class MainControllerImpl implements MainController {
      * {@inheritDoc}
      */
     @Override
-    public Player getCurrentPlayer() {
-        return game.getCurrentPlayerTurn();
+    public int getTotalClicks() {
+        return terrSelect.getTotalClicks();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean isFirstTurn() {
-        return game.isFirstTurn();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Set<Territory> getTerritories(final GameColor color) {
-        return territoriesMap.entrySet()
-                .stream()
-                .filter(s -> s.getValue().x().equals(color))
-                .map(s -> s.getKey())
-                .collect(Collectors.toSet());
+    public void resetTotalClicks() {
+        terrSelect.resetTotalClicks();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int getRemainedDinoToPlace() {
-        return this.game.getRemainedDinoToPlace();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Player> getPlayers() throws CloneNotSupportedException {
-        return new ArrayList<>(players);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Phase getGamePhase() {
-        return game.getGamePhase();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getTotalClick() {
-        return terrSelect.getTotalClick();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void resetTotalClick() {
-        terrSelect.resetTotalClick();
+    public int getRemainingDinoToPlace() {
+        return this.game.getRemainingDinoToPlace();
     }
 
     /**
@@ -271,22 +369,6 @@ public class MainControllerImpl implements MainController {
     private void placeWaterDino(final String oceanName) {
         this.currentOcean = Optional.of(new Pair<Ocean, GameColor>(getOceanByName(oceanName).get(),
                 this.game.getCurrentPlayerTurn().getColor()));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void endTurn() {
-        game.endTurn();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setGamePhase(final Phase phase) {
-        game.setGamePhase(phase);
     }
 
     /**
@@ -330,63 +412,6 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Map<Territory, Pair<GameColor, Integer>> getTerritoriesMap() {
-        return Map.copyOf(territoriesMap);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<Pair<Ocean, GameColor>> getCurrentOcean() {
-        return this.currentOcean.isPresent() ? Optional.of(new Pair<>(this.currentOcean.get())) : Optional.empty();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void startGameLoop() {
-        this.game.startGameLoop();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAllyTerritory(final String territoryName) {
-        final var currentColor = this.game.getCurrentPlayerTurn().getColor();
-        return getColorTerritory(territoryName).equals(currentColor);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAllyTerritoryWithMoreThanOne(final String territoryName) {
-        return isAllyTerritory(territoryName) && getMapTerritoryValue(territoryName).y() > 1;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean hasAdjEnemy(final String territoryName) {
-        return supportHasAdj(territoryName, t -> !t.x().equals(game.getCurrentPlayerTurn().getColor()));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean hasAdjAlly(final String territoryName) {
-        return supportHasAdj(territoryName, t -> t.x().equals(game.getCurrentPlayerTurn().getColor()));
-    }
-
-    /**
      * Support method.
      * 
      * @param territoryName territory name
@@ -400,14 +425,6 @@ public class MainControllerImpl implements MainController {
             }
         }
         return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Set<String> getAdj(final String territoryName) {
-        return border.getTerritoriesBorder(getMapTerritoryKey(territoryName), currentOcean.get().x());
     }
 
     /**
@@ -511,14 +528,6 @@ public class MainControllerImpl implements MainController {
         return dinoAmount;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<String> getSelectedTerritory() {
-        return terrSelect.getSelectedTerritory();
-    }
-
     private int showDinoAmountSelector(final String source, final String target, final int maximum) {
         final JPanel amountSelectorPanel = new JPanel(new BorderLayout());
         final JLabel text = new JLabel("Inserisci il numero di Dino da spostare da " + source + " a " + target + ":");
@@ -550,34 +559,6 @@ public class MainControllerImpl implements MainController {
         }
         JOptionPane.showMessageDialog(this.mainFrame, outcomeMessage, "Esito battaglia",
                 JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void showWinnerName(final GameColor winner) {
-        final var dinoSprites = new SpriteLoader().getDinoSprites();
-        final ImageIcon winnerSprite = dinoSprites.get(winner);
-        final String message = "Il giocatore " + colorToString(winner) + " ha vinto!";
-
-        final JPanel winnerPanel = new JPanel(new BorderLayout());
-        final JLabel spriteLabel = new JLabel(winnerSprite);
-        final JLabel messageLabel = new JLabel(message);
-        winnerPanel.add(spriteLabel, BorderLayout.WEST);
-        winnerPanel.add(messageLabel, BorderLayout.EAST);
-
-        JOptionPane.showMessageDialog(this.mainFrame, winnerPanel, "Fine del gioco", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @SuppressFBWarnings(value = "DM_EXIT", justification = "Shut down program after closing the main frame")
-    public void closeGame() {
-        this.mainFrame.dispose();
-        System.exit(0);
     }
 
     /**
