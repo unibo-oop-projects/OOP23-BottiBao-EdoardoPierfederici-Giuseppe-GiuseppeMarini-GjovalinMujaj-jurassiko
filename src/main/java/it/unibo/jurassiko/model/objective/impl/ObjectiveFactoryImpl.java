@@ -8,7 +8,7 @@ import it.unibo.jurassiko.model.objective.api.ObjectiveFactory;
 import it.unibo.jurassiko.reader.impl.ObjectiveReader;
 
 /**
- * Implementation of the factory for the game objectives.
+ * Implementation of {@link ObjectiveFactory}.
  */
 public class ObjectiveFactoryImpl implements ObjectiveFactory {
 

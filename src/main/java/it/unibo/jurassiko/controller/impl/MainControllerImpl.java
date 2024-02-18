@@ -109,7 +109,7 @@ public class MainControllerImpl implements MainController {
         return new ArrayList<>(players);
     }
 
-     /**
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -159,7 +159,7 @@ public class MainControllerImpl implements MainController {
         updateBoard();
     }
 
-     /**
+    /**
      * {@inheritDoc}
      */
     @Override

@@ -60,9 +60,6 @@ public abstract class AbstractBoardDataReader<T> implements JSONFileReader<Set<T
      */
     protected abstract void buildAttributes(Set<T> data);
 
-    // TODO: these following methods can be deleted if only neighbour names (and not
-    // instances) are needed
-
     /**
      * Processes and sets the bordering areas.
      * 

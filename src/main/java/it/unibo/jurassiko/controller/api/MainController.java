@@ -102,7 +102,7 @@ public interface MainController {
      */
     void setGamePhase(GamePhase.Phase phase);
 
-     /**
+    /**
      * @return true if its the first turn, false otherwise
      */
     boolean isFirstTurn();
