@@ -16,32 +16,30 @@ public interface Player {
         /**
          * Default color represented by Black.
          */
-        DEFAULT("Black", "000000"),
+        DEFAULT("Black"),
         /**
          * Color Red.
          */
-        RED("Red", "#ff0000"),
+        RED("Red"),
         /**
          * Color Green.
          */
-        GREEN("Green", "#00ff00"),
+        GREEN("Green"),
         /**
          * Color Blue.
          */
-        BLUE("Blue", "#0000ff");
+        BLUE("Blue");
 
         private final String color;
-        private final String hexString;
 
         /**
          * Constructor for the Colors.
          * 
-         * @param color   color name
-         * @param hexCode HexCode of the color
+         * @param color color name
+         * 
          */
-        GameColor(final String color, final String hexCode) {
+        GameColor(final String color) {
             this.color = color;
-            this.hexString = hexCode;
         }
 
         /**
@@ -51,15 +49,6 @@ public interface Player {
          */
         public String getColorName() {
             return color;
-        }
-
-        /**
-         * Get the HexCode.
-         * 
-         * @return HexCode
-         */
-        public String getHexCode() {
-            return this.hexString;
         }
     }
 
