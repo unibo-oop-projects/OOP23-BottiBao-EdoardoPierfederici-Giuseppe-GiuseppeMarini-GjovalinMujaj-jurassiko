@@ -7,8 +7,13 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,18 +35,22 @@ public class MenuPanel extends JPanel {
 
     private static final String START = "Start";
     private static final String QUIT = "Quit";
+    private static final String RULE = "Rules";
+    private static final String FONT_STYLE = "Serif";
     private static final double WIDTH_PERC = 0.5;
     private static final double HEIGHT_PERC = 0.5;
     private static final double BUTTON_WIDTH_PERC = WIDTH_PERC * 0.2;
     private static final double BUTTON_HEIGHT_PERC = HEIGHT_PERC * 0.1;
     private static final int FONT_SIZE = 24;
 
-    private static final String SLASH = File.separator;
-    private static final String URL_IMAGE = "images" + SLASH + "menu.png";
+    private static final String URL_IMAGE = "images/menu.png";
+    private static final String RULES_PATH = "rules/HowToPlay.txt";
 
     private final Dimension dimension;
 
     /**
+     * The Menu Panel, will show the start, quit and rules buttons.
+     * 
      * @param controller controller for the Menu
      * @param frame      frame for the Menu
      */
@@ -63,6 +72,7 @@ public class MenuPanel extends JPanel {
 
         final JButton start = createButton(START, getButtonDimension());
         final JButton quit = createButton(QUIT, getButtonDimension());
+        final JButton rules = createButton(RULE, getButtonDimension());
         final JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridBagLayout());
         final GridBagConstraints gbc = new GridBagConstraints();
@@ -81,13 +91,27 @@ public class MenuPanel extends JPanel {
                     QUIT,
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.WARNING_MESSAGE,
-                    null, options, options);
+                    null, options, 0);
             if (result == 0) {
                 frame.dispose();
             }
         });
+
+        String temp = "";
+        try {
+            URL url = ClassLoader.getSystemResource(RULES_PATH);
+            final List<String> lines = Files.readAllLines(Path.of(url.toURI()));
+            for (final var line : lines) {
+                temp = temp.concat(line + "\n");
+            }
+        } catch (final IOException | URISyntaxException e) {
+            throw new IllegalStateException("Failed to read the menu Rule file", e);
+        }
+        final String ruleText = temp;
+        rules.addActionListener(e -> JOptionPane.showMessageDialog(this, ruleText));
         addButton(buttonPanel, start, gbc);
         addButton(buttonPanel, quit, gbc);
+        addButton(buttonPanel, rules, gbc);
 
         buttonPanel.setBounds(0, 0, bgImage.getIconWidth(), bgImage.getIconHeight());
         buttonPanel.setOpaque(false);
@@ -100,10 +124,17 @@ public class MenuPanel extends JPanel {
         this.add(layeredPane);
     }
 
+    /**
+     * Create a JButton.
+     * 
+     * @param name name of the button
+     * @param dim  dimension of the button
+     * @return a JButton
+     */
     private JButton createButton(final String name, final Dimension dim) {
         final JButton button = new JButton(name);
         button.setPreferredSize(dim);
-        button.setFont(new Font("Serif", Font.BOLD, FONT_SIZE));
+        button.setFont(new Font(FONT_STYLE, Font.BOLD, FONT_SIZE));
         return button;
     }
 
