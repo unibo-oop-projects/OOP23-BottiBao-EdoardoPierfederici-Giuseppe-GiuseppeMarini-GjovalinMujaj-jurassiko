@@ -109,7 +109,7 @@ public class MainControllerImpl implements MainController {
         return new ArrayList<>(players);
     }
 
-     /**
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -159,7 +159,7 @@ public class MainControllerImpl implements MainController {
         updateBoard();
     }
 
-     /**
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -451,13 +451,13 @@ public class MainControllerImpl implements MainController {
     private void createPlayers() {
         final Set<Territory> copyTerritories = new HashSet<>(this.allTerritories);
         final Set<Objective> copyObjectives = new HashSet<>(this.objectives);
-        final var redPlayer = new PlayerImpl(GameColor.RED,
+        final Player redPlayer = new PlayerImpl(GameColor.RED,
                 shuffleObjective(copyObjectives),
                 shuffleTerritories(copyTerritories, MAX_TERRITORIES));
-        final var greenPlayer = new PlayerImpl(GameColor.GREEN,
+        final Player greenPlayer = new PlayerImpl(GameColor.GREEN,
                 shuffleObjective(copyObjectives),
                 shuffleTerritories(copyTerritories, MAX_TERRITORIES));
-        final var bluePlayer = new PlayerImpl(GameColor.BLUE,
+        final Player bluePlayer = new PlayerImpl(GameColor.BLUE,
                 shuffleObjective(copyObjectives),
                 shuffleTerritories(copyTerritories, MAX_TERRITORIES));
         players.add(redPlayer);
