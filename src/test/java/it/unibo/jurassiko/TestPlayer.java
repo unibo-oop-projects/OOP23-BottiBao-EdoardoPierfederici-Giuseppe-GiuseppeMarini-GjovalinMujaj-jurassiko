@@ -32,7 +32,7 @@ class TestPlayer {
     }
 
     @Test
-    void testTerritoriesAndOceans() {
+    void testTerritories() {
         final var iterator = territory.iterator();
         while (iterator.hasNext()) {
             final var temp = iterator.next();
