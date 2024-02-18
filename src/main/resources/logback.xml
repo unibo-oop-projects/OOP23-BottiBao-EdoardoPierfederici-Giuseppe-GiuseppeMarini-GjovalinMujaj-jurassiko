@@ -1,7 +1,7 @@
 <configuration>
     <!-- Log into app.log file -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>app.log</file>
+        <file>log.log</file>
         <append>true</append> <!-- Do not delete logs from last executions -->
 
         <encoder>
