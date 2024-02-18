@@ -11,7 +11,7 @@ import it.unibo.jurassiko.reader.impl.TerritoryReader;
  */
 public class TerritoryFactoryImpl implements TerritoryFactory {
 
-    private static final String PATH = "territories.json";
+    private static final String PATH = "config/territories.json";
 
     /**
      * {@inheritDoc}

@@ -12,7 +12,7 @@ import it.unibo.jurassiko.reader.impl.ObjectiveReader;
  */
 public class ObjectiveFactoryImpl implements ObjectiveFactory {
 
-    private static final String PATH = "objectives.json";
+    private static final String PATH = "config/objectives.json";
 
     /**
      * {@inheritDoc}

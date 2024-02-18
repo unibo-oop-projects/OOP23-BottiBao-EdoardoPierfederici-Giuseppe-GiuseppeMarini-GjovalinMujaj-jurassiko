@@ -11,7 +11,7 @@ import it.unibo.jurassiko.reader.impl.OceanReader;
  */
 public class OceanFactoryImpl implements OceanFactory {
 
-    private static final String PATH = "oceans.json";
+    private static final String PATH = "config/oceans.json";
 
     /**
      * {@inheritDoc}

@@ -27,11 +27,11 @@ import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 public class MapPanel extends JPanel {
 
     private static final long serialVersionUID = -6881386592874173612L;
-    private static final String OCEAN_PATH = "spritepositions/oceanpositions.json";
-    private static final String TERRITORY_PATH = "spritepositions/territorypositions.json";
+    private static final String OCEAN_PATH = "config/spritepositions/oceanpositions.json";
+    private static final String TERRITORY_PATH = "config/spritepositions/territorypositions.json";
     private static final double HEIGHT_RATIO = 0.8;
     private static final double WIDTH_RATIO = 0.8;
-    private static final String URL_IMAGE = "images/mappa.png";
+    private static final String URL_IMAGE = "images/map.png";
 
     private final Map<String, DinoDisplay> territoryViews;
     private final Map<String, DinoDisplay> oceanViews;

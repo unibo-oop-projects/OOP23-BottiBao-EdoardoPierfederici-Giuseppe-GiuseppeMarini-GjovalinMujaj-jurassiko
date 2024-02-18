@@ -37,7 +37,7 @@ public class MenuPanel extends JPanel {
     private static final int FONT_SIZE = 24;
 
     private static final String SLASH = File.separator;
-    private static final String URL_IMAGE = "images" + SLASH + "MenuImage.png";
+    private static final String URL_IMAGE = "images" + SLASH + "menu.png";
 
     private final Dimension dimension;
 
