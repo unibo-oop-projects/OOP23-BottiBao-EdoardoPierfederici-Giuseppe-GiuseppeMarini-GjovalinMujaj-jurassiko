@@ -18,7 +18,6 @@ import it.unibo.jurassiko.model.objective.impl.DestroyArmyObjective;
 import it.unibo.jurassiko.model.objective.impl.ObjectiveFactoryImpl;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 
-// TODO: Some tests are not implemented yet
 class TestObjective {
 
     private static final int NUM_TOTAL_OBJECTIVES = 8;
@@ -106,6 +105,8 @@ class TestObjective {
 
     @Test
     void testDestroyArmy() {
+        final String description = "Distruggi l'armata di colore BLU. Se l'armata non è nemica, conquista 12 territori.";
+
         final Set<GameColor> armyColors = Set.of(GameColor.valueOf("RED"),
                 GameColor.valueOf("BLUE"),
                 GameColor.valueOf("GREEN"));
@@ -118,6 +119,14 @@ class TestObjective {
         assertEquals(armyColors, destroyArmyObjectives.stream()
                 .map(DestroyArmyObjective::getArmyColor)
                 .collect(Collectors.toSet()));
+
+        final var actualDescription = destroyArmyObjectives.stream()
+                .filter(o -> o.getArmyColor().equals(GameColor.BLUE))
+                .findAny()
+                .get()
+                .getDescription();
+
+        assertEquals(description, actualDescription);
     }
 
     @Test
