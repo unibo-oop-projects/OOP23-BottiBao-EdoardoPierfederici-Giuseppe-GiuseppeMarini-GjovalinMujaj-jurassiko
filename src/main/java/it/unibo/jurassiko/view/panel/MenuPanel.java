@@ -72,7 +72,6 @@ public class MenuPanel extends JPanel {
 
         final JButton start = createButton(START, getButtonDimension());
         final JButton quit = createButton(QUIT, getButtonDimension());
-        final JButton rules = createButton(RULE, getButtonDimension());
         final JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridBagLayout());
         final GridBagConstraints gbc = new GridBagConstraints();
@@ -99,7 +98,7 @@ public class MenuPanel extends JPanel {
 
         String temp = "";
         try {
-            URL url = ClassLoader.getSystemResource(RULES_PATH);
+            final URL url = ClassLoader.getSystemResource(RULES_PATH);
             final List<String> lines = Files.readAllLines(Path.of(url.toURI()));
             for (final var line : lines) {
                 temp = temp.concat(line + "\n");
@@ -108,6 +107,8 @@ public class MenuPanel extends JPanel {
             throw new IllegalStateException("Failed to read the menu Rule file", e);
         }
         final String ruleText = temp;
+
+        final JButton rules = createButton(RULE, getButtonDimension());
         rules.addActionListener(e -> JOptionPane.showMessageDialog(this, ruleText));
         addButton(buttonPanel, start, gbc);
         addButton(buttonPanel, quit, gbc);
