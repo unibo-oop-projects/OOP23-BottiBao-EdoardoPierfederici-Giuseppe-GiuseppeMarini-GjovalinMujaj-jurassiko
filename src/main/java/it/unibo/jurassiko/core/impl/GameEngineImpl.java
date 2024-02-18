@@ -2,7 +2,11 @@ package it.unibo.jurassiko.core.impl;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import it.unibo.jurassiko.Jurassiko;
 import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.core.api.GameEngine;
 import it.unibo.jurassiko.core.api.GamePhase;
@@ -16,6 +20,8 @@ import it.unibo.jurassiko.model.player.api.Player.GameColor;
  * Implementation of the interface {@GameEngine}.
  */
 public class GameEngineImpl implements GameEngine {
+
+    private final Logger logger = LoggerFactory.getLogger(Jurassiko.class);
 
     private static final int MAX_PLAYERS = 3;
     private static final int FIRST_TURN_BONUS = 13;
@@ -42,6 +48,7 @@ public class GameEngineImpl implements GameEngine {
         try {
             this.playerTurn = new PlayerTurnImpl(this.controller.getPlayers());
         } catch (final CloneNotSupportedException e) {
+            this.logger.error("Cannot create a copy of the player", e);
             throw new IllegalStateException("Failed to create a new istance of the player", e);
         }
         this.firstTurn = true;
@@ -55,12 +62,68 @@ public class GameEngineImpl implements GameEngine {
     @Override
     public void startGameLoop() {
         placementPhase();
-        movimentPhase();
+        movementPhase();
         controller.updateBoard();
         if (isOver()) {
             controller.showWinnerName(getWinner().getColor());
             controller.closeGame();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Phase getGamePhase() {
+        return gamePhase.getPhase();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setGamePhase(final Phase phase) {
+        gamePhase.setPhase(phase);
+        controller.updateBoard();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getRemainingDinoToPlace() {
+        final var currentPlayer = playerTurn.getCurrentPlayerTurn();
+        return firstTurn ? FIRST_TURN_BONUS - controller.getTotalClicks()
+                : currentPlayer.getBonusGroundDino() + currentPlayer.getBonusWaterDino() - controller.getTotalClicks();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Player getCurrentPlayerTurn() {
+        return playerTurn.getCurrentPlayerTurn();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isFirstTurn() {
+        return firstTurn;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void endTurn() {
+        playerTurn.goNext();
+        while (playerTurn.getCurrentPlayerTurn().getOwnedTerritories().size() == 0) {
+            playerTurn.goNext();
+        }
+        gamePhase.setPhase(Phase.PLACEMENT);
+        controller.updateBoard();
     }
 
     /**
@@ -123,27 +186,14 @@ public class GameEngineImpl implements GameEngine {
                 .sum() == initDinoAmount * MAX_PLAYERS;
     }
 
-    private void movimentPhase() {
+    private void movementPhase() {
         if (gamePhase.getPhase().equals(Phase.MOVEMENT_FIRST_PART)) {
             controller.openTerritorySelector();
         }
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void endTurn() {
-        playerTurn.goNext();
-        while (playerTurn.getCurrentPlayerTurn().getOwnedTerritories().size() == 0) {
-            playerTurn.goNext();
-        }
-        gamePhase.setPhase(Phase.PLACEMENT);
-        controller.updateBoard();
-    }
-
-    /**
-     * Is game Over?.
+     * Checks if some player have completed their objective, so the game must end.
      * 
      * @return true if the game is over, false otherwise
      */
@@ -166,49 +216,6 @@ public class GameEngineImpl implements GameEngine {
      */
     private Player getWinner() {
         return this.winner.orElse(null);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Phase getGamePhase() {
-        return gamePhase.getPhase();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setGamePhase(final Phase phase) {
-        gamePhase.setPhase(phase);
-        controller.updateBoard();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getRemainingDinoToPlace() {
-        final var currentPlayer = playerTurn.getCurrentPlayerTurn();
-        return firstTurn ? FIRST_TURN_BONUS - controller.getTotalClicks()
-                : currentPlayer.getBonusGroundDino() + currentPlayer.getBonusWaterDino() - controller.getTotalClicks();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Player getCurrentPlayerTurn() {
-        return playerTurn.getCurrentPlayerTurn();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isFirstTurn() {
-        return firstTurn;
     }
 
 }

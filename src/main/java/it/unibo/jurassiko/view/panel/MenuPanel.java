@@ -20,6 +20,9 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import it.unibo.jurassiko.controller.impl.MenuContollerImpl;
 import it.unibo.jurassiko.view.gamescreen.impl.StartMenu;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
@@ -28,6 +31,8 @@ import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
  * JPanel used for the StartMenu frame.
  */
 public class MenuPanel extends JPanel {
+
+    private final Logger logger = LoggerFactory.getLogger(MenuPanel.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -94,6 +99,7 @@ public class MenuPanel extends JPanel {
                 frame.dispose();
             }
         });
+
         final StringBuilder tempBuilder = new StringBuilder();
         try (InputStream in = ClassLoader.getSystemResourceAsStream(RULES_PATH);
                 BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"))) {
@@ -102,6 +108,7 @@ public class MenuPanel extends JPanel {
                 tempBuilder.append(NEW_LINE);
             });
         } catch (final IOException e) {
+            this.logger.error("Cannot read the text file for game rules");
             throw new IllegalStateException("Failed to read the menu rules file", e);
         }
         final JButton rules = createButton(RULE, getButtonDimension());

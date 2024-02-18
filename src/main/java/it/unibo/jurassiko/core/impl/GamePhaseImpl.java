@@ -37,16 +37,16 @@ public class GamePhaseImpl implements GamePhase {
      * {@inheritDoc}
      */
     @Override
-    public void goNext() {
-        index = Phase.values()[(index.ordinal() + 1) % Phase.values().length];
+    public void setPhase(final Phase phase) {
+        index = phase;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setPhase(final Phase phase) {
-        index = phase;
+    public void goNext() {
+        index = Phase.values()[(index.ordinal() + 1) % Phase.values().length];
     }
 
 }

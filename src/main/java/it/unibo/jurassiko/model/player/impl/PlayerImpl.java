@@ -20,6 +20,8 @@ import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
  */
 public class PlayerImpl implements Player, Cloneable {
 
+    private final Logger logger = LoggerFactory.getLogger(PlayerImpl.class);
+
     private final GameColor color;
     private final Objective objective;
     private final Set<Territory> territories;
@@ -145,13 +147,12 @@ public class PlayerImpl implements Player, Cloneable {
      */
     @Override
     public Player getPlayer() {
-        final Logger logger = LoggerFactory.getLogger(PlayerImpl.class);
         try {
             return (Player) this.clone();
         } catch (CloneNotSupportedException e) {
-            logger.error("Cannot create a copy");
+            this.logger.error("Cannot create a copy of the player");
         }
-        throw new IllegalStateException("Can't create a copy of the player");
+        throw new IllegalStateException("Failed to create a copy of the player");
     }
 
 }

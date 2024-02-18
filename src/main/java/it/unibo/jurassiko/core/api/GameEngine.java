@@ -13,11 +13,6 @@ public interface GameEngine {
     void startGameLoop();
 
     /**
-     * End the Turn of the Player.
-     */
-    void endTurn();
-
-    /**
      * Get the Phase of the game.
      * 
      * @return Phase of the Game
@@ -51,5 +46,10 @@ public interface GameEngine {
      * @return true if its the first turn, false otherwise
      */
     boolean isFirstTurn();
+
+    /**
+     * End the Turn of the Player.
+     */
+    void endTurn();
 
 }
