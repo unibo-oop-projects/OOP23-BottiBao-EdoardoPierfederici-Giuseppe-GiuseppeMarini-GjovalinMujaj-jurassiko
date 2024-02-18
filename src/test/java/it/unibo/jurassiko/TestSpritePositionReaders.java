@@ -11,8 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.jurassiko.common.Pair;
-import it.unibo.jurassiko.reader.impl.OceanSpritePositionReader;
-import it.unibo.jurassiko.reader.impl.TerritorySpritePositionReader;
+import it.unibo.jurassiko.reader.impl.SpritePositionsReader;
 
 class TestSpritePositionReaders {
 
@@ -33,8 +32,8 @@ class TestSpritePositionReaders {
 
     @BeforeEach
     void init() {
-        this.territoryPositions = new TerritorySpritePositionReader().readFileData(TERRITORY_PATH);
-        this.oceanPositions = new OceanSpritePositionReader().readFileData(OCEAN_PATH);
+        this.territoryPositions = new SpritePositionsReader().readFileData(TERRITORY_PATH);
+        this.oceanPositions = new SpritePositionsReader().readFileData(OCEAN_PATH);
     }
 
     @Test
@@ -43,7 +42,7 @@ class TestSpritePositionReaders {
         assertFalse(territoryPositions.isEmpty());
         assertEquals(NUM_TERRITORIES, territoryPositions.size());
 
-        // Verify all coordinates are a valid percentage value
+        // Checks that all coordinates are a valid percentage value
         assertTrue(territoryPositions.values().stream().allMatch(t -> isValid(t.x()) && isValid(t.y())));
 
         // Checks the coordinates of a sample territory
@@ -58,8 +57,10 @@ class TestSpritePositionReaders {
         assertFalse(oceanPositions.isEmpty());
         assertEquals(NUM_OCEANS, oceanPositions.size());
 
+        // Checks that all coordinates are a valid percentage value
         assertTrue(oceanPositions.values().stream().allMatch(t -> isValid(t.x()) && isValid(t.y())));
 
+        // Checks the coordinates of a sample ocean
         assertTrue(oceanPositions.keySet().contains(SAMPLE_OCEAN));
         final var coordinates = new Pair<>(OCEAN_X, OCEAN_Y);
         assertEquals(coordinates, oceanPositions.get(SAMPLE_OCEAN));

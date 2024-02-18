@@ -1,5 +1,6 @@
 package it.unibo.jurassiko;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -40,5 +41,17 @@ class TestBattle {
                 }
             }
         }
+    }
+
+    @Test
+    void testCalculateDino() {
+        assertEquals(3, battle.calculateDino(4, true));
+        assertEquals(3, battle.calculateDino(4, false));
+        assertEquals(2, battle.calculateDino(3, true));
+        assertEquals(3, battle.calculateDino(3, false));
+        assertEquals(1, battle.calculateDino(2, true));
+        assertEquals(2, battle.calculateDino(2, false));
+        assertEquals(0, battle.calculateDino(1, true));
+        assertEquals(1, battle.calculateDino(1, false));
     }
 }

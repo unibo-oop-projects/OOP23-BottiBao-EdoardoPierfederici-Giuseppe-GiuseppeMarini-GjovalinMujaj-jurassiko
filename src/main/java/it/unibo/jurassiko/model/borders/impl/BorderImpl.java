@@ -19,10 +19,10 @@ public class BorderImpl implements Border {
     public Set<String> getTerritoriesBorder(final Territory terr, final Ocean ocean) {
         if (ocean.isAdjTerritory(terr.getName())) {
             final Set<String> temp = new HashSet<>();
-            temp.addAll(terr.getNeighbourNames());
-            temp.addAll(ocean.getAdjTerritoryNames());
+            temp.addAll(terr.getNeighbours());
+            temp.addAll(ocean.getAdjTerritories());
             return temp;
         }
-        return terr.getNeighbourNames();
+        return terr.getNeighbours();
     }
 }

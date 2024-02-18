@@ -36,7 +36,8 @@ class TestOcean {
     void testOceanAttributes() {
         final String name = "Oceano Tetide";
         final var neighbours = Set.of("Oceano Pacifico", "Oceano Atlantico");
-        final var adjTerritoryNames = Set.of("Groenlandia",
+        final var adjTerritories = Set.of(
+                "Groenlandia",
                 "Arabia",
                 "Baltica",
                 "Siberia",
@@ -44,19 +45,11 @@ class TestOcean {
                 "Asia Centrale",
                 "Cina");
 
-        // TODO: uncomment if adjTerritory instance will be needed
-        /*
-         * final var adjTerritories = new
-         * TerritoryFactoryImpl().createTerritories().stream()
-         * .filter(t -> adjTerritoryNames.contains(t.getName()))
-         * .collect(Collectors.toSet());
-         */
-
         assertTrue(oceans.stream().anyMatch(o -> o.getName().equals(name)));
 
         final Ocean sampleOcean = oceans.stream().filter(t -> t.getName().equals(name)).findAny().get();
-        assertEquals(neighbours, sampleOcean.getNeighbourNames());
-        assertEquals(adjTerritoryNames, sampleOcean.getAdjTerritoryNames());
+        assertEquals(neighbours, sampleOcean.getNeighbours());
+        assertEquals(adjTerritories, sampleOcean.getAdjTerritories());
     }
 
 }

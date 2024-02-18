@@ -13,18 +13,18 @@ import it.unibo.jurassiko.common.Pair;
 import it.unibo.jurassiko.reader.api.JSONFileReader;
 
 /**
- * Implementation of JSONFileReader to parse the JSON file containing the
- * coordinates of the sprites for the territories, calculated as a
- * percentage of the board panel dimension.
+ * Abstract class providing a common implementation to read from a JSON file the
+ * coordinates of the sprites for the game board, calculated as a percentage of
+ * the board panel dimension.
  */
-public class TerritorySpritePositionReader implements JSONFileReader<Map<String, Pair<Double, Double>>> {
+public class SpritePositionsReader implements JSONFileReader<Map<String, Pair<Double, Double>>> {
 
     private final ObjectMapper mapper;
 
     /**
-     * Constructor to initialize the mapper.
+     * Creates an AbstractSpritePositionReader.
      */
-    public TerritorySpritePositionReader() {
+    public SpritePositionsReader() {
         this.mapper = new ObjectMapper();
     }
 
@@ -38,10 +38,10 @@ public class TerritorySpritePositionReader implements JSONFileReader<Map<String,
         try (InputStream in = Objects.requireNonNull(ClassLoader.getSystemResourceAsStream(filePath))) {
             final JsonNode jsonNode = this.mapper.readTree(in);
             jsonNode.forEach(t -> {
-                final String territoryName = t.get("territory").asText();
+                final String spriteName = t.get("name").asText();
                 final double x = t.get("x").asDouble();
                 final double y = t.get("y").asDouble();
-                data.put(territoryName, new Pair<>(x, y));
+                data.put(spriteName, new Pair<>(x, y));
             });
         } catch (final IOException e) {
             throw new IllegalStateException("Failed to read " + filePath + " file", e);

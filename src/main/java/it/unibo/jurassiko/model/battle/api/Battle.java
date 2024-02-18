@@ -19,4 +19,13 @@ public interface Battle {
      */
     Pair<Integer, Integer> attack(int nTroopsAttack, int nTroopsDefence, int nDiceAttack, int nDiceDefence);
 
+    /**
+     * Calculate the dino to combat and to move when the territory is conquered.
+     * 
+     * @param dinoAmount the ammount of dino of territory
+     * @param offensive  true if is action of attack or otherwise
+     * @return dino to battle or to move
+     */
+    int calculateDino(int dinoAmount, boolean offensive);
+
 }

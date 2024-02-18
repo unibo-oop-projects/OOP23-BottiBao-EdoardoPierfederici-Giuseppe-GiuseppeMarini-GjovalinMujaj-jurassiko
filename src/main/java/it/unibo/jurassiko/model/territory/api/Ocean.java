@@ -17,21 +17,7 @@ public interface Ocean extends BoardArea<Ocean> {
      * 
      * @return a copy of the set with the names of the adjacent territories
      */
-    Set<String> getAdjTerritoryNames();
-
-    /**
-     * Sets the adjacent territories of the ocean.
-     * 
-     * @param adjTerritories a set containing the adjacent territories
-     */
-    void setAdjTerritories(Set<Territory> adjTerritories);
-
-    /**
-     * Return the instance of the adjacent territories.
-     * 
-     * @return a copy of the set containing the adjacent territories
-     */
-    Set<Territory> getAdjTerritories();
+    Set<String> getAdjTerritories();
 
     /**
      * Checks if the territory with the given name is adjacent.

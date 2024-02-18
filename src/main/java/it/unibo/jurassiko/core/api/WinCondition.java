@@ -10,8 +10,8 @@ import it.unibo.jurassiko.model.player.api.Player.GameColor;
 import it.unibo.jurassiko.model.territory.api.Territory;
 
 /**
- * Interface used to check if any player has completed their objective and set
- * the winning player.
+ * Interface used to check if any player has completed their objective and to
+ * set the winning player.
  */
 public interface WinCondition {
 
