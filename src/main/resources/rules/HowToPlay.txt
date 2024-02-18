@@ -1,37 +1,34 @@
 Regole di Jurassiko:
 Fase 1 – Preparazione:
-Jurassiko inizia con il distribuire una carta Obiettivo ad ogni giocatore in partita: queste vengono attribuite casualmente una ad ognuno dei 3 giocatori. 
-Si passa poi al posizionamento dei carri armati di terra/acqua: si ha diritto a 20 armate di terra, ed 1 armata d’acqua a testa. 
-Vengono distribuiti anche i territori, 7 per ogni giocatore + 1 oceano.
-Il numero di territori totali è 21, il numero di oceani è 3.
+Jurassiko inizia con il distribuire una carta Obiettivo ad ogni giocatore in partita:
+queste vengono attribuite casualmente una ad ognuno dei 3 giocatori. 
+Si passa poi al posizionamento dei carri armati di terra/acqua: si ha diritto a 20 armate 
+di terra, ed 1 armata d’acqua a testa. Vengono distribuiti anche i territori, 7 per ogni 
+giocatore + 1 oceano. Il numero di territori totali è 21, il numero di oceani è 3. 
+Lo scopo del gioco è quello di finire l’obiettivo prima degli altri.
 Fase 2 – Piazzamento:
-Dopo aver assegnato il tutto, ogni giocatore a turno dovranno assegnare 20 truppe totali nei loro territori, 
-decidendo in base al loro obiettivo dove piazzare le suddette armate. 
-Stesso discorso per l’armata d’acqua che si deciderà dove piazzare per far attraversare i Dino da un continente all’altro.
+Dopo aver assegnato il tutto, ogni giocatore a turno dovranno assegnare 20 truppe totali 
+nei loro territori, decidendo in base al loro obiettivo dove piazzare le suddette armate. 
+Stesso discorso per l’armata d’acqua che si deciderà dove piazzare per far attraversare i 
+Dino da un continente all’altro.
 Fase 3 – Attacco:
-Si parte scegliendo il territorio con cui si vuole attaccare il nemico, che devo essere vicino al confine da cui si attacca. 
-Il numero di Dino deve essere superiore ad 1 e si attaccherà con i Dino rimanenti, fino ad un massimo di 3 per attacco. 
-Ipotizzando che abbiamo 3 Dino nel nostro territorio e 2 nel territorio che vogliamo conquistare, 
-sarà uno scontro 2 contro 2 essendo che un Dino deve rimanere comunque nel nostro territorio perché, 
-se in caso dovessimo perdere tutti i Dino, ne rimane sempre uno a difendere.
-Quando inizia l’attacco c’è un lancio dei dadi(1 dado per ogni Dino con cui si attacca/difende), 
-dove il giocatore che difende il suo territorio ha un vantaggio, essendo che se ci dovesse essere un pareggio tra i 2 lanci (Es. 6 e 6), 
-il giocatore che sta difendo vincerebbe eliminando il Dino avversario.
-Se si volesse attaccare un territorio, all’infuori del proprio continente, 
-avrebbe bisogno dell’armata d’acqua che lo porti nel territorio nemico, senza di esso non lo si può attaccare.
-La fase di attacco non è obbligatoria, essendo che uno potrebbe finire il turno senza aver attaccato nessuno, 
+Si parte scegliendo il territorio con cui si vuole attaccare il nemico. Il numero di Dino 
+deve essere superiore ad 1 e si attaccherà con un massimo di 3 Dino. Ipotizzando che abbiamo 
+3 Dino nel nostro territorio e 2 nel territorio che vogliamo conquistare, sarà uno scontro 
+2 contro 2 essendo che un Dino deve rimanere comunque nel nostro territorio perché, se in 
+caso dovessimo perdere tutti i Dino, ne rimane sempre uno a difendere. Se si volesse attaccare
+un territorio, all’infuori del proprio continente, avrebbe bisogno dell’armata d’acqua che 
+lo porti nel territorio nemico, senza di esso non lo si può attaccare. La fase di attacco 
+non è obbligatoria, essendo che uno potrebbe finire il turno senza aver attaccato nessuno, 
 ma ovviamente è consigliato per andare ad indebolire i propri nemici.
-Fase 4 – Assegnazione Dino:
+Fase 4 – Piazzamento Dino:
 Ogni nuovo turno, dopo il primo, ci viene assegnato 1 Dino per ogni 2 territori che possediamo.
 Es. Se possediamo 9 territori, ci vengono assegnati 4 Dino (con assegnazione per difetto).
-Ci viene assegnato anche 1 Dino d’acqua che decidiamo dove mettere in base al territorio che vogliamo andare a conquistare.
-Un ulteriore rinforzo è previsto nel caso in cui si riesce ad occupare un intero continente, 
-che all’inizio del turno vi garantirà 3 armate per il Nord America, 3 armate per il Gondwana Orientale, 5 armate per il Gondwana Occidentale, 6 armate per l’Eurasia.
+Ci viene assegnato anche 1 Dino d’acqua che decidiamo dove mettere in base al territorio che 
+vogliamo andare a conquistare. Un ulteriore rinforzo è previsto nel caso in cui si riesce ad 
+occupare un intero continente, che all’inizio del turno vi garantirà 3 armate per il Nord America,
+3 armate per il Gondwana Orientale, 5 armate per il Gondwana Occidentale, 6 armate per l’Eurasia.
 Fase 5 – Spostamento:
 Ogni fine turno, il giocatore può decidere se spostare truppe da un territorio ad un altro, 
-senza ovviamente lasciare una nazione scoperta (quindi con minimo 1 truppa).Ovviamente i 2 territori dovranno appartenere a noi, ed essere confinanti tra di loro.
-Scopo del gioco:
-Lo scopo è quello di riuscire a completare il proprio obiettivo prima degli altri; 
-quindi, la nostra strategia si baserà tutta sull’obiettivo che ci viene assegnato inizialmente.
-Tipologie di obiettivi:
-TODO.
+senza ovviamente lasciare una nazione scoperta (quindi con minimo 1 truppa).
+Ovviamente i 2 territori dovranno appartenere a noi, ed essere confinanti tra di loro.
