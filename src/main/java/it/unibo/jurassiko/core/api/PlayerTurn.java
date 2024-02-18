@@ -8,22 +8,24 @@ import it.unibo.jurassiko.model.player.api.Player;
  * Manage the turn of the Player.
  */
 public interface PlayerTurn {
+
     /**
-     * get current Player of the turn.
+     * Gets the current Player of the turn.
      * 
      * @return Player Color
      */
     Player getCurrentPlayerTurn();
 
     /**
-     * get all the Players.
+     * Gets all the Players.
      * 
      * @return Set of all the Players
      */
     List<Player> getPlayers();
 
     /**
-     * Finish the Turn of the vurrent Player and go to the next Player.
+     * Finishes the turn of the current Player and goes to the next Player.
      */
     void goNext();
+
 }

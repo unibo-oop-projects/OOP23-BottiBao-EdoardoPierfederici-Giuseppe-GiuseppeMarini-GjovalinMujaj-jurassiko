@@ -45,14 +45,15 @@ public interface GamePhase {
     Phase getPhase();
 
     /**
-     * Go to the next Phase.
-     */
-    void goNext();
-
-    /**
      * Change into specific Phase.
      * 
      * @param phase of the game to set
      */
     void setPhase(Phase phase);
+
+    /**
+     * Go to the next Phase.
+     */
+    void goNext();
+
 }
