@@ -3,7 +3,6 @@ package it.unibo.jurassiko.model.player.api;
 import java.util.Set;
 
 import it.unibo.jurassiko.model.objective.api.Objective;
-import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
 
 /**
@@ -98,27 +97,6 @@ public interface Player {
      * @return set of player's territories
      */
     Set<Territory> getOwnedTerritories();
-
-    /**
-     * Add a {@code Ocean} to the player.
-     * 
-     * @param ocean the ocean to add
-     */
-    void addPlayerOcean(Ocean ocean);
-
-    /**
-     * Remove {@code Ocean} to the player.
-     * 
-     * @param ocean the ocean to remove
-     */
-    void removePlayerOcean(Ocean ocean);
-
-    /**
-     * Get a Set of {@code Ocean} owned by the player.
-     * 
-     * @return set of player's oceans
-     */
-    Set<Ocean> getOwnedOceans();
 
     /**
      * Get the groundDino amount to add in each turn.

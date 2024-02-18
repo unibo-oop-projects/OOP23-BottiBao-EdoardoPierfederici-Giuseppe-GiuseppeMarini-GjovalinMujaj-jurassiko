@@ -453,16 +453,13 @@ public class MainControllerImpl implements MainController {
         final Set<Objective> copyObjectives = new HashSet<>(this.objectives);
         final var redPlayer = new PlayerImpl(GameColor.RED,
                 shuffleObjective(copyObjectives),
-                shuffleTerritories(copyTerritories, MAX_TERRITORIES),
-                Set.of());
+                shuffleTerritories(copyTerritories, MAX_TERRITORIES));
         final var greenPlayer = new PlayerImpl(GameColor.GREEN,
                 shuffleObjective(copyObjectives),
-                shuffleTerritories(copyTerritories, MAX_TERRITORIES),
-                Set.of());
+                shuffleTerritories(copyTerritories, MAX_TERRITORIES));
         final var bluePlayer = new PlayerImpl(GameColor.BLUE,
                 shuffleObjective(copyObjectives),
-                shuffleTerritories(copyTerritories, MAX_TERRITORIES),
-                Set.of());
+                shuffleTerritories(copyTerritories, MAX_TERRITORIES));
         players.add(redPlayer);
         players.add(greenPlayer);
         players.add(bluePlayer);

@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import it.unibo.jurassiko.common.Pair;
 import it.unibo.jurassiko.model.objective.api.Objective;
 import it.unibo.jurassiko.model.player.api.Player;
-import it.unibo.jurassiko.model.territory.api.Ocean;
 import it.unibo.jurassiko.model.territory.api.Territory;
 import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 
@@ -24,7 +23,6 @@ public class PlayerImpl implements Player, Cloneable {
     private final GameColor color;
     private final Objective objective;
     private final Set<Territory> territories;
-    private final Set<Ocean> oceans;
     private final Set<Territory> totalTerritories = new TerritoryFactoryImpl().createTerritories();
     private static final Pair<String, Integer> NORD_AMERICA = new Pair<>("Nord America", 3);
     private static final Pair<String, Integer> GONDWANA_OCCIDENTALE = new Pair<>("Gondwana Occidentale", 5);
@@ -37,17 +35,14 @@ public class PlayerImpl implements Player, Cloneable {
      * @param color       player's color
      * @param objective   player's objective
      * @param territories player's owned territories
-     * @param oceans      player's owned oceans
      */
     public PlayerImpl(final GameColor color,
             final Objective objective,
-            final Set<Territory> territories,
-            final Set<Ocean> oceans) {
+            final Set<Territory> territories) {
         this.color = color;
         Objects.requireNonNull(objective);
         this.objective = objective.getClone();
         this.territories = new HashSet<>(Objects.requireNonNull(territories));
-        this.oceans = new HashSet<>(Objects.requireNonNull(oceans));
     }
 
     /**
@@ -90,32 +85,6 @@ public class PlayerImpl implements Player, Cloneable {
     @Override
     public Set<Territory> getOwnedTerritories() {
         return Set.copyOf(territories);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addPlayerOcean(final Ocean ocean) {
-        oceans.add(ocean);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void removePlayerOcean(final Ocean ocean) {
-        if (oceans.contains(ocean)) {
-            oceans.remove(ocean);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Set<Ocean> getOwnedOceans() {
-        return Set.copyOf(oceans);
     }
 
     /**

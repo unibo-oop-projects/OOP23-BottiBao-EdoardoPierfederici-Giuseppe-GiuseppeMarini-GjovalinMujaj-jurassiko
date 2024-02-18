@@ -23,14 +23,11 @@ class TestPlayerTurn {
     void init() {
         final List<Player> temp = new ArrayList<>();
         temp.add(new PlayerImpl(Player.GameColor.BLUE,
-                new ObjectiveFactoryImpl().createObjectives().stream().findFirst().get(),
-                new HashSet<>(), new HashSet<>()));
+                new ObjectiveFactoryImpl().createObjectives().stream().findFirst().get(), new HashSet<>()));
         temp.add(new PlayerImpl(Player.GameColor.GREEN,
-                new ObjectiveFactoryImpl().createObjectives().stream().findFirst().get(),
-                new HashSet<>(), new HashSet<>()));
+                new ObjectiveFactoryImpl().createObjectives().stream().findFirst().get(), new HashSet<>()));
         temp.add(new PlayerImpl(Player.GameColor.RED,
-                new ObjectiveFactoryImpl().createObjectives().stream().findFirst().get(),
-                new HashSet<>(), new HashSet<>()));
+                new ObjectiveFactoryImpl().createObjectives().stream().findFirst().get(), new HashSet<>()));
         turn = new PlayerTurnImpl(temp);
     }
 
