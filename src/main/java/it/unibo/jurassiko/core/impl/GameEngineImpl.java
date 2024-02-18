@@ -26,7 +26,7 @@ public class GameEngineImpl implements GameEngine {
     private final WinCondition winCondition;
 
     private boolean firstTurn;
-    private boolean once;
+    private boolean showObjectiveOnce;
     private Optional<Player> winner;
 
     /**
@@ -45,6 +45,7 @@ public class GameEngineImpl implements GameEngine {
             throw new IllegalStateException("Failed to create a new istance of the player", e);
         }
         this.firstTurn = true;
+        this.showObjectiveOnce = true;
         this.winner = Optional.empty();
     }
 
@@ -90,9 +91,9 @@ public class GameEngineImpl implements GameEngine {
         final var firstColor = playerTurn.getPlayers().get(0).getColor();
         controller.updateBoard();
         controller.openTerritorySelector();
-        if (playerTurn.getCurrentPlayerTurn().getColor().equals(firstColor) && once) {
+        if (playerTurn.getCurrentPlayerTurn().getColor().equals(firstColor) && showObjectiveOnce) {
             controller.openObjectiveCard();
-            once = false;
+            showObjectiveOnce = false;
         }
         if (controller.getTotalClicks() == FIRST_TURN_BONUS) {
             playerTurn.goNext();
