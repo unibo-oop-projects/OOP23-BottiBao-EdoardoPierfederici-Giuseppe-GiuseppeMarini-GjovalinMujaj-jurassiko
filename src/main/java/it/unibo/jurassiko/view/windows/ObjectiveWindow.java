@@ -24,14 +24,14 @@ public class ObjectiveWindow extends JPanel {
 
     private static final long serialVersionUID = -8078185574894759437L;
     private static final String IMAGE_PATH = "images/objectivecard.png";
-    private static final double WIDTH_RATIO = 0.17;
-    private static final double HEIGHT_RATIO = 0.38;
+    private static final double WIDTH_RATIO = 0.204;
+    private static final double HEIGHT_RATIO = 0.456;
     private static final double TEXT_XRATIO = 0.09;
     private static final double TEXT_YRATIO = 0.785;
     private static final double TEXT_WIDTH_RATIO = 0.83;
     private static final double TEXT_HEIGHT_RATIO = 0.165;
     private static final String TEXT_FONT = "Arial";
-    private static final int TEXT_SIZE = 16;
+    private static final int TEXT_SIZE = 15;
 
     private final JLabel textLabel;
     private final transient MainController controller;
