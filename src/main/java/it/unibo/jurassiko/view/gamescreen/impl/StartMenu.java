@@ -2,7 +2,7 @@ package it.unibo.jurassiko.view.gamescreen.impl;
 
 import it.unibo.jurassiko.controller.impl.MenuContollerImpl;
 import it.unibo.jurassiko.view.gamescreen.api.View;
-import it.unibo.jurassiko.view.panel.MenuPanel;
+import it.unibo.jurassiko.view.panels.MenuPanel;
 
 import javax.swing.JFrame;
 

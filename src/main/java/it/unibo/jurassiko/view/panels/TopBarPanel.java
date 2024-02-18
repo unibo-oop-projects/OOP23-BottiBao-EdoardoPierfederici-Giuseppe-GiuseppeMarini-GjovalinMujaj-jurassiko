@@ -1,10 +1,10 @@
-package it.unibo.jurassiko.view.panel;
+package it.unibo.jurassiko.view.panels;
 
 import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.core.api.GamePhase.Phase;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
-import it.unibo.jurassiko.view.window.ObjectiveWindow;
+import it.unibo.jurassiko.view.windows.ObjectiveWindow;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -61,10 +61,7 @@ public class TopBarPanel extends JPanel {
      * @param controller    the MainController
      * @param objectiveCard the ObjectiveCard
      */
-    @SuppressFBWarnings(
-        value = "EI_EXPOSE_REP2",
-        justification = "MainController and ObjectiveWindow instances are needed on this class by design"
-        )
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "MainController and ObjectiveWindow instances are needed on this class by design")
     public TopBarPanel(final MainController controller, final ObjectiveWindow objectiveCard) {
         this.objectiveCard = objectiveCard;
         this.controller = controller;

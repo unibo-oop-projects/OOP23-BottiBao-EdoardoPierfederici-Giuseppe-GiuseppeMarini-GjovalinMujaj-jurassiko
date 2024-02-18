@@ -40,8 +40,8 @@ import it.unibo.jurassiko.model.territory.api.Territory;
 import it.unibo.jurassiko.model.territory.impl.OceanFactoryImpl;
 import it.unibo.jurassiko.model.territory.impl.TerritoryFactoryImpl;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
-import it.unibo.jurassiko.view.panel.SpriteLoader;
-import it.unibo.jurassiko.view.window.TerritorySelector;
+import it.unibo.jurassiko.view.panels.SpriteLoader;
+import it.unibo.jurassiko.view.windows.TerritorySelector;
 
 /**
  * Implementation of the interface {@MainController}.

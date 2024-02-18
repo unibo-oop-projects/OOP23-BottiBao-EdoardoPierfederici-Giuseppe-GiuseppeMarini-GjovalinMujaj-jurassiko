@@ -1,4 +1,4 @@
-package it.unibo.jurassiko.view.window;
+package it.unibo.jurassiko.view.windows;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;

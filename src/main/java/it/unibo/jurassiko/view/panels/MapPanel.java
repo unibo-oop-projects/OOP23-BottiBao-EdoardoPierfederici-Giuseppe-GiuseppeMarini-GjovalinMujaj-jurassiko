@@ -1,4 +1,4 @@
-package it.unibo.jurassiko.view.panel;
+package it.unibo.jurassiko.view.panels;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;

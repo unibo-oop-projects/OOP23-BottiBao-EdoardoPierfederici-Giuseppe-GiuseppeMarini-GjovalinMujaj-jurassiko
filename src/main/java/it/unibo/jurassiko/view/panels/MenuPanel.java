@@ -1,4 +1,4 @@
-package it.unibo.jurassiko.view.panel;
+package it.unibo.jurassiko.view.panels;
 
 import java.awt.Dimension;
 import java.awt.Font;

@@ -11,9 +11,9 @@ import javax.swing.JFrame;
 
 import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.view.gamescreen.api.View;
-import it.unibo.jurassiko.view.panel.TopBarPanel;
-import it.unibo.jurassiko.view.window.ObjectiveWindow;
-import it.unibo.jurassiko.view.panel.MapPanel;
+import it.unibo.jurassiko.view.panels.MapPanel;
+import it.unibo.jurassiko.view.panels.TopBarPanel;
+import it.unibo.jurassiko.view.windows.ObjectiveWindow;
 
 /**
  * Implementation of the View for the GUI.

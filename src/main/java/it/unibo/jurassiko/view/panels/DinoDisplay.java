@@ -1,4 +1,4 @@
-package it.unibo.jurassiko.view.panel;
+package it.unibo.jurassiko.view.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
