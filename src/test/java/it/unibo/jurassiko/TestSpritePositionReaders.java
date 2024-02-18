@@ -43,7 +43,7 @@ class TestSpritePositionReaders {
         assertFalse(territoryPositions.isEmpty());
         assertEquals(NUM_TERRITORIES, territoryPositions.size());
 
-        // Verify all coordinates are a valid percentage value
+        // Checks that all coordinates are a valid percentage value
         assertTrue(territoryPositions.values().stream().allMatch(t -> isValid(t.x()) && isValid(t.y())));
 
         // Checks the coordinates of a sample territory
@@ -58,8 +58,10 @@ class TestSpritePositionReaders {
         assertFalse(oceanPositions.isEmpty());
         assertEquals(NUM_OCEANS, oceanPositions.size());
 
+        // Checks that all coordinates are a valid percentage value
         assertTrue(oceanPositions.values().stream().allMatch(t -> isValid(t.x()) && isValid(t.y())));
 
+        // Checks the coordinates of a sample ocean
         assertTrue(oceanPositions.keySet().contains(SAMPLE_OCEAN));
         final var coordinates = new Pair<>(OCEAN_X, OCEAN_Y);
         assertEquals(coordinates, oceanPositions.get(SAMPLE_OCEAN));
