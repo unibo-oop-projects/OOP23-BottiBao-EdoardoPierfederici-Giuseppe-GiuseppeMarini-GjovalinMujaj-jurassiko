@@ -34,4 +34,17 @@ public class BattleImpl implements Battle {
         }
         return new Pair<Integer, Integer>(nTroopsAttackDeath, nTroopsDefenceDeath);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int calculateDino(final int dinoAmount, final boolean offensive) {
+        if (dinoAmount > 3) {
+            return 3;
+        } else if (offensive) {
+            return dinoAmount - 1;
+        }
+        return dinoAmount;
+    }
 }

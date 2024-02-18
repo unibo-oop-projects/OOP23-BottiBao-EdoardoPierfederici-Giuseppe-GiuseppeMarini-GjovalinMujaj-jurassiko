@@ -284,13 +284,14 @@ public class MainControllerImpl implements MainController {
                 final var defender = getMapTerritoryKey(territory);
                 final var pairAttack = getMapTerritoryValue(terrSelect.getSelectedTerritory().get());
                 final var pairDefence = getMapTerritoryValue(defender.getName());
-                final var deaths = battle.attack(pairAttack.y(), pairDefence.y(), calculateDino(pairAttack.y(), true),
-                        calculateDino(pairDefence.y(), false));
+                final var deaths = battle.attack(pairAttack.y(), pairDefence.y(),
+                        battle.calculateDino(pairAttack.y(), true),
+                        battle.calculateDino(pairDefence.y(), false));
                 changeGroundDinoAmount(attacker, -deaths.x());
                 changeGroundDinoAmount(defender.getName(), -deaths.y());
                 if (getMapTerritoryValue(defender.getName()).y() <= 0) {
                     conquestSuccesful = true;
-                    final int dinoToMove = calculateDino(getMapTerritoryValue(attacker).y(), true);
+                    final int dinoToMove = battle.calculateDino(getMapTerritoryValue(attacker).y(), true);
                     final Pair<GameColor, Integer> defReplacement = new Pair<>(colorCurrentPlayer, dinoToMove);
                     final var loserColor = getMapTerritoryValue(territory).x();
                     for (final var player : players) {
@@ -507,22 +508,6 @@ public class MainControllerImpl implements MainController {
         allTerritories.stream()
                 .forEach(terr -> territoriesMap.put(terr,
                         new Pair<>(getColorTerritory(terr.getName()), START_AMOUNT_DINO)));
-    }
-
-    /**
-     * Calculate the dino to combat and to move when the territory is conquered.
-     * 
-     * @param dinoAmount the ammount of dino of territory
-     * @param offensive  true if is action of attack or otherwise
-     * @return dino to battle or to move
-     */
-    private int calculateDino(final int dinoAmount, final boolean offensive) {
-        if (dinoAmount > 3) {
-            return 3;
-        } else if (offensive) {
-            return dinoAmount - 1;
-        }
-        return dinoAmount;
     }
 
     private int showDinoAmountSelector(final String source, final String target, final int maximum) {
