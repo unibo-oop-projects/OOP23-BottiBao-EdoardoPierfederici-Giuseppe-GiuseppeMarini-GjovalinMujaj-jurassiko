@@ -21,7 +21,7 @@ import it.unibo.jurassiko.model.player.api.Player.GameColor;
  */
 public class GameEngineImpl implements GameEngine {
 
-    private final Logger logger = LoggerFactory.getLogger(Jurassiko.class);
+    private final Logger logger = LoggerFactory.getLogger(GameEngineImpl.class);
 
     private static final int MAX_PLAYERS = 3;
     private static final int FIRST_TURN_BONUS = 13;
