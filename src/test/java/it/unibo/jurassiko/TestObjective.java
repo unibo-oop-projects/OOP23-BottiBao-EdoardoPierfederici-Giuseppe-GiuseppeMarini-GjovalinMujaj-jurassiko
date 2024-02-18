@@ -18,7 +18,6 @@ import it.unibo.jurassiko.model.objective.impl.DestroyArmyObjective;
 import it.unibo.jurassiko.model.objective.impl.ObjectiveFactoryImpl;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
 
-// TODO: Some tests are not implemented yet
 class TestObjective {
 
     private static final int NUM_TOTAL_OBJECTIVES = 8;
@@ -43,6 +42,7 @@ class TestObjective {
         assertNotNull(objectives);
         assertFalse(objectives.isEmpty());
 
+        // Tests the amount of objectives read per type
         assertEquals(NUM_TOTAL_OBJECTIVES, objectives.size());
         assertEquals(NUM_CONQCONTINENTS,
                 objectives.stream().filter(ConquerContinentsObjective.class::isInstance).count());
@@ -63,9 +63,11 @@ class TestObjective {
                 .map(ConquerContinentsObjective.class::cast)
                 .collect(Collectors.toSet());
 
+        // Tests the presence of a sample Set of continents
         assertTrue(conquerContinentsObjectives.stream()
                 .anyMatch(o -> o.getContinents().equals(continents)));
 
+        // Tests the description
         final var actualDescription = conquerContinentsObjectives.stream()
                 .filter(s -> s.getContinents().equals(continents))
                 .findAny()
@@ -84,11 +86,13 @@ class TestObjective {
                 .map(ConquerTerritoriesObjective.class::cast)
                 .collect(Collectors.toSet());
 
+        // Tests the presence of numTerritories and minDinos correct values
         assertTrue(conquerTerritoriesObjectives.stream()
                 .anyMatch(o -> o.getNumTerritories() == NUM_TERRITORIES_1 && o.getMinDinos() == MIN_DINOS_1));
         assertTrue(conquerTerritoriesObjectives.stream()
                 .anyMatch(o -> o.getNumTerritories() == NUM_TERRITORIES_2 && o.getMinDinos() == MIN_DINOS_2));
 
+        // Tests the descriptions
         final var actualDescription1 = conquerTerritoriesObjectives.stream()
                 .filter(o -> o.getNumTerritories() == NUM_TERRITORIES_1 && o.getMinDinos() == MIN_DINOS_1)
                 .findAny()
@@ -99,13 +103,13 @@ class TestObjective {
                 .findAny()
                 .get()
                 .getDescription();
-
         assertEquals(description1, actualDescription1);
         assertEquals(description2, actualDescription2);
     }
 
     @Test
     void testDestroyArmy() {
+        final String description = "Distruggi l'armata di colore BLU. Se l'armata non è nemica, conquista 12 territori.";
         final Set<GameColor> armyColors = Set.of(GameColor.valueOf("RED"),
                 GameColor.valueOf("BLUE"),
                 GameColor.valueOf("GREEN"));
@@ -115,11 +119,23 @@ class TestObjective {
                 .map(DestroyArmyObjective.class::cast)
                 .collect(Collectors.toSet());
 
+        // Tests the presence of the correct army colors
         assertEquals(armyColors, destroyArmyObjectives.stream()
                 .map(DestroyArmyObjective::getArmyColor)
                 .collect(Collectors.toSet()));
+
+        // Tests the description
+        final var actualDescription = destroyArmyObjectives.stream()
+                .filter(o -> o.getArmyColor().equals(GameColor.BLUE))
+                .findAny()
+                .get()
+                .getDescription();
+        assertEquals(description, actualDescription);
     }
 
+    /**
+     * Tests the execution of objective cloning.
+     */
     @Test
     void testClone() {
         final var contObjective = objectives.stream()

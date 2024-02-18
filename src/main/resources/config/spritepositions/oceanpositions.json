@@ -1,16 +1,16 @@
 [
     {
-        "ocean": "Oceano Pacifico",
+        "name": "Oceano Pacifico",
         "x": 16.0,
         "y": 43.0
     },
     {
-        "ocean": "Oceano Tetide",
+        "name": "Oceano Tetide",
         "x": 40.0,
         "y": 32.0
     },
     {
-        "ocean": "Oceano Atlantico",
+        "name": "Oceano Atlantico",
         "x": 58.0,
         "y": 73.0
     }

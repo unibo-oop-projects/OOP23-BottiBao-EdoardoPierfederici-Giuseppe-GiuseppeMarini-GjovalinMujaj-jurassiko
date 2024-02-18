@@ -17,8 +17,7 @@ import java.util.Map;
 
 import it.unibo.jurassiko.controller.api.MainController;
 import it.unibo.jurassiko.model.player.api.Player.GameColor;
-import it.unibo.jurassiko.reader.impl.OceanSpritePositionReader;
-import it.unibo.jurassiko.reader.impl.TerritorySpritePositionReader;
+import it.unibo.jurassiko.reader.impl.SpritePositionsReader;
 import it.unibo.jurassiko.view.gamescreen.impl.ViewImpl;
 
 /**
@@ -99,7 +98,7 @@ public class MapPanel extends JPanel {
     }
 
     private void createTerritoryDisplays(final SpriteLoader spriteLoader, final int width, final int height) {
-        final var territoryPositions = new TerritorySpritePositionReader().readFileData(TERRITORY_PATH);
+        final var territoryPositions = new SpritePositionsReader().readFileData(TERRITORY_PATH);
         territoryPositions.entrySet().stream()
                 .forEach(t -> this.territoryViews.put(t.getKey(),
                         new DinoDisplay(spriteLoader, false, calculatePosition(t.getValue().x(), width),
@@ -107,7 +106,7 @@ public class MapPanel extends JPanel {
     }
 
     private void createOceanDisplays(final SpriteLoader spriteLoader, final int width, final int height) {
-        final var oceanPositions = new OceanSpritePositionReader().readFileData(OCEAN_PATH);
+        final var oceanPositions = new SpritePositionsReader().readFileData(OCEAN_PATH);
         oceanPositions.entrySet().stream()
                 .forEach(t -> this.oceanViews.put(t.getKey(),
                         new DinoDisplay(spriteLoader, true, calculatePosition(t.getValue().x(), width),

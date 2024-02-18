@@ -25,6 +25,20 @@ public abstract class AbstractObjective implements Objective, Serializable {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public abstract void writeDescription();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Objective getClone() {
+        return SerializationUtils.clone(this);
+    }
+
+    /**
      * Sets the description of the objective.
      * 
      * @param description the objective description
@@ -34,24 +48,10 @@ public abstract class AbstractObjective implements Objective, Serializable {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public abstract void writeDescription();
-
-    /**
      * @return the description of the default objective
      */
     protected String getDefaultObjectiveDescription() {
         return DEFAULT_OBJECTIVE_DESCRIPTION;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Objective getClone() {
-        return SerializationUtils.clone(this);
     }
 
 }
