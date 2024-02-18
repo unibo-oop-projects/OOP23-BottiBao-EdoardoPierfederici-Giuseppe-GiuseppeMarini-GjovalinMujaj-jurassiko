@@ -61,7 +61,10 @@ public class TopBarPanel extends JPanel {
      * @param controller    the MainController
      * @param objectiveCard the ObjectiveCard
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "MainController and ObjectiveWindow instances are needed on this class by design")
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP2",
+        justification = "MainController and ObjectiveWindow instances are needed on this class by design"
+    )
     public TopBarPanel(final MainController controller, final ObjectiveWindow objectiveCard) {
         this.objectiveCard = objectiveCard;
         this.controller = controller;
